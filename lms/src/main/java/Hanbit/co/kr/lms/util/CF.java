@@ -11,5 +11,8 @@ public class CF {
 	
 	// 구혜민
 	public static String KHM = "\u001B[46m";
+	
+	// 송원범
+	public static String SWB = "\u001B[43m";
 
 }
