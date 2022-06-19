@@ -8,5 +8,8 @@ public class CF {
 	
 	// 김유진
 	public static String KYJ = "\u001B[41m";
+	
+	// 구혜민
+	public static String KHM = "\u001B[46m";
 
 }
