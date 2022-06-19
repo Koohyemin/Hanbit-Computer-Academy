@@ -20,5 +20,7 @@ public class CF {
 	
 	//이규량
 	public static String LKL = "\u001B[44m";
-
+	
+	// 강한빛
+	public static String KHV = "\u001B[42m";
 }
