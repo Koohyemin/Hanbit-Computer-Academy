@@ -17,6 +17,7 @@ public class TestController {
 		log.debug( CF.KHM +"[TestController GetMapping test]: "+"구혜민 디버깅 테스트"+ CF.RESET);
 		log.debug( CF.SWB +"[TestController GetMapping test]: "+"송원범 디버깅 테스트"+ CF.RESET);
 		log.debug( CF.KHN +"[TestController GetMapping test]: "+"김하늬 디버깅 테스트"+ CF.RESET);
+		log.debug( CF.LKL +"[TestController GetMapping test]: "+"이규량 디버깅 테스트"+ CF.RESET);
 		return "test";
 	}
 }

@@ -17,5 +17,8 @@ public class CF {
 	
 	//김하늬
 	public static String KHN = "\u001B[45m";
+	
+	//이규량
+	public static String LKL = "\u001B[44m";
 
 }
