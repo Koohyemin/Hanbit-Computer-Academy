@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.LoginMapper">
+	<select id="selectStudent"
+			parameterType="Hanbit.co.kr.lms.vo.Student"
+			resultType="Hanbit.co.kr.lms.vo.Member">
+		SELECT member_id, member_level 
+		FROM member 
+		INNER JOIN student
+		ON member_id = student_id 
+		WHERE student_id = #{studentId} AND student_pw = PASSWORD(#{studentPw})
+	</select>
+	
+	<select id="selectTeacher"
+			parameterType="Hanbit.co.kr.lms.vo.Teacher"
+			resultType="Hanbit.co.kr.lms.vo.Member">
+		SELECT member_id, member_level 
+		FROM member 
+		INNER JOIN teacher
+		ON member_id = teacher_id 
+		WHERE teacher_id = #{teacherId} AND teacher_pw = PASSWORD(#{teacherPw});
+	</select>
+	<select id="selectManager"
+			parameterType="Hanbit.co.kr.lms.vo.Manager"
+			resultType="Hanbit.co.kr.lms.vo.Member">
+		SELECT member_id, member_level 
+		FROM member 
+		INNER JOIN manager
+		ON member_id = manager_id 
+		WHERE manager_id = #{managerId} AND manager_pw = PASSWORD(#{managerPw});
+	</select>
+</mapper>
