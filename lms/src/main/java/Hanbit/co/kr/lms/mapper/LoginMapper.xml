@@ -4,7 +4,9 @@
 	<select id="selectStudent"
 			parameterType="Hanbit.co.kr.lms.vo.Student"
 			resultType="Hanbit.co.kr.lms.vo.Member">
-		SELECT member_id, member_level 
+		SELECT 
+			member_id memberId
+			,member_level memberLevel 
 		FROM member 
 		INNER JOIN student
 		ON member_id = student_id 
@@ -14,7 +16,9 @@
 	<select id="selectTeacher"
 			parameterType="Hanbit.co.kr.lms.vo.Teacher"
 			resultType="Hanbit.co.kr.lms.vo.Member">
-		SELECT member_id, member_level 
+		SELECT 
+			member_id memberId
+			,member_level memberLevel 
 		FROM member 
 		INNER JOIN teacher
 		ON member_id = teacher_id 
@@ -23,7 +27,8 @@
 	<select id="selectManager"
 			parameterType="Hanbit.co.kr.lms.vo.Manager"
 			resultType="Hanbit.co.kr.lms.vo.Member">
-		SELECT member_id, member_level 
+		SELECT member_id memberId
+		,member_level memberLevel 
 		FROM member 
 		INNER JOIN manager
 		ON member_id = manager_id 
