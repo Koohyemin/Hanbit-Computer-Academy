@@ -19,6 +19,8 @@ public class LoginService {
 	@Autowired LoginMapper loginMapper;
 	
 	public Map<String, Object> selectMemberId(Map<String, Object> map){
+		System.out.println("111111111111111111");
+		System.out.println(map);
 		String memberId = (String)(map.get("memberId"));
 		String memberPw = (String)(map.get("memberPw"));
 		String role = (String)(map.get("role"));

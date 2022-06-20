@@ -1,6 +1,7 @@
 package Hanbit.co.kr.lms.controller;
 
 import java.util.HashMap;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class LoginController {
 		map.put("memberId", memberId);
 		map.put("memberPw", memberPw);
 		map.put("role", role);
-		Map<String,Object> returnMap =loginService.selectMemberId(map);
+		Map<String,Object> returnMap = loginService.selectMemberId(map);
 		model.addAttribute("member",(returnMap.get("member")));
 		return "login";
 	}
