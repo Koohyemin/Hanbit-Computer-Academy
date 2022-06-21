@@ -118,7 +118,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             문의 게시판
                         </a>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/faq/getFaqListByPage">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             FAQ
                         </a>

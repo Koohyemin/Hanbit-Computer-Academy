@@ -1,32 +1,27 @@
 package Hanbit.co.kr.lms.mapper;
 
+
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import Hanbit.co.kr.lms.vo.Faq;
+import Hanbit.co.kr.lms.vo.ManagerNotice;
 
 
 @Mapper
 public interface FaqMapper {
-	// update action
-		int updateNotice(int faq);
+
+		// Faq (운영자)
+		// 운영자 Faq 목록(페이징 포함)
+		List<Faq> getFaqListByPage(); 
 		
-		// update form
-		// 상세보기
-		// delete form
-		Faq selectNoticeOne(int noticeNo);
+		// 카테고리별(전체/학생/강사) 공지 개수
+		int totalCount(); 
 		
-		// delete action
-		int deleteNotice(int faqNo);
+		// Faq 상세보기
+		Faq getFaqOne(int faqNo); 
 		
-		// insert
-		int insertNotice(Faq faq);
 		
-		// 전체 row
-		int selectTotalCount();
-		
-		// select
-		List<Faq> getFaqByPage(Map<String, Object> map);
-	}
+}
