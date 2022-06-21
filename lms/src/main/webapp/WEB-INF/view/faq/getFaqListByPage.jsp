@@ -134,32 +134,31 @@
 	                <div class="card mb-4">
 	                    <div class="card-header">
 	                        <i class="fas fa-chart-area me-1"></i>
-	                        납부 증명서
+	                        FAQ
 	                    </div>
 	                    <div class="card-body">
 							<!-- 학생의 납입 리스트  -->
 			               <table class="table">
 			                   <thead>
 			                       <tr>
-			                           <th>납부자</th>
-			                           <th>강좌이름</th>
-			                           <th>납부금액</th>
-			                           <th>납부일자</th>
-			                           <th>출력하기</th>
+			                           <th>번호</th>
+						                <th>제목</th>
+						                <th>날짜</th>
 			                       </tr>
 			                   </thead>
-			                   <tbody>
-									<c:forEach var="r" items="selectRegistrationList">
-										<tr>
-											<td>${registration.studentId}</td>
-											<td>${registration.lectureName}</td>
-											<td>${registration.payment}원</td>
-											<td>${registration.createDate}</td>
-											<td><a href="#">출력하기</a></td>
-										</tr>
-									</c:forEach>
-			                   </tbody>
+			                  <tbody>
+					            <c:forEach var="Faq" items="${faqList}">
+					                <tr>
+					                   <td>${Faq.faqNo}</td>
+					                    <td><a href="${pageContext.request.contextPath}/getFaqOne?faqNo=${Faq.faqNo}">${Faq.title}</a></td>
+					                   <td>${Faq.createDate}</td>
+					                </tr>
+					            </c:forEach>
+					        </tbody>
 		              		 </table>
+		              		 <div>
+       							<a class="btn btn-default" href="${pageContext.request.contextPath}/addFaq">FAQ입력</a>
+   							 </div>
 	                	</div>        
 	                </div>
                 </div>
@@ -182,3 +181,4 @@
     <script src="../js/datatables-simple-demo.js"></script>
 </body>
 </html>
+

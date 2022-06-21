@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.FaqMapper">
-
+<select id="getFaqOne" parameterType="int" resultType="Hanbit.co.kr.lms.vo.Faq">
+		SELECT
+			 faq_no faqNo
+			,manager_id managerId
+			,title title
+			,content content
+			,create_date createDate
+			,update_date updateDate
+		FROM faq
+		WHERE faq_no=${faqNo}
+	</select>
+	
+	<select id="getFaqListByPage" resultType="Hanbit.co.kr.lms.vo.Faq">
+		SELECT
+			 faq_no faqNo
+			,manager_id managerId
+			,title title
+		 	,create_date createDate
+		 FROM faq
+		 ORDER BY create_date DESC
+	</select>
+	
+	<delete id="getFaqDelete">
+	
+	</delete>
+	
 </mapper>
