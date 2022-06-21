@@ -18,6 +18,21 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class NoticeService {	
 	@Autowired NoticeMapper noticeMapper; // NoticeMapper 객체 주입
+	// 공지사항 삭제
+	public int getDeleteNotice(int managerNoticeNo) {
+		return noticeMapper.getDeleteNotice(managerNoticeNo);
+	}
+	
+	// 공지사항 수정
+	public int getUpdateNotic(ManagerNotice managerNotice) {
+		return noticeMapper.getUpdateNotice(managerNotice);
+	}
+	
+	// 공지사항 작성
+	public int getInsertNotice(ManagerNotice managerNotice) {
+		return noticeMapper.getInsertNotice(managerNotice); // 등록 성공 여부
+	}
+	
 	// 공지사항 상세보기
 	public ManagerNotice getNoticeOne(int managerNoticeNo) {
 		return noticeMapper.getNoticeOne(managerNoticeNo);
@@ -26,18 +41,15 @@ public class NoticeService {
 	// 공지사항 리스트
 	public Map<String, Object> getNoticeListByPage(int currentPage, int rowPerPage, String category) {
 		int beginRow = (currentPage-1) * rowPerPage; // 현재페이지를 이용하여 시작페이지 계산
-		log.debug( CF.KHM +"[NoticeService beginRow]: "+ beginRow + CF.RESET);
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("beginRow", beginRow); // 시작 페이지
 		map.put("rowPerPage", rowPerPage); // 한 페이지당 표시할 공지 개수	
-		map.put("category", category);
+		map.put("category", category); // 전체, 강사, 학생리스트인지 확인
 		List<ManagerNotice> list = noticeMapper.getNoticeListByPage(map);
 		
 		int totalCount = noticeMapper.totalCount(category); // 카테고리별(전체/학생/강사) 전체 공지 개수
-		log.debug( CF.KHM +"[NoticeService totalCount]: "+ totalCount + CF.RESET);
 		int lastPage = (int)(Math.ceil((double)totalCount / (double)rowPerPage)); // 마지막 페이지
-		log.debug( CF.KHM +"[NoticeService lastPage]: "+ lastPage + CF.RESET);
 		
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("list", list);

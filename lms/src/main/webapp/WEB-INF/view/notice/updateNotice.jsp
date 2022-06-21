@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,10 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Indexstudent</title>
+    <title>Notice</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -29,12 +31,12 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#">${sessionMemberId}</a></li>
+                    <li><a class="dropdown-item" href="#">누구누구 님</a></li>
                     <li><a class="dropdown-item" href="#">Settings</a></li>
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">Logout</a></li>
+                    <li><a class="dropdown-item" href="#">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -110,7 +112,7 @@
                             납입 증명서
                         </a>
                         <div class="sb-sidenav-menu-heading">Communication</div>
-                        <a class="nav-link" href="${pageContext.request.contextPath}/Notice/noticeList">
+                        <a class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             공지사항
                         </a>
@@ -127,51 +129,72 @@
             </nav>
         </div>
         <div id="layoutSidenav_content">
-            <main>
-                <div class="container-fluid px-4">
-                    <!-- 컨텐츠 삽입 부분-->
+        <main>
+        <div class="container-fluid px-4">
+        <br>
+        <!-- 컨텐츠 삽입 부분-->
+		<br>
+		<h1>공지사항 수정</h1>
+		<br>
+		<a href="${pageContext.request.contextPath}/Notice/noticeOne?managerNoticeNo=${managerNotice.managerNoticeNo}" class="btn btn-dark" style="float:right">이전으로</a>
+		<br><br>
+		<form method="post" action="${pageContext.request.contextPath}/Notice/updateNotice">
+			<table class="table">
+				<tr>
+					<th class="text-center">번호</th>
+					<td>
+						<input name="managerNoticeNo" type="number" value="${managerNotice.managerNoticeNo}" readonly="readonly" class="form-control">
+					</td>
+				</tr>
+				<tr>
+					<th class="text-center">등록자</th>
+					<td>
+						<input name="managerId" type="text" value="${managerNotice.managerId}" readonly="readonly" class="form-control">
+					</td>
+				</tr>
+				<tr>
+					<th class="text-center">카테고리</th>
+					<td>
+					<select name="category" class="form-control">
+							<option value="">공지대상을 선택해주세요.</option>
+							<option value="전체" <c:if test="${managerNotice.category=='전체'}">selected="selected"</c:if>>전체</option>
+							<option value="강사" <c:if test="${managerNotice.category=='강사'}">selected="selected"</c:if>>강사</option>
+							<option value="학생" <c:if test="${managerNotice.category=='학생'}">selected="selected"</c:if>>학생</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th class="text-center">제목</th>
+					<td>
+						<input name="managerNoticeTitle" type="text" class="form-control" value="${managerNotice.managerNoticeTitle}" placeholder="제목을 입력해주세요">
+					</td>
+				</tr>
+				<tr>
+					<th class="text-center" style="vertical-align: middle">내용</th>
+					<td>
+						<textarea name="managerNoticeContent" class="form-control" placeholder="공지 내용을 입력해주세요" cols="50" rows="8">${managerNotice.managerNoticeContent}</textarea>
+					</td>
+				</tr>
+			</table>
+			<button type="submit" class="btn btn-dark" style="float:right">등록</button>
+		</form>
+	</div>
+     </main>
+     <footer class="py-4 bg-light mt-auto">
+         <div class="container-fluid px-4">
+             <div class="d-flex align-items-center justify-content-between small">
+                 <div class="text-muted">Copyright &copy; Hanbit Computer Academy 2022</div>
+             </div>
+         </div>
+     </footer>
+ </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </div>
-            </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Hanbit Computer Academy 2022</div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
+    <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
+    <script src="../assets/demo/chart-area-demo.js"></script>
+    <script src="../assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
+    <script src="../js/datatables-simple-demo.js"></script>
 </body>
 </html>

@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.NoticeMapper">
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="getDeleteNotice" parameterType="int">
+		DELETE 
+		FROM manager_notice
+		WHERE manager_notice_no = ${managerNoticeNo}
+	</delete>
+	
+	<!-- 공지사항 수정 -->
+	<update id="getUpdateNotice" parameterType="Hanbit.co.kr.lms.vo.ManagerNotice">
+		UPDATE manager_notice SET manager_id=#{managerId}, manager_notice_title=#{managerNoticeTitle}, manager_notice_content=#{managerNoticeContent}, category=#{category}, update_date=NOW()
+		WHERE manager_notice_no = #{managerNoticeNo}
+	</update>
+	
+	<!-- 공지사항 작성 -->
+	<insert id="getInsertNotice" parameterType="Hanbit.co.kr.lms.vo.ManagerNotice">
+		INSERT INTO manager_notice(manager_id, manager_notice_title, manager_notice_content, category,create_date, update_date)
+		VALUE(#{managerId}, #{managerNoticeTitle}, #{managerNoticeContent}, #{category}, NOW(), NOW())
+	</insert>
+	
 	<!-- 공지사항 상세보기 -->
 	<select id="getNoticeOne" parameterType="int" resultType="Hanbit.co.kr.lms.vo.ManagerNotice">
 		SELECT
@@ -14,14 +34,16 @@
 		FROM manager_notice
 		WHERE manager_notice_no=${managerNoticeNo}
 	</select>
+	
 	<!-- 운영자 공지사항 전체 개수 -->
 	<select id="totalCount" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		FROM manager_notice
 		WHERE category=#{category}
 	</select>
+	
+	<!-- NoticeMapper.getNoticeListByPage 공지사항 목록 (페이징) -->
 	<select id="getNoticeListByPage" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.ManagerNotice">
-	/* NoticeMapper.getNoticeListByPage 공지사항 목록 (페이징) */
 		SELECT
 			 manager_notice_no managerNoticeNo
 			,manager_id managerId
