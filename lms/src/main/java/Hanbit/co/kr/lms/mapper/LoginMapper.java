@@ -14,4 +14,7 @@ public interface LoginMapper {
 	
 	// select manager
 	Member selectManager(String managerId, String managerPw);
+	
+	// update logDate
+	int updateLogDate(String memberId);
 }
