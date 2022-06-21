@@ -9,12 +9,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.service.NoticeService;
+import Hanbit.co.kr.lms.util.CF;
+import Hanbit.co.kr.lms.vo.ManagerNotice;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 public class NoticeController {
 	@Autowired NoticeService noticeService;
+	// 상세보기
+	@GetMapping("/getNoticeOne")
+	public String getNoticeOne(Model model, @RequestParam(name="managerNoticeNo") int managerNoticeNo) {
+		log.debug( CF.KHM +"[NoticeController GetMapping managerNoticeNo]: "+ managerNoticeNo + CF.RESET);
+		ManagerNotice managerNotice = noticeService.getNoticeOne(managerNoticeNo);
+		model.addAttribute("managerNotice", managerNotice);
+		return "getNoticeOne";
+	}
+	
 	
 	@GetMapping("/getNoticeListByPage")
 	public String getNoticeByPage(Model model,

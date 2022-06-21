@@ -18,6 +18,12 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class NoticeService {	
 	@Autowired NoticeMapper noticeMapper; // NoticeMapper 객체 주입
+	// 공지사항 상세보기
+	public ManagerNotice getNoticeOne(int managerNoticeNo) {
+		return noticeMapper.getNoticeOne(managerNoticeNo);
+	}
+	
+	// 공지사항 리스트
 	public Map<String, Object> getNoticeListByPage(int currentPage, int rowPerPage, String category) {
 		int beginRow = (currentPage-1) * rowPerPage; // 현재페이지를 이용하여 시작페이지 계산
 		log.debug( CF.KHM +"[NoticeService beginRow]: "+ beginRow + CF.RESET);
@@ -25,6 +31,7 @@ public class NoticeService {
 		Map<String, Object> map = new HashMap<>();
 		map.put("beginRow", beginRow); // 시작 페이지
 		map.put("rowPerPage", rowPerPage); // 한 페이지당 표시할 공지 개수	
+		map.put("category", category);
 		List<ManagerNotice> list = noticeMapper.getNoticeListByPage(map);
 		
 		int totalCount = noticeMapper.totalCount(category); // 카테고리별(전체/학생/강사) 전체 공지 개수
