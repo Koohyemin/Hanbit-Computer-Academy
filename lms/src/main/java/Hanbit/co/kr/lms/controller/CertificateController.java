@@ -1,5 +1,6 @@
 package Hanbit.co.kr.lms.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,4 +29,6 @@ public class CertificateController {
 		model.addAllAttributes(selectRegistrationList);
 		return "certificate/paymentStudent";
 	}
+	
 }
+
