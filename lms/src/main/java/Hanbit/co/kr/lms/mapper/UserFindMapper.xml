@@ -1,10 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.UserFindMapper">
+	<!-- 학생id찾기 -->
 	<select id="studentFindId" parameterType="Hanbit.co.kr.lms.vo.Student"
 		resultType="String">
-		SELECT student_id studentId
+		SELECT 
+			student_id studentId
 		FROM student
 		WHERE student_name = #{studentName} AND student_phone = #{studentPhone} 
+	</select>
+	
+	<!-- 학생pw찾기 -->
+	<select id="studentFindPw" parameterType="Hanbit.co.kr.lms.vo.Student"
+		resultType="String">
+			SELECT 
+				student_pw studentPw
+			FROM student
+			WHERE student_id = #{studentId} AND student_name = #{studentName} AND student_phone = #{studentPhone}
+		</select>
+		
+	<!-- 강사id찾기 -->
+	<select id="teacherFindId" parameterType="Hanbit.co.kr.lms.vo.Teacher"
+		resultType="String">
+		SELECT
+			teacher_id teacherId
+		FROM teacher
+		WHERE teacher_name = #{teacherName} AND teacher_phone = #{teacherPhone}	
+	</select>	
+	
+	<!-- 운영자id찾기 -->
+	<select id="managerFindId" parameterType="Hanbit.co.kr.lms.vo.Manager"
+		resultType="String">
+		SELECT 
+			manager_id managerId
+		FROM manager
+		WHERE manager_name = #{managerName} AND manager_phone = #{managerPhone} 
 	</select>
 </mapper>
