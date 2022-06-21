@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>student Index</title>
+    <title>Indexstudent</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -20,7 +20,7 @@
         <!-- Sidebar Toggle-->
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">Hanbit Computer Academy LMS</a>
+        <a class="navbar-brand ps-3" href="${pageContext.request.contextPath}/IndexStudent">Hanbit Computer Academy LMS</a>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
         </form>
@@ -105,7 +105,7 @@
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             수료 증명서
                         </a>
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="${pageContext.request.contextPath}/certificate/paymentStudent">
                             <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                             납입 증명서
                         </a>
