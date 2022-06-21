@@ -5,8 +5,8 @@
 		SELECT
 			 faq_no faqNo
 			,manager_id managerId
-			,title title
-			,content content
+			,title
+			,content
 			,create_date createDate
 			,update_date updateDate
 		FROM faq
@@ -23,8 +23,5 @@
 		 ORDER BY create_date DESC
 	</select>
 	
-	<delete id="getFaqDelete">
-	
-	</delete>
 	
 </mapper>

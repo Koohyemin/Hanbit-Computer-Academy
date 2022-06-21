@@ -7,7 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.mapper.FaqMapper;
 import Hanbit.co.kr.lms.util.CF;
@@ -24,8 +26,13 @@ public class FaqService {
 	// faq 리스트
 	public List<Faq> faqList() {
 		return faqMapper.getFaqListByPage();
-		
-		
-	}
 	
+	}
+	// faq 상세보기
+	public Faq getFaqOne(int faqNo) {
+		Faq faq = new Faq();
+		faq = faqMapper.getFaqOne(faqNo);
+		log.debug( CF.KHV +"[FaqService getFaqOne content]: "+ faq.getContent() + CF.RESET);
+		return faq;
+	}
 }

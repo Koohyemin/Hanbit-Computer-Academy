@@ -137,7 +137,7 @@
 	                        FAQ
 	                    </div>
 	                    <div class="card-body">
-							<!-- 학생의 납입 리스트  -->
+							<!-- FAQ 목록 리스트  -->
 			               <table class="table">
 			                   <thead>
 			                       <tr>
@@ -150,7 +150,7 @@
 					            <c:forEach var="Faq" items="${faqList}">
 					                <tr>
 					                   <td>${Faq.faqNo}</td>
-					                    <td><a href="${pageContext.request.contextPath}/getFaqOne?faqNo=${Faq.faqNo}">${Faq.title}</a></td>
+					                    <td><a href="${pageContext.request.contextPath}/faq/getFaqOne?faqNo=${Faq.faqNo}">${Faq.title}</a></td>
 					                   <td>${Faq.createDate}</td>
 					                </tr>
 					            </c:forEach>
