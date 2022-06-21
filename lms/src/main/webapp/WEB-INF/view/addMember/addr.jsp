@@ -99,10 +99,10 @@
 		$.ajax({
 			type:"get"
 			,url:'/Hanbit/compMember' 
-			,success:function(jsonStr){
-				var jsonStr2 = JSON.parse(jsonStr);
-				//var arr = memberList
-				console.log(arr);
+			,success:function(memberStr){
+				var memberStr2 = JSON.parse(memberStr);
+				var arr = memberList
+				console.log(memberList);
 
 			}
 		});

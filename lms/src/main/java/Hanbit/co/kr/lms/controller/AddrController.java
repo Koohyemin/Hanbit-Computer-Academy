@@ -52,13 +52,14 @@ public class AddrController {
 		    	
 		    	//rest -> json형식으로 전송
 	}
-	@GetMapping("/compMember")
-	public List<Member> checkMember(){
-		List<Member> listMember= memberService.getMember();
-		 
-		 
-		 
-		return listMember;
-	
-	}
+	/*
+	 * @GetMapping("/compMember") public List<Member> checkMember(){ List<Member>
+	 * listMember= memberService.getMember();
+	 * 
+	 * 
+	 * 
+	 * return listMember;
+	 * 
+	 * }
+	 */
 }
