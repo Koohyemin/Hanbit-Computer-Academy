@@ -112,7 +112,7 @@
                             납입 증명서
                         </a>
                         <div class="sb-sidenav-menu-heading">Communication</div>
-                        <a class="nav-link" href="#">
+                           <a class="nav-link" href="${pageContext.request.contextPath}/Notice/noticeList">
                             <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                             공지사항
                         </a>

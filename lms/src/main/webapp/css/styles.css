@@ -11706,3 +11706,14 @@ body {
 #printTable{
 	display: none;
 }
+.waveSvg{
+	width:100vw;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+}
+.waveSvg > svg{
+	transform: scaleY(-1);
+	width:100vw;
+	
+}
