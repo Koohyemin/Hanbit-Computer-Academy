@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CertificateController {
 	@Autowired private CertificateService certificateService;
+	// 납부 고지서 출력
 	@GetMapping("/certificate/paymentStudent")
 	public String paymentStudent(Model model
 			,@RequestParam (name="studentId" , defaultValue = "student1") String studentId) {

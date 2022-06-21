@@ -11703,3 +11703,6 @@ body {
 	font-size: 11px;
 	color:#dd1111;
 }
+#printTable{
+	display: none;
+}

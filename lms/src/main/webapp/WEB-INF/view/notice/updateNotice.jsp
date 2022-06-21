@@ -131,11 +131,14 @@
         <div id="layoutSidenav_content">
         <main>
         <div class="container-fluid px-4">
-        <br>
         <!-- 컨텐츠 삽입 부분-->
-		<br>
-		<h1>공지사항 수정</h1>
-		<br>
+			<br>
+        	<div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area me-1"></i>
+                Notice
+            </div>
+            </div>
 		<a href="${pageContext.request.contextPath}/Notice/noticeOne?managerNoticeNo=${managerNotice.managerNoticeNo}" class="btn btn-dark" style="float:right">이전으로</a>
 		<br><br>
 		<form method="post" action="${pageContext.request.contextPath}/Notice/updateNotice">

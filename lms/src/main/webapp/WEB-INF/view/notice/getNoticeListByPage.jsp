@@ -131,10 +131,15 @@
         <div id="layoutSidenav_content">
         <main>
         <div class="container-fluid px-4">
-        <br>
         <!-- 컨텐츠 삽입 부분-->
-			<h1>공지사항</h1>
-			<a href="${pageContext.request.contextPath}/Notice/addNotice" class="btn btn-dark" style="float:right">공지 작성</a>		
+			<br>
+        	<div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area me-1"></i>
+                Notice
+            </div>
+            </div>
+			<a href="${pageContext.request.contextPath}/Notice/addNotice" class="btn btn-dark" style="float:right;">공지 작성</a>
 			<br><br>
 			<!-- 전체, 학생, 강사 구분 탭 -->
 				<!-- 1학생 2강사 3관리자 -->

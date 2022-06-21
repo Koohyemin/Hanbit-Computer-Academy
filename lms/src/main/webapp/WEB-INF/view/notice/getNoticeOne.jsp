@@ -145,10 +145,14 @@
         <div id="layoutSidenav_content">
         <main>
         <div class="container-fluid px-4">
-        <br>
         <!-- 컨텐츠 삽입 부분-->
-		<h1>공지사항 상세보기</h1>
-		<br>
+			<br>
+        	<div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area me-1"></i>
+                Notice
+            </div>
+            </div>
 		<a href="${pageContext.request.contextPath}/Notice/noticeList" class="btn btn-dark" style="float:right">이전으로</a>
 		<br><br>
 		<table class="table">
