@@ -10,14 +10,18 @@
 </head>
 <body>
 	<h2>학생id찾기</h2>
-	<form id="signupForm" action="${pageContext.request.contextPath}/User/studentSearchId" method="post">
+	<form action="${pageContext.request.contextPath}/User/studentSearchId" method="post">
 		<div>
-			학생이름<input type="text" name="studentName" id="studentName">
+			학생이름<input id="studentName" type="text" name="studentName" id="studentName">
+				<span id="helpName"></span>
+			
 		</div>
 		<div>
-			연락처<input type="text" name="studentPhone"  placeholder="하이픈(-)포함해서 입력">
+			연락처<input id="studentPhone" type="text" name="studentPhone"  placeholder="하이픈(-)포함해서 입력">
+			<span id="helpPhone"></span>
+		
 		</div>
-		<button type="submit">ID찾기</button>
+		<button id = "btn" type="button">ID찾기</button>
 	</form>
 		<c:if test="${check == 1}">
 			일치하는 정보가 없습니다.
@@ -25,7 +29,6 @@
 		<c:if test="${check == 0}">
 			찾으시는 ID는 '${studentId}'입니다.
 		</c:if>
-			<a href="${pageContext.request.contextPath}/User/findPw">PW찾기로</a>
 			
 	<h2>강사id찾기</h2>
 	<form action="${pageContext.request.contextPath}/User/teacherSearchId" method="post">
@@ -35,7 +38,7 @@
 		<div>
 			강사연락처<input type="text" name="teacherPhone" placeholder="하이픈(-)포함해서 입력">
 		</div>
-		<button type="submit">ID찾기</button>
+		<button id = "tbtn" type="submit">ID찾기</button>
 	</form>
 	<c:if test="${check == 1}">
 		일치하는 정보가 없습니다.
@@ -52,7 +55,7 @@
 		<div>
 			운영자연락처<input type="text" name="managerPhone" placeholder="하이픈(-)포함해서 입력">
 		</div>
-		<button type="submit">ID찾기</button>
+		<button id="mbtn" type="submit">ID찾기</button>
 	</form>
 	<c:if test="${check == 1}">
 		일치하는 정보가 없습니다.
@@ -61,29 +64,27 @@
 		찾으시는 ID는 '${managerId}'입니다.
 	</c:if>
 <script>
-	$('#studentName').focus();
-	
-	$('#studentName').blur(function(){
-		if($('#studentName').val().length==0) {
-			$('#studentNameHelper').text('id를 입력하세요.');
-			$('#studentName').focus();
+	//학생id찾기
+	$('#btn').click(function(){
+	if($('#studentName').val() == '') {
+		$('#helpName').text('이름을 입력하세요');
+	} else {
+		$('#helpName').text('');
+	}
+	if($('#studentPhone').val() == '') {
+		$('#HelpPhone').text('연락처를 입력하세요');
 		} else {
-			$('#studentNameHelper').text('');
+			$('#HelpPhone').text('');
+		}
+		if($('#studentName').val() != '' && $('#studentPhone').val() != '') {
+			$("#findId").submit();
 		}
 	});
+	//강사id찾기
 	
-	$('#studentPhone').blur(function(){
-		if($('#studentPhone').val().length < 13) {
-			$('#studentPhoneHelper').text('연락처는 13자리이상');
-			$('#studentPhone').focus();
-		} else if($('#studentPhone').val() != $('#studentPhone').val()) {
-			$('#studentPhoneHelper').text('연락처를 입력하세요');
-			$('#studentPhone').focus();
-		} else {
-			$('#studentPhoneHelper').text('');
-		}
-	});
-
-	});
+	
+	//운영자id찾기
+	
+	
 </script>
 </html>
