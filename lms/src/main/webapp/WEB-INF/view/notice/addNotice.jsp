@@ -15,6 +15,16 @@
     <link href="../css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <!-- summerNote 사용시 추가 -->
+    <!-- include libraries(jQuery, bootstrap) -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<!-- include summernote css/js -->
+	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -169,7 +179,17 @@
 					<tr>
 						<th class="text-center" style="vertical-align: middle">내용</th>
 						<td>
-							<textarea name="managerNoticeContent" class="form-control" placeholder="공지 내용을 입력해주세요" cols="50" rows="8"></textarea>
+							<textarea name="managerNoticeContent" class="form-control" placeholder="공지 내용을 입력해주세요" id="summernote"></textarea>
+							<script>
+								// height 높이 조절, hide는 사진이나 사용하고싶은 버튼이있다면 지우면 됨.
+								$('#summernote').summernote({
+								  tabsize: 2,
+								  height: 400
+								});
+								$(".note-editor button[aria-label='Picture']").hide();
+								$(".note-editor button[aria-label='Video']").hide();
+								$(".note-editor .note-view").hide();
+							</script>
 						</td>
 					</tr>
 				</table>
