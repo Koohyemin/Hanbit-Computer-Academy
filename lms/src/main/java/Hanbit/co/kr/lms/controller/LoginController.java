@@ -91,7 +91,7 @@ public class LoginController {
 		
 		// 레벨이 1이라면 학생 인덱스로
 		if(returnMemberLv == 1) {
-			return "IndexStudent";
+			return "indexStudent";
 		}
 		
 		// 레벨이 2이라면 강사 인덱스로
