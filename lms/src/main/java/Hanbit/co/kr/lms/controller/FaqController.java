@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller // servlet역활을 하도록...
 public class FaqController {
 	@Autowired private FaqService faqService;
-	
 	// 리스트
 	@GetMapping ("/faq/getFaqListByPage")
 	   public String getFaqListByPage(Model model) {
@@ -36,10 +35,26 @@ public class FaqController {
 	public String faqOne(Model model, @RequestParam(name="faqNo") int faqNo) {
 		log.debug( CF.KHV +"[FaqController GetMapping faqNo]: "+ faqNo + CF.RESET);
 		Faq faq = new Faq();
-		faq = (Faq)faqService.faqList();
+		faq = (Faq)faqService.getFaqOne(faqNo);
 		model.addAttribute("faq", faq);
 		log.debug( CF.KHV +"[FaqController GetMapping faq]: "+ faq + CF.RESET);
 		return "faq/getFaqOne";
 	}
+	// FAQ 등록
+	@PostMapping("/faq/addFaq")
+	public String getInsertFaq(Faq faq) {
+		int row = faqService.getInsertFaq(faq);
+		if(row == 1) {
+			log.debug(CF.KHV + "[FaqController postMapping addFaq] : 입력 성공" + CF.RESET); // 성공 디버깅
+		} else {
+			log.debug(CF.KHV + "[FaqController postMapping addFaq] : 입력 실패" + CF.RESET); // 실패 디버깅
+		}
 	
+		return "redirect:/faq/getFaqListByPage"; // 공지 입력 후, 리스트로 돌아가기
+	}
+		
+		@GetMapping("/faq/addFaq")
+		public String getInsertFaq() {
+			return "faq/addFaq";
+		}
 }

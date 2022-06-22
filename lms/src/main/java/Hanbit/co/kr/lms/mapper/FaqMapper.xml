@@ -23,5 +23,32 @@
 		 ORDER BY create_date DESC
 	</select>
 	
+	<insert id="getInsertFaq" 
+			parameterType="Hanbit.co.kr.lms.vo.Faq">
+		INSERT INTO faq(
+			title
+			,manager_id 
+			,content
+			,create_date 
+			,update_date 
+		) VALUES (
+			#{title}
+			,#{managerId}
+			,#{content}
+			,NOW()
+			,NOW()
+		)
+	</insert>
+	
+	<delete id="deleteFaq"
+            parameterType="Hanbit.co.kr.lms.vo.Faq">
+	         DELETE FROM
+	            faq
+	      WHERE faq_no = #{noticeNo}
+   </delete>
+	<insert id=""
+	>
+	
+	</insert>
 	
 </mapper>
