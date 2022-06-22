@@ -16,13 +16,13 @@ import lombok.extern.slf4j.Slf4j;
 public class UserFindController {
 	@Autowired private UserFindService userFindService;
 	//학생id찾기 get
-	@GetMapping("/User/studentSearchId")
-	public String studentFindId() {
-		return "User/findId"; //포워딩
+	@GetMapping("/user/findId")
+	public String findId() {
+		return "user/findId"; //포워딩
 	}
 	//학생id찾기 post
-	@PostMapping("/User/studentSearchId")
-	public String studentSearchId(Model model,
+	@PostMapping("/user/findId")
+	public String findId(Model model,
 			@RequestParam(name="studentName") String studentName
 			,@RequestParam(name="studentPhone") String studentPhone) {
 		
@@ -41,17 +41,17 @@ public class UserFindController {
 			model.addAttribute("check", 0); //모델값 0으로 넘김
 			model.addAttribute("studentId", studentId); //모델값 studentId도 함께 넘김
 		}
-		return "User/findId";
+		return "user/findId";
 	}
 	
 	//학생pw찾기 get
-	@GetMapping("/User/findPw")
+	@GetMapping("/user/findPw")
 	public String findPw() {
-		return "User/findPw"; //포워딩
+		return "user/findPw"; //포워딩
 	}
 	
 	//학생pw찾기 post
-	@PostMapping("/User/findPw")
+	@PostMapping("/user/findPw")
 	public String findPw(Model model
 			,@RequestParam(name="studentId") String studentId
 			,@RequestParam(name="studentName") String studentName
@@ -74,17 +74,17 @@ public class UserFindController {
 			model.addAttribute("check", 0); //모델값 0으로 넘김
 			model.addAttribute("studentPw", studentPw); //studentPw 넘김
 		}
-		return "User/findPw";
+		return "user/findPw";
 	}
 	
 	//강사ID찾기 get
-	@GetMapping("/User/teacherSearchId")
+	@GetMapping("/user/teacherSearchId")
 	public String teacherSearchId() {
-		return "User/findId"; //포워딩
+		return "user/findId"; //포워딩
 	}
 	
 	//강사ID찾기 post
-	@PostMapping("/User/teacherSearchId")
+	@PostMapping("/user/teacherSearchId")
 	public String teacherSearchId(Model model
 			,@RequestParam(name="teacherName") String teacherName
 			,@RequestParam(name="teacherPhone") String teacherPhone) {
@@ -103,16 +103,16 @@ public class UserFindController {
 			model.addAttribute("check", 0); //모델값 0으로 넘김
 			model.addAttribute("teacherId", teacherId); //studentPw 넘김
 		}
-		return "User/findId";
+		return "user/findId";
 	}
 	
 	//운영자ID찾기 get
-	@GetMapping("/User/managerSearchId")
+	@GetMapping("/user/managerSearchId")
 	public String managerSearchId() {
-		return "User/findId"; //포워딩
+		return "user/findId"; //포워딩
 	}
 	//운영자ID찾기 post
-	@PostMapping("/User/managerSearchId")
+	@PostMapping("/user/managerSearchId")
 	public String managerSearchId(Model model
 			,@RequestParam(name="managerName") String managerName
 			,@RequestParam(name="managerPhone") String managerPhone) {
@@ -132,6 +132,6 @@ public class UserFindController {
 			model.addAttribute("managerId", managerId);
 		}
 		
-		return "User/findId";
+		return "user/findId";
 	}
 }
