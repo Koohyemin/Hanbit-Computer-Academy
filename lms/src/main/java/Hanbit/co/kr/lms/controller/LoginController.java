@@ -89,19 +89,12 @@ public class LoginController {
 		log.debug(CF.SWB+"[LoginCOntroller login error]"+ returnMap.get("error")+CF.RESET);
 		model.addAttribute("role",role);
 		
-		// 레벨이 1이라면 학생 인덱스로
-		if(returnMemberLv == 1) {
-			return "indexStudent";
+		// 레벨을 가지고 있다면 index로 이동
+		if(returnMemberLv == 1 || returnMemberLv == 2 || returnMemberLv == 3) {
+			return "index";
 		}
 		
-		// 레벨이 2이라면 강사 인덱스로
-		//if(returnMemberLv == 2) {
-		//	return "IndexTeacher";
-		//}
-		// 레벨이 3이라면 운영자 인덱스로
-		//if(returnMemberLv == 3) {
-		//	return "IndexManaber";
-		//} 
+		// 레벨값이 없으면 로그인으로
 		return "login";
 	}
 }

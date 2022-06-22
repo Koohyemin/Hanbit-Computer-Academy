@@ -29,7 +29,7 @@
 									<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">🧑 Student </a>
 								</c:when>
 								<c:otherwise>
-								    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">🧑Student </a>
+								    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">🧑 Student </a>
 								</c:otherwise>
 							</c:choose>
 						</li>
@@ -55,6 +55,8 @@
 						</li>
 					</ul>
 					<br>
+					<!--  학생을 선택했을때 테스트 계정입력 -->
+					 <c:if test="${role =='student'}">
 				    <div class="form-group">
 						<input type="text" id="uname" class="form-control"  placeholder="Enter username" name="memberId" value="student1">
 				    	<span id="helpId"></span>
@@ -63,6 +65,32 @@
 						<input type="password" id="pw" class="form-control" placeholder="Enter password" name="memberPw" value="a12345678">
 						<span  id="helpPw"></span>
 				    </div>
+				     </c:if>
+				     
+				     	<!--  학생을 선택했을때 테스트 계정입력 -->
+					 <c:if test="${role =='teacher'}">
+				    <div class="form-group">
+						<input type="text" id="uname" class="form-control"  placeholder="Enter username" name="memberId" value="teacher1">
+				    	<span id="helpId"></span>
+				    </div>
+				    <div class="form-group">
+						<input type="password" id="pw" class="form-control" placeholder="Enter password" name="memberPw" value="a12345678">
+						<span  id="helpPw"></span>
+				    </div>
+				     </c:if>
+				     
+				     	<!--  학생을 선택했을때 테스트 계정입력 -->
+					 <c:if test="${role =='manager'}">
+				    <div class="form-group">
+						<input type="text" id="uname" class="form-control"  placeholder="Enter username" name="memberId" value="admin">
+				    	<span id="helpId"></span>
+				    </div>
+				    <div class="form-group">
+						<input type="password" id="pw" class="form-control" placeholder="Enter password" name="memberPw" value="a12345678">
+						<span  id="helpPw"></span>
+				    </div>
+				     </c:if>
+				     
 					<div>
 						<input type="hidden" name="role" value="${role}">
 					</div>
