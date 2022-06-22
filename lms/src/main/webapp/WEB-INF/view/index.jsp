@@ -44,13 +44,28 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
-                    	<!-- 공통 index -->
+                    	<!-- 상세보기 분기 -->
                         <div class="sb-sidenav-menu-heading">
                             My Page</div>
-                        <a class="nav-link" href="#">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            나의 정보
-                        </a>
+                         
+                        <c:if test="${sessionMemberLv == 1}">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/getStudentOne">
+	                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+	                            나의 정보
+	                        </a>
+                        </c:if>
+                        <c:if test="${sessionMemberLv == 2}">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/getTeacherOne">
+	                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+	                            나의 정보
+	                        </a>
+                        </c:if>
+                        <c:if test="${sessionMemberLv == 3}">
+	                        <a class="nav-link" href="${pageContext.request.contextPath}/getManagerOne">
+	                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+	                            나의 정보
+	                        </a>
+                        </c:if>
 
                    		<!-- 공통 index -->
                    		<c:if test="${sessionMemberLv == 1 }">

@@ -257,9 +257,6 @@
 			        	</div>
 			        	<br><br><br><br>
 			        	<div class="row">
-			        	
-			        		<div class="col-lg-1"></div>
-			        		
 			        		<!-- 자격증 -->
 			        		<div class="col-lg-6">
 			                <div class="card mb-4">
@@ -288,15 +285,12 @@
 							</div>
 				        	</div>
 			        		<!-- 자격증 끝 -->
-			        		
-			        		<div class="col-lg-1"></div>
-			        		
 			        		<!-- 수강내역 -->
 		        			<div class="col-lg-4">
 		        			<div class="card mb-4">
 			                    <div class="card-header">
 			                        <i class="fas fa-chart-area me-1"></i>
-										자격증
+										듣고 있는 수강
 			                    </div>
 			        			<table class="table table-hover">
 			        				<thead>

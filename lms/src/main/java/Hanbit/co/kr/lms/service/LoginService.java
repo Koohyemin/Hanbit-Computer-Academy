@@ -49,12 +49,17 @@ public class LoginService {
 		// member아이디를 찾았다면 로그 업데이트
 		Map<String, Object> returnMap = new HashMap<>();
 		if(member != null) {
-			loginMapper.updateLogDate(memberId);
-			returnMap.put("member", member);
+			// 비승인 상태면 에러메세지 보내기
+			if(member.getMemberState() == 1) {
+				error = "비승인 계정입니다. 담당자한테 문의해주세요";
+			} else if(member.getMemberState() == 2) {
+				loginMapper.updateLogDate(memberId);
+				returnMap.put("member", member);
+			}
 		} else if(member == null){
 			error = "아이디와 비밀번호를 확인해주세요";
-			returnMap.put("error", error);
 		}
+		returnMap.put("error", error);
 		log.debug(CF.SWB+"[LoginService selectMemberId error]"+ error+CF.RESET);	
 		
 		return returnMap;
