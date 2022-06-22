@@ -32,7 +32,7 @@
 			,create_date createDate
 			,update_date updateDate
 		FROM manager_notice
-		WHERE manager_notice_no=${managerNoticeNo}
+		WHERE manager_notice_no=#{managerNoticeNo}
 	</select>
 	
 	<!-- 운영자 공지사항 전체 개수 -->

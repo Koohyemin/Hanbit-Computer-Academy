@@ -216,7 +216,7 @@
             </div>
 			<a href="${pageContext.request.contextPath}/Notice/noticeList" class="btn btn-dark" style="float:right">이전으로</a>
 			<br><br>
-			<form method="post" action="${pageContext.request.contextPath}/Notice/addNotice">
+			<form method="post" id="addNoticeForm" action="${pageContext.request.contextPath}/Notice/addNotice">
 				<table class="table">
 					<tr>
 						<th class="text-center">등록자</th>
@@ -227,24 +227,27 @@
 					<tr>
 						<th class="text-center">카테고리</th>
 						<td>
-							<select name="category" class="form-control">
+							<select name="category" id="category" class="form-control">
 								<option value="">공지대상을 선택해주세요.</option>
-								<option value="전체">전체</option>
+								<option value="전체" id="category">전체</option>
 								<option value="강사">강사</option>
 								<option value="학생">학생</option>
 							</select>
+							<span class="text-danger" id="categoryError"></span>
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center">제목</th>
 						<td>
-							<input name="managerNoticeTitle" type="text" class="form-control" placeholder="제목을 입력해주세요">
+							<input name="managerNoticeTitle" id="title" type="text" class="form-control" placeholder="제목을 입력해주세요">
+							<span class="text-danger" id="titleError"></span>
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center" style="vertical-align: middle">내용</th>
 						<td>
-							<textarea name="managerNoticeContent" class="form-control" placeholder="공지 내용을 입력해주세요" id="summernote"></textarea>
+							<textarea name="managerNoticeContent" id="summernote"></textarea>
+							<span class="text-danger" id="contentError"></span>
 							<script>
 								// height 높이 조절, hide는 사진이나 사용하고싶은 버튼이있다면 지우면 됨.
 								$('#summernote').summernote({
@@ -258,7 +261,7 @@
 						</td>
 					</tr>
 				</table>
-				<button type="submit" class="btn btn-dark" style="float:right">등록</button>
+				<button type="button" id="btn" class="btn btn-dark" style="float:right">등록</button>
 			</form>
 		</div>
      </main>
@@ -270,13 +273,37 @@
          </div>
      </footer>
  </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="../js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="../assets/demo/chart-area-demo.js"></script>
-    <script src="../assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="../js/datatables-simple-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="../js/scripts.js"></script>
+<script src="../assets/demo/chart-area-demo.js"></script>
+<script src="../assets/demo/chart-bar-demo.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+<script src="../js/datatables-simple-demo.js"></script>
+<script type="text/javascript">
+	$('#btn').click(function(){
+			// 카테고리(전체, 강사, 학생)
+		   if($('#category').val() == ''){
+		      $('#categoryError').text('대상을 선택해주세요');
+		   } else {
+		      $('#categoryError').text('');
+		   }
+			// 제목
+		   if($('#title').val() == '') {
+		      $('#titleError').text('제목을 입력해주세요');
+		   } else {
+		      $('#titleError').text('');
+		   }
+		   // 내용
+		   if($('#summernote').val() == '') {
+			      $('#contentError').text('내용을 입력해주세요');
+			   } else {
+			      $('#contentError').text(''); 
+			   }
+		   // 전체 내용이 들어와 있다면 전송
+		   if($('#category').val() != '' && $('#title').val() != '' && $('#summernote').val() == '') {
+		      $('#addNoticeForm').submit();
+		   }
+		});
+</script>
 </body>
 </html>

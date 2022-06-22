@@ -256,7 +256,7 @@
 						<tr>
 							<td class="text-center">${notice.managerNoticeNo}</td>
 							<td class="text-center">${notice.category}</td>
-							<td class="col-md-4"><a href="${pageContext.request.contextPath}/Notice/noticeOne?managerNoticeNo=${notice.managerNoticeNo}">${notice.managerNoticeTitle}</a></td>
+							<td class="col-md-4"><a href="${pageContext.request.contextPath}/Notice/noticeOne?managerNoticeNo=${notice.managerNoticeNo}" style="text-decoration: none;">${notice.managerNoticeTitle}</a></td>
 							<td class="text-center">${notice.managerId}</td>
 							<td class="text-center">${notice.createDate}</td>
 						</tr>
