@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import Hanbit.co.kr.lms.mapper.UserFindMapper;
-import Hanbit.co.kr.lms.vo.Student;
 import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
