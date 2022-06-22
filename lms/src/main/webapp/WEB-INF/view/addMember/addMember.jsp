@@ -15,18 +15,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-<!-- 	<input type="text" name="resultType" value="json"/> <-- 요청 변수 설정 (검색결과형식 설정, json) --> 
-<!-- 	<input type="text" name="confmKey" value="U01TX0FVVEgyMDIyMDYxNjE2MzExNTExMjY5ODQ="/>요청 변수 설정 (승인키) -->
-<!-- 	<input type="button" onClick="getAddr();" value="주소검색하기"/>-->
-<!--<input type="text" name="currentPage" value="1"/> <!-- 요청 변수 설정 (현재 페이지. currentPage : n > 0) -->
-<!--<input type="text" name="countPerPage" value="10"/><!-- 요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100) -->
 	<h1>회원 가입</h1>
 
 <form  method="post" action="/lms/addMember">						<!-- 전체 회원 가입 폼 -->
 	<table border="1">
 	<tr>
-	<td>아이디<input type="text" name="id" id="memberId"> <button type="button" id="idCheck">중복검사</button></td>
+	<td>아이디<input type="text" name="id" id="memberId"><button type="button" id="idCheck">중복검사</button></td>
 	</tr>
 	<tr>
 	<td>비번<input type="password" name="pw" id="pw"></td>
@@ -47,13 +41,13 @@
 	<button id="addrBtn" type="button">전송</button></td>
 	</tr>
 	<tr>
-	<td><select id="gb" name="addr1"></select></td>				<!-- 검색 결과 리스트 출력 영역 -->
+	<td><select id="addr" name="addr1"></select></td>				<!-- 검색 결과 리스트 출력 영역 -->
 	</tr>
 	<tr>
 	<td>상세 주소<input type="text" name="addr2"></td>
 	</tr>
 	<tr>
-	<td>전번<input type="text" name="phone" id="phone"></td>	
+	<td>전화번호<input type="text" name="phone" id="phone"></td>	
 	</tr>
 	<tr>
 	<td>이메일<input type="email" name="email" id="email"></td>
@@ -67,7 +61,7 @@
 	</tr>
 	<tr>
 	<!-- 라디오버튼 선택 후에 최종학력받을지 결정-->
-	<td id="fEud">최종학력<select name="finalEdu">
+	<td id="fEud" hidden="hidden">최종학력<select name="finalEdu">
 		<option value="고졸">고졸</option>
 		<option value="대졸">대졸</option>
 	</select></td>
@@ -78,7 +72,7 @@
 </body>
 <script>
 
-	$(".onlyNumber").keyup(function(event){					//onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+	$(".onlyNumber").keyup(function(event){						// text 타입 숫자만 받게        == onKeyup="this.value=this.value.replace(/[^0-9]/g,'');"
 	    var inputVal = $(this).val();
 	    $(this).val(inputVal.replace(/[^0-9]/g,''));
 	});
@@ -108,8 +102,8 @@
 /* 				for(var i =0; i<arr.length; i++){
 					$('#list').append('<div>'+arr[i].jibunAddr+'</div>');
 				} */
-					var obj = document.getElementById('gb');
-				$('#gb').empty();																				// select 초기화 부분
+					var obj = document.getElementById('addr');
+				$('#addr').empty();																				// select 초기화 부분
 				//var obj = $.getElementById('gb');
 				for(var i =0; i<arr.length; i++){
 					obj.options.add(new Option(arr[i].jibunAddr));
@@ -148,16 +142,19 @@
 					$('#pw').focus();
 					return false;
 				}		
-				else if($('#pw').val() != $('#pwCk').val() ){
+				else if($('#pw').val() != $('#pwCk').val() ){														//비밀번호 비밀번호 확인과 비교
 					alert("비밀번호가 달라요");
+					$('#pw').focus();
 					return false;
 				}
-				else if($('#name').val() == ''){
+				else if($('#name').val() == ''){																	//이름 유효성 검사
 					alert("이름 써주세요");
+					$('#name').focus();
 					return false;
 				}
-				else if($('#phone').val().length != 13){
+				else if($('#phone').val().length != 13){															//전화번호 13자리 유효성 검사
 					alert("전번 정확히 써주세요");
+					$('#phone').focus();
 					return false;
 				}
 /* 				else if(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test($('email').val())){			--> type="eamail로 대체"
@@ -172,8 +169,10 @@
 		
 		
 	});
-
-
-	
+	<!-- 	<input type="text" name="resultType" value="json"/> <-- 요청 변수 설정 (검색결과형식 설정, json) --> 
+	<!-- 	<input type="text" name="confmKey" value="U01TX0FVVEgyMDIyMDYxNjE2MzExNTExMjY5ODQ="/>요청 변수 설정 (승인키) -->
+	<!-- 	<input type="button" onClick="getAddr();" value="주소검색하기"/>-->
+	<!--<input type="text" name="currentPage" value="1"/> <!-- 요청 변수 설정 (현재 페이지. currentPage : n > 0) -->
+	<!--<input type="text" name="countPerPage" value="10"/><!-- 요청 변수 설정 (페이지당 출력 개수. countPerPage 범위 : 0 < n <= 100) -->
 </script>
 </html>

@@ -6,4 +6,71 @@
 		SELECT member_id memberId
 		FROM member;
 	</select>
+	
+	<insert id="insertMember"
+			parameterType="Hanbit.co.kr.lms.vo.Member">
+		INSERT INTO member(
+			member_id
+			,member_level
+			,member_state
+			,log_date
+			,create_date
+			,update_date
+		) VALUES (
+			#{memberId}
+			,#{memberLevel}
+			,1
+			,NOW()
+			,NOW()
+			,NOW()		
+		);
+	</insert>
+	<insert id="insertPUD"
+			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		INSERT INTO password_update_date(
+			member_id
+			,member_pw
+			,create_date
+		)
+		VALUES(
+			#{memberId}
+			,#{memberPw}
+			,NOW()		
+		);
+	</insert>
+	<insert id="insertStudent"
+			parameterType="Hanbit.co.kr.lms.vo.Student">
+		
+	</insert>
+	<insert id="insertTeacher"
+			parameterType="Hanbit.co.kr.lms.vo.Student">
+		
+	</insert>
+	<insert id="insertManager"
+			parameterType="Hanbit.co.kr.lms.vo.Student">
+		INSERT INTO manager(
+			manager_id
+			,manager_pw
+			,manager_name
+			,manager_addr1
+			,manager_addr2
+			,manager_phone
+			,manager_email
+			,manager_birth
+			,manager_gender
+			,update_date
+		)
+		VALUES(
+			#{managerId}
+			,#{managerPw}
+			,#{managerName}
+			,#{managerAddr1}
+			,#{managerAddr2}
+			,#{phone}
+			,#{managerEmail}
+			,#{managerBirth}
+			,#{managerGender}
+			,NOW()		
+		);
+	</insert>
 </mapper>

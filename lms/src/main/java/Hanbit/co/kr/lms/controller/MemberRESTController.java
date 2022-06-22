@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-public class RController {
+public class MemberRESTController {
 	@Autowired
 	MemberService memberService;
 	
@@ -54,7 +54,7 @@ public class RController {
 	}
 	
 	@GetMapping("/compMember")
-	public String checkMember(@RequestParam(name = "idCheck") String memberId){
+	public String checkMember(@RequestParam(value = "idCheck") String memberId){
 		log.debug(CF.LKL+"RController.compMember : "+memberId);
 		List<Member> listMember= memberService.getMember();
 		 for(int i=0; i<listMember.size(); i++) {
@@ -68,7 +68,7 @@ public class RController {
 //세션 로그인 상태면 튕기게
 //주민 번호로 나이,일자 뽑기 ,,, 3개 한번에 넣기(memberId,
 //리스트 페이징?
-//
+//주민등록 유효성
 //최종 제출 버튼 클릭 후 id 유효성 받은 걸 꼭 검사
 //member 상태를 0으로
 	}
