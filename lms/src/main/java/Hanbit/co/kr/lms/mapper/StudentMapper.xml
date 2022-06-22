@@ -38,6 +38,7 @@
 		SELECT 
 			l.lecture_name lectureName
 			,l.subject_name subjectName
+			,l.create_date createDate
 		FROM
 			lec l INNER JOIN registration r
 		ON l.lecture_name = r.lecture_name INNER JOIN student s

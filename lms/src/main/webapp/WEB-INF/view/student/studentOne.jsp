@@ -13,6 +13,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<style type="text/css">
+a:link {
+  color : black;
+  text-decoration: none;
+}
+a:hover {
+  color : red;
+  text-decoration: none;
+}
+a:active {
+  color : green;
+  text-decoration: none;
+}
+</style>
 </head>
 
 <body class="sb-nav-fixed">
@@ -218,51 +232,76 @@
 	                    <div class="card-body">
 							<div class="row"> 
 							
+								<div class="col-lg-1"></div>
+								
 								<!-- 사진 -->
 					        	<div class="col-lg-3">
-					        		<br>
-					           		<img src="${pageContext.request.contextPath}/assets/img/${photoFile.photoName}.${photoFile.photoType}" class="img-fluid" alt="" >  <!-- 사진추가 -->
+					        	<br>
+					           		<img src="${pageContext.request.contextPath}/assets/img/${photoFile.photoName}.${photoFile.photoType}" class="img-fluid" alt="" width="150" height="200">  <!-- 사진추가 -->
 					        	</div>
 					        	<!-- 사진 끝 -->
+					        	
 					        	<!-- 개인정보 -->
-					        	<div class="col-lg-4">
-					        	<br>
-			        				<ul>
-		        						<li>이름 : ${student.studentName}</li>
-		        						<br>
-			        					<li>아이디 : ${student.studentId}</li>
-			        					<br>
-					        			<li>성별 : ${student.studentGender}</li>
-					        			<br>
-					        			<li>출생년도 : ${student.studentBirth}</li>
-			        					<br>
-			        					<li>연락처 : ${student.studentPhone}</li>
-			        				</ul>
+					        	<div class="col-lg-3">
+						        	<br>
+					        		<div>
+			        					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/></svg>
+			        					이름 : ${student.studentName}
+					        		</div>
+		        					<br>
+			        				<div>
+		        						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/></svg>
+		        						아이디 : ${student.studentId}</li>
+						        	</div>
+		        					<br>
+		        					<div>
+				        				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/></svg>
+										성별 : ${student.studentGender}
+					        		</div>
+				        			<br>
+					        		<div>
+				        				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/></svg>
+										출생년도 : ${student.studentBirth}
+					        		</div>
+		        					<br>
+			        				<div>
+		        						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/></svg>
+										연락처 : ${student.studentPhone}
+					        		</div>
 			        			</div>
 			        			<div class="col-lg-4">
-			        			<br>
-				        			<ul>
-			        					<li>주소 : ${student.studentAddr1}</li>
-			        					<br>
-			        					<li>상세주소 : ${student.studentAddr2}</li>
-					        			<br>
-					        			<li>최종학력 : ${student.finalEducation}</li>
-					        			<br>
-					        			<li>이메일 : ${student.studentEmail}</li>
-				        			</ul>
-			        			</div>
+						        	<br>
+					        		<div>
+			        					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/></svg>
+			        					주소 : ${student.studentAddr1}
+					        		</div>
+		        					<br>
+			        				<div>
+		        						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/></svg>
+		        						상세주소 : ${student.studentAddr2}
+						        	</div>
+		        					<br>
+		        					<div>
+				        				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/></svg>
+										최종학력 : ${student.finalEducation}
+					        		</div>
+				        			<br>
+					        		<div>
+				        				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16"> <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/></svg>
+										이메일 : ${student.studentEmail}
+					        		</div>
 			        			<!-- 개인정보 끝 -->
 			        		</div>
 		        		</div>
 			        	</div>
-			        	<br><br><br><br>
+			        	<br>
 			        	<div class="row">
 			        		<!-- 자격증 -->
 			        		<div class="col-lg-6">
 			                <div class="card mb-4">
 			                    <div class="card-header">
 			                        <i class="fas fa-chart-area me-1"></i>
-										자격증
+										보유 자격증
 			                    </div>
 				        			<table class="table table-hover">
 			        				<thead>
@@ -286,24 +325,26 @@
 				        	</div>
 			        		<!-- 자격증 끝 -->
 			        		<!-- 수강내역 -->
-		        			<div class="col-lg-4">
+		        			<div class="col-lg-6">
 		        			<div class="card mb-4">
 			                    <div class="card-header">
 			                        <i class="fas fa-chart-area me-1"></i>
-										듣고 있는 수강
+										수강 목록
 			                    </div>
 			        			<table class="table table-hover">
 			        				<thead>
 			        					<tr>
 			        						<th class="text-center">강좌</th>
 			        						<th class="text-center">과목</th>
+			        						<th class="text-center">개설날짜</th>
 			        					</tr>
 			        				</thead>
 			        				<tbody>
 			        				<c:forEach var="l" items="${lecList}">
 			        					<tr>
-			        						<td class="text-center"><a href="${pageContext.request.contextPath}/lec">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
+			        						<td class="text-center"><a target='_blank' href="${pageContext.request.contextPath}/lec">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
 			        						<td class="text-center">${l.subjectName}</td>
+			        						<td class="text-center">${l.createDate}</td>
 			        					</tr>
 			        				</c:forEach>
 			        				</tbody>
@@ -312,32 +353,7 @@
 		        			</div>
 		        		</div>
 					</div>
-				   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                </div>
-            </main>
+           		</main>
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
