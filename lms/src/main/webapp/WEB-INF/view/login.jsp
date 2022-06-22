@@ -10,77 +10,80 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body class="bg-dark">
-	<div class="container">
-		<c:if test="${error eq null}">
-			${error}
-		</c:if>
-	<br><br><br>
-	<h1 class="text-center text-white">💻 Hanbit Computer Academy LMS 💻</h1>
-	<br>
-	<div class="row">
-	<div class="col-xs-0 col-sm-4" ></div>
-		<div class="col-xs-12 col-sm-4 ">
-			<form name="testForm" id="login" method="post" action="${pageContext.request.contextPath}/login">
-			<ul class="nav nav-tabs">
-				<li class="nav-item">
-					<c:choose>
-						<c:when test="${role eq 'student'}">
-							<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">student</a>
-						</c:when>
-						<c:otherwise>
-						    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">student</a>
-						</c:otherwise>
-					</c:choose>
-				</li>
-				<li class="nav-item">
-					<c:choose>
-						<c:when test="${role == 'teacher'}">
-						    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=teacher">teacher</a>
-						</c:when>
-						<c:otherwise>
-							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=teacher">teacher</a>
-						</c:otherwise>
-					</c:choose>
-				</li>
-				<li class="nav-item">
-					<c:choose>
-						<c:when test="${role eq 'manager'}">
-						    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=manager">manager</a>
-						</c:when>
-						<c:otherwise>
-							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=manager">manager</a>
-						</c:otherwise>
-					</c:choose>
-				</li>
-			</ul>
-			<br>
-		    <div class="form-group">
-				<input type="text" id="uname" class="form-control"  placeholder="Enter username" name="memberId" value="student1">
-		    	<span id="helpId"></span>
-		    </div>
-		    <div class="form-group">
-				<input type="password" id="pw" class="form-control" placeholder="Enter password" name="memberPw" value="a12345678">
-				<span  id="helpPw"></span>
-		    </div>
-			<div>
-				<input type="hidden" name="role" value="${role}">
-			</div>
-			 <button id="btn" class="btn btn-primary btn-block" type="button" >Login</button>
-			<hr class="bg-white">
-			<div>
-				<a class="btn btn-light btn-block" role="button" href="${pageContext.request.contextPath}">Sign Up</a>
-				<div class="text-center text-white">
-				<hr class="bg-dark">
-				<a class="text-white text-decoration-none" href="#">ID 찾기</a> &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
-				<a class="text-white text-decoration-none"href="#">PW 찾기</a>
-				</div>
-			<div class="text-danger">
-				<c:if test="${error != null}">
+	<div class="layoutAuthentication">
+		<div class="layoutAuthentication_content">
+			<div class="container">
+				<c:if test="${error eq null}">
 					${error}
 				</c:if>
+			<br><br><br>
+			<h1 class="text-center text-white">Hanbit Computer Academy LMS</h1>
+			<br>
+			<div class="row justify-content-center">
+				<div class="col-lg-4">
+					<form name="testForm" id="login" method="post" action="${pageContext.request.contextPath}/login">
+					<ul class="nav nav-tabs">
+						<li class="nav-item">
+							<c:choose>
+								<c:when test="${role eq 'student'}">
+									<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">🧑 Student </a>
+								</c:when>
+								<c:otherwise>
+								    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">🧑Student </a>
+								</c:otherwise>
+							</c:choose>
+						</li>
+						<li class="nav-item">
+							<c:choose>
+								<c:when test="${role == 'teacher'}">
+								    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=teacher">🧓 Teacher </a>
+								</c:when>
+								<c:otherwise>
+									<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=teacher">🧓 Teacher </a>
+								</c:otherwise>
+							</c:choose>
+						</li>
+						<li class="nav-item">
+							<c:choose>
+								<c:when test="${role eq 'manager'}">
+								    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=manager">👨‍🦱 Manager </a>
+								</c:when>
+								<c:otherwise>
+									<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=manager">👨‍🦱 Manager </a>
+								</c:otherwise>
+							</c:choose>
+						</li>
+					</ul>
+					<br>
+				    <div class="form-group">
+						<input type="text" id="uname" class="form-control"  placeholder="Enter username" name="memberId" value="student1">
+				    	<span id="helpId"></span>
+				    </div>
+				    <div class="form-group">
+						<input type="password" id="pw" class="form-control" placeholder="Enter password" name="memberPw" value="a12345678">
+						<span  id="helpPw"></span>
+				    </div>
+					<div>
+						<input type="hidden" name="role" value="${role}">
+					</div>
+					 <button id="btn" class="btn btn-primary btn-block" type="button" >Login</button>
+					<hr class="bg-white">
+					<div>
+						<a class="btn btn-light btn-block" role="button" href="${pageContext.request.contextPath}">Sign Up</a>
+						<div class="text-center text-white">
+						<hr class="bg-dark">
+						<a class="text-white text-decoration-none" href="#">ID 찾기</a> &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
+						<a class="text-white text-decoration-none"href="#">PW 찾기</a>
+						</div>
+					<div class="text-danger">
+						<c:if test="${error != null}">
+							${error}
+						</c:if>
+					</div>
+					</div>
+				 	</form>
+				</div>
 			</div>
-			</div>
-		 	</form>
 		</div>
 	</div>
 </div>
