@@ -54,7 +54,7 @@ public class AddrController {
 	}
 	
 	@GetMapping("/compMember")
-	public String checkMember(@RequestParam(name = "memberId") String memberId){
+	public String checkMember(@RequestParam(name = "idCheck") String memberId){
 		log.debug(CF.LKL+"AddrController.compMember"+memberId);
 		List<Member> listMember= memberService.getMember();
 		 for(int i=0; i<listMember.size(); i++) {
@@ -69,5 +69,6 @@ public class AddrController {
 //주민 번호로 나이,일자 뽑기 ,,, 3개 한번에 넣기(memberId,
 //폼은 라디오 버튼 (운영진이면 어떤거 숨기기)
 //최종 제출 버튼 클릭 후 id 유효성 받은 걸 꼭 검사
+//member 상태를 0으로
 	}
 }
