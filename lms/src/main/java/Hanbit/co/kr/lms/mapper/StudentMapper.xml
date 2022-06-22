@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.StudentMapper">
+	<select id="selectStudentOne" 
+			parameterType="String" 
+			resultType="Hanbit.co.kr.lms.vo.Student">
+		SELECT 
+			student_id studentId
+			,student_name studentName
+			,student_addr1 studentAddr1
+			,student_addr2 studentAddr2
+			,student_phone studentPhone
+			,student_birth	studentBith
+			,student_gender studentGender
+			,final_education finalEducation
+			,student_email	studentEmail
+		FROM 
+			student
+		WHERE student_id = #{studentId}
+	</select>
+	
+	<select id="selectStudentCertification"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.Certification">
+		SELECT 
+			certification_name
+			,certification_issued
+		FROM 
+			certification INNER JOIN student 
+		ON student_id = member_id 
+		WHERE student_id = #{studentId}
+	</select>
+</mapper>
