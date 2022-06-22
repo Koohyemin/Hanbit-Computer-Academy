@@ -1,5 +1,8 @@
 package Hanbit.co.kr.lms.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,9 +25,16 @@ public class StudentController {
 							,@RequestParam(name="studentId",defaultValue = "student1")String studentId) {
 		// studentId 디버깅
 		log.debug(CF.SWB+"[StudentController studentOne studentId]"+ studentId+CF.RESET);
-		Student student = new Student();
-		student = studentService.studentOne(studentId);
-		model.addAttribute("student",student);
+		
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap = studentService.studentOne(studentId);
+		// returnMap.size 디버깅
+		log.debug(CF.SWB+"[StudentController studentOne returnMap.size()]"+ returnMap.size()+CF.RESET);
+		
+		model.addAttribute("student",returnMap.get("student"));
+		model.addAttribute("certificationList",returnMap.get("certificationList"));
+		model.addAttribute("lecList",returnMap.get("lecList"));
+		model.addAttribute("photoFile",returnMap.get("photoFile"));
 		return "/student/studentOne";
 	}
 }

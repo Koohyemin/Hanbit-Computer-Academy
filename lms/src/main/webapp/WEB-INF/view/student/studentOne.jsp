@@ -209,46 +209,115 @@
             <main>
                 <div class="container-fluid px-4">
                     <!-- 컨텐츠 삽입 부분-->
-					<h2>나의 정보</h2>
-					<div class="row">
-						<!-- 사진 -->
-						<div class="col-lg-1"></div>
-			        	<div class="col-lg-3">
-			        		<br>
-			           		<img src="" class="img-fluid" alt="" >  <!-- 사진추가 -->
+                    <br>
+	                <div class="card mb-4">
+	                    <div class="card-header">
+	                        <i class="fas fa-chart-area me-1"></i>
+								나의 정보
+	                    </div>
+	                    <div class="card-body">
+							<div class="row"> 
+							
+								<!-- 사진 -->
+					        	<div class="col-lg-3">
+					        		<br>
+					           		<img src="${pageContext.request.contextPath}/assets/img/${photoFile.photoName}.${photoFile.photoType}" class="img-fluid" alt="" >  <!-- 사진추가 -->
+					        	</div>
+					        	<!-- 사진 끝 -->
+					        	<!-- 개인정보 -->
+					        	<div class="col-lg-4">
+					        	<br>
+			        				<ul>
+		        						<li>이름 : ${student.studentName}</li>
+		        						<br>
+			        					<li>아이디 : ${student.studentId}</li>
+			        					<br>
+					        			<li>성별 : ${student.studentGender}</li>
+					        			<br>
+					        			<li>출생년도 : ${student.studentBirth}</li>
+			        					<br>
+			        					<li>연락처 : ${student.studentPhone}</li>
+			        				</ul>
+			        			</div>
+			        			<div class="col-lg-4">
+			        			<br>
+				        			<ul>
+			        					<li>주소 : ${student.studentAddr1}</li>
+			        					<br>
+			        					<li>상세주소 : ${student.studentAddr2}</li>
+					        			<br>
+					        			<li>최종학력 : ${student.finalEducation}</li>
+					        			<br>
+					        			<li>이메일 : ${student.studentEmail}</li>
+				        			</ul>
+			        			</div>
+			        			<!-- 개인정보 끝 -->
+			        		</div>
+		        		</div>
 			        	</div>
-			        	<!-- 사진 끝 -->
-			        	<!-- 개인정보 -->
-			        	<div class="col-lg-4">
-	        				<ul>
-	        					<li>아이디 : ${student.studentId}</li>
-	        					<br>
-        						<li>이름 : ${student.studentName}</li>
-        						<br>
-	        					<li>주소 : ${student.studentAddr1}</li>
-	        					<br>
-	        					<li>상세주소 : ${student.studentAddr2}</li>
-	        					<br>
-	        					<li>핸드폰 번호 : ${student.studentPhone}</li>
-	        				</ul>
-	        			</div>
-	        			<div class="col-lg-4">
-		        			<ul>
-			        			<li>출생년도 : ${student.studentBirth}</li>
-			        			<br>
-			        			<li>성별 : ${student.studentGender}</li>
-			        			<br>
-			        			<li>최종학력 : ${student.finalEducation}</li>
-			        			<br>
-			        			<li>이메일 : ${student.studentEmail}</li>
-		        			</ul>
-	        			</div>
-	        			<!-- 개인정보 끝 -->
-		        	</div>
-		        	<div class="row">
-		        	
-		        	</div>
-				</div>
+			        	<br><br><br><br>
+			        	<div class="row">
+			        	
+			        		<div class="col-lg-1"></div>
+			        		
+			        		<!-- 자격증 -->
+			        		<div class="col-lg-6">
+			                <div class="card mb-4">
+			                    <div class="card-header">
+			                        <i class="fas fa-chart-area me-1"></i>
+										자격증
+			                    </div>
+				        			<table class="table table-hover">
+			        				<thead>
+			        					<tr>
+			        						<th class="text-center">자격증명</th>
+			        						<th class="text-center">주관처</th>
+			        						<th class="text-center">취득일</th>
+			        					</tr>
+			        				</thead>
+			        				<tbody>
+			        				<c:forEach var="c" items="${certificationList}">
+			        					<tr>
+			        						<td class="text-center">${c.certificationName}</td>
+			        						<td class="text-center">${c.certificationIssued}</td>
+			        						<td class="text-center">${c.getDate}</td>
+			        					</tr>
+			        				</c:forEach>
+			        				</tbody>
+			        			</table>
+							</div>
+				        	</div>
+			        		<!-- 자격증 끝 -->
+			        		
+			        		<div class="col-lg-1"></div>
+			        		
+			        		<!-- 수강내역 -->
+		        			<div class="col-lg-4">
+		        			<div class="card mb-4">
+			                    <div class="card-header">
+			                        <i class="fas fa-chart-area me-1"></i>
+										자격증
+			                    </div>
+			        			<table class="table table-hover">
+			        				<thead>
+			        					<tr>
+			        						<th class="text-center">강좌</th>
+			        						<th class="text-center">과목</th>
+			        					</tr>
+			        				</thead>
+			        				<tbody>
+			        				<c:forEach var="l" items="${lecList}">
+			        					<tr>
+			        						<td class="text-center"><a href="${pageContext.request.contextPath}/lec">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
+			        						<td class="text-center">${l.subjectName}</td>
+			        					</tr>
+			        				</c:forEach>
+			        				</tbody>
+			        			</table>
+			        		</div>
+		        			</div>
+		        		</div>
+					</div>
 				   
 
 

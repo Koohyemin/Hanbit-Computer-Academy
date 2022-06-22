@@ -10,7 +10,7 @@
 			,student_addr1 studentAddr1
 			,student_addr2 studentAddr2
 			,student_phone studentPhone
-			,student_birth	studentBith
+			,student_birth	studentBirth
 			,student_gender studentGender
 			,final_education finalEducation
 			,student_email	studentEmail
@@ -23,11 +23,36 @@
 			parameterType="String"
 			resultType="Hanbit.co.kr.lms.vo.Certification">
 		SELECT 
-			certification_name
-			,certification_issued
+			certification_name certificationName
+			,certification_issued certificationIssued
+			,get_date getDate
 		FROM 
 			certification INNER JOIN student 
 		ON student_id = member_id 
+		WHERE student_id = #{studentId}
+	</select>
+	
+	<select id="selectLecList"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.Lec">
+		SELECT 
+			l.lecture_name lectureName
+			,l.subject_name subjectName
+		FROM
+			lec l INNER JOIN registration r
+		ON l.lecture_name = r.lecture_name INNER JOIN student s
+		ON s.student_id = r.student_id
+		WHERE s.student_id = #{studentId}
+	</select>
+	
+	<select id="selectStudentPhoto"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.PhotoFile">
+		SELECT 
+			photo_name photoName
+			,photo_type photoType
+		FROM student INNER JOIN photo_file
+		ON member_id = student_id 
 		WHERE student_id = #{studentId}
 	</select>
 </mapper>
