@@ -37,7 +37,7 @@
                       </table>
 
 		              		 <div>
-					              <a class="btn btn-default" href="${pageContext.request.contextPath}/faq/deleteFaq?faqNo=${Faq.faqNo}">삭제페이지로 이동</a>
+					              <a class="btn" href="${pageContext.request.contextPath}/faq/deleteFaq?faqNo=${Faq.faqNo}">삭제</a>
 					    </div>
 
 	                	</div>     

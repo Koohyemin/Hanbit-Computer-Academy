@@ -40,17 +40,19 @@
 					<tr>
 						<th class="text-center">제목</th>
 						<td>
-							<input name="title" type="text" class="form-control" placeholder="제목을 입력해주세요">
+							<input name="title" id="title" type="text" class="form-control" placeholder="제목을 입력해주세요">
+							<span id="helpTitle"></span>
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center" style="vertical-align: middle">내용</th>
 						<td>
-							<textarea name="content" class="form-control" placeholder="Faq 내용을 입력해주세요" cols="50" rows="8"></textarea>
+							<textarea name="content" id="content" class="form-control" placeholder="Faq 내용을 입력해주세요" cols="50" rows="8"></textarea>
+							<span id="helpContent"></span>
 						</td>
 					</tr>
 				</table>
-				<button type="submit" class="btn btn-dark" style="float:right">등록</button>
+				<button type="submit" id="btnFqa" class="btn btn-dark">등록</button>
 			</form>
 		</div>
 			</div>
@@ -58,6 +60,26 @@
         	</div>
         </div>
 </body>
+	<script>
+	$('#btnFqa').click(function () {
+		if($('#title').val() == ''){
+			$('#helpTitle').text('아이디를 입력해주세요');
+		} else {
+			$('#helpTitle').text('');
+		}
+		if($('#content').val() == '') {
+			$('#helpContent').text('비밀번호를 입력해주세요');
+		} else {
+			$('#helpContent').text('');
+		}
+		if($('#title').val() != '' && $('#content').val() != '') {
+			$("#btnFqa").submit();
+			$('#btnFqa').text('왜 안넘어가나요');
+		}
+		
+	})
+	
+	</script>
 	<script>
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
