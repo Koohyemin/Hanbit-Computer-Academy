@@ -18,10 +18,10 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class MemberController {
 	
-		@GetMapping("getAddr")
+		@GetMapping("addMember")
 		public String selectAddr() {
 			
-			return "/addMember/addr";
+			return "/addMember/addMember";
 		}
 		@PostMapping("addMember")
 		public String addMember() {

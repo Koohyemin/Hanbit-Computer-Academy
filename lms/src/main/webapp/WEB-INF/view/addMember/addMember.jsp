@@ -50,13 +50,13 @@
 	<td><select id="gb" name="addr1"></select></td>				<!-- 검색 결과 리스트 출력 영역 -->
 	</tr>
 	<tr>
-	<td>상세 주소<input type="text" name=addr2></td>
+	<td>상세 주소<input type="text" name="addr2"></td>
 	</tr>
 	<tr>
-	<td>전번<input type="text" name=phone id="phone"></td>	
+	<td>전번<input type="text" name="phone" id="phone"></td>	
 	</tr>
 	<tr>
-	<td>이메일<input type="text" name=email id="email"></td>
+	<td>이메일<input type="email" name="email" id="email"></td>
 	</tr>
 	<tr>
 		<td>
@@ -67,7 +67,7 @@
 	</tr>
 	<tr>
 	<!-- 라디오버튼 선택 후에 최종학력받을지 결정-->
-	<td id="fEud">최종학력<select name=finalEdu>
+	<td id="fEud">최종학력<select name="finalEdu">
 		<option value="고졸">고졸</option>
 		<option value="대졸">대졸</option>
 	</select></td>
@@ -152,13 +152,21 @@
 					alert("비밀번호가 달라요");
 					return false;
 				}
-				else if($('#name')== ''){
+				else if($('#name').val() == ''){
 					alert("이름 써주세요");
+					return false;
 				}
-				else if($('#phone').length()!=13){
+				else if($('#phone').val().length != 13){
 					alert("전번 정확히 써주세요");
+					return false;
 				}
-				
+/* 				else if(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test($('email').val())){			--> type="eamail로 대체"
+					alert("이메일 정확히 써주세요");
+					return false;ㄷ
+				} */
+				else {
+					$('#formCheck').submit();
+				}
 		});
 		
 		

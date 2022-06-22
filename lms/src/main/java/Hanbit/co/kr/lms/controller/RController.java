@@ -19,14 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-public class AddrController {
+public class RController {
 	@Autowired
 	MemberService memberService;
 	
 	@GetMapping("/searchAddr")
 	public String getAddr(@RequestParam(value="Keyword") String keyword) {
     // OPEN API 호출 URL 정보 설정
-	log.debug(CF.LKL+"AddrController.getAddr"+keyword);
+	log.debug(CF.LKL+"RController.getAddr : "+keyword);
     final int countPerPage = 10;
     int currentPage =1;
     String confmKey = "U01TX0FVVEgyMDIyMDYxNjE2MzExNTExMjY5ODQ=";			//api 주소
@@ -55,7 +55,7 @@ public class AddrController {
 	
 	@GetMapping("/compMember")
 	public String checkMember(@RequestParam(name = "idCheck") String memberId){
-		log.debug(CF.LKL+"AddrController.compMember"+memberId);
+		log.debug(CF.LKL+"RController.compMember : "+memberId);
 		List<Member> listMember= memberService.getMember();
 		 for(int i=0; i<listMember.size(); i++) {
 			 System.out.println(listMember.get(i).getMemberId());
@@ -67,7 +67,8 @@ public class AddrController {
 //운영진 승인 후 사용 가능 -->
 //세션 로그인 상태면 튕기게
 //주민 번호로 나이,일자 뽑기 ,,, 3개 한번에 넣기(memberId,
-//폼은 라디오 버튼 (운영진이면 어떤거 숨기기)
+//리스트 페이징?
+//
 //최종 제출 버튼 클릭 후 id 유효성 받은 걸 꼭 검사
 //member 상태를 0으로
 	}

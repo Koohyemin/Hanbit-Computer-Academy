@@ -97,7 +97,7 @@
 					 <button id="btn" class="btn btn-primary btn-block" type="button" >Login</button>
 					<hr class="bg-white">
 					<div>
-						<a class="btn btn-light btn-block" role="button" href="#">Sign Up</a>
+						<a class="btn btn-light btn-block" role="button" href="${pageContext.request.contextPath}/addMember">Sign Up</a>
 						<div class="text-center text-white">
 						<hr class="bg-dark">
 						<a class="text-white text-decoration-none" href="${pageContext.request.contextPath}/user/findId">ID 찾기</a> &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
