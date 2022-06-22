@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class NoticeController {
 	@Autowired NoticeService noticeService;
-	@Autowired NoticeMapper noticeMapper;
+	
 	// 공지사항 삭제
 	@PostMapping("/Notice/deleteNotice")
 	public String getDeleteNotice(int managerNoticeNo, Model model) {
@@ -47,7 +47,7 @@ public class NoticeController {
 	@GetMapping("/Notice/updateNotice")
 	public String getUpdateNotice(Model model, @RequestParam(name="managerNoticeNo") int managerNoticeNo) {
 		// 수정시, 기존 입력 값 화면에 보여주기 위해 상세보기 값 불러오기
-		ManagerNotice managerNotice = noticeMapper.getNoticeOne(managerNoticeNo);
+		ManagerNotice managerNotice = noticeService.getNoticeOne(managerNoticeNo);
 		model.addAttribute("managerNotice", managerNotice);
 		return "notice/updateNotice";
 	}

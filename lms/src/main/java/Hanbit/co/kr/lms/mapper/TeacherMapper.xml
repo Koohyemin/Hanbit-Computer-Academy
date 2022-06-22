@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.TeacherMapper">
+	<select id="getTeacherList" parameterType="String" resultType="java.util.Map">
+		SELECT 
+			 t.teacher_name teacherName
+			,t.teacher_email teacherEmail
+			,pf.photo_name photoName
+			,pf.photo_type photoType
+			,c.certification_name certificationName
+			,lp.lec_plan_name lecPlanName
+		FROM teacher t
+			INNER JOIN photo_file pf
+				ON t.teacher_id = pf.member_id
+			INNER JOIN certification c
+				ON t.teacher_id = c.member_id
+			INNER JOIN lec_plan lp
+				ON t.teacher_id = lp.teacher_id
+		WHERE t.teacher_name LIKE '%'+#{searchValue}+'%'
+	</select>
+</mapper>

@@ -275,8 +275,6 @@
  </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="../js/scripts.js"></script>
-<script src="../assets/demo/chart-area-demo.js"></script>
-<script src="../assets/demo/chart-bar-demo.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="../js/datatables-simple-demo.js"></script>
 <script type="text/javascript">
@@ -300,7 +298,7 @@
 			      $('#contentError').text(''); 
 			   }
 		   // 전체 내용이 들어와 있다면 전송
-		   if($('#category').val() != '' && $('#title').val() != '' && $('#summernote').val() == '') {
+		   if($('#category').val() != '' && $('#title').val() != '' && $('#summernote').val() != '') {
 		      $('#addNoticeForm').submit();
 		   }
 		});

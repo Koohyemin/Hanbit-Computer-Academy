@@ -15,16 +15,6 @@
     <link href="../css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    
-    <!-- summerNote 사용시 추가 -->
-    <!-- include libraries(jQuery, bootstrap) -->
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-	
-	<!-- include summernote css/js -->
-	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -206,70 +196,57 @@
             <main>
                 <div class="container-fluid px-4">
                     <!-- 컨텐츠 삽입 부분-->
-
 			<br>
         	<div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-chart-area me-1"></i>
-                Notice
+                Teacher
             </div>
+            <input type="text" name="searchValue" class="form-control" value="" placeholder="강사 이름을 입력해주세요">
+            
+            <!-- 강사소개 -->
+            <c:forEach var="map" items="teacherList">
+	            <div class="col-lg-6 col-md-6 col-12">
+	            
+					<div class="card" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+					<div class="row">
+					
+					<div class="col-lg-5 col-12">
+					<!-- 사진 -->
+					<div class="image">
+					<img src="" alt="">
+					</div>
+					
+					</div>
+					<div class="col-lg-7 col-12">
+					<div class="info-head">
+					
+					<div>
+					<!-- 이름 -->
+					<h4>강사 이름</h4>
+					<!-- 강사 소개 / 우리는 현재 맡은 수업 이름 -->
+					<p>행복을 선언하고 행복을 호출하면 행복이 실행됩니다^^</p>
+					</div>
+					<!-- 담당 과목 -->
+					<span class="designation">JAVA/SPRING</span>
+					
+					<!-- 아이콘 리스트 -->
+					<ul class="social">
+						<li><a href="#"><i class="lni lni-facebook-filled"></i></a></li>
+						<li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
+						<li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
+						<li><a href="#"><i class="lni lni-behance-original"></i></a></li>
+					</ul>
+					
+					</div>
+					</div>
+					</div>
+					</div>
+				</div>
+            </c:forEach>
+            
             </div>
-		<a href="${pageContext.request.contextPath}/Notice/noticeOne?managerNoticeNo=${managerNotice.managerNoticeNo}" class="btn btn-dark" style="float:right">이전으로</a>
-		<br><br>
-		<form method="post" id="updateNoticeForm" action="${pageContext.request.contextPath}/Notice/updateNotice">
-			<table class="table">
-				<tr>
-					<th class="text-center">번호</th>
-					<td>
-						<input name="managerNoticeNo" type="number" value="${managerNotice.managerNoticeNo}" readonly="readonly" class="form-control">
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center">등록자</th>
-					<td>
-						<input name="managerId" id="addNoticeForm" type="text" value="${managerNotice.managerId}" readonly="readonly" class="form-control">
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center">카테고리</th>
-					<td>
-					<select name="category" id="category" class="form-control">
-							<option value="">공지대상을 선택해주세요.</option>
-							<option value="전체" <c:if test="${managerNotice.category=='전체'}">selected="selected"</c:if>>전체</option>
-							<option value="강사" <c:if test="${managerNotice.category=='강사'}">selected="selected"</c:if>>강사</option>
-							<option value="학생" <c:if test="${managerNotice.category=='학생'}">selected="selected"</c:if>>학생</option>
-						</select>
-						<span class="text-danger" id="categoryError"></span>
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center">제목</th>
-					<td>
-						<input name="managerNoticeTitle" id="title" type="text" class="form-control" value="${managerNotice.managerNoticeTitle}" placeholder="제목을 입력해주세요">
-						<span class="text-danger" id="titleError"></span>
-					</td>
-				</tr>
-				<tr>
-					<th class="text-center" style="vertical-align: middle">내용</th>
-					<td>
-						<textarea name="managerNoticeContent" id="summernote">${managerNotice.managerNoticeContent}</textarea>
-						<span class="text-danger" id="contentError"></span>
-						<script>
-							// height 높이 조절, hide는 사진이나 사용하고싶은 버튼이있다면 지우면 됨.
-							$('#summernote').summernote({
-							  tabsize: 2,
-							  height: 400
-							});
-							$(".note-editor button[aria-label='Picture']").hide();
-							$(".note-editor button[aria-label='Video']").hide();
-							$(".note-editor .note-view").hide();
-						</script>
-					</td>
-				</tr>
-			</table>
-			<button type="button" id="btn" class="btn btn-dark" style="float:right">등록</button>
-		</form>
-	</div>
+				</div>
      </main>
      <footer class="py-4 bg-light mt-auto">
          <div class="container-fluid px-4">
@@ -279,36 +256,13 @@
          </div>
      </footer>
  </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="../js/scripts.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="../js/datatables-simple-demo.js"></script>
-<script type="text/javascript">
-	$('#btn').click(function(){
-			// 카테고리(전체, 강사, 학생)
-		   if($('#category').val() == ''){
-		      $('#categoryError').text('대상을 선택해주세요');
-		   } else {
-		      $('#categoryError').text('');
-		   }
-			// 제목
-		   if($('#title').val() == '') {
-		      $('#titleError').text('제목을 입력해주세요');
-		   } else {
-		      $('#titleError').text('');
-		   }
-		   // 내용
-		   if($('#summernote').val() == '') {
-			      $('#contentError').text('내용을 입력해주세요');
-			   } else {
-			      $('#contentError').text(''); 
-			   }
-		   // 전체 내용이 들어와 있다면 전송
-		   if($('#category').val() != '' && $('#title').val() != '' && $('#content').val() != '') {
-		      $('#updateNoticeForm').submit();
-		   }
-		});
-</script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="../assets/demo/chart-area-demo.js"></script>
+    <script src="../assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="../js/datatables-simple-demo.js"></script>
 </body>
 </html>
