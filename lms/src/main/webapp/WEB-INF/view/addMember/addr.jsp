@@ -26,15 +26,18 @@
 <form  method="post" action="/Hanbit/addMember">						<!-- 전체 회원 가입 폼 -->
 	<table border="1">
 	<tr>
-	<td>아이디<input type="text" name=id> <button type="button" id="idCheck">중복검사</button></td>
+	<td>아이디<input type="text" name="id" id="memberId"> <button type="button" id="idCheck">중복검사</button></td>
 	</tr>
 	<tr>
-	<td>비번<input type="text" name=pw id="pw"></td>
+	<td>비번<input type="text" name="pw" id="pw"></td>
 	</tr>
 	<tr>
 	<td>이름<input type="text" name=name>  </td>
 	</tr>
 	<tr>
+	<td>주민등록번호<input type="text" name="pid">-<input type="text" name="pid" maxlength="1"> </td>
+	</tr>
+	<tr>	
 	<td>주소 검색<input type="text" name="Keyword" id="Keyword"><!-- onkeydown="enterSearch(); 요청 변수 설정 (키워드) -->
 	<!--<table id="list" border="1"></table>
 		<a href="" id="list"></a>  -->
@@ -53,15 +56,18 @@
 	<td>이메일<input type="text" name=email></td>
 	</tr>
 	<tr>
-	<td>생년월일<input type="text" name=birth></td>
-	</tr>
-	<tr>
-	<td>성<input type="text" name=gender></td>
+		<td>
+			<input type="radio" name="level" value="1">학생
+			<input type="radio" name="level" value="2">선생
+			<input type="radio" name="level" value="3">운영자
+		</td>
 	</tr>
 	<tr>
 	<!-- 라디오버튼 선택 후에 최종학력받을지 결정-->
-	
-	<td>최종학력<input type="text" name=finalEdu> </td>
+	<td>최종학력<select name=finalEdu>
+		<option value="고졸">고졸</option>
+		<option value="대졸">대졸</option>
+	</select></td>
 	</tr>
 	</table>
 	<button type="submit" id="formCheck">전송</button>
@@ -89,25 +95,29 @@
 					$('#list').append('<div>'+arr[i].jibunAddr+'</div>');
 				} */
 				var obj = document.getElementById('gb');
+			
+				$('#gb').empty();														// select 초기화 부분
+				//var obj = $.getElementById('gb');
 				for(var i =0; i<arr.length; i++){
 					obj.options.add(new Option(arr[i].jibunAddr));
 				}
 			}
 		});
 	});
-	$('#idCheck').click(function(){
+	$('#idCheck').click(function(){								//id 중복 검사 비동기 처리				<-- 최종 버튼 클릭 때도 이것으로 확인한다.
 		$.ajax({
 			type:"get"
-			,url:'/Hanbit/compMember' 
-			,success:function(memberStr){
-				var memberStr2 = JSON.parse(memberStr);
-				var arr = memberList
-				console.log(memberList);
+			,url:'/Hanbit/compMember'
+			,data:{'memberId':$('#memberId').val()}
+			,success:function(member){
 
+				if(member=="false"){
+					alert("아이디 중복");
+				}
 			}
 		});
 	});
-	$('document').ready(function(){
+	$('document').ready(function(){									//비밀번호 유효성 검사
 		$('#formCheck').click(function(){
 		/*	if($('#pw').val().length < 8) {
 				alert('pw 8자이상');

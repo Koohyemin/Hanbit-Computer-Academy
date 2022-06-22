@@ -52,14 +52,22 @@ public class AddrController {
 		    	
 		    	//rest -> json형식으로 전송
 	}
-	/*
-	 * @GetMapping("/compMember") public List<Member> checkMember(){ List<Member>
-	 * listMember= memberService.getMember();
-	 * 
-	 * 
-	 * 
-	 * return listMember;
-	 * 
-	 * }
-	 */
+	
+	@GetMapping("/compMember")
+	public String checkMember(@RequestParam(name = "memberId") String memberId){
+		log.debug(CF.LKL+"AddrController.compMember"+memberId);
+		List<Member> listMember= memberService.getMember();
+		 for(int i=0; i<listMember.size(); i++) {
+			 System.out.println(listMember.get(i).getMemberId());
+			if(listMember.get(i).getMemberId().equals(memberId)) {
+				return "false";
+			}
+		 }
+		return memberId;
+//운영진 승인 후 사용 가능 -->
+//세션 로그인 상태면 튕기게
+//주민 번호로 나이,일자 뽑기 ,,, 3개 한번에 넣기(memberId,
+//폼은 라디오 버튼 (운영진이면 어떤거 숨기기)
+//최종 제출 버튼 클릭 후 id 유효성 받은 걸 꼭 검사
+	}
 }
