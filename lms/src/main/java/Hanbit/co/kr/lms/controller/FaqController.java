@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jdt.internal.compiler.ast.ReturnStatement;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import Hanbit.co.kr.lms.mapper.FaqMapper;
 import Hanbit.co.kr.lms.service.FaqService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Faq;
@@ -32,7 +34,7 @@ public class FaqController {
 	
 	// 상세보기
 	@GetMapping ("/faq/getFaqOne")
-	public String faqOne(Model model, @RequestParam(name="faqNo") int faqNo) {
+	public String getFaqOne(Model model, @RequestParam(name="faqNo") int faqNo) {
 		log.debug( CF.KHV +"[FaqController GetMapping faqNo]: "+ faqNo + CF.RESET);
 		Faq faq = new Faq();
 		faq = (Faq)faqService.getFaqOne(faqNo);
@@ -57,4 +59,30 @@ public class FaqController {
 		public String getInsertFaq() {
 			return "faq/addFaq";
 		}
+	
+	
+		
+	// 삭제 엑션	
+	@PostMapping("/faq/deleteFaq")	
+	public String deleteFaq(int faqNo) {
+		int row = faqService.deleteFaq(faqNo);
+		if(row == 1) {
+			log.debug(CF.KHV + "[FaqController postMapping deleteFaq] : 입력 성공" + CF.RESET); // 성공 디버깅
+		} else {
+			log.debug(CF.KHV + "[FaqController postMapping deleteFaq] : 입력 실패" + CF.RESET); // 실패 디버깅
+		}
+		return "faq/deleteFaq";
+	}
+	// 삭제 폼
+	@GetMapping("/faq/deleteFaq")
+	public String deleteFaq(Model model, @RequestParam(name="faqNo") int faqNo) {
+		log.debug( CF.KHV +"[FaqController GetMapping faqNo]: "+ faqNo + CF.RESET);
+		Faq faq = new Faq();
+		faq = (Faq)faqService.getFaqOne(faqNo);
+		model.addAttribute("faq", faq);
+		log.debug( CF.KHV +"[FaqController GetMapping faq]: "+ faq + CF.RESET);
+		return "faq/deleteFaq";
+	}
+	
+		
 }

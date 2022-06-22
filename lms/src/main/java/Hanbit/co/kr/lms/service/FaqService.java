@@ -27,13 +27,12 @@ public class FaqService {
 	// faq 리스트
 	public List<Faq> faqList() {
 		return faqMapper.getFaqListByPage();
-	
 	}
 	// faq 상세보기
 	public Faq getFaqOne(int faqNo) {
 		Faq faq = new Faq();
 		faq = faqMapper.getFaqOne(faqNo);
-		log.debug( CF.KHV +"[FaqService getFaqOne content]: "+ faq.getContent() + CF.RESET);
+		log.debug( CF.KHV +"[FaqService getFaqOne Faq]: "+ faq.getContent() + CF.RESET);
 		return faq;
 	}
 	// faq 입력
@@ -42,4 +41,8 @@ public class FaqService {
 		return faqMapper.getInsertFaq(faq); // 등록 성공 여부
 	}
 
+	// faq 삭제
+	public int deleteFaq(int faqNo) {
+		return faqMapper.deleteFaq(faqNo);
+	}
 }

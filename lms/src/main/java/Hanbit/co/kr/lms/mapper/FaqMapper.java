@@ -20,8 +20,9 @@ public interface FaqMapper {
 		Faq getFaqOne(int faqNo); 
 		
 		// 삭제
-		int deleteFaq(Faq faq);
+		int deleteFaq(int faqNo);
 		
 		// FAQ 작성
 		int getInsertFaq(Faq faq); 
+	
 }
