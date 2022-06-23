@@ -27,7 +27,7 @@ public class MemberRESTController {
 	public String getAddr(@RequestParam(value="Keyword") String keyword) {
     // OPEN API 호출 URL 정보 설정
 	log.debug(CF.LKL+"RController.getAddr : "+keyword);
-    final int countPerPage = 10;
+    final int countPerPage = 100;
     int currentPage =1;
     String confmKey = "U01TX0FVVEgyMDIyMDYxNjE2MzExNTExMjY5ODQ=";			//api 주소
     String resultType = "json";												//json타입으로 받는다

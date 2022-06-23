@@ -34,7 +34,7 @@
 		)
 		VALUES(
 			#{memberId}
-			,#{memberPw}
+			,PASSWORD(#{memberPw})
 			,NOW()		
 		);
 	</insert>
@@ -54,7 +54,7 @@
 			,update_date
 		) VALUES(
 			#{studentId}
-			,Password(#{studentPw})
+			,PASSWORD(#{studentPw})
 			,#{studentName}
 			,#{studentAddr1}
 			,#{studentAddr2}
@@ -82,7 +82,7 @@
 			,update_date
 		) VALUES(
 			#{teacherId}
-			,Password(#{teacherPw})
+			,PASSWORD(#{teacherPw})
 			,#{teacherName}
 			,#{teacherAddr1}
 			,#{teacherAddr2}
@@ -110,7 +110,7 @@
 		)
 		VALUES(
 			#{managerId}
-			,Password(#{managerPw})
+			,PASSWORD(#{managerPw})
 			,#{managerName}
 			,#{managerAddr1}
 			,#{managerAddr2}

@@ -32,6 +32,8 @@ import lombok.extern.slf4j.Slf4j;
 	            return;
 	         }
 	      chain.doFilter(request, response);
+	      // 요청보다 후 실행
+	      log.debug("\u001B[31m"+"LoginOutFilter.doFilter : 후 실행"+"\u001B[0m");
 	      }
 	   }
 	}

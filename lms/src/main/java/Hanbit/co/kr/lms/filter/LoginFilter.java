@@ -31,16 +31,12 @@ import lombok.extern.slf4j.Slf4j;
 	            ((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/login");
 	            return;
 	         }
-	         if((int)(session.getAttribute("sessionMemberLv")) < 1) {
-	            log.debug(CF.SWB+"[StudentFiter doFilter 레벨권한 낮음"+CF.RESET);
-	            // 임시
-	            ((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/login?error=권한이 맞지 않습니다");
-	            return;
-	         }
 	      } else {
 	         log.debug(CF.SWB+"[StudentFiter doFilter 브라우저가 아닌 경로를 통한 요청"+CF.RESET);
 	      }      
 	      chain.doFilter(request, response);
+	      // 요청보다 후 실행
+	      log.debug("\u001B[31m"+"LoginFilter.doFilter : 후 실행"+"\u001B[0m");
 	   }
 
 	}
