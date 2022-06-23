@@ -19,6 +19,32 @@
 			WHERE student_id = #{studentId} AND student_name = #{studentName} AND student_phone = #{studentPhone}
 		</select>
 		
+	<!-- 강사pw찾기 -->
+	<select id="teacherFindPw" parameterType="Hanbit.co.kr.lms.vo.Teacher"
+		resultType="String">
+			SELECT
+				teacher_pw teacherPw
+			FROM teacher
+			WHERE teacher_id = #{teacherId} AND teacher_name = #{teacherName} AND teacher_phone = #{teacherPhone}	
+		</select>
+		
+	<!-- 운영자pw찾기 -->
+	<select id="managerFindPw" parameterType="Hanbit.co.kr.lms.vo.Manager"
+		resultType="String">
+		SELECT
+			manager_pw managerPw
+		FROM manager
+		WHERE manager_id = #{managerId} AND manager_name = #{managerName} AND manager_phone = #{managerPhone}	
+	</select>		
+	
+		
+		<!-- pw변경 -->
+		<update id="StudentUpdatePw" parameterType="String">
+			UPDATE student SET 
+				student_pw = #{studentPw}
+			WHERE student_id = #{studentId} and student_name = #{studentName} and student_phone = #{studentPhone} 
+		</update>	
+		
 	<!-- 강사id찾기 -->
 	<select id="teacherFindId" parameterType="Hanbit.co.kr.lms.vo.Teacher"
 		resultType="String">
