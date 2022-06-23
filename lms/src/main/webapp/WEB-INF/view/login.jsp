@@ -22,7 +22,7 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-4">
 					<form name="testForm" id="login" method="post" action="${pageContext.request.contextPath}/login">
-					<ul class="nav nav-tabs">
+					<ul class="nav nav-tabs nav-justified">
 						<li class="nav-item">
 							<c:choose>
 								<c:when test="${role eq 'student'}">

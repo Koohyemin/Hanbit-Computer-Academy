@@ -21,7 +21,7 @@
 			<br>
 			<div class="row justify-content-center">
 				<div class="col-lg-4">
-					<ul class="nav nav-tabs">
+					<ul class="nav nav-tabs nav-justified">
 						<li class="nav-item">
 							<c:choose>
 								<c:when test="${role eq 'student'}">
