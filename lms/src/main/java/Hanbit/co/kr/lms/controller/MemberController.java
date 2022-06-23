@@ -29,23 +29,24 @@ public class MemberController {
 		}
 		@PostMapping("addMember")
 		public String addMember(AddMember addmember) {
-			log.debug(CF.LKL+"MemberController.addMember : "+addmember +CF.RESET);
-//			if(addmember.getLevel().equals("3")) {
-			
-			if(addmember.getLevel()==3) {
+			log.debug(CF.LKL+"MemberController.addMember : " +CF.RESET +addmember);
+			//레벨 체크로 학생,강사,운영자 판단 
+			if(addmember.getLevel()==3) {													//level3 => manager
 				
 				int row=memberService.addManager(addmember);
-				log.debug(CF.LKL+"MemberController.addManager : "+ row+CF.RESET);
+				log.debug(CF.LKL+"MemberController.addManager : " +CF.RESET + row);
 				return "redirect:/login";
 				
-			} else if(addmember.getLevel()==2){
-			//	int row=memberService.addTeacher(addmember);
+			} else if(addmember.getLevel()==2){												//level2 => teacher
+				int row=memberService.addTeacher(addmember);
+				log.debug(CF.LKL+"MemberController.addTeacher : " +CF.RESET + row);
 				return "redirect:/login";
 				
-			} else if(addmember.getLevel()==1){
-			//	int row=memberService.addStudent(addmember);
+			} else if(addmember.getLevel()==1){												//level1 => student
+				int row=memberService.addStudent(addmember);						
+				log.debug(CF.LKL+"MemberController.addStudent : " +CF.RESET + row);
 				return "redirect:/login";
-			} else {
+			} else {																		//level값을 못받았을때는 다시 폼으로
 			
 				return "redirect:/addMember/addMember";
 			}

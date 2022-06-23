@@ -35,13 +35,11 @@
 	<td>주민등록번호<input type="text" class="onlyNumber" name="pid1">-<input type="text" class="onlyNumber" name="pid2" maxlength="1" > </td>
 	</tr>
 	<tr>	
-	<td>주소 검색<input type="text" name="Keyword" id="Keyword"><!-- onkeydown="enterSearch(); 요청 변수 설정 (키워드) -->
-	<!--<table id="list" border="1"></table>
-		<a href="" id="list"></a>  -->
+	<td>주소 검색<input type="text" name="Keyword" id="Keyword">
 	<button id="addrBtn" type="button">전송</button></td>
 	</tr>
 	<tr>
-	<td><select id="addr" name="addr1"></select></td>				<!-- 검색 결과 리스트 출력 영역 -->
+	<td><select id="addr" name="addr1"></select></td>				<!-- 주소 검색 결과 리스트 출력 영역 -->
 	</tr>
 	<tr>
 	<td>상세 주소<input type="text" name="addr2"></td>
@@ -63,7 +61,10 @@
 	<!-- 라디오버튼 선택 후에 최종학력받을지 결정-->
 	<td id="fEud" hidden="hidden">최종학력<select name="finalEdu">
 		<option value="고졸">고졸</option>
-		<option value="대졸">대졸</option>
+		<option value="초대졸">초대졸</option>
+		<option value="학사">학사</option>
+		<option value="석사">석사</option>
+		<option value="박사">박사</option>
 	</select></td>
 	</tr>
 	</table>
@@ -93,14 +94,15 @@
 		$.ajax({
 			type:"get"
 			,url:'/lms/searchAddr' //인터넷망
-			,data:{'Keyword':$('#Keyword').val()}					//키워드 받는 데이터
+			,data:{'Keyword':$('#Keyword').val()}							//키워드 받는 데이터
 			,success:function(jsonStr){
 				var jsonStr2 = JSON.parse(jsonStr);
 				var arr = jsonStr2.results.juso;		//주소배열
 				console.log(arr);
 				console.log($('#keyword').val());
 /* 				for(var i =0; i<arr.length; i++){
-					$('#list').append('<div>'+arr[i].jibunAddr+'</div>');
+					$('#list').append('<div>'+arr[i].jibunAddr+'</div>');				<!--<table id="list" border="1"></table>
+																						<a href="" id="list"></a>  -->
 				} */
 					var obj = document.getElementById('addr');
 				$('#addr').empty();																				// select 초기화 부분
@@ -113,11 +115,11 @@
 	});
 	$('document').ready(function(){			
 		var idCheck='false';
-		$('#idCheck').click(function(){																			//id 중복 검사 비동기 처리				<-- 최종 버튼 클릭 때도 이것으로 확인한다.
+		$('#idCheck').click(function(){											//id 중복 검사 비동기 처리				<-- 최종 버튼 클릭 때도 이것으로 확인한다.
 			$.ajax({
-				type:"get"
-				,url:'/lms/compMember'
-				,data:{'idCheck':$('#memberId').val()}
+				type:"get"														//get방식
+				,url:'/lms/compMember'											//
+				,data:{'idCheck':$('#memberId').val()}							//
 				,success:function(member){
 					console.log(member);
 					console.log(idCheck);
@@ -125,6 +127,8 @@
 					console.log(idCheck);
 					if(idCheck=="false"){
 						alert("아이디 중복");
+					} else{
+						alert("사용가능한 아이디");
 					}
 				}
 			});
@@ -132,11 +136,12 @@
 		
 		$('#formCheck').click(function(){																		//최종제출 전 유효성 검사																
 				
-				if(idCheck == 'false'){																			//idcheck 안고친상태면 안된다.
+				if(idCheck == 'false'){																			//idcheck 안고친상태면 안된다.			
 					alert("id중복확인하세요");
 					$('#pw').focus();
 					return false;
 				}
+
 				else if(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/.test($('#pw').val())) {					//비밀번호 유효성 검사    -->a-z , or 숫자포함 자바스크립트 비밀번호 정규식
 					alert("영문, 숫자 혼용하여 8자리 이상 입력하세요.");
 					$('#pw').focus();
@@ -152,11 +157,22 @@
 					$('#name').focus();
 					return false;
 				}
+				
 				else if($('#phone').val().length != 13){															//전화번호 13자리 유효성 검사
 					alert("전번 정확히 써주세요");
 					$('#phone').focus();
 					return false;
 				}
+				else if($('#email').val().length < 1 || $('#email').val()==''){									//이메일 
+					alert("이메일 써주세요");
+					$('#email').focus();
+					return false;
+				}
+				else if($(':radio[name="level"]:checked').length < 1){
+				    alert('level 선택해주세요');                        
+				    return false;
+				}
+				
 /* 				else if(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test($('email').val())){			--> type="eamail로 대체"
 					alert("이메일 정확히 써주세요");
 					return false;ㄷ
@@ -165,10 +181,8 @@
 					$('#formCheck').submit();
 				}
 		});
-		
-		
-		
 	});
+	
 	<!-- 	<input type="text" name="resultType" value="json"/> <-- 요청 변수 설정 (검색결과형식 설정, json) --> 
 	<!-- 	<input type="text" name="confmKey" value="U01TX0FVVEgyMDIyMDYxNjE2MzExNTExMjY5ODQ="/>요청 변수 설정 (승인키) -->
 	<!-- 	<input type="button" onClick="getAddr();" value="주소검색하기"/>-->

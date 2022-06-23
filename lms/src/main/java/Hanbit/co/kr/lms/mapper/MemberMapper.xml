@@ -40,11 +40,59 @@
 	</insert>
 	<insert id="insertStudent"
 			parameterType="Hanbit.co.kr.lms.vo.Student">
-		
+		INSERT INTO student(
+			student_id
+			,student_pw
+			,student_name
+			,student_addr1
+			,student_addr2
+			,student_phone
+			,student_birth
+			,student_gender
+			,final_education
+			,student_email
+			,update_date
+		) VALUES(
+			#{studentId}
+			,Password(#{studentPw})
+			,#{studentName}
+			,#{studentAddr1}
+			,#{studentAddr2}
+			,#{studentPhone}
+			,#{studentBirth}
+			,#{studentGender}
+			,#{finalEducation}
+			,#{studentEmail}
+			,NOW()
+		);
 	</insert>
 	<insert id="insertTeacher"
 			parameterType="Hanbit.co.kr.lms.vo.Student">
-		
+		INSERT INTO teacher(
+			teacher_id
+			,teacher_pw
+			,teacher_name
+			,teacher_addr1
+			,teacher_addr2
+			,teacher_phone
+			,teacher_birth
+			,teacher_gender
+			,final_education
+			,teacher_email
+			,update_date
+		) VALUES(
+			#{teacherId}
+			,Password(#{teacherPw})
+			,#{teacherName}
+			,#{teacherAddr1}
+			,#{teacherAddr2}
+			,#{teacherPhone}
+			,#{teacherBirth}
+			,#{teacherGender}
+			,#{finalEducation}
+			,#{teacherEmail}
+			,NOW()
+		);
 	</insert>
 	<insert id="insertManager"
 			parameterType="Hanbit.co.kr.lms.vo.Student">
@@ -62,7 +110,7 @@
 		)
 		VALUES(
 			#{managerId}
-			,#{managerPw}
+			,Password(#{managerPw})
 			,#{managerName}
 			,#{managerAddr1}
 			,#{managerAddr2}
