@@ -72,7 +72,7 @@
 				<c:if test="${sessionMemberLv == 3}">
 					<!-- 공지사항 작성 버튼은 운영진에게만 보임 -->
 					<span class="float-end">
-						<a class="float-right btn btn-dark">글 작성</a>
+						<a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/notice/addNotice">글 작성</a>
 					</span>
 				</c:if>
 			<table class="table table-hover">

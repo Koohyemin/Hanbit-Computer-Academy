@@ -62,13 +62,16 @@
 			</tr>
 		</table>
 		<div>
-			<!-- 삭제버튼 -->
-			<form method="post" action="${pageContext.request.contextPath}/notice/deleteNotice" id="del" style="float:right">
-				<input type="hidden" name="managerNoticeNo" value="${managerNotice.managerNoticeNo}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
-				<input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
-			</form>
-			<!-- 수정버튼 -->
-			<a href="${pageContext.request.contextPath}/notice/updateNotice?managerNoticeNo=${managerNotice.managerNoticeNo}" class="btn btn-info" style="float:right">수정</a>
+			<!-- 운영자만 수정, 삭제 버튼을 볼 수 있음 -->
+			<c:if test="${sessionMemberLv == 3}">
+				<!-- 삭제버튼 -->
+				<form method="post" action="${pageContext.request.contextPath}/notice/deleteNotice" id="del" style="float:right">
+					<input type="hidden" name="managerNoticeNo" value="${managerNotice.managerNoticeNo}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
+					<input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
+				</form>
+				<!-- 수정버튼 -->
+				<a href="${pageContext.request.contextPath}/notice/updateNotice?managerNoticeNo=${managerNotice.managerNoticeNo}" class="btn btn-info" style="float:right">수정</a>
+			</c:if>
 		</div>
 			</div>
 				<div id="footer"></div>
