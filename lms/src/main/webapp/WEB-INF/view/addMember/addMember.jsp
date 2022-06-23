@@ -150,6 +150,7 @@
 	$( "#pw" ).blur(function() {
 		if(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/.test($('#pw').val())) {					
 			alert("영문, 숫자 혼용하여 8자리 이상 입력하세요.");
+			return false;
 		}
 	});
 	
@@ -157,6 +158,7 @@
 	$( "#pwCk" ).blur(function() {
 		if($('#pw').val() != $('#pwCk').val() ){ 
 			alert("입력하신 비밀번호가 다릅니다.");
+			return false;
 		}
 	});
 	

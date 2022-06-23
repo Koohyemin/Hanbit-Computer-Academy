@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.MemberMapper">
+	<!-- 회원가입 ID유효성-Member 테이블 ID -->
 	<select id="selectMember" 
 			resultType="Hanbit.co.kr.lms.vo.Member">
 		SELECT member_id memberId
 		FROM member;
 	</select>
-	
+	<!-- 회원가입-Member 테이블 삽입 -->
 	<insert id="insertMember"
 			parameterType="Hanbit.co.kr.lms.vo.Member">
 		INSERT INTO member(
@@ -25,6 +26,7 @@
 			,NOW()		
 		);
 	</insert>
+	<!-- 회원가입- 패스워드업데이트 날짜 테이블 삽입 -->
 	<insert id="insertPUD"
 			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
 		INSERT INTO password_update_date(
@@ -38,6 +40,7 @@
 			,NOW()		
 		);
 	</insert>
+	<!-- 회원가입-학생 테이블 삽입 -->
 	<insert id="insertStudent"
 			parameterType="Hanbit.co.kr.lms.vo.Student">
 		INSERT INTO student(
@@ -66,6 +69,7 @@
 			,NOW()
 		);
 	</insert>
+	<!-- 회원가입-강사 테이블 삽입 -->
 	<insert id="insertTeacher"
 			parameterType="Hanbit.co.kr.lms.vo.Student">
 		INSERT INTO teacher(
@@ -94,6 +98,7 @@
 			,NOW()
 		);
 	</insert>
+	<!-- 회원가입-운영자 테이블 삽입 -->
 	<insert id="insertManager"
 			parameterType="Hanbit.co.kr.lms.vo.Student">
 		INSERT INTO manager(
@@ -114,11 +119,56 @@
 			,#{managerName}
 			,#{managerAddr1}
 			,#{managerAddr2}
-			,#{phone}
+			,#{managerPhone}
 			,#{managerEmail}
 			,#{managerBirth}
 			,#{managerGender}
 			,NOW()		
 		);
 	</insert>
+	<!-- 회원가입-초기 사진 삽입 -->
+	<insert id="insertDefaultPhoto"
+			parameterType="Hanbit.co.kr.lms.vo.Member">
+		INSERT INTO photo_file(
+			member_id
+			,photo_name
+			,photo_original_name
+			,photo_type
+			,photo_size
+			,create_date
+			,update_date
+		) VALUES (
+			#{memberId}
+			,'defaultProfile'
+			,'defaultPhoto'
+			,'jpg'
+			,'230*230'
+			,NOW()
+			,NOW()
+		);
+	</insert>
+		<!--회원 승인- 리스트 출력  -->
+	<resultMap type="java.util.HashMap" id="waitingList">
+		 <id column="memberId" property="memberId"/>
+		 <id column="createDate" property="createDate"/>
+		 <id column="meberState" property="meberState"/>
+		 <id column="memberLevel" property="memberLevel"/>
+	</resultMap>
+	
+	<select id="selectMemberListByState"
+			resultMap="waitingList">
+		SELECT 
+			member_id memberId
+			,create_date createDate
+			,member_state meberState
+			,CASE member_level WHEN '1' THEN '학생'
+							   WHEN '2' THEN '강사'
+							   WHEN '3' THEN '운영자'
+							   ELSE 'error' END AS 'memberLevel'
+		FROM member
+		WHERE member_state = '1'
+	</select>
+
+
+		<!-- 회원 승인 -업데이트 -->
 </mapper>

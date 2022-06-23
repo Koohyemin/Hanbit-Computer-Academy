@@ -1,6 +1,7 @@
 package Hanbit.co.kr.lms.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +69,7 @@ public class MemberService {
 		
 		
 		memberMapper.insertMember(m);
+		memberMapper.insertDefaultPhoto(m);
 		memberMapper.insertPUD(PUD);
 		int row=memberMapper.insertStudent(st);
 		return row;
@@ -108,6 +110,7 @@ public class MemberService {
 		log.debug(CF.LKL+"memberMapper.addTeacher.tch : " + CF.RESET+ tch );
 		log.debug(CF.LKL+"memberMapper.addTeacher.PUD : " + CF.RESET+ PUD );
 		memberMapper.insertMember(m);
+		memberMapper.insertDefaultPhoto(m);
 		memberMapper.insertPUD(PUD);
 		int row=memberMapper.insertTeacher(tch);
 		return row;
@@ -146,9 +149,19 @@ public class MemberService {
 		log.debug(CF.LKL+"memberMapper.addManager.PUD : " + CF.RESET+ PUD );
 		
 		memberMapper.insertMember(m);
+		memberMapper.insertDefaultPhoto(m);
 		memberMapper.insertPUD(PUD);
 		int row=memberMapper.insertManager(mng);
 		
 		return row;
 	}
+	
+	public List<Map<String,Object>> authorizeMember() {
+
+		List<Map<String,Object>> waitingList = memberMapper.selectMemberListByState();
+		
+		return waitingList;
+	}
+	
+	
 }

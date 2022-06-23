@@ -2,16 +2,19 @@ package Hanbit.co.kr.lms.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import Hanbit.co.kr.lms.service.MemberService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.AddMember;
@@ -50,6 +53,16 @@ public class MemberController {
 			
 				return "redirect:/addMember/addMember";
 			}
+		}
+		
+		@GetMapping("authorizeMember")
+		public String authorizeMember(Model model) {
+			
+			List<Map<String, Object>> waitingList = memberService.authorizeMember();
+			model.addAttribute("waitingList",waitingList);
+			log.debug(CF.LKL+"MemberController.authorizeMember.waitingList : "+CF.RESET+waitingList);
+			
+			return "/addMember/auhorizeMember";
 		}
 	}
 
