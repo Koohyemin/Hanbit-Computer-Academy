@@ -126,7 +126,7 @@ public class MemberService {
 		mng.setManagerId(aM.getId());
 		mng.setManagerName(aM.getName());
 		mng.setManagerPw(aM.getPw());
-		mng.setPhone(aM.getPhone());
+		mng.setManagerPhone(aM.getPhone());
 		mng.setManagerAddr1(aM.getAddr1());
 		mng.setManagerAddr2(aM.getAddr2());
 		mng.setManagerBirth(aM.getPid1());		// 나이 인가? 주번인가?
