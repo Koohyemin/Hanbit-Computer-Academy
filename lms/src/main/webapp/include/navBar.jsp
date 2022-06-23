@@ -26,7 +26,7 @@
 
        		<!-- 공통 index -->
        		<c:if test="${sessionMemberLv == 1 }">
-       		<div class="sb-sidenav-menu-heading">Work</div>
+       		<div class="sb-sidenav-menu-heading">Study</div>
        		</c:if>
        		<c:if test="${sessionMemberLv != 1 }">
        		<div class="sb-sidenav-menu-heading">Work</div>

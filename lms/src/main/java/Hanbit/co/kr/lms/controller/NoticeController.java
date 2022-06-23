@@ -20,7 +20,12 @@ import lombok.extern.slf4j.Slf4j;
 public class NoticeController {
 	@Autowired NoticeService noticeService;
 	
-	// 공지사항 삭제
+	/**
+	 * 공지사항 삭제
+	 * @param managerNoticeNo
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/Notice/deleteNotice")
 	public String getDeleteNotice(int managerNoticeNo, Model model) {
 		int row = noticeService.getDeleteNotice(managerNoticeNo);
@@ -32,7 +37,12 @@ public class NoticeController {
 	
 		return "redirect:/Notice/noticeList"; // 공지 수정 후, 리스트로 돌아가기
 	}
-	// 공지사항 수정
+	/**
+	 * 공지사항 수정
+	 * @param managerNotice
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/Notice/updateNotice")
 	public String getUpdateNotice(ManagerNotice managerNotice, Model model) {
 		int row = noticeService.getUpdateNotic(managerNotice);
@@ -43,7 +53,12 @@ public class NoticeController {
 		}
 		return "redirect:/Notice/noticeOne?managerNoticeNo="+managerNotice.getManagerNoticeNo(); // 공지 수정 후, 리스트로 돌아가기
 	}
-	
+	/**
+	 * 
+	 * @param model
+	 * @param managerNoticeNo
+	 * @return
+	 */
 	@GetMapping("/Notice/updateNotice")
 	public String getUpdateNotice(Model model, @RequestParam(name="managerNoticeNo") int managerNoticeNo) {
 		// 수정시, 기존 입력 값 화면에 보여주기 위해 상세보기 값 불러오기
@@ -51,6 +66,11 @@ public class NoticeController {
 		model.addAttribute("managerNotice", managerNotice);
 		return "notice/updateNotice";
 	}
+	/**
+	 * 
+	 * @param managerNotice
+	 * @return
+	 */
 	// 공지사항 등록
 	@PostMapping("/Notice/addNotice")
 	public String getInsertNotice(ManagerNotice managerNotice) {
@@ -68,7 +88,12 @@ public class NoticeController {
 	public String getInsertNotice() {
 		return "notice/addNotice";
 	}
-	
+	/**
+	 * 
+	 * @param model
+	 * @param managerNoticeNo
+	 * @return
+	 */
 	// 공지사항 상세보기
 	@GetMapping("/Notice/noticeOne")
 	public String getNoticeOne(Model model, @RequestParam(name="managerNoticeNo") int managerNoticeNo) {
@@ -78,7 +103,14 @@ public class NoticeController {
 		model.addAttribute("managerNotice", managerNotice);
 		return "notice/getNoticeOne";
 	}
-	
+	/**
+	 * 
+	 * @param model
+	 * @param currentPage
+	 * @param rowPerPage
+	 * @param category
+	 * @return
+	 */
 	// 공지사항 리스트 및 페이징
 	@GetMapping("/Notice/noticeList")
 	public String getNoticeByPage(Model model,

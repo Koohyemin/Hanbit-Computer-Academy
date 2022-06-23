@@ -28,6 +28,8 @@
                 <i class="fas fa-chart-area me-1"></i>
                 Teacher
             </div>
+            
+            <!-- trigger 사용해서 $( "#btn" ).trigger( "click" ); -->
             <input type="text" name="searchValue" class="form-control" value="" placeholder="강사 이름을 입력해주세요">
             
             <!-- 강사소개 -->

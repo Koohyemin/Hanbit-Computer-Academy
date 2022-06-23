@@ -16,6 +16,7 @@
 				ON t.teacher_id = c.member_id
 			INNER JOIN lec_plan lp
 				ON t.teacher_id = lp.teacher_id
-		WHERE t.teacher_name LIKE '%'+#{searchValue}+'%'
+		WHERE CONCAT( '%', t.teacher_name , '%' ) LIKE CONCAT( '%', #{ searchValue }, '%' )
 	</select>
 </mapper>
+
