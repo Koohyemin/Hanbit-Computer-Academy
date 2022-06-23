@@ -91,10 +91,10 @@ public class LoginController {
 		
 		// 레벨을 가지고 있다면 index로 이동
 		if(returnMemberLv == 1 || returnMemberLv == 2 || returnMemberLv == 3) {
-			return "index";
+			return "redirect:/index";
 		}
 		
 		// 레벨값이 없으면 로그인으로
-		return "login";
+		return "redirect:/login";
 	}
 }
