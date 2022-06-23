@@ -154,7 +154,7 @@
             
             <!-- 공통 index -->
             <div class="sb-sidenav-menu-heading">Communication</div>
-            <a class="nav-link" href="${pageContext.request.contextPath}/Notice/noticeList">
+            <a class="nav-link" href="${pageContext.request.contextPath}/notice/noticeList">
                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                 공지사항
             </a>
