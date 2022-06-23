@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.ImformationMapper">
+	<select id="selectManagerPhoto"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.PhotoFile">
+		SELECT
+			photo_name photoName
+			,photo_type photoType
+		FROM manager INNER JOIN photo_file
+			ON manager_id = member_id
+		WHERE manager_id = #{managerId}
+	</select>
+		
+	<select id="selectManagerOne"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.Manager">
+		SELECT
+			manager_id managerId
+			,manager_name managerName
+			,manager_addr1 managerAddr1
+			,manager_addr2 managerAddr2
+			,manager_phone managerPhone
+			,manager_email managerEmail
+			,manager_birth mangerBirth
+			,manager_gender managerGender
+		FROM manager
+		WHERE manager_id = #{managerId}
+	</select>
+	
+	<select id="selectTeacherLecList"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.Lec">
+		SELECT
+			l.lecture_name lectureName
+			,l.subject_name subjectName
+			,l.create_date createDate
+		FROM teacher t INNER JOIN lec_plan lp
+		ON t.teacher_id = lp.teacher_id
+			INNER JOIN lec l
+				ON lp.lec_plan_no = l.lec_plan_no
+					
+		except
+	
+		SELECT
+			l.lecture_name lectureName
+			,l.subject_name subjectName
+			,l.create_date createDate
+		FROM teacher t INNER JOIN lec_plan lp
+			ON t.teacher_id = lp.teacher_id
+				INNER JOIN lec l
+					ON lp.lec_plan_no = l.lec_plan_no
+						INNER JOIN registration r
+							ON  l.lecture_name = r.lecture_name
+		WHERE t.teacher_id = #{teacherId}
+		ORDER BY createDate DESC;
+			
+	</select>
+	
+	<select id="selectTeacherPhoto"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.PhotoFile">
+		SELECT
+			photo_name photoName
+			,photo_type photoType
+		FROM teacher INNER JOIN photo_file
+			ON teacher_id = member_id 
+		WHERE teacher_id =  #{teacherId}
+	</select>
+	
+	<select id="selectRegistrationList"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.Lec">
+		SELECT
+			r.lecture_name lectureName
+			,l.subject_name subjectName
+			,r.create_date createDate
+		FROM teacher t INNER JOIN lec_plan lp
+			ON t.teacher_id = lp.teacher_id
+				INNER JOIN lec l
+					ON lp.lec_plan_no = l.lec_plan_no
+						INNER JOIN registration r
+							ON  l.lecture_name = r.lecture_name
+		WHERE t.teacher_id = #{teacherId}		
+	</select>
+	
+	<select id="selectTeacherCertification"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.Certification">
+		SELECT
+			certification_name certificationName
+			,certification_issued certificationIssued
+			,get_date	getDate
+		FROM teacher INNER JOIN certification
+			ON teacher_id = member_id
+		WHERE teacher_id = #{teacherId}
+	</select>
+	
+	<select id="selectTeacherOne"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.Teacher">
+		SELECT
+			teacher_id teacherId
+			,teacher_name teacherName
+			,teacher_addr1 teacherAddr1
+			,teacher_addr2 teacherAddr2
+			,teacher_phone teacherPhone
+			,teacher_email teacherEmail
+			,teacher_birth	teacherBirth
+			,teacher_gender teacherGender
+			,final_education FinalEducation
+		FROM teacher
+		WHERE teacher_id = #{teacherId}
+	</select>
+	<select id="selectStudentOne" 
+			parameterType="String" 
+			resultType="Hanbit.co.kr.lms.vo.Student">
+		SELECT 
+			student_id studentId
+			,student_name studentName
+			,student_addr1 studentAddr1
+			,student_addr2 studentAddr2
+			,student_phone studentPhone
+			,student_birth	studentBirth
+			,student_gender studentGender
+			,final_education finalEducation
+			,student_email	studentEmail
+		FROM 
+			student
+		WHERE student_id = #{studentId}
+	</select>
+	
+	<select id="selectStudentCertification"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.Certification">
+		SELECT 
+			certification_name certificationName
+			,certification_issued certificationIssued
+			,get_date getDate
+		FROM 
+			certification INNER JOIN student 
+		ON student_id = member_id 
+		WHERE student_id = #{studentId}
+	</select>
+	
+	<select id="selectLecList"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.Lec">
+		SELECT 
+			l.lecture_name lectureName
+			,l.subject_name subjectName
+			,l.create_date createDate
+		FROM
+			lec l INNER JOIN registration r
+		ON l.lecture_name = r.lecture_name INNER JOIN student s
+		ON s.student_id = r.student_id
+		WHERE s.student_id = #{studentId}
+	</select>
+	
+	<select id="selectStudentPhoto"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.PhotoFile">
+		SELECT 
+			photo_name photoName
+			,photo_type photoType
+		FROM student INNER JOIN photo_file
+		ON member_id = student_id 
+		WHERE student_id = #{studentId}
+	</select>
+</mapper>

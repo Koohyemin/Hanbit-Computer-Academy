@@ -19,14 +19,24 @@
         	<!-- 공통 index -->
             <div class="sb-sidenav-menu-heading">
                 My Page</div>
-            <a class="nav-link" href="#">
+            <c:choose>
+            	<c:when test="${sessionMemberLv == 1}">
+            		<a class="nav-link" href="${pageContext.request.contextPath}/student/getStudentOne">
+            	</c:when>
+            	<c:when test="${sessionMemberLv == 2}">
+            		<a class="nav-link" href="${pageContext.request.contextPath}/getTeacherOne">
+            	</c:when>
+             	<c:when test="${sessionMemberLv == 3}">
+            		<a class="nav-link" href="${pageContext.request.contextPath}/getManagerOne">
+            	</c:when>           	
+            </c:choose>
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 나의 정보
             </a>
 
        		<!-- 공통 index -->
        		<c:if test="${sessionMemberLv == 1 }">
-       		<div class="sb-sidenav-menu-heading">Study</div>
+       		<div class="sb-sidenav-menu-heading">Work</div>
        		</c:if>
        		<c:if test="${sessionMemberLv != 1 }">
        		<div class="sb-sidenav-menu-heading">Work</div>
@@ -144,7 +154,7 @@
             
             <!-- 공통 index -->
             <div class="sb-sidenav-menu-heading">Communication</div>
-            <a class="nav-link" href="${pageContext.request.contextPath}/notice/noticeList">
+            <a class="nav-link" href="${pageContext.request.contextPath}/Notice/noticeList">
                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                 공지사항
             </a>

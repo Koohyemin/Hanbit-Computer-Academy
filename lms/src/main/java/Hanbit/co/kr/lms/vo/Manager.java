@@ -9,7 +9,7 @@ public class Manager {
 	private String managerName; // 이름
 	private String managerAddr1; // 주소
 	private String managerAddr2; // 상세주소
-	private String phone; // 연락처
+	private String managerPhone; // 연락처
 	private String managerEmail; // 이메일
 	private String managerBirth; // 생년월일
 	private String managerGender; // 성별

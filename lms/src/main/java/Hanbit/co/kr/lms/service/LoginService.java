@@ -46,7 +46,7 @@ public class LoginService {
 		// member 디버깅
 		log.debug(CF.SWB+"[LoginService selectMemberId member]"+ member+CF.RESET);	
 		String error = null;
-		// member아이디를 찾았다면 로그 업데이트
+		// member아이디를 찾았다면 접속로그 업데이트
 		Map<String, Object> returnMap = new HashMap<>();
 		if(member != null) {
 			// 비승인 상태면 에러메세지 보내기
