@@ -21,7 +21,7 @@
          <br>
          <div class="row justify-content-center">
             <div class="col-lg-4">
-              <ul class="nav nav-tabs nav-justified">
+               <ul class="nav nav-tabs">
                   <li class="nav-item">
                      <c:choose>
                         <c:when test="${role eq 'student'}">
@@ -117,7 +117,15 @@
                   <span class="text-white">일치하는 정보가 없습니다.</span>
                   </c:if>
                   <c:if test="${check == 0}">
-                     <span class="text-white">찾으시는 PW는 [${Pw}]입니다.</span>
+                  
+                     <div class="text-white">
+						<form action="${pageContext.request.contextPath}/user/updatePw" method="post">
+							<input type="hidden" name="Id" value="${checkId}">
+							<input type="hidden" name="role"  value="${checkRole}">
+							<input type="password" name="pw" id="checkPassword" placeholder="변경하려는 비밀번호를 입력하세요.">	
+							<button type="submit">변경하기</button>						
+						</form>
+						</div>
                   </c:if>
                <hr class="bg-white">
                   <a class="btn btn-light btn-block" role="button" href="${pageContext.request.contextPath}/login">Login Page</a>

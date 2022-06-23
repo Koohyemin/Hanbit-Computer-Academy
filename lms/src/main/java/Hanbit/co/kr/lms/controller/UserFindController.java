@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import Hanbit.co.kr.lms.mapper.UserFindMapper;
 import Hanbit.co.kr.lms.service.UserFindService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Student;
@@ -84,7 +85,7 @@ public class UserFindController {
       return "user/findPw"; //포워딩
    }
 
-	//학생pw찾기 post
+	//pw찾기 post
 	@PostMapping("/user/findPw")
 	public String findPw(Model model
 			,@RequestParam(name="id") String id
@@ -104,30 +105,87 @@ public class UserFindController {
 		//학생이라면
 		if(role.equals("student")) {
 			Pw = userFindService.studentFindPw(id, name, phone);
+			//디버깅
+			log.debug( CF.KHN +"[UserController PostMapping findPw studentPw]:  "+Pw+ CF.RESET);
 		}
-		//디버깅
-		log.debug( CF.KHN +"[UserController PostMapping findPw studentPw]:  "+Pw+ CF.RESET);
 		
 		//강사라면
-		if(role.equals("teacher")) {
+		else if(role.equals("teacher")) {
 			Pw = userFindService.teacherFindPw(id, name, phone);
+			//디버깅
+			log.debug( CF.KHN +"[UserController PostMapping findPw teacherPw]:  "+Pw+ CF.RESET);	
 		}
-		//디버깅
-		log.debug( CF.KHN +"[UserController PostMapping findPw teacherPw]:  "+Pw+ CF.RESET);	
-		
+	
 		//운영자라면
-		if(role.equals("manager")) {
+		else if(role.equals("manager")) {
 			Pw = userFindService.managerFindPw(id, name, phone);
+			//디버깅
+			log.debug( CF.KHN +"[UserController PostMapping findPw teacherPw]:  "+Pw+ CF.RESET);
 		}
-		//디버깅
-		log.debug( CF.KHN +"[UserController PostMapping findPw teacherPw]:  "+Pw+ CF.RESET);	
+			
 		
 		if(Pw == null) { //Pw가 널값이라면
 			model.addAttribute("check", 1); //모델값 1로넘김
 		} else {
 			model.addAttribute("check", 0); //모델값 0으로 넘김
-			model.addAttribute("Pw", Pw); //Pw 넘김
+			model.addAttribute("checkId", id); //계정이 있을때 id값을 넘김
+			model.addAttribute("checkRole", role); //계정이 있을때 role값을 넘김
 		}
+
 		return "user/findPw";
+	}
+
+	//pw변경 post
+	@PostMapping("/user/updatePw")
+	public String modifyPw(Model model
+			,@RequestParam(name="Id") String Id
+			,@RequestParam(name="pw") String pw	
+			,@RequestParam(name="role") String role) {
+		
+		//id + pw + role 값 디버깅
+		log.debug( CF.KHN +"[UserController PostMapping modifyPw Id ]:  "+Id+ CF.RESET);
+		log.debug( CF.KHN +"[UserController PostMapping modifyPw pw ]:  "+pw+ CF.RESET);
+		log.debug( CF.KHN +"[UserController PostMapping modifyPw role ]:  "+role+ CF.RESET);
+		
+		//학생
+		if(role.equals("student")) {
+			int row = userFindService.studentUpdatePw(Id, pw);
+			
+			//수정확인
+			if(row==1) {
+				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력성공 ]:  "+ CF.RESET);
+				userFindService.passwordUpdate(Id, pw);
+			} else {
+				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력실패 ]:  "+ CF.RESET);
+			}
+
+		}
+		
+		//강사
+		if(role.equals("teacher")) {
+			int row = 	userFindService.teacherUpdatePw(Id, pw);
+			
+			//수정확인
+			if(row==1) {
+				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력성공 ]:  "+ CF.RESET);
+				userFindService.passwordUpdate(Id, pw);		
+			} else {
+				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력실패 ]:  "+ CF.RESET);
+			}
+		}
+		
+		//운영자
+		if(role.equals("manager")) {
+			int row = userFindService.managerUpdatePw(Id, pw);
+			
+			//수정확인
+			if(row==1) {
+				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력성공 ]:  "+ CF.RESET);
+				userFindService.passwordUpdate(Id, pw);	
+			} else {
+				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력실패 ]:  "+ CF.RESET);
+			}
+		}	
+		return "redirect:/login";
 	}
 }

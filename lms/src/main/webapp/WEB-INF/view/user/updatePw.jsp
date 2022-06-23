@@ -13,7 +13,7 @@
 			<tr>
 				<td>비밀번호 입력</td>
 				<td>
-					<input type="text" name="studentPw" placeholder="${student.studentPw}">
+				<input type="password" placeholder="비밀번호를 입력하세요">
 				</td>
 			</tr>
 		</table>

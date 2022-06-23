@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.UserFindMapper">
-	<!-- 학생id찾기 -->
+
 	<select id="studentFindId" parameterType="Hanbit.co.kr.lms.vo.Student"
 		resultType="String">
 		SELECT 
@@ -10,7 +10,6 @@
 		WHERE student_name = #{studentName} AND student_phone = #{studentPhone} 
 	</select>
 	
-	<!-- 학생pw찾기 -->
 	<select id="studentFindPw" parameterType="Hanbit.co.kr.lms.vo.Student"
 		resultType="String">
 			SELECT 
@@ -19,7 +18,6 @@
 			WHERE student_id = #{studentId} AND student_name = #{studentName} AND student_phone = #{studentPhone}
 		</select>
 		
-	<!-- 강사pw찾기 -->
 	<select id="teacherFindPw" parameterType="Hanbit.co.kr.lms.vo.Teacher"
 		resultType="String">
 			SELECT
@@ -28,7 +26,6 @@
 			WHERE teacher_id = #{teacherId} AND teacher_name = #{teacherName} AND teacher_phone = #{teacherPhone}	
 		</select>
 		
-	<!-- 운영자pw찾기 -->
 	<select id="managerFindPw" parameterType="Hanbit.co.kr.lms.vo.Manager"
 		resultType="String">
 		SELECT
@@ -37,15 +34,24 @@
 		WHERE manager_id = #{managerId} AND manager_name = #{managerName} AND manager_phone = #{managerPhone}	
 	</select>		
 	
+	<update id="studentUpdatePw" parameterType="Hanbit.co.kr.lms.vo.Student">
+		UPDATE student SET 
+			student_pw = PASSWORD(#{studentPw})
+		WHERE student_id = #{studentId}
+	</update>	
+	
+	<update id="teacherUpdatePw" parameterType="Hanbit.co.kr.lms.vo.Teacher">
+		UPDATE teacher SET
+			teacher_pw = PASSWORD(#{teacherPw})
+		WHERE teacher_id = #{teacherId}
+	</update>
+
+	<update id="managerUpdatePw" parameterType="Hanbit.co.kr.lms.vo.Manager">
+		UPDATE manager SET
+			manager_pw = PASSWORD(#{managerPw})
+		WHERE manager_id = #{managerId}	
+	</update>
 		
-		<!-- pw변경 -->
-		<update id="StudentUpdatePw" parameterType="String">
-			UPDATE student SET 
-				student_pw = #{studentPw}
-			WHERE student_id = #{studentId} and student_name = #{studentName} and student_phone = #{studentPhone} 
-		</update>	
-		
-	<!-- 강사id찾기 -->
 	<select id="teacherFindId" parameterType="Hanbit.co.kr.lms.vo.Teacher"
 		resultType="String">
 		SELECT
@@ -54,7 +60,6 @@
 		WHERE teacher_name = #{teacherName} AND teacher_phone = #{teacherPhone}	
 	</select>	
 	
-	<!-- 운영자id찾기 -->
 	<select id="managerFindId" parameterType="Hanbit.co.kr.lms.vo.Manager"
 		resultType="String">
 		SELECT 
@@ -62,4 +67,12 @@
 		FROM manager
 		WHERE manager_name = #{managerName} AND manager_phone = #{managerPhone} 
 	</select>
+	
+	<insert id="passwordUpdate" parameterType="String">
+		INSERT INTO password_update_date(member_id, member_pw, create_date
+		) VALUES (
+		#{id}
+		, PASSWORD(#{pw})
+		, now())
+	</insert>
 </mapper>

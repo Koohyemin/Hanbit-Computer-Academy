@@ -101,7 +101,7 @@
 						<div class="text-center text-white">
 						<hr class="bg-dark">
 						<a class="text-white text-decoration-none" href="${pageContext.request.contextPath}/user/findId">ID 찾기</a> &nbsp;&nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;&nbsp;
-						<a class="text-white text-decoration-none"href="#">PW 찾기</a>
+						<a class="text-white text-decoration-none"href="${pageContext.request.contextPath}/user/findPw">PW 찾기</a>
 						</div>
 					<div class="text-danger">
 						<c:if test="${error != null}">
