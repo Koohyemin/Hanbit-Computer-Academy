@@ -42,7 +42,7 @@ public class FaqService {
 	}
 
 	// faq 삭제
-	public int deleteFaq(int faqNo) {
-		return faqMapper.deleteFaq(faqNo);
-	}
+	public int getDeleteFaq(int faqNo) {
+		return faqMapper.getDeleteFaq(faqNo);
+	}    
 }

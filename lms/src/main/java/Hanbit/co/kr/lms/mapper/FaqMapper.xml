@@ -11,6 +11,7 @@
 			,update_date updateDate
 		FROM faq
 		WHERE faq_no=${faqNo}
+		order BY faq_no
 	</select>
 	
 	<select id="getFaqListByPage" resultType="Hanbit.co.kr.lms.vo.Faq">
@@ -40,7 +41,7 @@
 		)
 	</insert>
 	
-	<delete id="deleteFaq"
+	<delete id="getDeleteFaq"
             parameterType="Hanbit.co.kr.lms.vo.Faq">
 	         DELETE FROM
 	            faq

@@ -63,26 +63,17 @@ public class FaqController {
 	
 		
 	// 삭제 엑션	
-	@PostMapping("/faq/deleteFaq")	
-	public String deleteFaq(int faqNo) {
-		int row = faqService.deleteFaq(faqNo);
-		if(row == 1) {
-			log.debug(CF.KHV + "[FaqController postMapping deleteFaq] : 입력 성공" + CF.RESET); // 성공 디버깅
-		} else {
-			log.debug(CF.KHV + "[FaqController postMapping deleteFaq] : 입력 실패" + CF.RESET); // 실패 디버깅
+		@PostMapping("/faq/deleteFaq")
+		public String getDeleteFaq(int faqNo, Model model) {
+			int row = faqService.getDeleteFaq(faqNo);
+			if(row == 1) {
+				log.debug(CF.KHM + "[FaqController postMapping addFaq] : 공지 삭제 성공" + CF.RESET); // 성공 디버깅
+			} else {
+				log.debug(CF.KHM + "[FaqController postMapping addFaq] : 공지 삭제 실패" + CF.RESET); // 실패 디버깅
+			}
+		
+			return "redirect:/faq/getFaqListByPage"; // 공지 수정 후, 리스트로 돌아가기
 		}
-		return "faq/deleteFaq";
-	}
-	// 삭제 폼
-	@GetMapping("/faq/deleteFaq")
-	public String deleteFaq(Model model, @RequestParam(name="faqNo") int faqNo) {
-		log.debug( CF.KHV +"[FaqController GetMapping faqNo]: "+ faqNo + CF.RESET);
-		Faq faq = new Faq();
-		faq = (Faq)faqService.getFaqOne(faqNo);
-		model.addAttribute("faq", faq);
-		log.debug( CF.KHV +"[FaqController GetMapping faq]: "+ faq + CF.RESET);
-		return "faq/deleteFaq";
-	}
 	
 		
 }

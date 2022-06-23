@@ -33,8 +33,9 @@
 			               <table class="table">
 			                   <thead>
 			                       <tr>
-			                           <th>번호</th>
+			                           	<th>번호</th>
 						                <th>제목</th>
+						                <th>작성자</th>
 						                <th>날짜</th>
 			                       </tr>
 			                   </thead>
@@ -42,13 +43,16 @@
 						            <c:forEach var="Faq" items="${faqList}">
 						                <tr>
 						                   <td>${Faq.faqNo}</td>
-						                    <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/faq/getFaqOne?faqNo=${Faq.faqNo}">${Faq.title}</a></td>
+						                   <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/faq/getFaqOne?faqNo=${Faq.faqNo}">${Faq.title}</a></td>
+						                   <td>${Faq.managerId}</td>
 						                   <td>${Faq.createDate}</td>
 						                </tr>
 						            </c:forEach>
 						        </tbody>
 		              		 </table>
-       							<a class="btn btn-default" href="${pageContext.request.contextPath}/faq/addFaq">FAQ입력</a>
+		              		 <c:if test="${sessionMemberLv == 3 }">
+       							<a class="btn btn-dark" href="${pageContext.request.contextPath}/faq/addFaq">FAQ입력</a>
+       							</c:if>
 	                	</div>   
 	                	</div>     
 				<div id="footer"></div>
@@ -56,6 +60,7 @@
 		</div>
 	</div>
 </body>
+
 	<script>
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');

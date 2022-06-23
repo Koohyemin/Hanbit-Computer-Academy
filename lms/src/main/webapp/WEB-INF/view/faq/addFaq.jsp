@@ -32,20 +32,17 @@
 			<form method="post" action="${pageContext.request.contextPath}/faq/addFaq">
 				<table class="table">
 					<tr>
-						<th class="text-center">등록자</th>
 						<td> 
-							<input name="managerId" type="text" value="admin" readonly="readonly" class="form-control">
+							<input name="managerId" type="text" value="${sessionMemberId}" readonly="readonly" class="form-control">
 						</td>
 					</tr>
 					<tr>
-						<th class="text-center">제목</th>
 						<td>
 							<input name="title" id="title" type="text" class="form-control" placeholder="제목을 입력해주세요">
 							<span id="helpTitle"></span>
 						</td>
 					</tr>
 					<tr>
-						<th class="text-center" style="vertical-align: middle">내용</th>
 						<td>
 							<textarea name="content" id="content" class="form-control" placeholder="Faq 내용을 입력해주세요" cols="50" rows="8"></textarea>
 							<span id="helpContent"></span>
@@ -64,17 +61,18 @@
 	$('#btnFqa').click(function () {
 		if($('#title').val() == ''){
 			$('#helpTitle').text('아이디를 입력해주세요');
+			return false;
 		} else {
 			$('#helpTitle').text('');
 		}
 		if($('#content').val() == '') {
 			$('#helpContent').text('비밀번호를 입력해주세요');
+			return false;
 		} else {
 			$('#helpContent').text('');
 		}
 		if($('#title').val() != '' && $('#content').val() != '') {
 			$("#btnFqa").submit();
-			$('#btnFqa').text('왜 안넘어가나요');
 		}
 		
 	})

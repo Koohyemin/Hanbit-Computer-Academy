@@ -14,43 +14,54 @@
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
-	<div id="nav"></div>
-	<div id="layoutSidenav">
+   <div id="nav"></div>
+   <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-			<div id="navbar"></div>
-		</div>
+         <div id="navbar"></div>
+      </div>
        <div id="layoutSidenav_content">
-			<div class="container-fluid px-4">
+         <div class="container-fluid px-4">
                 <!-- 컨텐츠 삽입 부분-->
+                <br>
+        	<div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-chart-area me-1"></i>
+                FAQ
+            </div>
+			<br><br>
                  <!-- FAQ 상세보기  -->
-                   <table class="table table-striped">
+                   <table class="table">
                            <tr>
                               <th>번호</th>
-                              <td>"${faq.faqNo}"</td>
+                              <td><span class="form-control">"${faq.faqNo}"</span></td>
                            </tr>
                               <th>제목</th>
-                              <td>"${faq.title}"</td>
+                              <td><span class="form-control">"${faq.title}"</span></td>
                            <tr>
                               <th>내용</th>
-                              <td>"${faq.content}"</td>
+                              <td><textarea class="form-control" rows="10" cols="8">"${faq.content}"</textarea></td>
                            </tr>
                       </table>
 
-		              		 <div>
-					              <a class="btn" href="${pageContext.request.contextPath}/faq/deleteFaq?faqNo=${Faq.faqNo}">삭제</a>
-					    </div>
+                           <div>
+                              <c:if test="${sessionMemberLv == 3 }">
+                           <form method="post" action="${pageContext.request.contextPath}/faq/deleteFaq"  style="float:right">
+                           <input type="hidden" name="faqNo" value="${faq.faqNo}" >
+                           <input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
+                           </c:if>
+                      </div>
 
-	                	</div>     
-				<div id="footer"></div>
-			</div>
-		</div>
+                      </div>     
+            <div id="footer"></div>
+         </div>
+      </div>
 </body>
-	<script>
-    	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
-    	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
-    	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-   	</script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+   <script>
+       $('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
+       $('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
+       $('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+      </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="assets/demo/chart-area-demo.js"></script>
