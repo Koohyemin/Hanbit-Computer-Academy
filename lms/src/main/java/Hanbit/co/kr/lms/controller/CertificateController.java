@@ -3,11 +3,12 @@ package Hanbit.co.kr.lms.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.service.CertificateService;
 import Hanbit.co.kr.lms.util.CF;
@@ -21,7 +22,10 @@ public class CertificateController {
 	// 납부 고지서 출력
 	@GetMapping("/certificate/paymentStudent")
 	public String paymentStudent(Model model
-			,@RequestParam (name="studentId" , defaultValue = "student1") String studentId) {
+			,HttpSession session) {
+		
+		//세션에 있는 아이디 값 가져옴
+		String studentId = (String) session.getAttribute("sessionMemberId");
 		
 		// 학생 아이디 값 받아옴
 		log.debug( CF.KYJ +"[CertificateController GetMapping paymentStudent studentId]: "+ studentId + CF.RESET);
