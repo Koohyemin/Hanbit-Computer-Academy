@@ -39,7 +39,22 @@ public class NoticeService {
 	
 	// 공지사항 리스트
 	public Map<String, Object> getNoticeListByPage(int currentPage, int rowPerPage, String category) {
+		/*
+		 * 공통 세션 결정 이후 추가 예정 / 권한별 분기
+		// 카테고리를 이용해 권한별 세션체크
+		if(category.equals("전체")) { // 비로그인 상태이면 로그인 페이지로 이동
+			
+			
+		} else if(category.equals("학생")) { // 비로그인 상태이면 로그인 페이지로 이동, 강사가 접근한다면 
+			
+			
+		} else if(category.equals("강사")) { // 비로그인 상태이면 로그인 페이지로 이동, 학생이 접근한다면
+			
+		}
+		*/
+		
 		int beginRow = (currentPage-1) * rowPerPage; // 현재페이지를 이용하여 시작페이지 계산
+		
 		
 		Map<String, Object> map = new HashMap<>();
 		map.put("beginRow", beginRow); // 시작 페이지

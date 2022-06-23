@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import Hanbit.co.kr.lms.mapper.TeacherMapper;
+import Hanbit.co.kr.lms.util.CF;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -19,10 +20,9 @@ public class TeacherService {
 	// 강사 목록
 	public Map<String,Object> getTeacherList(String searchValue) {
 	Map<String,Object> returnMap = new HashMap<>();	
-	searchValue = "";
-	if(searchValue!=null && "".equals("searchValue")) {
-		
-	}
+	
+	log.debug(CF.KHM + "[TeacherController getMapping searchValue]" + searchValue + CF.RESET);
+	
 	List<Map<String,Object>> teacherList = teacherMapper.getTeacherList(searchValue);
 	
 	returnMap.put("searchValue", searchValue);

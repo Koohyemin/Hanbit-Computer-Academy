@@ -35,14 +35,14 @@
                 Notice
             </div>
             </div>
-			<a href="${pageContext.request.contextPath}/Notice/noticeList" class="btn btn-dark" style="float:right">이전으로</a>
+			<a href="${pageContext.request.contextPath}/notice/noticeList" class="btn btn-dark" style="float:right">이전으로</a>
 			<br><br>
-			<form method="post" id="addNoticeForm" action="${pageContext.request.contextPath}/Notice/addNotice">
+			<form method="post" id="addNoticeForm" action="${pageContext.request.contextPath}/notice/addNotice">
 				<table class="table">
 					<tr>
 						<th class="text-center">등록자</th>
 						<td> <!-- pull받은 이후 value ${sessionMemberId}로 수정 -->
-							<input name="managerId" type="text" value="admin" readonly="readonly" class="form-control">
+							<input name="managerId" type="text" value="${sessionMemberId}" readonly="readonly" class="form-control">
 						</td>
 					</tr>
 					<tr>

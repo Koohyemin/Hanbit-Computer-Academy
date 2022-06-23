@@ -21,8 +21,9 @@ public class TeacherController {
 	@GetMapping("/teacher/teacherList")
 	public String getTeacherList(Model model, @RequestParam(name="searchValue", defaultValue="") String searchValue) {
 		List<Map<String,Object>> list = (List<Map<String,Object>>)teacherService.getTeacherList(searchValue).get("teacherList"); // 강사 리스트
-	
-		log.debug( CF.KHM +"[TeacherService GetMapping searchValue]: "+ searchValue + CF.RESET);
+		log.debug( CF.KHM +"[TeacherService GetMapping searchValue] : "+ searchValue + CF.RESET);
+		log.debug(CF.KHM + "[TeacherController getMapping list.size]" + list.size() + CF.RESET);
+		
 		model.addAttribute("teacherList", list);
 		model.addAttribute("searchValue", searchValue);
 		return "teacher/teacherList";

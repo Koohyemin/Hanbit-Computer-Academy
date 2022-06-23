@@ -15,20 +15,20 @@
 				<li class="nav-item">
 					<c:choose>
 						<c:when test="${category eq '전체'}">
-							<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=전체">전체</a> <!-- 기본값이 전체로 잡혀있기 때문에 현제 페이지로 이동하도록 조건을 잡아놓음 -->
+							<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=전체">전체</a> <!-- 기본값이 전체로 잡혀있기 때문에 현제 페이지로 이동하도록 조건을 잡아놓음 -->
 						</c:when>
 						<c:otherwise>
-						    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=전체">전체</a>
+						    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=전체">전체</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
 				<li class="nav-item">
 					<c:choose>
 						<c:when test="${category eq '학생'}">
-						    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=학생">학생</a>
+						    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=학생">학생</a>
 						</c:when>
 						<c:otherwise>
-							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=학생">학생</a>
+							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=학생">학생</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
@@ -40,20 +40,20 @@
 				<li class="nav-item">
 					<c:choose>
 						<c:when test="${category eq '전체'}">
-							<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=전체">전체</a> <!-- 기본값이 전체로 잡혀있기 때문에 현제 페이지로 이동하도록 조건을 잡아놓음 -->
+							<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=전체">전체</a> <!-- 기본값이 전체로 잡혀있기 때문에 현제 페이지로 이동하도록 조건을 잡아놓음 -->
 						</c:when>
 						<c:otherwise>
-						    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=전체">전체</a>
+						    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=전체">전체</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
 				<li class="nav-item">
 					<c:choose>
 						<c:when test="${category == '강사'}">
-						    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=강사">강사</a>
+						    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=강사">강사</a>
 						</c:when>
 						<c:otherwise>
-							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=강사">강사</a>
+							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=강사">강사</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
@@ -65,30 +65,30 @@
 				<li class="nav-item">
 					<c:choose>
 						<c:when test="${category eq '전체'}">
-							<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=전체">전체</a> <!-- 기본값이 전체로 잡혀있기 때문에 현제 페이지로 이동하도록 조건을 잡아놓음 -->
+							<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=전체">전체</a> <!-- 기본값이 전체로 잡혀있기 때문에 현제 페이지로 이동하도록 조건을 잡아놓음 -->
 						</c:when>
 						<c:otherwise>
-						    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=전체">전체</a>
+						    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=전체">전체</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
 				<li class="nav-item">
 					<c:choose>
 						<c:when test="${category == '강사'}">
-						    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=강사">강사</a>
+						    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=강사">강사</a>
 						</c:when>
 						<c:otherwise>
-							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=강사">강사</a>
+							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=강사">강사</a>
 						</c:otherwise>
 					</c:choose>
 				</li>
 				<li class="nav-item">
 					<c:choose>
 						<c:when test="${category eq '학생'}">
-						    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=학생">학생</a>
+						    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=학생">학생</a>
 						</c:when>
 						<c:otherwise>
-							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=학생">학생</a>
+							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=학생">학생</a>
 						</c:otherwise>
 					</c:choose>
 				</li>

@@ -30,45 +30,51 @@
             </div>
             
             <!-- trigger 사용해서 $( "#btn" ).trigger( "click" ); -->
-            <input type="text" name="searchValue" class="form-control" value="" placeholder="강사 이름을 입력해주세요">
+            <div class="col-lg-6 col-6">
+	            <div class="col-lg-4 col-4">
+	           		<input type="text" name="searchValue" class="form-control" value="" placeholder="강사 이름을 입력해주세요">
+	            </div>
+	            <div>
+		      		<span><a class="btn btn-dark">검색</a></span>
+	            </div>
+            </div>
             
             <!-- 강사소개 -->
             <c:forEach var="map" items="teacherList">
 	            <div class="col-lg-6 col-md-6 col-12">
 	            
-					<div class="card" data-wow-delay=".2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-					<div class="row">
-					
-					<div class="col-lg-5 col-12">
-					<!-- 사진 -->
-					<div class="image">
-					<img src="" alt="">
-					</div>
-					
-					</div>
-					<div class="col-lg-7 col-12">
-					<div class="info-head">
-					
-					<div>
-					<!-- 이름 -->
-					<h4>강사 이름</h4>
-					<!-- 강사 소개 / 우리는 현재 맡은 수업 이름 -->
-					<p>행복을 선언하고 행복을 호출하면 행복이 실행됩니다^^</p>
-					</div>
-					<!-- 담당 과목 -->
-					<span class="designation">JAVA/SPRING</span>
-					
-					<!-- 아이콘 리스트 -->
-					<ul class="social">
-						<li><a href="#"><i class="lni lni-facebook-filled"></i></a></li>
-						<li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
-						<li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
-						<li><a href="#"><i class="lni lni-behance-original"></i></a></li>
-					</ul>
-					
-					</div>
-					</div>
-					</div>
+					<div class="card">
+						<div class="row">
+						
+						<div class="col-lg-5 col-12">
+						<!-- 사진 -->
+						<div class="image">
+						<img src="" alt="">
+						</div>
+						
+						</div>
+							<div class="col-lg-7 col-12">
+								<div class="info-head">
+								
+									<div>
+										<!-- 이름 -->
+										<h4>강사 이름</h4>
+										<!-- 강사 소개 / 우리는 현재 맡은 수업 이름 -->
+										<p>행복을 선언하고 행복을 호출하면 행복이 실행됩니다^^</p>
+									</div>
+									<!-- 담당 과목 -->
+									<span class="designation">JAVA/SPRING</span>
+									
+									<!-- 아이콘 리스트 -->
+									<ul class="social">
+										<li><a href="#"><i class="lni lni-facebook-filled"></i></a></li>
+										<li><a href="#"><i class="lni lni-twitter-original"></i></a></li>
+										<li><a href="#"><i class="lni lni-linkedin-original"></i></a></li>
+										<li><a href="#"><i class="lni lni-behance-original"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
             </c:forEach>

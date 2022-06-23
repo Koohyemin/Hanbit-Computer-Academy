@@ -21,7 +21,7 @@
 		</div>
        <div id="layoutSidenav_content">
 			<div class="container-fluid px-4">
-                <!-- 컨텐츠 삽입 부분-->
+     	<!-- 컨텐츠 삽입 부분-->
 			<br>
         	<div class="card mb-4">
             <div class="card-header">
@@ -29,43 +29,52 @@
                 Notice
             </div>
             </div>
-			<a href="${pageContext.request.contextPath}/Notice/addNotice" class="btn btn-dark" style="float:right;">공지 작성</a>
-			<br><br>
-			<!-- 전체, 학생, 강사 구분 탭 -->
-				<!-- 1학생 2강사 3관리자 -->
-				<!-- 학생에게는 전체공지와 학생공지를 보여준다. -->
-				<ul class="nav nav-tabs">
+			<!-- 상단 전체, 강사, 학생별 공지사항 보기 nav바 -->
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<!-- 운영자, 강사, 학생 모두 확인 가능 -->
+					<c:choose>
+						<c:when test="${category eq '전체'}">
+							<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=전체">전체</a> <!-- 기본값이 전체로 잡혀있기 때문에 현제 페이지로 이동하도록 조건을 잡아놓음 -->
+						</c:when>
+						<c:otherwise>
+						    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=전체">전체</a>
+						</c:otherwise>
+					</c:choose>
+				</li>
+				<!-- 운영자, 강사만 확인 가능 -->
+				<c:if test="${sessionMemberLv == 2 || sessionMemberLv == 3}">
 					<li class="nav-item">
 						<c:choose>
-							<c:when test="${category eq '전체'}">
-								<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=전체">전체</a> <!-- 기본값이 전체로 잡혀있기 때문에 현제 페이지로 이동하도록 조건을 잡아놓음 -->
+							<c:when test="${category eq '강사'}">
+							    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=강사">강사</a>
 							</c:when>
 							<c:otherwise>
-							    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=전체">전체</a>
+								<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=강사">강사</a>
 							</c:otherwise>
 						</c:choose>
 					</li>
-					<li class="nav-item">
-						<c:choose>
-							<c:when test="${category == '강사'}">
-							    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=강사">강사</a>
-							</c:when>
-							<c:otherwise>
-								<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=강사">강사</a>
-							</c:otherwise>
-						</c:choose>
-					</li>
+				</c:if>
+				<!-- 학생, 운영자 확인 가능 -->
+				<c:if test="${sessionMemberLv == 1 || sessionMemberLv == 3}">
 					<li class="nav-item">
 						<c:choose>
 							<c:when test="${category eq '학생'}">
-							    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=학생">학생</a>
+							    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=학생">학생</a>
 							</c:when>
 							<c:otherwise>
-								<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/Notice/noticeList?category=학생">학생</a>
+								<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/notice/noticeList?category=학생">학생</a>
 							</c:otherwise>
 						</c:choose>
 					</li>
-				</ul>
+				</c:if>
+			</ul>
+				<c:if test="${sessionMemberLv == 3}">
+					<!-- 공지사항 작성 버튼은 운영진에게만 보임 -->
+					<span class="float-end">
+						<a class="float-right btn btn-dark">글 작성</a>
+					</span>
+				</c:if>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -81,7 +90,7 @@
 						<tr>
 							<td class="text-center">${notice.managerNoticeNo}</td>
 							<td class="text-center">${notice.category}</td>
-							<td class="col-md-4"><a href="${pageContext.request.contextPath}/Notice/noticeOne?managerNoticeNo=${notice.managerNoticeNo}" style="text-decoration: none;">${notice.managerNoticeTitle}</a></td>
+							<td class="col-md-4"><a href="${pageContext.request.contextPath}/notice/noticeOne?managerNoticeNo=${notice.managerNoticeNo}" style="text-decoration: none;">${notice.managerNoticeTitle}</a></td>
 							<td class="text-center">${notice.managerId}</td>
 							<td class="text-center">${notice.createDate}</td>
 						</tr>
@@ -90,10 +99,10 @@
 			</table>
 			<div class="text-center">
 				<c:if test="${currentPage>1}">
-					<a href="${pageContext.request.contextPath}/Notice/noticeList?currentPage=${currentPage-1}&&category=${category}" class="btn btn-dark">이전</a>
+					<a href="${pageContext.request.contextPath}/notice/noticeList?currentPage=${currentPage-1}&&category=${category}" class="btn btn-dark">이전</a>
 				</c:if>
 				<c:if test="${lastPage>currentPage}">
-					<a href="${pageContext.request.contextPath}/Notice/noticeList?currentPage=${currentPage+1}&&category=${category}" class="btn btn-dark">다음</a>
+					<a href="${pageContext.request.contextPath}/notice/noticeList?currentPage=${currentPage+1}&&category=${category}" class="btn btn-dark">다음</a>
 				</c:if>
 			</div>
 			</div>

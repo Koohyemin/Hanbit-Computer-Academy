@@ -26,7 +26,7 @@ public class NoticeController {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("/Notice/deleteNotice")
+	@PostMapping("/notice/deleteNotice")
 	public String getDeleteNotice(int managerNoticeNo, Model model) {
 		int row = noticeService.getDeleteNotice(managerNoticeNo);
 		if(row == 1) {
@@ -35,7 +35,7 @@ public class NoticeController {
 			log.debug(CF.KHM + "[NoticeController postMapping addNotice] : 공지 삭제 실패" + CF.RESET); // 실패 디버깅
 		}
 	
-		return "redirect:/Notice/noticeList"; // 공지 수정 후, 리스트로 돌아가기
+		return "redirect:/notice/noticeList"; // 공지 수정 후, 리스트로 돌아가기
 	}
 	/**
 	 * 공지사항 수정
@@ -43,7 +43,7 @@ public class NoticeController {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping("/Notice/updateNotice")
+	@PostMapping("/notice/updateNotice")
 	public String getUpdateNotice(ManagerNotice managerNotice, Model model) {
 		int row = noticeService.getUpdateNotic(managerNotice);
 		if(row == 1) {
@@ -51,7 +51,7 @@ public class NoticeController {
 		} else {
 			log.debug(CF.KHM + "[NoticeController postMapping addNotice] :"+managerNotice.getManagerNoticeNo()+"번 공지 수정 실패" + CF.RESET); // 실패 디버깅
 		}
-		return "redirect:/Notice/noticeOne?managerNoticeNo="+managerNotice.getManagerNoticeNo(); // 공지 수정 후, 리스트로 돌아가기
+		return "redirect:/notice/noticeOne?managerNoticeNo="+managerNotice.getManagerNoticeNo(); // 공지 수정 후, 리스트로 돌아가기
 	}
 	/**
 	 * 
@@ -59,7 +59,7 @@ public class NoticeController {
 	 * @param managerNoticeNo
 	 * @return
 	 */
-	@GetMapping("/Notice/updateNotice")
+	@GetMapping("/notice/updateNotice")
 	public String getUpdateNotice(Model model, @RequestParam(name="managerNoticeNo") int managerNoticeNo) {
 		// 수정시, 기존 입력 값 화면에 보여주기 위해 상세보기 값 불러오기
 		ManagerNotice managerNotice = noticeService.getNoticeOne(managerNoticeNo);
@@ -72,7 +72,7 @@ public class NoticeController {
 	 * @return
 	 */
 	// 공지사항 등록
-	@PostMapping("/Notice/addNotice")
+	@PostMapping("/notice/addNotice")
 	public String getInsertNotice(ManagerNotice managerNotice) {
 		int row = noticeService.getInsertNotice(managerNotice);
 		if(row == 1) {
@@ -81,10 +81,10 @@ public class NoticeController {
 			log.debug(CF.KHM + "[NoticeController postMapping addNotice] : 공지 입력 실패" + CF.RESET); // 실패 디버깅
 		}
 	
-		return "redirect:/Notice/noticeList"; // 공지 입력 후, 리스트로 돌아가기
+		return "redirect:/notice/noticeList"; // 공지 입력 후, 리스트로 돌아가기
 	}
 	
-	@GetMapping("/Notice/addNotice")
+	@GetMapping("/notice/addNotice")
 	public String getInsertNotice() {
 		return "notice/addNotice";
 	}

@@ -35,9 +35,9 @@
                 Notice
             </div>
             </div>
-		<a href="${pageContext.request.contextPath}/Notice/noticeOne?managerNoticeNo=${managerNotice.managerNoticeNo}" class="btn btn-dark" style="float:right">이전으로</a>
+		<a href="${pageContext.request.contextPath}/notice/noticeOne?managerNoticeNo=${managerNotice.managerNoticeNo}" class="btn btn-dark" style="float:right">이전으로</a>
 		<br><br>
-		<form method="post" id="updateNoticeForm" action="${pageContext.request.contextPath}/Notice/updateNotice">
+		<form method="post" id="updateNoticeForm" action="${pageContext.request.contextPath}/notice/updateNotice">
 			<table class="table">
 				<tr>
 					<th class="text-center">번호</th>
