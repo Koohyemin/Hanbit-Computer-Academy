@@ -15,6 +15,9 @@ import Hanbit.co.kr.lms.vo.Teacher;
 
 @Mapper
 public interface ImformationMapper {
+	// 학생 정보업데이트
+	String updateStudent(Student student);
+	
 	// 학생 상세보기
 	Student selectStudentOne(String studentId);
 	

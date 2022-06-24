@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>studentOne</title>
+<title>imformationMember</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="../css/styles.css" rel="stylesheet" />
@@ -27,6 +28,7 @@
 	                    <div class="card-header">
 	                        <i class="fas fa-chart-area me-1"></i>
 								나의 정보
+								<a class="btn btn-dark" role="button" href="${pageContext.request.contextPath}/student/modifyStudent">수정하기</a>
 	                    </div>
 	                    <div class="card-body">
 							<div class="row"> 
@@ -49,7 +51,7 @@
 						        		</div>
 			        					<br>
 				        				<div>
-			        						▶ 아이디 : ${student.studentId}</li>
+			        						▶ 아이디 : ${student.studentId}
 							        	</div>
 			        					<br>
 			        					<div>
@@ -93,7 +95,7 @@
 					        		</div>
 		        					<br>
 			        				<div>
-		        						▶ 아이디 : ${teacher.teacherId}</li>
+		        						▶ 아이디 : ${teacher.teacherId}
 						        	</div>
 		        					<br>
 		        					<div>
@@ -137,7 +139,7 @@
 					        		</div>
 		        					<br>
 			        				<div>
-		        						▶ 아이디 : ${manager.managerId}</li>
+		        						▶ 아이디 : ${manager.managerId}
 						        	</div>
 		        					<br>
 		        					<div>
@@ -201,32 +203,46 @@
 		        				<tbody>
 		        				<c:choose>
 		        					<c:when test="${sessionMemberLv == 2}">
-				        				<c:forEach var="r" items="${registrationList}">
-				        					<tr>
-				        						<td class="text-center"><a target='_blank' href="${pageContext.request.contextPath}/#">${r.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
-				        						<td class="text-center">${r.subjectName}</td>
-				        						<td class="text-center text-danger">수업 진행중</td>
-				        						<td class="text-center">${r.createDate}</td>
-				        					</tr>		        				
-				        				</c:forEach>
-				        				<c:forEach var="l" items="${lecList}">
-				        					<tr>
-				        						<td class="text-center"><a target='_blank' href="${pageContext.request.contextPath}/#">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
-				        						<td class="text-center">${l.subjectName}</td>
-				        						<td class="text-center">수강 신청기간</td>
-				        						<td class="text-center">${l.createDate}</td>
-				        					</tr>
-				        				</c:forEach>
+		        						<c:choose>
+			        						<c:when test="${fn:length(lecList) > 0}">
+						        				<c:forEach var="r" items="${registrationList}">
+						        					<tr>
+						        						<td class="text-center"><a target='_blank' href="${pageContext.request.contextPath}/#">${r.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
+						        						<td class="text-center">${r.subjectName}</td>
+						        						<td class="text-center text-danger">수업 진행중</td>
+						        						<td class="text-center">${r.createDate}</td>
+						        					</tr>		        				
+						        				</c:forEach>
+						        				<c:forEach var="l" items="${lecList}">
+						        					<tr>
+						        						<td class="text-center"><a target='_blank' href="${pageContext.request.contextPath}/#">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
+						        						<td class="text-center">${l.subjectName}</td>
+						        						<td class="text-center">수강 신청기간</td>
+						        						<td class="text-center">${l.createDate}</td>
+						        					</tr>
+						        				</c:forEach>
+			        						</c:when>
+						        			<c:otherwise>
+						        				<td class="text-center text-danger" colspan="4">계설된 강좌가 없습니다.</td>
+						        			</c:otherwise>
+		        						</c:choose>
 		        					</c:when>
 		        					<c:when test="${sessionMemberLv == 1}">
-				        				<c:forEach var="l" items="${lecList}">
-				        					<tr>
-				        						<td class="text-center"><a target='_blank' href="${pageContext.request.contextPath}/#">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
-				        						<td class="text-center">${l.subjectName}</td>
-				        						<td class="text-center">수강 중</td>
-				        						<td class="text-center">${l.createDate}</td>
-				        					</tr>
-				        				</c:forEach>		        					
+			        					<c:choose>
+			        						<c:when test="${fn:length(lecList) > 0}">
+						        				<c:forEach var="l" items="${lecList}">
+						        					<tr>
+						        						<td class="text-center"><a target='_blank' href="${pageContext.request.contextPath}/#">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
+						        						<td class="text-center">${l.subjectName}</td>
+						        						<td class="text-center">수강 중</td>
+						        						<td class="text-center">${l.createDate}</td>
+						        					</tr>
+						        				</c:forEach>		        					
+			        						</c:when>
+			        						<c:otherwise>
+			        							<td class="text-center text-danger" colspan="4">수강중인게 없습니다</td>
+			        						</c:otherwise>
+			        					</c:choose>
 		        					</c:when>
 		        				</c:choose>
 		        				</tbody>
@@ -238,9 +254,10 @@
         			<!-- 자격증 -->
 	        		<div class="col-lg-5">
 		                <div class="card mb-4">
-		                    <div class="card-header">
+		                    <div class="card-header" >
 		                        <i class="fas fa-chart-area me-1"></i>
 									보유 자격증
+									<a class="btn btn-dark btn-sm"  role="button" href="${pageContext.request.contextPath}/#">등록</a>
 		                    </div>
 			        			<table class="table table-hover">
 		        				<thead>
@@ -251,13 +268,25 @@
 		        					</tr>
 		        				</thead>
 		        				<tbody>
-		        				<c:forEach var="c" items="${certificationList}">
-		        					<tr>
-		        						<td class="text-center">${c.certificationName}</td>
-		        						<td class="text-center">${c.certificationIssued}</td>
-		        						<td class="text-center">${c.getDate}</td>
-		        					</tr>
-		        				</c:forEach>
+		        				<!-- 자격증이 존재한다면 -->
+		        				<c:if test="${fn:length(certificationList) > 0}">
+			        				<c:forEach var="c" items="${certificationList}">
+			        					<tr>
+			        						<td class="text-center">${c.certificationName}</td>
+			        						<td class="text-center">${c.certificationIssued}</td>
+			        						<td class="text-center">${c.getDate}</td>
+			        						<td>
+				        						<a class="btn btn-outline-primary btn-sm"  role="button" href="${pageContext.request.contextPath}/#">수정</a>
+			        						</td>
+			        						<td>
+				        						<a class="btn btn-outline-danger btn-sm"  role="button" href="${pageContext.request.contextPath}/#">삭제</a>
+			        						</td>
+			        					</tr>
+			        				</c:forEach>
+		        				</c:if>
+		        				<c:if test="${fn:length(certificationList) == 0}">
+		        					<td class="text-center text-danger" colspan="3">습득한 자격증이 없습니다.</td>
+		        				</c:if>
 		        				</tbody>
 		        			</table>
 						</div>

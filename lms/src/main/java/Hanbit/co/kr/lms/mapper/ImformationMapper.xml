@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.ImformationMapper">
+	<update id="updateStudent"
+			parameterType="Hanbit.co.kr.lms.vo.Student">
+		UPDATE student SET
+			,student_name = #{studentName}
+			,student_addr1 = #{studentAddr1}
+			,student_addr2 = #{studentAddr2}
+			,student_phone = #{studentPhone}
+			,student_birth = #{studentBirth}
+			,student_gender = #{studentGender}
+			,final_education =#{finalEducation}
+			,student_email = #{studentEmail}
+			,update_date = NOW()
+		WHERE student_id = #{studentId}
+	</update>
+	
 	<select id="selectManagerPhoto"
 			parameterType="String"
 			resultType="Hanbit.co.kr.lms.vo.PhotoFile">
@@ -39,7 +54,7 @@
 		ON t.teacher_id = lp.teacher_id
 			INNER JOIN lec l
 				ON lp.lec_plan_no = l.lec_plan_no
-					
+		WHERE t.teacher_id = #{teacherId}
 		except
 	
 		SELECT

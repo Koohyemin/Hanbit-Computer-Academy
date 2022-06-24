@@ -26,9 +26,14 @@ import lombok.extern.slf4j.Slf4j;
 public class ImformationService {
 	@Autowired ImformationMapper imformationMapper;
 	
+	// 학생 업데이트
+	public String modifyStudent(Student student) {
+		return imformationMapper.updateStudent(student);
+	}
+	
 	// 나의 정보(학생개인정+자격증리스트+수강내용+사진)
 	public Map<String, Object> studentOne(String studentId) {
-
+		
 		// 한 학생의 상세보기
 		Student student = new Student();
 		student = imformationMapper.selectStudentOne(studentId);
@@ -60,7 +65,7 @@ public class ImformationService {
 
 		// 한 강사의 자격증
 		Teacher teacher = imformationMapper.selectTeacherOne(teacherId);
-		log.debug(CF.SWB+"[ImformationService teacherOne teacher]"+ teacher+CF.RESET); // teacher 디버깅
+		log.debug(CF.SWB+"[ImformationService teacherOne teacher]"+ teacher.toString()+CF.RESET); // teacher 디버깅
 		
 		// 한 강사의 자격증
 		List<Certification> certificationList = imformationMapper.selectTeacherCertification(teacherId);
@@ -68,15 +73,15 @@ public class ImformationService {
 		
 		// 한 강사의 수강목록
 		List<Registration> registrationList = imformationMapper.selectRegistrationList(teacherId);
-		log.debug(CF.SWB+"[ImformationService teacherOne registrationList]"+ registrationList+CF.RESET); // registrationList 디버깅
+		log.debug(CF.SWB+"[ImformationService teacherOne registrationList]"+ registrationList.toString()+CF.RESET); // registrationList 디버깅
 		
 		// 한 강사의 사진
 		PhotoFile photoFile = imformationMapper.selectTeacherPhoto(teacherId);
-		log.debug(CF.SWB+"[ImformationService teacherOne photoFile]"+ photoFile+CF.RESET);
+		log.debug(CF.SWB+"[ImformationService teacherOne photoFile]"+ photoFile+CF.RESET); // photoFile디버깅
 		
 		// 한 강가의 강의-수강
 		List<Lec> lecList = imformationMapper.selectTeacherLecList(teacherId);
-		log.debug(CF.SWB+"[ImformationService teacherOne lecList]"+ lecList+CF.RESET);
+		log.debug(CF.SWB+"[ImformationService teacherOne lecList]"+ lecList+CF.RESET); // 강의 디버깅
 		
 		
 		// 5개를 묶어서 contoller에 보내주기
@@ -91,6 +96,7 @@ public class ImformationService {
 	
 	// 나의 정보(운영진개인정보+사진)
 	public Map<String, Object> managerOne(String managerId) {
+		
 		// 운영진 개인정보
 		Manager manager = imformationMapper.selectManagerOne(managerId);
 		log.debug(CF.SWB+"[ImformationService managerOne manager]"+ manager.toString()+CF.RESET); // manager 디버깅

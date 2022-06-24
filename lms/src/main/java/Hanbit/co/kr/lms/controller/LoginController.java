@@ -85,9 +85,7 @@ public class LoginController {
 		// session에 등록
 		session.setAttribute("sessionMemberId",returnMemberId);
 		session.setAttribute("sessionMemberLv",returnMemberLv);
-		model.addAttribute("error",(returnMap.get("error")));
-		log.debug(CF.SWB+"[LoginCOntroller login error]"+ returnMap.get("error")+CF.RESET);
-		model.addAttribute("role",role);
+		String error =(String) returnMap.get("error");
 		
 		// 레벨을 가지고 있다면 index로 이동
 		if(returnMemberLv == 1 || returnMemberLv == 2 || returnMemberLv == 3) {
@@ -95,6 +93,6 @@ public class LoginController {
 		}
 		
 		// 레벨값이 없으면 로그인으로
-		return "redirect:/login";
+		return "redirect:/login?error="+error;
 	}
 }
