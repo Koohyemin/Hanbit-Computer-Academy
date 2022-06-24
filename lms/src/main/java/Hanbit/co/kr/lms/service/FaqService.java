@@ -26,25 +26,24 @@ public class FaqService {
 	@Autowired FaqMapper faqMapper;
 	// faq 리스트
 	public List<Faq> faqList() {
-		log.debug( CF.KHV +"[FaqService faqList Faq]: "+ faqList() + CF.RESET);
 		return faqMapper.getFaqListByPage();
 	}
+	
 	// faq 상세보기
 	public Faq getFaqOne(int faqNo) {
 		Faq faq = new Faq();
 		faq = faqMapper.getFaqOne(faqNo);
-		log.debug( CF.KHV +"[FaqService getFaqOne Faq]: "+ faq.getContent() + CF.RESET);
 		return faq;
 	}
+	
 	// faq 입력
 	public int getInsertFaq(Faq faq) {
-		log.debug( CF.KHV +"[FaqService getInsertFaq Faq]: "+ faq.getContent() + CF.RESET);
-		return faqMapper.getInsertFaq(faq); // 등록 성공 여부
+		return faqMapper.getInsertFaq(faq); 
 	}
 
+	
 	// faq 삭제
 	public int getDeleteFaq(int faqNo) {
-		log.debug( CF.KHV +"[FaqService getDeleteFaq Faq]: "+ faqNo + CF.RESET);
 		return faqMapper.getDeleteFaq(faqNo);
 	}    
 }
