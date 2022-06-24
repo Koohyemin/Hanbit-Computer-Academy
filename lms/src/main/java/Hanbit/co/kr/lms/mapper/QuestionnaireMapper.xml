@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.QuestionnaireMapper">
-	<!-- 질문목록 불러오기-->
+
 	<select id="selectQuestionnaireList" parameterType="String"
 		resultType="Hanbit.co.kr.lms.vo.Questionnaire">
 			SELECT 
 				lecture_name lectureName
-				, evaluation_no evaluationNo
-				, category
-				, questionnaire_content questionnaireContent
+				,evaluation_no evaluationNo
+				,category
+				,questionnaire_content questionnaireContent
 			FROM questionnaire
 			WHERE lecture_name = #{lectureName}
 	</select>

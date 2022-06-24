@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import Hanbit.co.kr.lms.mapper.UserFindMapper;
 import Hanbit.co.kr.lms.service.UserFindService;
 import Hanbit.co.kr.lms.util.CF;
-import Hanbit.co.kr.lms.vo.Student;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -23,8 +21,10 @@ public class UserFindController {
 	public String findId(Model model
 			,@RequestParam(name = "role",defaultValue = "student")String role) {
 		
-		log.debug(CF.SWB+"[LoginController GetMapping role]" + CF.RESET + role );
-	
+		//UserFindController get role값 디버깅
+		log.debug(CF.SWB+"[UserFindController GetMapping findId role]"+ CF.RESET +role);
+		
+		//모델값 넘겨줌
 		model.addAttribute("role",role);
 
 		return "user/findId"; //포워딩
@@ -37,32 +37,36 @@ public class UserFindController {
 			,@RequestParam(name="phone") String phone
 			,@RequestParam(name = "role",defaultValue = "student")String role) {
 		
-		//studentName + studentPhone 값 찾기
-		log.debug( CF.KHN +"[UserController PostMapping studentSearchId studentName]:  "+name+ CF.RESET);
-		log.debug( CF.KHN +"[UserController PostMapping studentSearchId studentPhone]:  "+phone+ CF.RESET);
-		log.debug( CF.KHN +"[UserController PostMapping studentSearchId role]:  "+role+ CF.RESET);
+		//studentName + studentPhone + role 값 디버깅
+		log.debug( CF.KHN +"[UserFindController PostMapping studentSearchId studentName]:  "+ CF.RESET +name);
+		log.debug( CF.KHN +"[UserFindController PostMapping studentSearchId studentPhone]:  "+ CF.RESET +phone);
+		log.debug( CF.KHN +"[UserFindController PostMapping studentSearchId role]:  "+ CF.RESET +role);
 
 		//조건에 따른 id값을 서비스에서 호출
 		String Id = null;
+		
 		// 학생이라면
 		if(role.equals("student")){
 			Id = userFindService.studentFindId(name, phone);
-			//디버깅
-			log.debug( CF.KHN +"[UserController PostMapping studentSearchId Id]:  "+ Id+ CF.RESET);
+			
+			//UserFindController post id값 디버깅
+			log.debug( CF.KHN +"[UserFindController PostMapping studentSearchId Id]:  "+ CF.RESET +Id);
 		}
 		
 		// 강사라면
 		if(role.equals("teacher")){
 			Id = userFindService.teacherFindId(name, phone);
-			//디버깅
-			log.debug( CF.KHN +"[UserController PostMapping studentSearchId Id]:  "+ Id+ CF.RESET);
+			
+			//UserFindController post id값 디버깅
+			log.debug( CF.KHN +"[UserFindController PostMapping teacherSearchId Id]:  "+ CF.RESET +Id);
 		}
 		
 		// 운영자라면
 		if(role.equals("manager")){
 			Id = userFindService.managerFindId(name, phone);
-			//디버깅
-			log.debug( CF.KHN +"[UserController PostMapping studentSearchId Id]:  "+ Id+ CF.RESET);
+			
+			//UserFindController post id값 디버깅
+			log.debug( CF.KHN +"[UserFindController PostMapping managerSearchId Id]:  "+ CF.RESET +Id);
 		}
 		if(Id == null) { //Id가 널값이라면
 			model.addAttribute("check", 1); //모델값1로 넘김
@@ -77,9 +81,10 @@ public class UserFindController {
    @GetMapping("/user/findPw")
    public String findPw(Model model
          ,@RequestParam(name = "role",defaultValue = "student")String role) {
+      //UserFindController get 
+      log.debug(CF.SWB+"[UserFindController GetMapping findPw role]"+CF.RESET + role);
       
-      log.debug(CF.SWB+"[LoginController GetMapping findPw role]"+ role+CF.RESET);
-   
+      //모델값 넘겨줌
       model.addAttribute("role",role);
 
       return "user/findPw"; //포워딩
@@ -93,34 +98,37 @@ public class UserFindController {
 			,@RequestParam(name="phone") String phone
 			,@RequestParam(name="role", defaultValue="student") String role) {
 		
-		//studentId + studentName + studentPhone 값 찾기
-		log.debug( CF.KHN +"[UserController PostMapping findPw studentId]:  "+id+ CF.RESET);
-		log.debug( CF.KHN +"[UserController PostMapping findPw studentName]:  "+name+ CF.RESET);
-		log.debug( CF.KHN +"[UserController PostMapping findPw studentPhone]:  "+phone+ CF.RESET);
-		log.debug( CF.KHN +"[UserController PostMapping findPw role]:  "+role+ CF.RESET);
+		//studentId + studentName + studentPhone + role 값 찾기
+		log.debug( CF.KHN +"[UserFindController PostMapping findPw studentId]:  "+ CF.RESET +id);
+		log.debug( CF.KHN +"[UserFindController PostMapping findPw studentName]:  "+ CF.RESET +name);
+		log.debug( CF.KHN +"[UserFindController PostMapping findPw studentPhone]:  "+ CF.RESET +phone);
+		log.debug( CF.KHN +"[UserFindController PostMapping findPw role]:  "+ CF.RESET +role);
 		
 		//조건에 따른 pw값을 서비스에서 호출
-		String Pw = null;
+		String Pw = null; //변수선언
 		
 		//학생이라면
 		if(role.equals("student")) {
 			Pw = userFindService.studentFindPw(id, name, phone);
-			//디버깅
-			log.debug( CF.KHN +"[UserController PostMapping findPw studentPw]:  "+Pw+ CF.RESET);
+			
+			//UserFindController post pw값 디버깅
+			log.debug( CF.KHN +"[UserFindController PostMapping findPw studentPw]:  "+ CF.RESET +Pw);
 		}
 		
 		//강사라면
 		else if(role.equals("teacher")) {
 			Pw = userFindService.teacherFindPw(id, name, phone);
-			//디버깅
-			log.debug( CF.KHN +"[UserController PostMapping findPw teacherPw]:  "+Pw+ CF.RESET);	
+			
+			//UserFindController post pw값 디버깅
+			log.debug( CF.KHN +"[UserFindController PostMapping findPw teacherPw]:  "+ CF.RESET +Pw);	
 		}
 	
 		//운영자라면
 		else if(role.equals("manager")) {
 			Pw = userFindService.managerFindPw(id, name, phone);
-			//디버깅
-			log.debug( CF.KHN +"[UserController PostMapping findPw teacherPw]:  "+Pw+ CF.RESET);
+			
+			//UserFindController post pw값 디버깅
+			log.debug( CF.KHN +"[UserFindController PostMapping findPw teacherPw]:  "+ CF.RESET +Pw);
 		}
 			
 		
@@ -143,9 +151,9 @@ public class UserFindController {
 			,@RequestParam(name="role") String role) {
 		
 		//id + pw + role 값 디버깅
-		log.debug( CF.KHN +"[UserController PostMapping modifyPw Id ]:  "+Id+ CF.RESET);
-		log.debug( CF.KHN +"[UserController PostMapping modifyPw pw ]:  "+pw+ CF.RESET);
-		log.debug( CF.KHN +"[UserController PostMapping modifyPw role ]:  "+role+ CF.RESET);
+		log.debug( CF.KHN +"[UserFindController PostMapping modifyPw Id ]:  "+ CF.RESET +Id);
+		log.debug( CF.KHN +"[UserFindController PostMapping modifyPw pw ]:  "+ CF.RESET +pw);
+		log.debug( CF.KHN +"[UserFindController PostMapping modifyPw role ]:  "+ CF.RESET +role);
 		
 		//학생
 		if(role.equals("student")) {
@@ -153,10 +161,16 @@ public class UserFindController {
 			
 			//수정확인
 			if(row==1) {
-				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력성공 ]:  "+ CF.RESET);
+				
+				//수정성공 확인 디버깅
+				log.debug( CF.KHN +"[UserFindController PostMapping modifyPw 수정성공 ]:  "+ CF.RESET);
+				
+				//수정성공 > 서비스호출
 				userFindService.passwordUpdate(Id, pw);
 			} else {
-				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력실패 ]:  "+ CF.RESET);
+				
+				//수정실패 확인 디버깅
+				log.debug( CF.KHN +"[UserFindController PostMapping modifyPw 수정실패 ]:  "+ CF.RESET);
 			}
 
 		}
@@ -167,10 +181,16 @@ public class UserFindController {
 			
 			//수정확인
 			if(row==1) {
-				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력성공 ]:  "+ CF.RESET);
+				
+				//수정성공 확인 디버깅
+				log.debug( CF.KHN +"[UserFindController PostMapping modifyPw 수정성공 ]:  "+ CF.RESET);
+				
+				//수정성공 > 서비스호출
 				userFindService.passwordUpdate(Id, pw);		
 			} else {
-				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력실패 ]:  "+ CF.RESET);
+				
+				//수정실패 확인 디버깅
+				log.debug( CF.KHN +"[UserFindController PostMapping modifyPw 수정실패 ]:  "+ CF.RESET);
 			}
 		}
 		
@@ -180,10 +200,16 @@ public class UserFindController {
 			
 			//수정확인
 			if(row==1) {
-				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력성공 ]:  "+ CF.RESET);
+				
+				//수정성공 확인 디버깅				
+				log.debug( CF.KHN +"[UserFindController PostMapping modifyPw 수정성공 ]:  "+ CF.RESET);
+				
+				//수정성공 > 서비스호출				
 				userFindService.passwordUpdate(Id, pw);	
 			} else {
-				log.debug( CF.KHN +"[UserController PostMapping modifyPw 입력실패 ]:  "+ CF.RESET);
+				
+				//수정실패 확인 디버깅				
+				log.debug( CF.KHN +"[UserFindController PostMapping modifyPw 수정실패 ]:  "+ CF.RESET);
 			}
 		}	
 		return "redirect:/login";

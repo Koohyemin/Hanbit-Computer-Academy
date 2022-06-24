@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 public class QuestionnaireController {
 	@Autowired QuestionnaireService questionnaireService;
 	
-	//질문목록 불러오기 get
+	//설문지 목록 불러오기 get
 	@GetMapping("/questionnaire/getQuestionnaireList")
 	public String getQuestionnaireList(Questionnaire questionnaire, Model model
 			,@RequestParam(name="lectureName", defaultValue="자바 웹 스피드 취업반") String lectureName) {
@@ -27,9 +27,9 @@ public class QuestionnaireController {
 		//list에 서비스호출
 		List<Questionnaire> list = questionnaireService.selectQuestionnaireList(lectureName);
 		
-		//list 디버깅
-		log.debug( CF.KHN +"[QuestionnaireController @GetMapping list]: "+list+ CF.RESET);
-		log.debug( CF.KHN +"[QuestionnaireController @GetMapping lectureName]: "+lectureName+ CF.RESET);
+		//list + lectureName 디버깅
+		log.debug( CF.KHN +"[QuestionnaireController GetMapping list]: "+list+ CF.RESET);
+		log.debug( CF.KHN +"[QuestionnaireController GetMapping lectureName]: "+lectureName+ CF.RESET);
 		
 		//model값 list > jsp로 전달
 		model.addAttribute("list", list);

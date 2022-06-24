@@ -8,6 +8,6 @@ import Hanbit.co.kr.lms.vo.Questionnaire;
 
 @Mapper
 public interface QuestionnaireMapper {
-	//질문목록 불러오기
+	//설문지 목록 불러오기
 	List<Questionnaire> selectQuestionnaireList(String lectureName);
 }

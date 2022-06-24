@@ -57,7 +57,7 @@ public class UserFindService {
 	public int managerUpdatePw(String managerId, String managerPw) {
 		return userFindMapper.managerUpdatePw(managerId, managerPw);
 	}
-	
+	//비밀번호 변경이력 추가
 	public int passwordUpdate(String id, String pw) {
 		return userFindMapper.passwordUpdate(id, pw);
 	}

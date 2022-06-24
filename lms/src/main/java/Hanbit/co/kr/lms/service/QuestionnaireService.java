@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class QuestionnaireService {
 	@Autowired QuestionnaireMapper questionnaireMapper;
 	
-	//질문목록 불러오기
+	//설문지 목록 불러오기
 	public List<Questionnaire> selectQuestionnaireList(String lectureName) {
 		return questionnaireMapper.selectQuestionnaireList(lectureName);
 	}
