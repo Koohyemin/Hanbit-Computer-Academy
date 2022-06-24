@@ -156,11 +156,16 @@ public class MemberService {
 		return row;
 	}
 	
+	//회원 비승인 리스트 출력
 	public List<Map<String,Object>> authorizeMember() {
 
 		List<Map<String,Object>> waitingList = memberMapper.selectMemberListByState();
 		
 		return waitingList;
+	}
+	public void approveMember(String memberId) {
+		 memberMapper.approveMember(memberId);
+
 	}
 	
 	

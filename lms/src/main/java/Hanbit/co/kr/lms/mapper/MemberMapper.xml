@@ -171,4 +171,10 @@
 
 
 		<!-- 회원 승인 -업데이트 -->
+		<update id="approveMember"
+				parameterType="String">
+			UPDATE member SET
+				member_state = '2'
+			WHERE member_id= #{memberId}
+		</update>
 </mapper>

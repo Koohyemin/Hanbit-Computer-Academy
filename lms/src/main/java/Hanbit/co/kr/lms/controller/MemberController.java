@@ -64,5 +64,18 @@ public class MemberController {
 			
 			return "/addMember/auhorizeMember";
 		}
+		
+		@PostMapping("authorizeMember")
+		public String authorizeMember(@RequestParam( name="approvalCk") List<String> waitingValue) {
+			log.debug(CF.LKL+"MemberController.authorizeMember : " +CF.RESET + waitingValue);			//맴개값 
+			
+			for(int i=0; i<waitingValue.size(); i++) {
+				memberService.approveMember(waitingValue.get(i));
+			}
+			
+			
+			return  "redirect:/authorizeMember";
+		}
 	}
+
 

@@ -24,4 +24,6 @@ public interface MemberMapper {
 	
 	//비승인 member들 리스트 출력
 	List<Map<String,Object>> selectMemberListByState();
+	//회원 승인
+	int approveMember(String memberId);
 }

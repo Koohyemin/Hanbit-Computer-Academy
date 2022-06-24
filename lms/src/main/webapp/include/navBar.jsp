@@ -66,7 +66,7 @@
             </a>
             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
-                    <a class="nav-link" href="#">회원승인</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/authorizeMember">회원승인</a>
                      <a class="nav-link" href="#">학생/강사 관리</a>
                		<a class="nav-link" href="#">강의계획서 관리</a>
                		<a class="nav-link" href="#">납부 관리</a>
