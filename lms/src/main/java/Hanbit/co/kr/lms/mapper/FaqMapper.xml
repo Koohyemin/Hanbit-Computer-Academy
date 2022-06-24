@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.FaqMapper">
-<select id="getFaqOne" resultType="Hanbit.co.kr.lms.vo.Faq">
+	<!-- 상세보기 -->
+	<select id="getFaqOne" resultType="Hanbit.co.kr.lms.vo.Faq">
 		SELECT
 			 faq_no faqNo
 			,manager_id managerId
@@ -13,7 +14,7 @@
 		WHERE faq_no=${faqNo}
 		order BY faq_no
 	</select>
-	
+	<!--  리스트 -->
 	<select id="getFaqListByPage" resultType="Hanbit.co.kr.lms.vo.Faq">
 		SELECT
 			 faq_no faqNo
@@ -23,7 +24,7 @@
 		 FROM faq
 		 ORDER BY create_date DESC
 	</select>
-	
+	<!--  입력 -->
 	<insert id="getInsertFaq" 
 			parameterType="Hanbit.co.kr.lms.vo.Faq">
 		INSERT INTO faq(
@@ -40,23 +41,13 @@
 			,NOW()
 		)
 	</insert>
-	
+	<!--  삭제 -->
 	<delete id="getDeleteFaq"
             parameterType="Hanbit.co.kr.lms.vo.Faq">
 	         DELETE FROM
 	            faq
 	      WHERE faq_no = #{noticeNo}
 	</delete>
-	
-	<update id="getUpdateFaq"
-			 parameterType="Hanbit.co.kr.lms.vo.Faq">
-				UPDATE faq
-				SET 
-				manager_id=#{managerId}
-				, title=#{title}
-				, content=#{content}
-				, update_date=NOW()
-		WHERE faq_no = #{faqNo}
-	</update>
+
 	
 </mapper>

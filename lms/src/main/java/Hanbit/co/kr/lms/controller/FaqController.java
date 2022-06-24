@@ -19,50 +19,62 @@ import Hanbit.co.kr.lms.vo.Faq;
 import Hanbit.co.kr.lms.vo.ManagerNotice;
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j // log객체를 사용하도록...
-@Controller // servlet역활을 하도록...
+@Slf4j // log.debug 사용역할
+@Controller // servlet역활
 public class FaqController {
 	@Autowired private FaqService faqService;
-	// 리스트
+	// FAQ 리스트
 	@GetMapping ("/faq/getFaqListByPage")
 	   public String getFaqListByPage(Model model) {
+		
 		List<Faq> faqList = faqService.faqList();
+		// 서비스에서 잘 받아 와지는지 확인
 		log.debug( CF.KHV +"[faqService]: +디버깅 확인"+ CF.RESET);
+		// 컨트롤러에서 뷰로 데이터 전달
 		model.addAttribute(faqList);
+		
 		return "faq/getFaqListByPage";
 	}
 	
-	// 상세보기
+	// FAQ 상세보기
 	@GetMapping ("/faq/getFaqOne")
 	public String getFaqOne(Model model, @RequestParam(name="faqNo") int faqNo) {
+		
 		log.debug( CF.KHV +"[FaqController GetMapping faqNo]: "+ faqNo + CF.RESET);
+		
 		Faq faq = new Faq();
-		faq = (Faq)faqService.getFaqOne(faqNo);
+		faq = faqService.getFaqOne(faqNo);
+		// faqService 에서 잘 불러 오는지 확인
+		log.debug( CF.KHV +"[faqService]: +디버깅 확인"+ CF.RESET);
+		
 		model.addAttribute("faq", faq);
-		log.debug( CF.KHV +"[FaqController GetMapping faq]: "+ faq + CF.RESET);
+
+
 		return "faq/getFaqOne";
 	}
 	// FAQ 등록
 	@PostMapping("/faq/addFaq")
 	public String getInsertFaq(Faq faq) {
+		
 		int row = faqService.getInsertFaq(faq);
 		if(row == 1) {
-			log.debug(CF.KHV + "[FaqController postMapping addFaq] : 입력 성공" + CF.RESET); // 성공 디버깅
+			
+			log.debug(CF.KHV + "[FaqController postMapping addFaq] : 입력 성공" + CF.RESET); // 입력 성공 
 		} else {
-			log.debug(CF.KHV + "[FaqController postMapping addFaq] : 입력 실패" + CF.RESET); // 실패 디버깅
+			log.debug(CF.KHV + "[FaqController postMapping addFaq] : 입력 실패" + CF.RESET); // 입력 실패 
 		}
 	
 		return "redirect:/faq/getFaqListByPage"; // 공지 입력 후, 리스트로 돌아가기
 	}
-		
+		// 처음 등록 폼에 들어 갈 때
 		@GetMapping("/faq/addFaq")
 		public String getInsertFaq() {
 			return "faq/addFaq";
-		}
+	}
 	
 	
 		
-	// 삭제 엑션	
+	// FAQ 삭제 
 		@PostMapping("/faq/deleteFaq")
 		public String getDeleteFaq(int faqNo, Model model) {
 			int row = faqService.getDeleteFaq(faqNo);
@@ -73,7 +85,7 @@ public class FaqController {
 			}
 		
 			return "redirect:/faq/getFaqListByPage"; // 공지 수정 후, 리스트로 돌아가기
-		}
+	}
 	
 		
 }

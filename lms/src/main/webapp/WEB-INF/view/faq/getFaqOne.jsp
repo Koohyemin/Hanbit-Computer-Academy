@@ -33,25 +33,24 @@
                    <table class="table">
                            <tr>
                               <th>번호</th>
-                              <td><span class="form-control">"${faq.faqNo}"</span></td>
+                              <td><span>${faq.faqNo}</span></td>
                            </tr>
                               <th>제목</th>
-                              <td><span class="form-control">"${faq.title}"</span></td>
+                              <td><span>${faq.title}</span></td>
                            <tr>
                               <th>내용</th>
-                              <td><textarea class="form-control" rows="10" cols="8">"${faq.content}"</textarea></td>
+                              <td><span>${faq.content}</span></td>
                            </tr>
                       </table>
 
-                           <div>
-                              <c:if test="${sessionMemberLv == 3 }">
-                           <form method="post" action="${pageContext.request.contextPath}/faq/deleteFaq"  style="float:right">
-                           <input type="hidden" name="faqNo" value="${faq.faqNo}" >
-                           <input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
-                           </c:if>
-                      </div>
-
-                      </div>     
+	                         <div>
+	                           <c:if test="${sessionMemberLv == 3 }">
+	                           <form method="post" action="${pageContext.request.contextPath}/faq/deleteFaq"  style="float:right">
+	                           <input type="hidden" name="faqNo" value="${faq.faqNo}" >
+	                           <input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
+	                           </form>
+	                           </c:if>
+	                      	</div>
             <div id="footer"></div>
          </div>
       </div>
