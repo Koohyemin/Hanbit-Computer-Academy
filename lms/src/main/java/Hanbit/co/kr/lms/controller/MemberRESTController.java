@@ -20,23 +20,33 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 public class MemberRESTController {
+	
 	@Autowired
 	MemberService memberService;
 	
 	@GetMapping("/searchAddr")
 	public String getAddr(@RequestParam(value="Keyword") String keyword) {
+		
     // OPEN API 호출 URL 정보 설정
-	log.debug(CF.LKL+"RController.getAddr : "+keyword);
+	//뷰에서 받은 keyword 디버깅
+	log.debug(CF.LKL+"RController.getAddr : "+ CF.RESET +keyword);
+	//페이지당 개수 100으로 설정
     final int countPerPage = 100;
+    //페이지 수 1로 설정
     int currentPage =1;
-    String confmKey = "U01TX0FVVEgyMDIyMDYxNjE2MzExNTExMjY5ODQ=";			//api 주소
-    String resultType = "json";												//json타입으로 받는다
+    //키 지정
+    String confmKey = "U01TX0FVVEgyMDIyMDYxNjE2MzExNTExMjY5ODQ=";			
+    //타입 지정
+    String resultType = "json";												
+    
     StringBuffer sb = null;
     try {
+    	//api url 불러오기
     String apiUrl = "https://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage="+currentPage+"&countPerPage="+countPerPage+"&keyword="+URLEncoder.encode(keyword,"UTF-8")+"&confmKey="+confmKey+"&resultType="+resultType;
 
        URL url = new URL(apiUrl);
         BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
+        //StringBuffer -> String을 
         sb = new StringBuffer();
         String tempStr = null;
         while((tempStr = br.readLine()) != null){
@@ -55,21 +65,23 @@ public class MemberRESTController {
 	
 	@GetMapping("/compMember")
 	public String checkMember(@RequestParam(value = "idCheck") String memberId){
-		log.debug(CF.LKL+"RController.compMember : "+memberId);
+		//뷰에서 memberId 가져오기 
+		log.debug(CF.LKL+"MemberRESTController.compMember : "+ CF.RESET + memberId);
+		//DB에서 member리스트를 가져온다
 		List<Member> listMember= memberService.getMember();
+		
+		//받은 memberlist 수만큼 반복
 		 for(int i=0; i<listMember.size(); i++) {
-			 System.out.println(listMember.get(i).getMemberId());
+			 //뷰에서 가져온 memberId와 db의 memberId가 일치하면
 			if(listMember.get(i).getMemberId().equals(memberId)) {
+				//false값 반환
 				return "false";
 			}
 		 }
 		return memberId;
-//운영진 승인 후 사용 가능 -->
 //세션 로그인 상태면 튕기게
-//주민 번호로 나이,일자 뽑기 ,,, 3개 한번에 넣기(memberId,
 //리스트 페이징?
 //주민등록 유효성
 //최종 제출 버튼 클릭 후 id 유효성 받은 걸 꼭 검사
-//member 상태를 0으로
 	}
 }

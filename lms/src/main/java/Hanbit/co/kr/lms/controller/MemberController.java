@@ -25,57 +25,85 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 	@Autowired
 	MemberService memberService;
-		@GetMapping("addMember")
-		public String selectAddr() {
-			
-			return "/addMember/addMember";
-		}
-		@PostMapping("addMember")
-		public String addMember(AddMember addmember) {
-			log.debug(CF.LKL+"MemberController.addMember : " +CF.RESET +addmember);
-			//레벨 체크로 학생,강사,운영자 판단 
-			if(addmember.getLevel()==3) {													//level3 => manager
-				
-				int row=memberService.addManager(addmember);
-				log.debug(CF.LKL+"MemberController.addManager : " +CF.RESET + row);
-				return "redirect:/login";
-				
-			} else if(addmember.getLevel()==2){												//level2 => teacher
-				int row=memberService.addTeacher(addmember);
-				log.debug(CF.LKL+"MemberController.addTeacher : " +CF.RESET + row);
-				return "redirect:/login";
-				
-			} else if(addmember.getLevel()==1){												//level1 => student
-				int row=memberService.addStudent(addmember);						
-				log.debug(CF.LKL+"MemberController.addStudent : " +CF.RESET + row);
-				return "redirect:/login";
-			} else {																		//level값을 못받았을때는 다시 폼으로
-			
-				return "redirect:/addMember/addMember";
-			}
-		}
+	
+	
+	@GetMapping("addMember")
+	public String selectAddr() {		//회원가입 뷰 호출 컨트롤러
 		
-		@GetMapping("authorizeMember")
-		public String authorizeMember(Model model) {
-			
-			List<Map<String, Object>> waitingList = memberService.authorizeMember();
-			model.addAttribute("waitingList",waitingList);
-			log.debug(CF.LKL+"MemberController.authorizeMember.waitingList : "+CF.RESET+waitingList);
-			
-			return "/addMember/auhorizeMember";
-		}
+		return "/addMember/addMember";
+	}
+	@PostMapping("addMember")
+	public String addMember(AddMember addmember) {		//회원가입 액션 컨트롤러
 		
-		@PostMapping("authorizeMember")
-		public String authorizeMember(@RequestParam( name="approvalCk") List<String> waitingValue) {
-			log.debug(CF.LKL+"MemberController.authorizeMember : " +CF.RESET + waitingValue);			//맴개값 
+		// addmember 디버깅
+		log.debug(CF.LKL+"MemberController.addMember : " +CF.RESET +addmember);
+		
+		//레벨 체크로 학생,강사,운영자 판단 
+		//level3 => manager
+		if(addmember.getLevel()==3) {												
 			
-			for(int i=0; i<waitingValue.size(); i++) {
-				memberService.approveMember(waitingValue.get(i));
-			}
+			int row=memberService.addManager(addmember);
 			
+			//실행된 쿼리문 갯수 디버깅
+			log.debug(CF.LKL+"MemberController.addManager : " +CF.RESET + row);
 			
-			return  "redirect:/authorizeMember";
+			return "redirect:/login";
+			
+		//level2 => teacher
+		} else if(addmember.getLevel()==2){												
+			
+			int row=memberService.addTeacher(addmember);
+			
+			//실행된 쿼리문 갯수 디버깅
+			log.debug(CF.LKL+"MemberController.addTeacher : " +CF.RESET + row);
+			
+			return "redirect:/login";
+			
+			//level1 => student
+		} else if(addmember.getLevel()==1){												
+			
+			int row=memberService.addStudent(addmember);
+			
+			//실행된 쿼리문 갯수 디버깅
+			log.debug(CF.LKL+"MemberController.addStudent : " +CF.RESET + row);
+			
+			return "redirect:/login";
+		} else {																		//level값을 못받았을때는 다시 폼으로
+		
+			return "redirect:/addMember/addMember";
 		}
 	}
+	
+	@GetMapping("authorizeMember")
+	public String authorizeMember(Model model) {	//운영자 회원 상태 승인 페이지 구현
+		
+		
+		//회원 상태가 1인 member List를 받는다.
+		List<Map<String, Object>> waitingList = memberService.authorizeMember();
+		
+		// 승인대기중인 member들 디버깅 
+		log.debug(CF.LKL+"MemberController.authorizeMember.waitingList : "+ CF.RESET + waitingList); 
+		
+		//모델에 저장
+		model.addAttribute("waitingList",waitingList);
+		
+		return "/addMember/auhorizeMember";
+	}
+	
+	@PostMapping("authorizeMember")				//운영자가 체크한 member들을 list형태로 받는다.
+	public String authorizeMember(@RequestParam( name="approvalCk") List<String> waitingValue) {	
+		
+		// 운영자가 체크한 waitingValue 디버깅
+		log.debug(CF.LKL+"MemberController.authorizeMember : " + CF.RESET + waitingValue);		
+		
+		//받은 체크값 개수만큼 for문 
+		for(int i=0; i<waitingValue.size(); i++) {							
+		// 승인메서드 실행
+			memberService.approveMember(waitingValue.get(i));				
+		}
+		
+		return  "redirect:/authorizeMember";
+	}
+}
 
 

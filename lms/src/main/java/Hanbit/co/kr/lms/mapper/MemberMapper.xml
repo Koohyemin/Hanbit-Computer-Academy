@@ -154,7 +154,6 @@
 		 <id column="meberState" property="meberState"/>
 		 <id column="memberLevel" property="memberLevel"/>
 	</resultMap>
-	
 	<select id="selectMemberListByState"
 			resultMap="waitingList">
 		SELECT 

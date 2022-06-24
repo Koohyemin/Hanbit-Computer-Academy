@@ -23,7 +23,7 @@ public class UserFindController {
 	public String findId(Model model
 			,@RequestParam(name = "role",defaultValue = "student")String role) {
 		
-		log.debug(CF.SWB+"[LoginController GetMapping role]"+ role+CF.RESET);
+		log.debug(CF.SWB+"[LoginController GetMapping role]" + CF.RESET + role );
 	
 		model.addAttribute("role",role);
 

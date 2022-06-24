@@ -29,12 +29,17 @@ public class MemberService {
 	private Student st;
 	private Teacher tch;
 	private Manager mng;
-	public List<Member> getMember() {
+	
+	//ID유효성 
+	public List<Member> getMember() {								
+		
 		List<Member> memberList = memberMapper.selectMember();
-		log.debug(CF.LKL+"MemberService.getMember"+memberList+CF.RESET);
+		log.debug(CF.LKL+"MemberService.getMember :"+ CF.RESET +memberList);
 		return memberList;
 	}
+	//학생회원가입
 	public int addStudent(AddMember aM) {
+		//
 		log.debug(CF.LKL+"memberMapper.addStudent.aM : " + CF.RESET+ aM );
 		
 		//member vo로 데이터 가공
@@ -62,7 +67,8 @@ public class MemberService {
 		PUD = new PasswordUpdateDate();
 		PUD.setMemberId(aM.getId());
 		PUD.setMemberPw(aM.getPw());
-	
+		
+		//addMember -> member,student,PUD 가공 디버깅
 		log.debug(CF.LKL+"memberMapper.addStudent.m : " + CF.RESET+ m );
 		log.debug(CF.LKL+"memberMapper.addStudent.st : " + CF.RESET+ st );
 		log.debug(CF.LKL+"memberMapper.addStudent.PUD : " + CF.RESET+ PUD );
@@ -74,6 +80,7 @@ public class MemberService {
 		int row=memberMapper.insertStudent(st);
 		return row;
 	}
+	//강사회원가입
 	public int addTeacher(AddMember aM) {
 		
 		log.debug(CF.LKL+"memberMapper.addManager.aM : " + CF.RESET+ aM );
@@ -105,16 +112,18 @@ public class MemberService {
 			tch.setTeacherGender("여자");
 		}
 		
-		
+		//addMember -> member,teacher,PUD 가공 디버깅
 		log.debug(CF.LKL+"memberMapper.addTeacher.m : " + CF.RESET+ m );
 		log.debug(CF.LKL+"memberMapper.addTeacher.tch : " + CF.RESET+ tch );
 		log.debug(CF.LKL+"memberMapper.addTeacher.PUD : " + CF.RESET+ PUD );
+		
 		memberMapper.insertMember(m);
 		memberMapper.insertDefaultPhoto(m);
 		memberMapper.insertPUD(PUD);
 		int row=memberMapper.insertTeacher(tch);
 		return row;
 	}
+	//운영자회원가입
 	public int addManager(AddMember aM) {
 		
 		log.debug(CF.LKL+"memberMapper.addManager.aM : " + CF.RESET+ aM );
@@ -144,6 +153,7 @@ public class MemberService {
 		PUD.setMemberId(aM.getId());
 		PUD.setMemberPw(aM.getPw());
 		
+		//addMember -> member,manager,PUD 가공 디버깅
 		log.debug(CF.LKL+"memberMapper.addManager.m : " + CF.RESET+ m );
 		log.debug(CF.LKL+"memberMapper.addManager.mng : " + CF.RESET+ mng );
 		log.debug(CF.LKL+"memberMapper.addManager.PUD : " + CF.RESET+ PUD );
@@ -151,18 +161,20 @@ public class MemberService {
 		memberMapper.insertMember(m);
 		memberMapper.insertDefaultPhoto(m);
 		memberMapper.insertPUD(PUD);
+		
 		int row=memberMapper.insertManager(mng);
 		
 		return row;
 	}
 	
-	//회원 비승인 리스트 출력
+	//member 비승인 리스트 출력
 	public List<Map<String,Object>> authorizeMember() {
 
 		List<Map<String,Object>> waitingList = memberMapper.selectMemberListByState();
 		
 		return waitingList;
 	}
+	//운영자 - Member상태 승인
 	public void approveMember(String memberId) {
 		 memberMapper.approveMember(memberId);
 
