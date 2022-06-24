@@ -7,6 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+<meta property="og:title" content="한빛컴퓨터아카데미LMS">
+<meta property="og:url" content="lms/login">
+<meta property="og:image" content="${pageContext.request.contextPath}/img/previewer.png">
 <title>getNoticeListByPage</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
@@ -14,20 +17,20 @@
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
-	<div id="nav"></div>
-	<div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-			<div id="navbar"></div>
-		</div>
-       <div id="layoutSidenav_content">
-			<div class="container-fluid px-4">
+<div id="nav"></div>
+<div id="layoutSidenav">
+	<div id="layoutSidenav_nav">
+		<div id="navbar"></div>
+	</div>
+    <div id="layoutSidenav_content">
+		<div class="container-fluid px-4">
      	<!-- 컨텐츠 삽입 부분-->
 			<br>
         	<div class="card mb-4">
-            <div class="card-header">
-                <i class="fas fa-chart-area me-1"></i>
-                Notice
-            </div>
+	            <div class="card-header">
+	                <i class="fas fa-chart-area me-1"></i>
+	                Notice
+	            </div>
             </div>
 			<!-- 상단 전체, 강사, 학생별 공지사항 보기 nav바 -->
 			<ul class="nav nav-tabs">
@@ -42,6 +45,7 @@
 						</c:otherwise>
 					</c:choose>
 				</li>
+				
 				<!-- 운영자, 강사만 확인 가능 -->
 				<c:if test="${sessionMemberLv == 2 || sessionMemberLv == 3}">
 					<li class="nav-item">
@@ -55,6 +59,7 @@
 						</c:choose>
 					</li>
 				</c:if>
+				
 				<!-- 학생, 운영자 확인 가능 -->
 				<c:if test="${sessionMemberLv == 1 || sessionMemberLv == 3}">
 					<li class="nav-item">
@@ -69,12 +74,12 @@
 					</li>
 				</c:if>
 			</ul>
-				<c:if test="${sessionMemberLv == 3}">
-					<!-- 공지사항 작성 버튼은 운영진에게만 보임 -->
-					<span class="float-end">
-						<a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/notice/addNotice">글 작성</a>
-					</span>
-				</c:if>
+			<c:if test="${sessionMemberLv == 3}">
+				<!-- 공지사항 작성 버튼은 운영진에게만 보임 -->
+				<span class="float-end">
+					<a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/notice/addNotice">글 작성</a>
+				</span>
+			</c:if>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -105,10 +110,10 @@
 					<a href="${pageContext.request.contextPath}/notice/noticeList?currentPage=${currentPage+1}&&category=${category}" class="btn btn-dark">다음</a>
 				</c:if>
 			</div>
-			</div>
-				<div id="footer"></div>
-        	</div>
-        </div>
+		</div>
+		<div id="footer"></div>
+	</div>
+</div>
 </body>
 	<script>
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');

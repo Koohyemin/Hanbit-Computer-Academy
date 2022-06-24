@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CertificateService {
 	@Autowired private CertificateMapper certificateMapper;
+	
 	// 학생의 아이디를 통해 고지서를 보여준다
 	public List<Registration> studentPaymentList(String studentId){
 		return certificateMapper.paymentStudentList(studentId);

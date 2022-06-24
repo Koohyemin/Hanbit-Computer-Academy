@@ -19,18 +19,8 @@
         	<!-- 공통 index -->
             <div class="sb-sidenav-menu-heading">
                 My Page</div>
-            <c:choose>
-            	<c:when test="${sessionMemberLv == 1}">
-            		<a class="nav-link" href="${pageContext.request.contextPath}/student/getStudentOne">
-            	</c:when>
-            	<c:when test="${sessionMemberLv == 2}">
-            		<a class="nav-link" href="${pageContext.request.contextPath}/getTeacherOne">
-            	</c:when>
-             	<c:when test="${sessionMemberLv == 3}">
-            		<a class="nav-link" href="${pageContext.request.contextPath}/getManagerOne">
-            	</c:when>           	
-            </c:choose>
-                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+           			<a class="nav-link" href="${pageContext.request.contextPath}/member/getMemberOne">
+              	  <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 나의 정보
             </a>
 

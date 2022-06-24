@@ -7,6 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+<meta property="og:title" content="한빛컴퓨터아카데미LMS">
+<meta property="og:url" content="lms/login">
+<meta property="og:image" content="${pageContext.request.contextPath}/img/previewer.png">
 <title>getQuestionnaireList</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
@@ -14,46 +17,46 @@
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
-	<div id="nav"></div>
-	<div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-			<div id="navbar"></div>
-		</div>
-       <div id="layoutSidenav_content">
-			<div class="container-fluid px-4">
-                <!-- 컨텐츠 삽입 부분-->
+<div id="nav"></div>
+<div id="layoutSidenav">
+	<div id="layoutSidenav_nav">
+		<div id="navbar"></div>
+	</div>
+    <div id="layoutSidenav_content">
+	<div class="container-fluid px-4">
+	<!-- 컨텐츠 삽입 부분-->
 	<h2>설문조사</h2>
 		<table border="1">
-		<thead>
-			<tr>
-				<th>구분번호</th>
-				<th>강의이름</th>
-				<th>구분</th>
-				<th>질문내용</th>
-			</tr>
-		</thead>
-		<tbody>
-		<c:forEach var="q" items="${list}">
-			<tr>
-				<td>${q.evaluationNo}</td>	
-				<td>${q.lectureName}</td>
-				<td>${q.category}</td>
-				<td>${q.questionnaireContent}</td>
-				<td>
-					<input type="radio" name="radio${q.evaluationNo}" value="1">전혀아니다<br>
-					<input type="radio" name="radio${q.evaluationNo}" value="2">아니다<br>
-					<input type="radio" name="radio${q.evaluationNo}" value="3">보통이다<br>
-					<input type="radio" name="radio${q.evaluationNo}" value="4">그렇다<br>
-					<input type="radio" name="radio${q.evaluationNo}" value="5">매우그렇다
-				</td>
-			</tr>
+			<thead>
+				<tr>
+					<th>구분번호</th>
+					<th>강의이름</th>
+					<th>구분</th>
+					<th>질문내용</th>
+				</tr>
+			</thead>
+			<tbody>
+			<c:forEach var="q" items="${list}">
+				<tr>
+					<td>${q.evaluationNo}</td>	
+					<td>${q.lectureName}</td>
+					<td>${q.category}</td>
+					<td>${q.questionnaireContent}</td>
+					<td>
+						<input type="radio" name="radio${q.evaluationNo}" value="1">전혀아니다<br>
+						<input type="radio" name="radio${q.evaluationNo}" value="2">아니다<br>
+						<input type="radio" name="radio${q.evaluationNo}" value="3">보통이다<br>
+						<input type="radio" name="radio${q.evaluationNo}" value="4">그렇다<br>
+						<input type="radio" name="radio${q.evaluationNo}" value="5">매우그렇다
+					</td>
+				</tr>
 			</c:forEach>
-		</tbody>	
+			</tbody>	
 		</table>
-			</div>
-				<div id="footer"></div>
-        	</div>
-        </div>
+	</div>
+	<div id="footer"></div>
+	</div>
+</div>
 </body>
 	<script>
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');

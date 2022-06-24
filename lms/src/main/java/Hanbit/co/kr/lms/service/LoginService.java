@@ -18,10 +18,13 @@ import lombok.extern.slf4j.Slf4j;
 public class LoginService {
 	@Autowired LoginMapper loginMapper;
 	
+	// controller 에서 service로 값 받아오기
 	public Map<String, Object> selectMemberId(Map<String, Object> map){
+		
 		String memberId = (String)(map.get("memberId"));
 		String memberPw = (String)(map.get("memberPw"));
 		String role = (String)(map.get("role"));
+		
 		// memberId + memberPw + role 디버깅
 		log.debug(CF.SWB+"[LoginService selectMemberId memberId]"+ memberId+CF.RESET);
 		log.debug(CF.SWB+"[LoginService selectMemberId memberPw]"+ memberPw+CF.RESET);
@@ -42,6 +45,7 @@ public class LoginService {
 			String managerPw = memberPw;
 			member = loginMapper.selectManager(managerId, managerPw);
 		}		
+		
 		// member 디버깅
 		log.debug(CF.SWB+"[LoginService selectMemberId member]"+ member+CF.RESET);	
 		String error = null;

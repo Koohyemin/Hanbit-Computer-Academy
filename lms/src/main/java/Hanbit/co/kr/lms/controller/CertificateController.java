@@ -26,11 +26,12 @@ public class CertificateController {
 		
 		//세션에 있는 아이디 값 가져옴
 		String studentId = (String) session.getAttribute("sessionMemberId");
-		
-		// 학생 아이디 값 받아옴
 		log.debug( CF.KYJ +"[CertificateController GetMapping paymentStudent studentId]: "+ studentId + CF.RESET);
+		
+		// certificateService로 selectRegistrationList(납부리스트) 
 		List<Registration> selectRegistrationList = certificateService.studentPaymentList(studentId);
 		log.debug( CF.KYJ +"[CertificateController GetMapping paymentStudent selectRegistrationList]: "+ selectRegistrationList + CF.RESET);
+		
 		model.addAllAttributes(selectRegistrationList);
 		return "certificate/paymentStudent";
 	}

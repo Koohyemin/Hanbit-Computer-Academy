@@ -7,6 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
+<meta property="og:title" content="한빛컴퓨터아카데미LMS">
+<meta property="og:url" content="lms/login">
+<meta property="og:image" content="${pageContext.request.contextPath}/img/previewer.png">
 <title>getFaqListByPage</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
