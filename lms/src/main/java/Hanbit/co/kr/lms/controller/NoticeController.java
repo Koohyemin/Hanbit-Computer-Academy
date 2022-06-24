@@ -34,7 +34,10 @@ public class NoticeController {
 		if (memberLv != 3) { // 운영자가 아니라면 공지목록으로 돌아가기
 			return "redirect:/notice/getNoticeListByPage";
 		}
+		
+		//
 		int row = noticeService.getDeleteNotice(managerNoticeNo);
+		
 		if(row == 1) {
 			log.debug(CF.KHM + "[NoticeController postMapping addNotice] : 공지 삭제 성공" + CF.RESET); // 성공 디버깅
 		} else {
@@ -71,11 +74,13 @@ public class NoticeController {
 	 */
 	@GetMapping("/notice/updateNotice")
 	public String getUpdateNotice(Model model, @RequestParam(name="managerNoticeNo") int managerNoticeNo) {
+		
 		// 수정시, 기존 입력 값 화면에 보여주기 위해 상세보기 값 불러오기 - 운영자
 		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
 		if (memberLv != 3) { // 운영자가 아니라면 공지목록으로 돌아가기
 			return "redirect:/notice/getNoticeListByPage";
 		}
+		
 		ManagerNotice managerNotice = noticeService.getNoticeOne(managerNoticeNo);
 		model.addAttribute("managerNotice", managerNotice);
 		return "notice/updateNotice";

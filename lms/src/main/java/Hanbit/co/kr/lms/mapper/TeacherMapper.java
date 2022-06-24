@@ -7,5 +7,5 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface TeacherMapper {
-	List<Map<String,Object>> getTeacherList(String searchValue); // 강사 목록, 검색 기능
+	List<Map<String,Object>> getTeacherList(String searchValue); // 강사 리스트 
 }

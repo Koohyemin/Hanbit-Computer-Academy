@@ -13,8 +13,8 @@ import Hanbit.co.kr.lms.mapper.TeacherMapper;
 @Transactional
 public class TeacherService {
 	@Autowired TeacherMapper teacherMapper;
-	// 강사 목록
-	public List<Map<String,Object>> getTeacherList(String searchValue) {
+	// 강사 기본 정보 조회
+	public List<Map<String, Object>> getTeacherList(String searchValue) {
 		return teacherMapper.getTeacherList(searchValue);
 	}
 }

@@ -21,14 +21,13 @@
 		</div>
        <div id="layoutSidenav_content">
 			<div class="container-fluid px-4">
-                <!-- 컨텐츠 삽입 부분-->
+            <!-- 컨텐츠 삽입 부분-->
 			<br>
         	<div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-chart-area me-1"></i>
                 Teacher
             </div>         
-            <!-- trigger 사용해서 $( "#btn" ).trigger( "click" ); -->
             <br>
             <form method="get" action="${pageContext.request.contextPath}/teacher/teacherList">
 	            <div class="container float-end">
@@ -39,27 +38,27 @@
 				      		<button id="btn" type="submit" class="btn btn-dark float-end">검색</button>
 		           		</div>
 		            </div>
-	            </div> 
+	            </div>
             </form>
             <br>
             <!-- 강사소개 -->
             <div class="container">
-             <h3>Hanbit Computer Academy Teacher Information</h3> <br>
+             <h3>Teacher Information</h3> <br>
             <!-- 강사가 1명 이상일 시, teachList 출력 -->
          		<c:choose>
          			<c:when test="${listSize > 0}">
 	         			<c:forEach var="m" items="${teacherList}">
-				            <div class="col-lg-6 col-md-6 col-12 ">
+				            <div class="col-lg-6 col-md-12 col-10">
 								<div class="card">
 								<div class="row">
-									<div class="col-4">
+									<div class="col-5">
 									<!-- 사진 -->
 									<div>
-										<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}" class="img-fluid" alt="" width="150" height="200">
+										<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}" class="img-fluid">
 									</div>
 									
 									</div>
-										<div class="col-8">
+										<div class="col-7">
 											<div>
 											<br>
 												<div>
@@ -67,24 +66,24 @@
 													<h4>${m.teacherName}</h4>
 													<ul>
 														<!-- 강사 이메일 -->
-														<li>이메일 : <span>${m.teacherEmail}</span></li>
+														<li><span>이메일</span><div>✉ <span>${m.teacherEmail}</span></div></li>
 														<!-- 담당 수업 -->
 														<!-- 담당 수업이 없다면 없음으로 표시 -->
 														<c:choose>
 															<c:when test="${m.lecPlanName eq '' || m.lecPlanName == null}">
-																<li>강의 : <span>강의가 없습니다.</span></li>
+																<li><span>강의</span><div>🖥 <span>강의가 없습니다.</span></div></li>
 															</c:when>
 															<c:otherwise>
-																<li>강의 : <span><a href="#" class="text-decoration-none">${m.lecPlanName}</a></span></li>
+																<li><span>강의</span><div>🖥 <span>${m.lecPlanName}</span></div></li>
 															</c:otherwise>
 														</c:choose>
 														<!-- 보유 자격증 -->
 														<c:choose>
 															<c:when test="${m.certificationName eq '' || m.certificationName == null}">
-																<li>자격증 : <span>보유 자격증이 없습니다.</span></li>
+																<li><span>자격증</span> <div>📑 <span>보유 자격증이 없습니다.</span></div></li>
 															</c:when>
 															<c:otherwise>
-																<li>자격증 : <span>${m.certificationName}</span></li>
+																<li><span>자격증</span> <div>📑 <span>${m.certificationName}</span></div></li>
 															</c:otherwise>
 														</c:choose>
 													</ul>
@@ -107,8 +106,8 @@
             </div>
             </div>
 			</div>
-				<div id="footer"></div>
         	</div>
+				<div id="footer"></div>
         </div>
 </body>
 	<script>
