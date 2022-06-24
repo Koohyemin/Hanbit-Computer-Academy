@@ -7,9 +7,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<meta property="og:title" content="한빛컴퓨터아카데미LMS">
-<meta property="og:url" content="lms/login">
-<meta property="og:image" content="${pageContext.request.contextPath}/img/previewer.png">
 <title>index</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
@@ -18,19 +15,19 @@
 </head>
 <body class="sb-nav-fixed">
 <div id="nav"></div>
-<div id="layoutSidenav">
-	<div id="layoutSidenav_nav">
-		<div id="navbar"></div>
-	</div>
-    <div id="layoutSidenav_content">
-		<div class="container-fluid px-4">
-		<!-- 컨텐츠 삽입 부분-->
-
+	<div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+        		<div id="navbar"></div>
 		</div>
-		<div id="footer"></div>
-    </div>
-</div>
-</body>
+       <div id="layoutSidenav_content">
+			<div class="container-fluid px-4">
+                <!-- 컨텐츠 삽입 부분-->
+
+			</div>
+				<div id="footer"></div>
+        	</div>
+        </div>
+        </body>
 	<script>
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
@@ -43,4 +40,4 @@
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
-</html>
+    </html> 
