@@ -56,22 +56,25 @@ public class ImformationMemberController {
 		// service에서 controller로 값 가져오기
 		Map<String, Object> returnMap = new HashMap<>();
 		if(memberLv == 1) { // 학생일때
-			studentId = (String)session.getAttribute("sessionMemberId");
+			studentId = (String)session.getAttribute("sessionMemberId"); // 변수등록 및 세션아이디 값 넣기
 			returnMap = imformation.studentOne(studentId);
+			log.debug(CF.SWB+"[ImformationMemberController memberOne student]"+ returnMap.get("student").toString()+CF.RESET); // student 디버깅
 			model.addAttribute("student",returnMap.get("student"));
 		} else if(memberLv == 2) { // 강사일때
-			teacherId = (String)session.getAttribute("sessionMemberId");
+			teacherId = (String)session.getAttribute("sessionMemberId");  // 변수등록 및 세션아이디 값 넣기
 			returnMap = imformation.teacherOne(teacherId);
 			model.addAttribute("teacher",returnMap.get("teacher"));
+			log.debug(CF.SWB+"[ImformationMemberController memberOne teacher]"+ returnMap.get("teacher").toString()+CF.RESET); // teacher 디버깅
 			model.addAttribute("registrationList",returnMap.get("registrationList"));
-		} else if(memberLv == 3) { // 운영자
-			managerId = (String)session.getAttribute("sessionMemberId");
+		} else if(memberLv == 3) { // 운영자일때
+			managerId = (String)session.getAttribute("sessionMemberId");  // 변수등록 및 세션아이디 값 넣기
 			returnMap = imformation.managerOne(managerId);
+			log.debug(CF.SWB+"[ImformationMemberController memberOne manager]"+ returnMap.get("manager").toString()+CF.RESET); // manager 디버깅
 			model.addAttribute("manager",returnMap.get("manager"));
 		}
 		
 		// returnMap.size 디버깅
-		log.debug(CF.SWB+"[ImformationMemberController studentOne returnMap.size()]"+ returnMap.size()+CF.RESET);
+		log.debug(CF.SWB+"[ImformationMemberController memberOne returnMap.size()]"+ returnMap.size()+CF.RESET);
 		
 		// jsp로 값보내기
 		model.addAttribute("certificationList",returnMap.get("certificationList"));

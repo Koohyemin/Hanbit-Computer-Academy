@@ -33,7 +33,6 @@ public class LoginService {
 			String studentId = memberId;
 			String studentPw = memberPw;
 			member = loginMapper.selectStudent(studentId, studentPw);
-			
 		} else if("teacher".equals(role)) { // 사용자 선택이 강사라면...
 			String teacherId = memberId;
 			String teacherPw = memberPw;
@@ -46,21 +45,26 @@ public class LoginService {
 		// member 디버깅
 		log.debug(CF.SWB+"[LoginService selectMemberId member]"+ member+CF.RESET);	
 		String error = null;
-		// member아이디를 찾았다면 접속로그 업데이트
+		
+		// map 선언
 		Map<String, Object> returnMap = new HashMap<>();
+		
+		// member아이디를 찾았다면 접속로그 업데이트
 		if(member != null) {
-			// 비승인 상태면 에러메세지 보내기
-			if(member.getMemberState() == 1) {
+			if(member.getMemberState() == 1) { // 비승인 상태면 에러메세지 보내기
 				error = "비승인 계정입니다. 담당자한테 문의해주세요";
-			} else if(member.getMemberState() == 2) {
+			} else if(member.getMemberState() == 2) { // 멤버가 회원 승인 상태이면
+				// 접속 날짜 업데이트
 				loginMapper.updateLogDate(memberId);
 				returnMap.put("member", member);
 			}
-		} else if(member == null){
+		} else if(member == null){ // 아이디가 존재하지 않으면 에러메세지
 			error = "아이디와 비밀번호를 확인해주세요";
 		}
+		
+		// error 담기
 		returnMap.put("error", error);
-		log.debug(CF.SWB+"[LoginService selectMemberId error]"+ error+CF.RESET);	
+		log.debug(CF.SWB+"[LoginService selectMemberId error]"+ error+CF.RESET); // error 디버깅
 		
 		return returnMap;
 	}

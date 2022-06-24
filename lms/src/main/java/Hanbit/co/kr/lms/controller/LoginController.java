@@ -30,7 +30,10 @@ public class LoginController {
 	public String logout(Model model
 						,HttpSession session
 						,@RequestParam(name = "role",defaultValue = "student")String role) {
+		
 		session.invalidate();
+		
+		// jsp로 값 보내기
 		model.addAttribute("role",role);
 		return "login";
 	}
@@ -39,8 +42,10 @@ public class LoginController {
 	@GetMapping("/login")
 	public String login(Model model
 						,@RequestParam(name = "role",defaultValue = "student")String role) {
+		
+		// jsp로 값 보내기
 		model.addAttribute("role",role);
-		log.debug(CF.SWB+"[LoginController GetMapping role]"+ role+CF.RESET);
+		log.debug(CF.SWB+"[LoginController GetMapping role]"+ role+CF.RESET); // role 디버깅
 		return "login";
 	}
 	
@@ -63,17 +68,21 @@ public class LoginController {
 		map.put("memberPw", memberPw);
 		map.put("role", role);
 		
-		
+		// session + vo.member 등록
 		HttpSession session = request.getSession();
 		Member member = new Member();
+		
 		// 서비스에서 값 받고 view로 값 보내주기
 		Map<String, Object> returnMap= loginService.selectMemberId(map);
-		if((Member)returnMap.get("member") != null) {
+		if((Member)returnMap.get("member") != null) {  
 			member = (Member)returnMap.get("member");
 		}
+		
+		// 변수등록
 		String returnMemberId = null;
 		int returnMemberLv = 0;
 		
+		// member.getMemberId() + member.getMemberId() 값이 잘 들어와 있다면 변수에 값 넣어주기
 		if(member.getMemberId() != null && !"".equals(member.getMemberId())) {
 			returnMemberId = member.getMemberId();
 			returnMemberLv = member.getMemberLevel();
