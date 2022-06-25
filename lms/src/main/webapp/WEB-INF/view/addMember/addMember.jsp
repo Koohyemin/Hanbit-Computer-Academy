@@ -96,7 +96,7 @@
 							</tr>
 							<tr>
 								<!-- 라디오버튼 선택 후에 최종학력받을지 결정-->
-								<td id="fEud" type="text">최종학력
+								<td id="fEud" >최종학력
 								<select name="finalEdu">
 									<option value="고졸">고등학교 졸업</option>
 									<option value="초대졸">전문대 졸업</option>
@@ -117,7 +117,8 @@
 </div>
 </body>
 <script>
-	
+$(document).ready(function(){
+	$('#fEud').hide();
 	// 첫 입력은 memberId 부터
 	$('#memberId').focus();
 
@@ -184,20 +185,22 @@
 				var jsonStr2 = JSON.parse(jsonStr);
 				var arr = jsonStr2.results.juso; //주소배열
 				console.log(arr);
-				console.log($('#keyword').val());
+				//console.log($('#keyword').val());
 				
 				/* 				
 
 				 for(var i =0; i<arr.length; i++){
 					$('#list').append('<div>'+arr[i].jibunAddr+'</div>');				<!--<table id="list" border="1"></table>
-																									<a href="" id="list"></a>  -->
+																		<a href="" id="list"></a>  -->
 					} 
 				*/
-					var obj = document.getElementById('addr');
+				//var obj = document.getElementById('addr');
+				
 				$('#addr').empty();	// select 초기화 부분
 				//var obj = $.getElementById('gb');
 				for(var i =0; i<arr.length; i++){
-					obj.options.add(new Option(arr[i].jibunAddr));
+					//obj.options.add(new Option(arr[i].jibunAddr));
+					$('#addr').append('<option>'+arr[i].jibunAddr +'</option>');
 				}
 			}
 		});
@@ -206,7 +209,7 @@
 
 	// 사용자 상태를 선택하는 폼에서 radio 값이 바뀌면 학적 숨기는 이벤트
 	$("input[name='level']").change(function(){										
-		var level = $("input[name='level']:checked").val();
+		var level = $("input[name='level']:checked").val();			//<--id로 수정
 			alert(level);			
 		if(level == 3){
 			$('#fEud').hide();
@@ -267,7 +270,7 @@
 		}
 		});
 	});
-	
+});	
 	<!-- 	<input type="text" name="resultType" value="json"/> <-- 요청 변수 설정 (검색결과형식 설정, json) --> 
 	<!-- 	<input type="text" name="confmKey" value="U01TX0FVVEgyMDIyMDYxNjE2MzExNTExMjY5ODQ="/>요청 변수 설정 (승인키) -->
 	<!-- 	<input type="button" onClick="getAddr();" value="주소검색하기"/>-->
