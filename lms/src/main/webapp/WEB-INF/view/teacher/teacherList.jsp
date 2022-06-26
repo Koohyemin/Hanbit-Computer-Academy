@@ -7,11 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>addFaq</title>
+<title>teacher</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="../css/styles.css" rel="stylesheet" />
-<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
 	<div id="nav"></div>
@@ -42,68 +41,63 @@
             </form>
             <br>
             <!-- 강사소개 -->
-            <div class="container">
-             <h3>Teacher Information</h3> <br>
+            <div class="card-body">
+             <h3>Teacher Information <span class="badge rounded-pill bg-dark">${listSize}</span></h3> <br>
             <!-- 강사가 1명 이상일 시, teachList 출력 -->
          		<c:choose>
          			<c:when test="${listSize > 0}">
 	         			<c:forEach var="m" items="${teacherList}">
-				            <div class="col-lg-6 col-md-12 col-10">
 								<div class="card">
-								<div class="row">
-									<div class="col-5">
-									<!-- 사진 -->
-									<div>
-										<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}" class="img-fluid">
-									</div>
-									
-									</div>
-										<div class="col-7">
-											<div>
+					            <div class="col-lg-6 col-sm-12">
+									<div class="row">
+										<!-- 사진 -->
+										<div class="col-4 col-md-6">
+											<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}" class="object-fit img-thumbnail">
+										</div>
+										<div class="col-8 col-lg-6 col-md-12">
 											<br>
-												<div>
-													<!-- 강사 이름 -->
-													<h4>${m.teacherName}</h4>
-													<ul>
-														<!-- 강사 이메일 -->
-														<li><span>이메일</span><div>✉ <span>${m.teacherEmail}</span></div></li>
-														<!-- 담당 수업 -->
-														<!-- 담당 수업이 없다면 없음으로 표시 -->
-														<c:choose>
-															<c:when test="${m.lecPlanName eq '' || m.lecPlanName == null}">
-																<li><span>강의</span><div>🖥 <span>강의가 없습니다.</span></div></li>
-															</c:when>
-															<c:otherwise>
-																<li><span>강의</span><div>🖥 <span>${m.lecPlanName}</span></div></li>
-															</c:otherwise>
-														</c:choose>
-														<!-- 보유 자격증 -->
-														<c:choose>
-															<c:when test="${m.certificationName eq '' || m.certificationName == null}">
-																<li><span>자격증</span> <div>📑 <span>보유 자격증이 없습니다.</span></div></li>
-															</c:when>
-															<c:otherwise>
-																<li><span>자격증</span> <div>📑 <span>${m.certificationName}</span></div></li>
-															</c:otherwise>
-														</c:choose>
-													</ul>
-												</div>
+											<div>
+												<!-- 강사 이름 -->
+												<h4 class="text-success">${m.teacherName} 선생님</h4> <br>
+												<ul>
+													<!-- 강사 이메일 -->
+													<li><span>이메일</span><div>📧 <span>${m.teacherEmail}</span></div></li>
+													<!-- 담당 수업 -->
+													<!-- 담당 수업이 없다면 없음으로 표시 -->
+													<c:choose>
+														<c:when test="${m.lecPlanName eq '' || m.lecPlanName == null}">
+															<li><span>강의</span><div>🖥 <span class="text-secondary">강의가 없습니다.</span></div></li>
+														</c:when>
+														<c:otherwise>
+															<li><span>강의</span><div>🖥 <span class="text-primary">${m.lecPlanName}</span></div></li>
+														</c:otherwise>
+													</c:choose>
+													<!-- 보유 자격증 -->
+													<c:choose>
+														<c:when test="${m.certificationName eq '' || m.certificationName == null}">
+															<li><span>자격증</span> <div>📑 <span class="text-secondary">보유 자격증이 없습니다.</span></div></li>
+														</c:when>
+														<c:otherwise>
+															<li><span>자격증</span> <div>📑 <span>${m.certificationName}</span></div></li>
+														</c:otherwise>
+													</c:choose>
+												</ul>
 											</div>
 										</div>
 									</div>
 								</div>
-								<br>
 							</div>
+							<br>
 			            </c:forEach>
          			</c:when>
          			<c:otherwise>
          				<br><br>
          				<!-- 일치하는 강사가 없거나, 강사목록이 존재하지 않을 경우 -->
-	            		<div class="text-primary">강사가 존재하지 않습니다.</div>
+	            		<h5 class="text-primary">강사가 존재하지 않습니다.</h5>
 	            		<br><br>
          			</c:otherwise>
          		</c:choose>
-            </div>
+         		</div>
             </div>
 			</div>
         	</div>

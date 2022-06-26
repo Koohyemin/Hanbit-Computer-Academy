@@ -41,7 +41,7 @@
             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
                     <a class="nav-link" href="#">찜 목록</a>
-                    <a class="nav-link" href="#">수강신청하기</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/teacher/teacherList">수강신청하기</a>
                     <a class="nav-link" href="#">수강신청내역</a>
                 </nav>
             </div>

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<!-- WHERE CONCAT( '%', t.teacher_name , '%' ) LIKE CONCAT( '%', #{ searchValue }, '%' ) -->
 <mapper namespace="Hanbit.co.kr.lms.mapper.TeacherMapper">
-	<!-- 강사의  -->
+	<!-- 강사 정보, 강의 목록, 자격증 목록 -->
 	<select id="getTeacherList" parameterType="String" resultType="java.util.Map">
 		SELECT
 			 a.teacher_id teacherId
 			,a.teacher_name teacherName
 			,a.teacher_email teacherEmail
 			,a.PhotoName photoName
-			,GROUP_CONCAT(b.certification_name) certificationName
-			,GROUP_CONCAT(c.lec_plan_name) lecPlanName
+			,GROUP_CONCAT(DISTINCT(b.certification_name)) certificationName
+			,GROUP_CONCAT(DISTINCT(c.lec_plan_name)) lecPlanName
+			,GROUP_CONCAT(DISTINCT(c.lec_plan_no)) lecPlanNo
 			FROM(SELECT 
 					 t.teacher_id
 					,t.teacher_name
@@ -19,11 +19,13 @@
 				FROM teacher t
 					LEFT JOIN photo_file pf
 						ON t.teacher_id = pf.member_id
-				WHERE CONCAT( '%', t.teacher_name , '%' ) LIKE CONCAT( '%', #{searchValue} , '%' )
+					INNER JOIN member m
+						ON t.teacher_id = m.member_id
+				WHERE CONCAT( '%', t.teacher_name , '%' ) LIKE CONCAT( '%', #{searchValue} , '%' ) AND m.member_state='2'
 				GROUP BY t.teacher_id) a 
 					LEFT JOIN (SELECT member_id,certification_name FROM certification) b
 					ON a.teacher_id = b.member_id
-					LEFT JOIN (SELECT teacher_id, lec_plan_name FROM lec_plan)c
+					LEFT JOIN (SELECT teacher_id, lec_plan_name, lec_plan_no FROM lec_plan)c
 					ON a.teacher_id = c.teacher_id
 		GROUP BY a.teacher_name
 	</select>
