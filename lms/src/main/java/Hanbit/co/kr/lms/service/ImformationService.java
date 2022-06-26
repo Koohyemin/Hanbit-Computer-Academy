@@ -27,8 +27,11 @@ public class ImformationService {
 	@Autowired ImformationMapper imformationMapper;
 	
 	// 학생 업데이트
-	public String modifyStudent(Student student) {
-		return imformationMapper.updateStudent(student);
+	public void updateStudent(Student student) {
+		
+		// service에서 mapper로 값 넘겨주기
+		imformationMapper.updateStudent(student);
+		return;
 	}
 	
 	// 나의 정보(학생개인정+자격증리스트+수강내용+사진)

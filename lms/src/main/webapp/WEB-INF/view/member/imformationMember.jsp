@@ -31,7 +31,7 @@
 	     		<div class="card-header">
 		     		<i class="fas fa-chart-area me-1"></i>
 					나의 정보
-					<a class="btn btn-dark" role="button" href="${pageContext.request.contextPath}/student/modifyStudent">수정하기</a>
+					<a class="btn btn-dark" role="button" href="${pageContext.request.contextPath}/member/modifyMember">수정하기</a>
 		        </div>
 		        <div class="card-body">
 					<div class="row"> 
