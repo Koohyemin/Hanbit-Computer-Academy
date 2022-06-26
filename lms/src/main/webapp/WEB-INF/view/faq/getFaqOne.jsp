@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
@@ -43,13 +44,13 @@
                            </tr>
                       </table>
 
-	                         <div>
 	                           <c:if test="${sessionMemberLv == 3 }">
 	                           <form method="post" action="${pageContext.request.contextPath}/faq/deleteFaq"  style="float:right">
 	                           <input type="hidden" name="faqNo" value="${faq.faqNo}" >
 	                           <input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
 	                           </form>
 	                           </c:if>
+	                      	</div>
 	                      	</div>
             <div id="footer"></div>
          </div>

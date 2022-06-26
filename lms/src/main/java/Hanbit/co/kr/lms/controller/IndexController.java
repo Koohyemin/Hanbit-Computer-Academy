@@ -8,9 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @Slf4j
 public class IndexController {
-	@GetMapping("/index")
+	@GetMapping("/home/index")
 	public String test() {
 
-		return "index";
+		return "home/index";
 	}
 }

@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta property="og:title" content="한빛컴퓨터아카데미LMS">
 <meta property="og:url" content="lms/login">
-<meta property="og:image" content="${pageContext.request.contextPath}/img/previewer.png">
-<title>Insert title here</title>
+<meta property="og:image" content="${pageContext.request.contextPath}/../img/previewer.png">
+<title>LMS Login</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

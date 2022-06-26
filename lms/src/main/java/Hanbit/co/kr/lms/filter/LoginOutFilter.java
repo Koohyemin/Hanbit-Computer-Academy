@@ -18,17 +18,17 @@ import lombok.extern.slf4j.Slf4j;
 
 	@Slf4j
 	
-	// 세션 값이 없으면 로그인 페이지로 이동하는 필터 
+	// 세션 값이 있으면 index 페이지로 이동하는 필터 
 	@WebFilter(value = { "/user/*",  "/login"})
 	public class LoginOutFilter extends HttpFilter implements Filter {
 	   @Override
 	   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 	      if(request instanceof HttpServletRequest) {
 	         HttpSession session = ((HttpServletRequest)request).getSession();
-	         // 로그인 정보가 없으면 login으로 보내주기
+	         // 로그인 정보가 있으면 index으로 보내주기
 	         if(session.getAttribute("sessionMemberId") != null) {
 	            log.debug(CF.SWB+"[StudentFiter doFilter 로그인상태"+CF.RESET);
-	            ((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/index");
+	            ((HttpServletResponse)response).sendRedirect(((HttpServletRequest)request).getContextPath()+"/home/index");
 	            return;
 	         }
 	      chain.doFilter(request, response);

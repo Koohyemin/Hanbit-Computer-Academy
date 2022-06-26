@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta property="og:title" content="한빛컴퓨터아카데미LMS">
 <meta property="og:url" content="lms/login">
 <meta property="og:image" content="${pageContext.request.contextPath}/img/previewer.png">

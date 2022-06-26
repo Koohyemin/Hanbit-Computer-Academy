@@ -8,7 +8,7 @@
 // 
 
 window.addEventListener('DOMContentLoaded', event => {
-
+           
     // Toggle the side navigation
     const sidebarToggle = document.body.querySelector('#sidebarToggle');
     if (sidebarToggle) {
@@ -19,7 +19,8 @@ window.addEventListener('DOMContentLoaded', event => {
         sidebarToggle.addEventListener('click', event => {
             event.preventDefault();
             document.body.classList.toggle('sb-sidenav-toggled');
-            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));
+            localStorage.setItem('sb|sidebar-toggle', document.body.classList.contains('sb-sidenav-toggled'));	
+                   	
         });
     }
 
