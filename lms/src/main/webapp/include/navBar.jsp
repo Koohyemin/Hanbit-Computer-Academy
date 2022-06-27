@@ -147,7 +147,7 @@
                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                 공지사항
             </a>
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage">
                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                 문의 게시판
             </a>
