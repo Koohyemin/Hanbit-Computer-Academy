@@ -1,6 +1,7 @@
 package Hanbit.co.kr.lms.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,7 +50,7 @@ public class CertificateService {
 		return;
 	}
 	// 학생의 아이디를 통해 고지서를 보여준다
-	public List<Registration> studentPaymentList(String studentId){
+	public List <Map<String,Object>> studentPaymentList(String studentId){
 		return certificateMapper.paymentStudentList(studentId);
 	}
 }

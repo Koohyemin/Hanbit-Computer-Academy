@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -133,12 +135,12 @@
          			</c:otherwise>
          		</c:choose>
          		</c:if>
-         	<c:if test="${level == 3}">
+         		 <c:if test="${level == 3 }">
              <h3>Lec Information <span class="badge rounded-pill bg-dark">${listSize}</span></h3> <br>
              <c:if test="${sessionMemberLv == 3}">
 				<!-- 강의 등록 버튼은 운영진에게만 보임 -->
-				<span class="float-start">
-					<a class="btn btn-dark" href="${pageContext.request.contextPath}/lec/addLec">강의 등록</a>
+				<span class="float-end">
+					<a class="float-left btn btn-dark" href="${pageContext.request.contextPath}/lec/addLec">강의 등록</a>
 				</span>
 			</c:if>
               <!-- 검색 구현  -->
@@ -162,26 +164,23 @@
 								<div class="card">
 					            <div class="col-lg-12 col-sm-12">
 									<br>
-										<div class="btn-group float-end">
-											<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${m.lectureName}" class="btn btn-dark">수정</a>
-											<button class="btn btn-secondary">삭제</button>
-										</div>
 									<div>
 										<!-- 강좌이름  -->
-										<h4 class="text-success">👩‍🏫 ${m.lectureName} </h4> <br>
+										<h4 class="text-success"> 👩‍🏫 ${m.lectureName} </h4> <br>
 										<ul>
 											<!-- 강의실  -->
-											<li><span>강의실</span><div>📧 <span>${m.lectureRoomName}</span></div></li>
+											<li><span>강의실 : ${m.lectureRoomName}</span></li>
 											<!-- 과목 -->
-											<li><span>과목</span><div>📧 <span>${m.subjectName}</span></div></li>
+											<li><span>과목 : ${m.subjectName}</span></li>
 											<!-- 모집인원  -->
-											<li><span>모집인원</span><div>📧 <span>${m.registrationNumber} 명</span></div></li>
+											<li><span>모집인원 : ${m.registrationNumber}명</span></li>
 											<!-- 이수점수   -->
-											<li><span>이수점수</span><div>📧 <span>${m.registrationPassScore}점</span></div></li>
+											<li><span>이수점수 : ${m.registrationPassScore}점 이상</span></li>
 											<!-- 수강료   -->
-											<li><span>수강료</span><div>📧 <span>${m.lecCost}원 </span></div></li>
+											<li><span>수강료 : <fmt:formatNumber value="${m.lecCost}" pattern="#,###" />원 </span></li>
 											<!-- 문의 연락처    -->
-											<li><span>문의 연락처 </span><div>📧 <span>${m.lecPhone} </span></div></li>
+											<li><span>문의 연락처 : ${fn:substring(m.lecPhone,0,3)}-${fn:substring(m.lecPhone,3,7)}-${fn:substring(m.lecPhone,7,13)}
+											</span></li>
 										</ul>
 									</div>
 								</div>
@@ -233,7 +232,9 @@
 											<!-- 연락처   -->
 											<li><span>☎️ 연락처 : ${m.studentPhone} </span></li>
 											<!-- 생년월일   -->
-											<li><span>🗓 생년월일 : ${m.studentBirth} </span></li>
+											<li><span>🗓 생년월일 : 
+											${fn:substring(m.studentBirth,0,2)}년 ${fn:substring(m.studentBirth,2,4)}월 ${fn:substring(m.studentBirth,4,6)}일
+											</span></li>
 											<!-- 성별    -->
 											<li><span>❤ 성별 : ${m.studentGender}</span></li>
 											<!-- 최종학력 -->

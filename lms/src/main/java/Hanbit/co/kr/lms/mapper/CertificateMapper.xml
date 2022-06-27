@@ -40,12 +40,13 @@
 				( #{memberId},#{certificationName},#{certificationIssued},#{getDate}, NOW(),NOW() )
 	</update>
 
-	<select id="paymentStudentList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.Registration">
-		SELECT lecture_name lectureName
-			, student_id studentId
-			, payment 
-			, create_date createDate
-		FROM  registration 
-		WHERE student_id = #{studentId}
+<select id="paymentStudentList" parameterType="String" resultType="java.util.Map">
+	SELECT r.lecture_name lectureName
+		, s.student_name studentName
+		, r.payment payment
+		, r. create_date createDate
+	FROM  registration r inner join student s
+	on r.student_id = s.student_id
+	WHERE s.student_id = #{studentId}
 </select>
 </mapper>

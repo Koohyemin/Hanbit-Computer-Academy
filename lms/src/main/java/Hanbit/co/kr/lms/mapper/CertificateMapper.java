@@ -1,6 +1,7 @@
 package Hanbit.co.kr.lms.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,5 +24,6 @@ public interface CertificateMapper {
 	void deleteCertification(int certificationNo);
 	
 	// 납부 증명서 리스트 
-	List<Registration> paymentStudentList(String studentId);
+	List <Map<String,Object>> paymentStudentList(String studentId);
+
 }

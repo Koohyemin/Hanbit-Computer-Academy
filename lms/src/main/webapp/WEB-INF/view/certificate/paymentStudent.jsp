@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,6 +31,7 @@
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
                         납부 증명서
+                        <input type="button" id="btnPrint" value="납부증명서 출력하기" class="btn btn-dark">
                     </div>
                     <div class="card-body">
 						<!-- 학생의 납입 리스트  -->
@@ -40,19 +42,17 @@
 		                           <th>강좌이름</th>
 		                           <th>납부금액</th>
 		                           <th>납부일자</th>
-		                           <th>출력하기</th>
 		                       </tr>
 		                   </thead>
 		                   <tbody>
-								<c:forEach var="r" items="selectRegistrationList">
+		                   	<c:forEach var="m" items="${selectRegistrationList}">
 									<tr>
-										<td>${registration.studentId}</td>
-										<td>${registration.lectureName}</td>
-										<td>${registration.payment}원</td>
-										<td>${registration.createDate}</td>
-										<td><input type="button" id="btnPrint" value="출력하기"></a></td>
+										<td>${m.studentName}</td>
+										<td>${m.lectureName}</td>
+										<td><fmt:formatNumber value="${m.payment}" pattern="#,###" />원</td>
+										<td>${m.createDate}</td>
 									</tr>
-								</c:forEach>
+									</c:forEach>
 		                   </tbody>
 	              		 </table>
 	              		 <div id="printTable">
@@ -74,13 +74,14 @@
 			                       </tr>
 			                   </thead>
 			                   <tbody>
-									<c:forEach var="r" items="selectRegistrationList">
-										<tr>
-											<td style="border:1px solid #000000;">${registration.studentId}</td>
-											<td style="border:1px solid #000000;">${registration.lectureName}</td>
-											<td style="border:1px solid #000000;">${registration.payment}원</td>
-											<td style="border:1px solid #000000;">${registration.createDate}</td>
-										</tr>
+			                   <c:forEach var="m" items="${selectRegistrationList}">
+									<tr>
+										<td style="border:1px solid #000000;">${m.studentName}</td>
+										<td style="border:1px solid #000000;">${m.lectureName}</td>
+										<td style="border:1px solid #000000;">
+										<fmt:formatNumber value="${m.payment}" pattern="#,###" />원 </td>
+										<td style="border:1px solid #000000;">${m.createDate}</td>
+									</tr>
 									</c:forEach>
 			                   </tbody>
 		              		 </table>
