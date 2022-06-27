@@ -29,45 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 public class ImformationMemberController {
 	@Autowired ImformationService imformation;
 	
-	@GetMapping("/student/searchAddr")
-	public String getAddr(@RequestParam(value="Keyword") String keyword) {
-		
-    // OPEN API 호출 URL 정보 설정
-	//뷰에서 받은 keyword 디버깅
-	log.debug(CF.SWB+"[LoginController GetMapping role]"+CF.RESET+keyword);
-    final int countPerPage = 10; //페이지당 개수 10으로 설정
-    int currentPage =1; //페이지 수 1로 설정
-    
-    //키 지정
-    String confmKey = "U01TX0FVVEgyMDIyMDYxNjE2MzExNTExMjY5ODQ=";	
-    
-    //타입 지정
-    String resultType = "json";												
-    StringBuffer sb = null;
-    
-    try {
-    	//api url 불러오기
-    String apiUrl = "https://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage="+currentPage+"&countPerPage="+countPerPage+"&Keyword="+URLEncoder.encode(keyword,"UTF-8")+"&confmKey="+confmKey+"&resultType="+resultType;
-
-		URL url = new URL(apiUrl);
-		BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
-		//StringBuffer -> String을 
-		sb = new StringBuffer();
-		String tempStr = null;
-		while((tempStr = br.readLine()) != null){
-		   sb.append(tempStr);                        // 응답결과 JSON 저장
-		    }
-	    } catch(Exception e) {
-	       e.printStackTrace();
-	    }
-	     return sb.toString();
-		//		    	response.setCharacterEncoding("UTF-8");
-		//				response.setContentType("text/xml");
-		//				response.getWriter().write(sb.toString());			// 응답결과 반환
-				    	
-				    	//rest -> json형식으로 전송
-		}
-	
 	// 개인정보 업데이트에 새창주소
 	@GetMapping("/member/addr")
 	public String addr() {

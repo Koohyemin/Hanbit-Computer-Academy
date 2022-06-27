@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.CertificateMapper">
-<select id="paymentStudentList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.Registration">
-	SELECT lecture_name lectureName
-		, student_id studentId
-		, payment 
-		, create_date createDate
-	FROM  registration 
-	WHERE student_id = #{studentId}
+	<delete id="deleteCertification"
+			parameterType="int">
+		DELETE FROM certification 
+		WHERE certification_no=${certificationNo}
+	</delete>
+	
+	<select id="selectCertification"
+			parameterType="int"
+			resultType="Hanbit.co.kr.lms.vo.Certification">
+		SELECT 
+			certification_no certificationNo
+			,member_id	memberId
+			,certification_name certificationName
+			,certification_issued certificationIssued
+			,get_date getDate
+			,create_date createDate
+			,update_date updateDate
+		from certification
+		WHERE certification_no = #{certificationNo}
+	</select>
+	
+	<update id="updateCertification"
+			parameterType="Hanbit.co.kr.lms.vo.Certification">
+		UPDATE certification SET
+			certification_name = #{certificationName}
+			,certification_issued = #{certificationIssued}
+			,get_date = #{getDate}
+		WHERE certification_no =#{certificationNo}
+	
+	</update>
+	
+	<update id="insertCertification"
+			parameterType="Hanbit.co.kr.lms.vo.Certification">
+		INSERT INTO certification 
+				(member_id, certification_name, certification_issued, get_date, create_date, update_date)
+			VALUE	
+				( #{memberId},#{certificationName},#{certificationIssued},#{getDate}, NOW(),NOW() )
+	</update>
+
+	<select id="paymentStudentList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.Registration">
+		SELECT lecture_name lectureName
+			, student_id studentId
+			, payment 
+			, create_date createDate
+		FROM  registration 
+		WHERE student_id = #{studentId}
 </select>
 </mapper>

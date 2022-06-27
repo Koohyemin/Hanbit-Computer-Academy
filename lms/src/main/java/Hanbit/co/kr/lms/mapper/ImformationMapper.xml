@@ -126,7 +126,8 @@
 			parameterType="String"
 			resultType="Hanbit.co.kr.lms.vo.Certification">
 		SELECT
-			certification_name certificationName
+			certification_no certificationNo
+			,certification_name certificationName
 			,certification_issued certificationIssued
 			,get_date	getDate
 		FROM teacher INNER JOIN certification
@@ -172,7 +173,8 @@
 			parameterType="String"
 			resultType="Hanbit.co.kr.lms.vo.Certification">
 		SELECT 
-			certification_name certificationName
+			certification_no certificationNo
+			,certification_name certificationName
 			,certification_issued certificationIssued
 			,get_date getDate
 		FROM 

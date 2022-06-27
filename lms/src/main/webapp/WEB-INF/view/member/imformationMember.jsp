@@ -230,10 +230,14 @@
 	        						<td class="text-center">${c.certificationIssued}</td>
 	        						<td class="text-center">${c.getDate}</td>
 	        						<td>
-		        						<a class="btn btn-outline-primary btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/modifyCertification">수정</a>
+		        						<a class="btn btn-outline-primary btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/modifyCertification?certificationNo=${c.certificationNo}">수정</a>
 	        						</td>
 	        						<td>
-		        						<a class="btn btn-outline-danger btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/DeleteCertification">삭제</a>
+	        						<!-- 삭제버튼 -->
+	        							<form method="post" action="${pageContext.request.contextPath}/certificate/deleteCertification" id="del">
+			        						<input type="hidden" value="${c.certificationNo}" name="certificationNo">
+	        								<input class="btn btn-outline-danger btn-sm delBtn" value="삭제" type="submit"/>
+	        							</form>
 	        						</td>
 	        					</tr>
 	        				</c:forEach>
@@ -257,6 +261,13 @@
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+		$(".delBtn").click(function(){
+			if (confirm('해당 자격증을 삭제 하시겠습니까?')) {
+				$('#del').submit();
+			} else {
+				return false;
+			}
+		});
    	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
