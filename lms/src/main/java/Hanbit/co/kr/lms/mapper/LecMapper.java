@@ -20,6 +20,9 @@ public interface LecMapper {
 	// 강의 등록
 	int insertLec(Lec lec);
 	
+	// 강의 상세보기
+	Lec getLecOne(String searchValue); 
+	
 	// 카테고리
 	List<LectureRoom> lectureRoomList(); // 강의실 정보
 	List<LecPlan> lecPlanList(); // 강의계획서 정보

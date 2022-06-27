@@ -20,6 +20,11 @@ public class LecService {
 	
 	@Autowired LecMapper lecMapper;
 	
+	// 강의 상세보기
+	public Lec getLecOne(String lectureName) {
+		return lecMapper.getLecOne(lectureName);
+	}
+	
 	// 강의 등록 POST
 	public int insertLec(Lec lec) {
 		return lecMapper.insertLec(lec);

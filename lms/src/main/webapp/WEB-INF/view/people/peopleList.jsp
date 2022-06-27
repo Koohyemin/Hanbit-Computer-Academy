@@ -133,12 +133,12 @@
          			</c:otherwise>
          		</c:choose>
          		</c:if>
-         		 <c:if test="${level == 3 }">
+         	<c:if test="${level == 3}">
              <h3>Lec Information <span class="badge rounded-pill bg-dark">${listSize}</span></h3> <br>
              <c:if test="${sessionMemberLv == 3}">
 				<!-- 강의 등록 버튼은 운영진에게만 보임 -->
-				<span class="float-end">
-					<a class="float-left btn btn-dark" href="${pageContext.request.contextPath}/lec/addLec">강의 등록</a>
+				<span class="float-start">
+					<a class="btn btn-dark" href="${pageContext.request.contextPath}/lec/addLec">강의 등록</a>
 				</span>
 			</c:if>
               <!-- 검색 구현  -->
@@ -162,6 +162,10 @@
 								<div class="card">
 					            <div class="col-lg-12 col-sm-12">
 									<br>
+										<div class="btn-group float-end">
+											<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${m.lectureName}" class="btn btn-dark">수정</a>
+											<button class="btn btn-secondary">삭제</button>
+										</div>
 									<div>
 										<!-- 강좌이름  -->
 										<h4 class="text-success">👩‍🏫 ${m.lectureName} </h4> <br>
