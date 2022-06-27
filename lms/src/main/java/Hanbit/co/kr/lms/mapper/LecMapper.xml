@@ -11,33 +11,19 @@
 	
 	<!-- 강의 수정 -->
 	<update id="getUpdateLec" parameterType="Hanbit.co.kr.lms.vo.Lec">
-		UPDATE lec SET(
-			 lecture_name
-			,lecture_room_name
-			,manager_id
-			,lec_plan_no
-			,subject_name
-			,registration_number
-			,registration_pass_score
-			,difficulty
-			,lec_cost
-			,lec_phone
-			,create_date
-			,update_date
-		) VALUES(
-			 #{lectureName}
-			,#{lectureRoomName}
-			,#{managerId}
-			,#{lecPlanNo}
-			,#{subjectName}
-			,#{registrationNumber}
-			,#{registrationPassScore}
-			,#{difficulty}
-			,#{lecCost}
-			,#{lecPhone}
-			,#{create_date}
-			,NOW()
-		) 
+			UPDATE lec SET
+				  lecture_name = #{lectureName}
+				, lecture_room_name = #{lectureRoomName} 
+				, manager_id = #{managerId}
+				, lec_plan_no = #{lecPlanNo}
+				, subject_name = #{subjectName}
+				, registration_number = #{registrationNumber}
+				, registration_pass_score = #{registrationPassScore}
+				, difficulty = #{difficulty}
+				, lec_cost = #{lecCost}
+				, lec_phone = #{lecPhone}
+				, update_date = NOW()
+			WHERE lecture_name = #{lectureName}
 	</update>
 	<!-- 강의 상세보기 -->
 	<select id="getLecOne" parameterType="String" resultType="Hanbit.co.kr.lms.vo.Lec">
@@ -47,9 +33,11 @@
 			,l.subject_name subjectName
 			,l.registration_number registrationNumber
 			,l.registration_pass_score registrationPassScore
+			,l.lec_plan_no lecPlanNo
 			,l.lec_cost lecCost
 			,l.lec_phone lecPhone
 			,l.difficulty
+			,l.create_date createDate
 			,DATE(tt.begin_class) beginClass
 			,DATE(tt.end_class) endClass
 			,tt.start_time startTime

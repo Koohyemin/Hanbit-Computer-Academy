@@ -38,14 +38,21 @@
 	                ADD Lecture
 	            </div>
             </div>
-			<a href="${pageContext.request.contextPath}/lec/lecList" class="btn btn-dark" style="float:right">이전으로</a>
+			<a href="${pageContext.request.contextPath}/people/peopleList?level=3" class="btn btn-dark" style="float:right">이전으로</a>
 			<br><br>
-			<form method="post" id="addLecForm" action="${pageContext.request.contextPath}/lec/updateLec">
+			<form method="post" id="updateLecForm" action="${pageContext.request.contextPath}/lec/updateLec">
 				<table class="table">
 					<tr>
 						<th class="text-center">등록자</th>
 						<td> <!-- pull받은 이후 value ${sessionMemberId}로 수정 -->
 							<input name="managerId" type="text" value="${sessionMemberId}" readonly="readonly" class="form-control">
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center">강의명</th>
+						<td>
+							<input name="lectureName" id="lectureName" value="${lectureInfo.lectureName}" type="text" class="form-control" readonly="readonly">
+							<span class="text-danger" id="lectureNameError"></span>
 						</td>
 					</tr>
 					<tr>
@@ -94,13 +101,6 @@
 								<option value="하" <c:if test="${lectureInfo.difficulty eq '하'}">selected="selected"</c:if>>하</option>										
 							</select>
 							<span class="text-danger" id="difficultyError"></span>
-						</td>
-					</tr>
-					<tr>
-						<th class="text-center">강의명</th>
-						<td>
-							<input name="lectureName" id="lectureName" value="${lectureInfo.lectureName}" type="text" class="form-control" placeholder="강의명을 입력해주세요">
-							<span class="text-danger" id="lectureNameError"></span>
 						</td>
 					</tr>
 					<tr>
@@ -207,8 +207,9 @@
 	   		   
 	   		   
 	   		   // 전체 내용이 들어와 있다면 전송
-	   		   if($('#category').val() != '' && $('#title').val() != '' && $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, '') != '') {
-	   		      $('#addNoticeForm').submit();
+	   		   if($('#subject').val() != '' && $('#lectureRoom').val() != '' && $('#lecPlan').val() != '' && $('#difficulty').val() != '' && $('#lectureName').val() != '' 
+	   				   && $('#registrationNumber').val() != '' && $('#registrationPassScore').val() != '' && $('#lecCost').val() != '' && $('#lecPhone').val() !='') {
+	   		      $('#updateLecForm').submit();
 	   		   }
 	   		});
 	   	init();

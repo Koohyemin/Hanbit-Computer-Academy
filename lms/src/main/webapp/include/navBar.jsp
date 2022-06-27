@@ -42,7 +42,7 @@
                 <nav class="sb-sidenav-menu-nested nav">
                     <a class="nav-link" href="#">찜 목록</a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/people/peopleList">강의/강사 조회</a>
-                    <a class="nav-link" href="#">수강신청하기</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/lec/lecList">수강신청하기</a>
                     <a class="nav-link" href="#">수강신청내역</a>
                 </nav>
             </div>

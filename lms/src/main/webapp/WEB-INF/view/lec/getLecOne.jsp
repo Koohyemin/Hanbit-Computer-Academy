@@ -83,16 +83,23 @@
 			</table>
 			<div>
 			<!-- 운영자만 수정, 삭제 버튼을 볼 수 있음 -->
+			<c:if test="${sessionMemberLv == 1}">
+				<div class="d-grid gap-3">
+					<a href="#" class="btn btn-dark btn-block">수강신청</a>
+				</div>
+			</c:if>
 				<c:if test="${sessionMemberLv == 3}">
-					<div class="btn-group float-end">
 						<!-- 수정버튼 -->
-						<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${lec.lectureName}" class="btn btn-dark" style="float:right">수정</a>
-						<!-- 삭제버튼 -->
-						<form method="post" action="${pageContext.request.contextPath}/lec/deleteLec" id="del">
-							<input type="hidden" name="lectureName" value="${lec.lectureName}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
-							<input type="submit" value="삭제" class="btn btn-secondary" id="delBtn">
-						</form>
-					</div>
+						<div class="d-grid gap-3">
+							<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${lec.lectureName}" class="btn btn-dark" style="float:right">수정</a>
+						</div>
+							<!-- 삭제버튼 -->
+							<form method="post" action="${pageContext.request.contextPath}/lec/deleteLec" id="del">
+								<input type="hidden" name="lectureName" value="${lec.lectureName}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
+								<div class="d-grid gap-3">
+									<input type="submit" value="삭제" class="btn btn-secondary" id="delBtn">
+								</div>
+							</form>
 				</c:if>
 			</div>
 		</div>

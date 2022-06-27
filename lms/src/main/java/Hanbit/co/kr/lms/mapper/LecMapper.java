@@ -33,6 +33,4 @@ public interface LecMapper {
 	List<LectureRoom> lectureRoomList(); // 강의실 정보
 	List<LecPlan> lecPlanList(); // 강의계획서 정보
 	List<Subject> subjectList(); // 과목 정보
-	
-		
 }

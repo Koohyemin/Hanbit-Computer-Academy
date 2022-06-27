@@ -25,6 +25,11 @@ public class LecService {
 		return lecMapper.getDeleteLec(lectureName);
 	}
 	
+	// 강의 수정 POST
+	public int getUpdateLec(Lec lec) {
+		return lecMapper.getUpdateLec(lec);
+	}
+	
 	// 강의 수정
 	public Map<String,Object> getUpdateLec(String lectureName) {
 		

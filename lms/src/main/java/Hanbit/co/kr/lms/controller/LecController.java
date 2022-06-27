@@ -23,6 +23,36 @@ public class LecController {
 	@Autowired LecService lecService;
 	@Autowired HttpSession session;
 	
+	// 강의 삭제 POST
+	@PostMapping("lec/deleteLec")
+	public String deleteLec(@RequestParam(name="lectureName")String lectureName) {
+		int row = lecService.getDeleteLec(lectureName);
+		
+		if(row == 1) {
+			log.debug(CF.KHM + "[LecController postMapping deleteLec] :" + CF.RESET + "강의 삭제 성공"); // 성공
+			return "redirect:/people/peopleList?level=3";
+		} else {
+			log.debug(CF.KHM + "[LecController postMapping deleteLec] :" + CF.RESET + "강의 삭제 실패"); // 실패
+			return "redirect:/people/peopleList?level=3";
+		}
+	}
+	
+	// 강의 수정 POST
+	@PostMapping("lec/updateLec")
+	public String geUpdateLec(Lec lec) {
+		
+		// 등록 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
+		int row = lecService.getUpdateLec(lec);
+		
+		if(row == 1) {
+			log.debug(CF.KHM + "[LecController postMapping updateLec] :" + CF.RESET + "강의 수정 성공"); // 성공
+		} else {
+			log.debug(CF.KHM + "[LecController postMapping updateLec] :" + CF.RESET + "강의 수정 실패"); // 실패
+		}
+		
+		return "redirect:/people/peopleList?level=3";
+	}
+	
 	// 강의 수정 GET
 	@GetMapping("lec/updateLec")
 	public String getUpdateLec(Model model,
@@ -66,9 +96,9 @@ public class LecController {
 		int row = lecService.insertLec(lec);
 		
 		if(row == 1) {
-			log.debug(CF.KHM + "[NoticeController postMapping addNotice] :" + CF.RESET + "강의 등록 성공"); // 성공
+			log.debug(CF.KHM + "[LecController postMapping addLec] :" + CF.RESET + "강의 등록 성공"); // 성공
 		} else {
-			log.debug(CF.KHM + "[NoticeController postMapping addNotice] :" + CF.RESET + "강의 등록 실패"); // 실패
+			log.debug(CF.KHM + "[LecController postMapping addLec] :" + CF.RESET + "강의 등록 실패"); // 실패
 		}
 		
 		return "redirect:/people/peopleList?level=3";
