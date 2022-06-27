@@ -174,6 +174,7 @@
 			parameterType="String">
 		UPDATE member SET
 			member_state = '2'
+			,update_date = NOW()
 		WHERE member_id= #{memberId}
 	</update>
 		
@@ -181,6 +182,54 @@
 	<update id="inactivityMember">
 		UPDATE member SET
 			member_state='3'
-		WHERE  DATEDIFF(NOW(),log_date) > 365 and member_state  = '2'
+			,update_date = NOW()
+		WHERE  DATEDIFF(NOW(),log_date) > 365 AND member_state  = '2'
 	</update>
+	
+	<!-- 회원 활성화  -->
+	<update id="updageActiveMember"
+			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		UPDATE member SET
+			member_state='2'
+			,update_date = NOW()
+		WHERE member_id = #{memberId} AND member_state = '3'
+	</update>
+	<!-- 회원 활성화-PUD에 비밀번호 변경 추가  -->
+	<insert id="updateActivePasswordUpdateDate"
+			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		INSERT INTO password_update_date(
+			member_id
+			,member_pw
+			,create_date
+		)VALUES(
+			#{memberId}
+			,password(#{memberPw})
+			,NOW()
+			)
+	</insert>
+	<update id="updateActiveStudent"
+			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		UPDATE student SET
+			student_pw = password(#{memberPw})
+			,update_date = NOW()
+		WHERE 
+			student_id = #{memberId}
+	</update>
+	<update id="updateActiveTeacher"
+			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		UPDATE teacher SET
+			teacher_pw = password(#{memberPw})
+			,update_date = NOW()
+		WHERE 
+			teacher_id = #{memberId}
+	</update>
+	<update id="updateActiveManager"
+			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		UPDATE manager SET
+			manager_pw = password(#{memberPw})
+			,update_date = NOW()
+		WHERE 
+			manager_id = #{memberId}
+	</update>
+	
 </mapper>

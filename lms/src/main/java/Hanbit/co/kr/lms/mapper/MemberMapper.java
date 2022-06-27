@@ -30,4 +30,13 @@ public interface MemberMapper {
 	
 	//회원스케줄러 ( 휴면계정)
 	int inactivityMember();
+	
+	//회원휴면계정 활성화
+	int updageActiveMember(PasswordUpdateDate passwordUpdateDate);
+	int updateActivePasswordUpdateDate(PasswordUpdateDate passwordUpdateDate);
+	int updateActiveStudent(PasswordUpdateDate passwordUpdateDate);
+	int updateActiveTeacher(PasswordUpdateDate passwordUpdateDate);
+	int updateActiveManager(PasswordUpdateDate passwordUpdateDate);
+	
+	
 }

@@ -8,6 +8,9 @@ import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +18,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import Hanbit.co.kr.lms.service.LoginService;
 import Hanbit.co.kr.lms.service.MemberService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.AddMember;
+import Hanbit.co.kr.lms.vo.PasswordUpdateDate;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -26,9 +32,11 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 	
+	@Autowired
+	LoginService loginService;
 	
 	@GetMapping("addMember")
-	public String selectAddr() {		//회원가입 뷰 호출 컨트롤러
+	public String getAddr() {		//회원가입 뷰 호출 컨트롤러
 		
 		return "/addMember/addMember";
 	}
@@ -102,8 +110,46 @@ public class MemberController {
 			memberService.approveMember(waitingValue.get(i));				
 		}
 		
-		return  "redirect:/authorizeMember";
+		return "redirect:/authorizeMember";
 	}
+	
+	@GetMapping("activeMember")
+	public String activeMember() {																	//휴면 계정 해제 뷰 호출
+		
+		return "/addMember/activeMember";
+	}
+	@PostMapping("activeMember")
+	public String activeMember(HttpSession session
+								,PasswordUpdateDate passwordUpdateDate) {				//휴면계정 해제 액션 호출
+		
+		System.out.println(" ewae wae wae wae awe a eawe awe awe wae awe wae wae wae wa");
+		log.debug(CF.LKL+"MemberController.activeMember.passwordUpdateDate" + CF.RESET + passwordUpdateDate );
+		
+		String memberId = (String) session.getAttribute("sessionMemberId");
+		int memberLevel = (Integer) session.getAttribute("sessionMemberLv");
+		
+		passwordUpdateDate.setMemberId(memberId);
+		
+		int row=0;
+		//세션 레벨에 따라 매니저,강사,학생을 나눈다.
+		if(memberLevel == 3) {										
+			
+			row = memberService.awakeManager(passwordUpdateDate);
+			
+		} else if(memberLevel == 2) {
+			
+			row = memberService.awakeTeacher(passwordUpdateDate);
+			
+		} else if(memberLevel == 1){
+			
+			row = memberService.awakeStudent(passwordUpdateDate);
+			
+		} 
+		if(row ==1) {
+			return "redirect:/home/index";
+	} else {
+		return "redirect:/login";
+		}
+	}
+
 }
-
-

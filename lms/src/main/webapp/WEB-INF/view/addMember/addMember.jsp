@@ -118,7 +118,7 @@
 </div>
 </body>
 <script>
-$(document).ready(function(){
+
 	$('#fEud').hide();
 	// 첫 입력은 memberId 부터
 	$('#memberId').focus();
@@ -146,7 +146,9 @@ $(document).ready(function(){
 				if(idCheck=="false"){
 					alert("중복된 아이디 입니다");
 				} else{
-					alert("사용가능한 아이디 입니다");
+					$('#memberId').attr("readonly",true);
+		 			alert("사용가능한 아이디 입니다");
+
 				}
 			}
 		});
@@ -183,7 +185,9 @@ $(document).ready(function(){
 			,url:'/lms/searchAddr' //인터넷망
 			,data:{'Keyword':$('#Keyword').val()} //키워드 받는 데이터
 			,success:function(jsonStr){
+				console.log(jsonStr);
 				var jsonStr2 = JSON.parse(jsonStr);
+				console.log(jsonStr2);
 				var arr = jsonStr2.results.juso; //주소배열
 				console.log(arr);
 				//console.log($('#keyword').val());
@@ -271,7 +275,7 @@ $(document).ready(function(){
 		}
 		});
 	});
-});	
+
 	<!-- 	<input type="text" name="resultType" value="json"/> <-- 요청 변수 설정 (검색결과형식 설정, json) --> 
 	<!-- 	<input type="text" name="confmKey" value="U01TX0FVVEgyMDIyMDYxNjE2MzExNTExMjY5ODQ="/>요청 변수 설정 (승인키) -->
 	<!-- 	<input type="button" onClick="getAddr();" value="주소검색하기"/>-->

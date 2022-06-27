@@ -187,4 +187,37 @@ public class MemberService {
 		return row;
 	}
 	
+	public int awakeStudent(PasswordUpdateDate passwordUpdateDate) {
+		
+		log.debug(CF.LKL+"MemberService.awakeStudent.passwordUpdateDate" + CF.RESET + passwordUpdateDate );
+		
+		memberMapper.updateActivePasswordUpdateDate(passwordUpdateDate);
+		memberMapper.updageActiveMember(passwordUpdateDate);
+		int row =memberMapper.updateActiveStudent(passwordUpdateDate);
+		
+		return row;
+		
+	}
+	public int awakeTeacher(PasswordUpdateDate passwordUpdateDate) {
+		
+		log.debug(CF.LKL+"MemberService.awakeTeacher.passwordUpdateDate" + CF.RESET + passwordUpdateDate );
+		
+		memberMapper.updateActivePasswordUpdateDate(passwordUpdateDate);
+		memberMapper.updageActiveMember(passwordUpdateDate);
+		int row =memberMapper.updateActiveTeacher(passwordUpdateDate);
+		
+		return row;
+		
+	}
+	public int awakeManager(PasswordUpdateDate passwordUpdateDate) {
+		
+		log.debug(CF.LKL+"MemberService.awakeManager.passwordUpdateDate" + CF.RESET + passwordUpdateDate );
+		
+		memberMapper.updateActivePasswordUpdateDate(passwordUpdateDate);
+		memberMapper.updageActiveMember(passwordUpdateDate);
+		int row =memberMapper.updateActiveManager(passwordUpdateDate);
+		
+		return row;
+		
+	}
 }
