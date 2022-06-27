@@ -31,6 +31,19 @@ public class TeacherController {
 		
 		log.debug(CF.KHM + "[TeacherController getMapping list.size] : " + CF.RESET + listSize); // listSize 디버깅
 		
+		/*
+			// ","를 기준으로 강의 이름을 분리
+			for(int i=0; i<list.size(); i++) {
+				if(list.get(i).get("lecPlanName")!=null && !"".equals(list.get(i).get("lecPlanName"))) {
+					String[] lecture = ((String)list.get(i).get("lecPlanName").toString()).split("\\,");
+					String[] lectureNo = ((String)list.get(i).get("lecPlanNo").toString()).split("\\,");
+					log.debug(CF.KHM + "[TeacherController getMapping lecture] : " + CF.RESET + lecture.length); // lecture 분리된 목록 디버깅
+					list.get(i).put("lecPlanName", lecture);
+					list.get(i).put("lecPlanNo", lectureNo);
+				}
+			}
+		*/
+		
 		// model에 값 add
 		model.addAttribute("searchValue", searchValue); // 검색어
 		model.addAttribute("teacherList",list); // 강사 정보를 담은 목록

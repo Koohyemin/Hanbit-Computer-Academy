@@ -49,17 +49,17 @@
          			<c:when test="${listSize > 0}">
 	         			<c:forEach var="m" items="${teacherList}">
 								<div class="card">
-					            <div class="col-lg-6 col-sm-12">
+					            <div class="col-lg-12 col-sm-12">
 									<div class="row">
 										<!-- 사진 -->
-										<div class="col-4 col-md-6">
-											<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}" class="object-fit img-thumbnail">
+										<div class="col-4">
+											<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}" class="object-fit img-thumbnail teacher-info-img">
 										</div>
-										<div class="col-8 col-lg-6 col-md-12">
+										<div class="col-8">
 											<br>
 											<div>
 												<!-- 강사 이름 -->
-												<h4 class="text-success">${m.teacherName} 선생님</h4> <br>
+												<h4 class="text-success">👩‍🏫 ${m.teacherName} 선생님</h4> <br>
 												<ul>
 													<!-- 강사 이메일 -->
 													<li><span>이메일</span><div>📧 <span>${m.teacherEmail}</span></div></li>
