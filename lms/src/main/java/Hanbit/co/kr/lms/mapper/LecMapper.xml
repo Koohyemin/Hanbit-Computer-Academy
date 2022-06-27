@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.LecMapper">
+	<!-- 강의 수 -->
+	<select id="totalCount" resultType="int">
+		SELECT COUNT(*) cnt
+		FROM lec l
+			INNER JOIN lec_plan lp
+			ON l.lec_plan_no = lp.lec_plan_no
+		WHERE lp.lec_state = 'T'
+	</select>
+	
+	<!-- 강의 리스트 -->
+	<select id="getLecListByPage" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.Lec">
+		SELECT 
+			 l.lecture_name lectureName
+			,l.subject_name subjectName
+			,l.registration_number registrationNumber
+			,l.difficulty
+			,l.create_date createDate
+			,lp.lec_state lecState
+		FROM lec l
+			INNER JOIN lec_plan lp
+			ON l.lec_plan_no = lp.lec_plan_no
+		WHERE lp.lec_state = 'T'
+		ORDER BY l.create_date DESC
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+</mapper>

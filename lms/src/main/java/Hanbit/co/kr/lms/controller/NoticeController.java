@@ -143,18 +143,18 @@ public class NoticeController {
 		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
 		if(category.equals("학생")) { // 비로그인 상태이면 로그인 페이지로 이동, 강사가 접근한다면 getNoticeByPage로 재이동
 			if (memberLv == 2) {
-				return "notice/getNoticeListByPage";
+				return "redirect:/notice/getNoticeListByPage";
 			}
-		} else if(category.equals("강사")) { // 비로그인 상태이면 로그인 페이지로 이동, 강사가 접근한다면 getNoticeByPage로 재이동
+		} else if(category.equals("강사")) { // 비로그인 상태이면 로그인 페이지로 이동, 학생이 접근한다면 getNoticeByPage로 재이동
 			if (memberLv == 1) {
-				return "notice/getNoticeListByPage";
+				return "redirect:/notice/getNoticeListByPage";
 			}
 		}
 		
 		// Service에서 처리한 코드를 이용하여, 매개값 대입
 		Map<String, Object> map = noticeService.getNoticeListByPage(currentPage, rowPerPage, category);
 		
-		log.debug( CF.KHM +"[NoticeService GetMapping category]: " + CF.RESET + category); // 카테고리 디버깅
+		log.debug( CF.KHM +"[NoticeController GetMapping category]: " + CF.RESET + category); // 카테고리 디버깅
 		
 		// model에 값 add
 		model.addAttribute("list", map.get("list")); // 공지사항 리스트

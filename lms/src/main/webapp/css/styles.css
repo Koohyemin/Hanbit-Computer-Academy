@@ -11717,3 +11717,11 @@ body {
 	width:100vw;
 	
 }
+
+.teacher-info-img {
+	width:300px;
+	height:300px;
+}
+.none-unline {
+	text-decoration: none;
+}
