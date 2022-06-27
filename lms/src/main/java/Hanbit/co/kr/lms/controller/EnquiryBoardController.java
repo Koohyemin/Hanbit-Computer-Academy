@@ -30,25 +30,28 @@ public class EnquiryBoardController {
 			,@RequestParam(name="rowPerPage", defaultValue="10")int rowPerPage
 			,@RequestParam(name="category", defaultValue="전체") String category) {
 		
+		log.debug( CF.KHN +"[EnquiryBoardController GetMapping currentPage]: "+ CF.RESET + currentPage);
+		log.debug( CF.KHN +"[EnquiryBoardController GetMapping rowPerPage]: "+ CF.RESET + rowPerPage);
+		log.debug( CF.KHN +"[EnquiryBoardController GetMapping category]: "+ CF.RESET + category);
+		
+		
 		//세션을 통한 권한에 따른 처리
-		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
-		if(category.equals("학생")) {
-			if (memberLv == 2) {
-				return "enquiryBoard/getEnquiryBoardListByPage";
-			}
-		} else if(category.equals("강사")) {
-			if(memberLv == 1) {
-				return "enquiryBoard/getEnquiryBoardListByPage";
-			}
-		}
+//		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
+//		if(category.equals("학생")) {
+//			if (memberLv == 2) {
+//				return "redirect:/enquiryBoard/getEnquiryBoardListByPage";
+//			}
+//		} else if(category.equals("강사")) {
+//			if(memberLv == 1) {
+//				return "redirect:/enquiryBoard/getEnquiryBoardListByPage";
+//			}
+//		}
 		//서비스 호출 > 맵으로 묶어줌
 		Map<String, Object> map = 	enquiryBoardService.selectEnquiryBoardListByPage(currentPage, rowPerPage, category);
 		
 		//값 디버깅
 		log.debug( CF.KHN +"[EnquiryBoardController GetMapping map]: "+ CF.RESET + map);
-		log.debug( CF.KHN +"[EnquiryBoardController GetMapping currentPage]: "+ CF.RESET + currentPage);
-		log.debug( CF.KHN +"[EnquiryBoardController GetMapping rowPerPage]: "+ CF.RESET + rowPerPage);
-		log.debug( CF.KHN +"[EnquiryBoardController GetMapping category]: "+ CF.RESET + category);
+	
 
 		
 		//모델값 넘겨줌
@@ -101,5 +104,32 @@ public class EnquiryBoardController {
 		
 		//입력 완료시 문의사항 목록으로 이동
 		return "redirect:/enquiryBoard/getEnquiryBoardListByPage";
+	}
+	
+	//문의사항 수정 get
+	@GetMapping("/enquiryBoard/updateEnquiryBoard")
+	public String updateEnquiryBoard(EnquiryBoard enquiryBoard, Model model
+				,@RequestParam(name="enquiryBoardNo") int enquiryBoardNo) {
+		EnquiryBoard eb = enquiryBoardService.selectEnquiryBoardOne(enquiryBoardNo);
+		model.addAttribute("eb",eb);
+	log.debug( CF.KHN +"[EnquiryBoardController GetMapping updateEnquiryBoard eb]: "+ CF.RESET + eb);
+
+		return "enquiryBoard/updateEnquiryBoard";
+	}
+	
+	//문의사항 수정 post
+	@PostMapping("/enquiryBoard/updateEnquiryBoard")
+	public String updateEnquiryBoard(EnquiryBoard enquiryBoard) {
+		int row = enquiryBoardService.updateEnquiryBoard(enquiryBoard);
+		
+		//수정성공 디버깅
+		if(row == 1) {
+			log.debug(CF.KHN+ "EnquiryBoardController PostMappting updateEnquiryBoard 수정성공 : "+ CF.RESET);			
+
+		} else {
+			log.debug(CF.KHN+ "EnquiryBoardController PostMappting updateEnquiryBoard 수정성공 : "+ CF.RESET);			
+
+		}
+		return "redirect:/enquiryBoard/getEnquiryBoardOne="+enquiryBoard.getEnquiryBoardNo();
 	}
 }

@@ -22,4 +22,7 @@ public interface EnquiryBoardMapper {
 	
 	//입력
 	int insertEnquiryBoard(EnquiryBoard enquiryBoard);
+	
+	//수정
+	int updateEnquiryBoard(EnquiryBoard enquiryBoard);
 }

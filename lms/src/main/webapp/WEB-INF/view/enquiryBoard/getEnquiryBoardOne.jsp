@@ -8,7 +8,7 @@
 <title>getEnquiryBoardOne</title>
 </head>
 <body>
-	<h2>to.강사/운영자 문의사항 상세보기</h2>
+	<h2>상세보기</h2>
 	<table border="1">
 			<tr>
 				<th>글번호</th>

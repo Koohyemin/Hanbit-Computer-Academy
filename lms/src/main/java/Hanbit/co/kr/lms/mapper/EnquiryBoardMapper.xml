@@ -17,11 +17,15 @@
 				, content
 				, category
 				, create_date createDate
-				, update_date updateDate 
 			FROM enquiry_board
-			WHERE category = #{category}
+			<where>
+	            <if test="category != '전체' ">
+	            category like concat(#{category})
+	         	</if>
+         	</where>
 			ORDER BY create_date DESC
 			LIMIT #{startRow}, #{rowPerPage}
+		
 	</select>
 	
 	<select id="selectEnquiryBoardOne" resultType="Hanbit.co.kr.lms.vo.EnquiryBoard"
@@ -39,19 +43,28 @@
 	
 	<insert id="insertEnquiryBoard" parameterType="Hanbit.co.kr.lms.vo.EnquiryBoard">
 		INSERT INTO enquiry_board(
-			memberId
-			,category
-			,content
-			,create_date
-			,update_date
-		) values (
+			member_id
+			, content
+			, category
+			, create_date
+			, update_date
+			) VALUES (
 			#{memberId}
-			,#{category}
-			,#{content}
-			,NOW()
-			,NOW()
-		)
+			, #{content}
+			, #{category}
+			, NOW()
+			, NOW()
+			)
 	</insert>
+	
+	<update id= "updateEnquiryBoard" parameterType="Hanbit.co.kr.lms.vo.EnquiryBoard">
+		UPDATE enquiry_board SET 
+			member_id = #{memberId}
+			, content = #{content}
+			, category = #{category}
+			, update_date = NOW()
+		WHERE enquiry_board_no = #{enquiryBoardNo} 
+	</update>
 
 	
 </mapper>
