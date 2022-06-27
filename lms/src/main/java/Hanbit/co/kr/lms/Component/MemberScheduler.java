@@ -14,7 +14,7 @@ public class MemberScheduler {
 	@Autowired
 	MemberService memberService;
 	
-	@Scheduled(cron = "* 23 * * * *")		//정해진 시간대에 실행된다.
+	@Scheduled(cron = "* * 23 * * *")		//정해진 시간대에 실행된다.
 //	@Scheduled(cron = "*/1 * * * * *")
 	public void modifyDormantMember() {
 		//service에서 휴면계정 수정 메서드 호출
