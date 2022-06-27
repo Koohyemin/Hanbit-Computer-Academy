@@ -1,4 +1,4 @@
-package Hanbit.co.kr.lms.Component;
+package Hanbit.co.kr.lms.component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,8 +14,8 @@ public class MemberScheduler {
 	@Autowired
 	MemberService memberService;
 	
-	@Scheduled(cron = "* * 23 * * *")		//정해진 시간대에 실행된다.
-//	@Scheduled(cron = "*/1 * * * * *")
+	@Scheduled(cron = "* 01 23 * * *")		//정해진 시간대에 실행된다.
+
 	public void modifyDormantMember() {
 		//service에서 휴면계정 수정 메서드 호출
 	
