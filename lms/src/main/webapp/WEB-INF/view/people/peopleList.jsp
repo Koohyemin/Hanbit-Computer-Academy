@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>teacher</title>
+<title>people</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="../css/styles.css" rel="stylesheet" />
@@ -25,24 +25,56 @@
 			<br>
         	<div class="card mb-4">
             <div class="card-header">
-                <i class="fas fa-chart-area me-1"></i>
-                Teacher
+              <i class="fas fa-columns me-1"></i>
+                people
             </div>         
             <br>
-            <form method="get" action="${pageContext.request.contextPath}/teacher/teacherList">
+            <ul class="nav nav-tabs">
+				<li class="nav-item">
+				<!-- 학생 확인 가능 -->
+				
+					<li class="nav-item">
+					<c:if test="${level == 2}">
+						 <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=2">강사</a>
+					 </c:if>
+					 <c:if test="${level != 2}">
+					 	<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=2">강사</a>
+					 </c:if>
+					</li>
+					<li class="nav-item">
+					<c:if test="${level == 3}">
+					 <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=3">강의</a>
+					 </c:if>
+					 <c:if test="${level != 3}">
+					  <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=3">강의</a>
+					 </c:if>
+					</li>
+					<!-- <c:if test="${sessionMemberLv == 3}"> -->
+					<li class="nav-item">
+					<c:if test="${level == 1}">
+					<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=1">학생</a>
+					</c:if>
+					<c:if test="${level != 1}">
+					<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=1">학생</a>
+					</c:if>
+					</li>
+					<!-- </c:if> -->
+			</ul>
+            <div class="card-body">
+            <!-- 검색 구현  -->
+            <form method="get" action="${pageContext.request.contextPath}/people/peopleList">
 	            <div class="container float-end">
 		            <div class="col-lg-4 col-4 float-end btn-group">
 	            		<!-- 검색어가 있다면 검색어가 유지되도록 value값 셋팅 -->
-			           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="강사 이름을 입력해주세요">
+			           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="이름을 입력해주세요">
 		           		<div class="col-lg-2 col-2 float-end btn-group">
 				      		<button id="btn" type="submit" class="btn btn-dark float-end">검색</button>
 		           		</div>
 		            </div>
 	            </div>
             </form>
-            <br>
-            <!-- 강사소개 -->
-            <div class="card-body">
+             <!-- 강사소개 -->
+            <c:if test="${level == 2 }">
              <h3>Teacher Information <span class="badge rounded-pill bg-dark">${listSize}</span></h3> <br>
             <!-- 강사가 1명 이상일 시, teachList 출력 -->
          		<c:choose>
@@ -98,7 +130,49 @@
 	            		<br><br>
          			</c:otherwise>
          		</c:choose>
+         		</c:if>
+         		 <c:if test="${level == 3 }">
+             <h3>Lec Information <span class="badge rounded-pill bg-dark">${listSize}</span></h3> <br>
+            <!-- 강의가 1개 이상일시 , teachList 출력 -->
+         		<c:choose>
+         			<c:when test="${listSize > 0}">
+	         			<c:forEach var="m" items="${LecList}">
+								<div class="card">
+					            <div class="col-lg-12 col-sm-12">
+									<br>
+									<div>
+										<!-- 강좌이름  -->
+										<h4 class="text-success">👩‍🏫 ${m.lectureName} </h4> <br>
+										<ul>
+											<!-- 강의실  -->
+											<li><span>강의실</span><div>📧 <span>${m.lectureRoomName}</span></div></li>
+											<!-- 과목 -->
+											<li><span>과목</span><div>📧 <span>${m.subjectName}</span></div></li>
+											<!-- 모집인원  -->
+											<li><span>모집인원</span><div>📧 <span>${m.registrationNumber} 명</span></div></li>
+											<!-- 이수점수   -->
+											<li><span>이수점수</span><div>📧 <span>${m.registrationPassScore}점</span></div></li>
+											<!-- 수강료   -->
+											<li><span>수강료</span><div>📧 <span>${m.lecCost}원 </span></div></li>
+											<!-- 문의 연락처    -->
+											<li><span>문의 연락처 </span><div>📧 <span>${m.lecPhone} </span></div></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<br>
+			            </c:forEach>
+         			</c:when>
+         			<c:otherwise>
+         				<br><br>
+         				<!-- 일치하는 강사가 없거나, 강사목록이 존재하지 않을 경우 -->
+	            		<h5 class="text-primary">강사가 존재하지 않습니다.</h5>
+	            		<br><br>
+         			</c:otherwise>
+         		</c:choose>
+         		</c:if>
          		</div>
+         		
             </div>
 			</div>
         	</div>

@@ -7,16 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import Hanbit.co.kr.lms.mapper.TeacherMapper;
+import Hanbit.co.kr.lms.mapper.PeopleMapper;
 
 @Service
 @Transactional
-public class TeacherService {
+public class PeopleService {
 	
-	@Autowired TeacherMapper teacherMapper; // teacherMapper 객체 주입
+	@Autowired PeopleMapper peopleMapper; // teacherMapper 객체 주입
 		
 	// 수강에 필요한 강사 정보 리스트
 	public List<Map<String, Object>> getTeacherList(String searchValue) {
-		return teacherMapper.getTeacherList(searchValue);
+		return peopleMapper.getTeacherList(searchValue);
+	}
+	
+	// 수강에 필요한 강 정보 리스트
+	public List<Map<String, Object>> getLecList(String searchValue){
+		return peopleMapper.getLecList(searchValue);
 	}
 }

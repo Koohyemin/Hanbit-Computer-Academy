@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Hanbit.co.kr.lms.mapper.TeacherMapper">
+<mapper namespace="Hanbit.co.kr.lms.mapper.PeopleMapper">
 	<!-- 강사 정보, 강의 목록, 자격증 목록 -->
 	<select id="getTeacherList" parameterType="String" resultType="java.util.Map">
 		SELECT
@@ -28,6 +28,19 @@
 					LEFT JOIN (SELECT teacher_id, lec_plan_name, lec_plan_no FROM lec_plan)c
 					ON a.teacher_id = c.teacher_id
 		GROUP BY a.teacher_name
+	</select>
+	
+	<!-- 강의 정보-->
+	<select id="getLecList" parameterType="String" resultType="java.util.Map">
+	SELECT lecture_name lectureName
+		, lecture_room_name lectureRoomName
+		, subject_name subjectName
+		, registration_number registrationNumber
+		, registration_pass_score registrationPassScore
+		, lec_cost lecCost
+		, lec_phone lecPhone
+	FROM lec
+	WHERE lecture_name LIKE CONCAT('%',#{searchValue},'%')
 	</select>
 </mapper>
 
