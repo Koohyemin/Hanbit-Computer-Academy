@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.EnquiryBoardMapper">
+
+	<select id="selectEnquiryBoardTotalCount" resultType="int"
+		parameterType="String">
+			SELECT COUNT(*) 
+			FROM enquiry_board
+			WHERE category=#{category}
+	</select>
+	
+	<select id="selectEnquiryBoardListByPage" resultType="Hanbit.co.kr.lms.vo.EnquiryBoard"
+		parameterType="java.util.Map">
+			SELECT 
+				enquiry_board_no enquiryBoardNo
+				, member_id memberId
+				, content
+				, category
+				, create_date createDate
+				, update_date updateDate 
+			FROM enquiry_board
+			WHERE category = #{category}
+			ORDER BY create_date DESC
+			LIMIT #{startRow}, #{rowPerPage}
+	</select>
+	
+	<select id="selectEnquiryBoardOne" resultType="Hanbit.co.kr.lms.vo.EnquiryBoard"
+		parameterType="int">
+			SELECT 
+				enquiry_board_no enquiryBoardNo			
+				, member_id memberId
+				, category
+				, content
+				, create_date createDate
+				, update_date updateDate 
+			FROM enquiry_board
+			WHERE enquiry_board_no = #{enquiryBoardNo}
+	</select>
+	
+	<insert id="insertEnquiryBoard" parameterType="Hanbit.co.kr.lms.vo.EnquiryBoard">
+		INSERT INTO enquiry_board(
+			memberId
+			,category
+			,content
+			,create_date
+			,update_date
+		) values (
+			#{memberId}
+			,#{category}
+			,#{content}
+			,NOW()
+			,NOW()
+		)
+	</insert>
+
+	
+</mapper>
