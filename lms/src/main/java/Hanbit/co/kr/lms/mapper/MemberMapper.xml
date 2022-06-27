@@ -169,11 +169,18 @@
 	</select>
 
 
-		<!-- 회원 승인 -업데이트 -->
-		<update id="approveMember"
-				parameterType="String">
-			UPDATE member SET
-				member_state = '2'
-			WHERE member_id= #{memberId}
-		</update>
+	<!-- 회원 승인 -업데이트 -->
+	<update id="approveMember"
+			parameterType="String">
+		UPDATE member SET
+			member_state = '2'
+		WHERE member_id= #{memberId}
+	</update>
+		
+	<!-- 회원 스케줄러(휴면처리) -->
+	<update id="inactivityMember">
+		UPDATE member SET
+			member_state='3'
+		WHERE  DATEDIFF(NOW(),log_date) > 365 and member_state  = '2'
+	</update>
 </mapper>

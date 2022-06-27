@@ -29,7 +29,7 @@ public class MemberRESTController {
 		
     // OPEN API 호출 URL 정보 설정
 	//뷰에서 받은 keyword 디버깅
-	log.debug(CF.LKL+"RController.getAddr : "+ CF.RESET +keyword);
+	log.debug(CF.LKL+"RController.getAddr : "+ CF.RESET +keyword);  
 	//페이지당 개수 100으로 설정
     final int countPerPage = 100;
     //페이지 수 1로 설정
@@ -40,14 +40,16 @@ public class MemberRESTController {
     String resultType = "json";												
     
     StringBuffer sb = null;
+    
     try {
     	//api url 불러오기
     String apiUrl = "https://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage="+currentPage+"&countPerPage="+countPerPage+"&keyword="+URLEncoder.encode(keyword,"UTF-8")+"&confmKey="+confmKey+"&resultType="+resultType;
 
        URL url = new URL(apiUrl);
-        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));
+        BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream(),"UTF-8"));		//api의 가공되지않은 결과 값
         //StringBuffer -> String을 
         sb = new StringBuffer();
+        
         String tempStr = null;
         while((tempStr = br.readLine()) != null){
            sb.append(tempStr);                        // 응답결과 JSON 저장
@@ -64,7 +66,7 @@ public class MemberRESTController {
 	}
 	
 	@GetMapping("/compMember")
-	public String checkMember(@RequestParam(value = "idCheck") String memberId){
+	public String compMember(@RequestParam(value = "idCheck") String memberId){
 		//뷰에서 memberId 가져오기 
 		log.debug(CF.LKL+"MemberRESTController.compMember : "+ CF.RESET + memberId);
 		//DB에서 member리스트를 가져온다

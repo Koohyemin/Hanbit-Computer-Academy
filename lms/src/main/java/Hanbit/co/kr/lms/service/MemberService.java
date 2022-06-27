@@ -176,9 +176,15 @@ public class MemberService {
 	}
 	//운영자 - Member상태 승인
 	public void approveMember(String memberId) {
+		
 		 memberMapper.approveMember(memberId);
 
 	}
-	
+	public int sleepMember() {
+		
+		int row = memberMapper.inactivityMember();
+		
+		return row;
+	}
 	
 }
