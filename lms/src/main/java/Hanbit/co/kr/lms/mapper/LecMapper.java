@@ -20,8 +20,14 @@ public interface LecMapper {
 	// 강의 등록
 	int insertLec(Lec lec);
 	
-	// 강의 상세보기
-	Lec getLecOne(String searchValue); 
+	// 강의 상세보기, 수정
+	Lec getLecOne(String searchValue);
+	
+	// 강의 수정
+	int getUpdateLec(Lec lec);
+	
+	// 강의 삭제
+	int getDeleteLec(String lectureName);
 	
 	// 카테고리
 	List<LectureRoom> lectureRoomList(); // 강의실 정보

@@ -17,4 +17,8 @@ public class Lec {						// 강좌 테이블
 	private String createDate;			// 생성일
 	private String updateDate;			// 수정일
 	private String beginClass;			// 강의시작일
+	private String endClass;			// 강의종료일
+	private String startTime;			// 강의 시작시간
+	private String endTime;				// 강의 종료시간
+	private String lunchTime;			// 점심시간
 }

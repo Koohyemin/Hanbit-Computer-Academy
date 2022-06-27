@@ -23,6 +23,35 @@ public class LecController {
 	@Autowired LecService lecService;
 	@Autowired HttpSession session;
 	
+	// 강의 수정 GET
+	@GetMapping("lec/updateLec")
+	public String getUpdateLec(Model model,
+							@RequestParam(name="lectureName") String lectureName) {
+		
+		Lec lectureInfo = lecService.getLecOne(lectureName);
+		Map<String,Object> map = lecService.getUpdateLec(lectureName);
+		
+		model.addAttribute("lectureInfo", lectureInfo);
+		model.addAttribute("subjectList", map.get("subjectList"));
+		model.addAttribute("lecPlanList", map.get("lecPlanList"));
+		model.addAttribute("lectureRoomList", map.get("lectureRoomList"));
+		
+		return "lec/updateLec";
+	}
+	
+	// 강의 상세보기 열린강좌에 대해서 전체 열람 가능
+	@GetMapping("lec/lecOne")
+	public String getLecOne(Model model,
+							@RequestParam(name="lectureName") String lectureName) {
+		
+		Lec getLecOne = lecService.getLecOne(lectureName);
+		
+		// model에 상세보기 값 add
+		model.addAttribute("lec", getLecOne);
+		
+		return "lec/getLecOne";
+	}
+	
 	// 강의 등록 POST
 	@PostMapping("lec/addLec")
 	public String addLec(Lec lec) {

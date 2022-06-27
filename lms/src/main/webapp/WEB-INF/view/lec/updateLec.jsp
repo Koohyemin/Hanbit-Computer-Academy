@@ -54,7 +54,7 @@
 							<select name="subjectName" id="subject" class="form-control">
 								<option value="">과목을 선택해주세요.</option>
 								<c:forEach var="s" items="${subjectList}">
-									<option value="${s.subjectName}">${s.subjectName}</option>								
+									<option value="${s.subjectName}" <c:if test="${s.subjectName eq lectureInfo.subjectName}">selected="selected"</c:if>>${s.subjectName}</option>								
 								</c:forEach>
 							</select>
 							<span class="text-danger" id="subjectError"></span>
@@ -66,7 +66,7 @@
 							<select name="lectureRoomName" id="lecturerRoom" class="form-control">
 								<option value="">강의실을 선택해주세요.</option>
 								<c:forEach var="l" items="${lectureRoomList}">
-									<option value="${l.lectureRoomName}">${l.lectureRoomName}</option>								
+									<option value="${l.lectureRoomName}" <c:if test="${l.lectureRoomName eq lectureInfo.lectureRoomName}">selected="selected"</c:if>>${l.lectureRoomName}</option>								
 								</c:forEach>
 							</select>
 							<span class="text-danger" id="lectureRoomError"></span>
@@ -78,7 +78,7 @@
 							<select name="lecPlanNo" id="lecPlan" class="form-control">
 								<option value="">강의계획서를 선택해주세요.</option>
 								<c:forEach var="l" items="${lecPlanList}">
-									<option value="${l.lecPlanNo}">${l.lecPlanName}</option>								
+									<option value="${l.lecPlanNo}" <c:if test="${l.lecPlanNo eq lectureInfo.lecPlanNo}">selected="selected"</c:if>>${l.lecPlanName}</option>								
 								</c:forEach>
 							</select>
 							<span class="text-danger" id="lecPlanError"></span>
@@ -89,9 +89,9 @@
 						<td>
 							<select name="difficulty" id="difficulty" class="form-control">
 								<option value="">난이도를 선택해주세요.</option>
-								<option value="상">상</option>
-								<option value="중">중</option>		
-								<option value="하">하</option>										
+								<option value="상" <c:if test="${lectureInfo.difficulty eq '상'}">selected="selected"</c:if>>상</option>
+								<option value="중" <c:if test="${lectureInfo.difficulty eq '중'}">selected="selected"</c:if>>중</option>		
+								<option value="하" <c:if test="${lectureInfo.difficulty eq '하'}">selected="selected"</c:if>>하</option>										
 							</select>
 							<span class="text-danger" id="difficultyError"></span>
 						</td>
@@ -99,35 +99,35 @@
 					<tr>
 						<th class="text-center">강의명</th>
 						<td>
-							<input name="lectureName" id="lectureName" value="${lectureName}" type="text" class="form-control" placeholder="강의명을 입력해주세요">
+							<input name="lectureName" id="lectureName" value="${lectureInfo.lectureName}" type="text" class="form-control" placeholder="강의명을 입력해주세요">
 							<span class="text-danger" id="lectureNameError"></span>
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center">수강인원</th>
 						<td>
-							<input name="registrationNumber" id="registrationNumber" value="${registrationNumber}" type="number" min="1" class="form-control" placeholder="수강인원을 지정해주세요">
+							<input name="registrationNumber" id="registrationNumber" value="${lectureInfo.registrationNumber}" type="number" min="1" class="form-control" placeholder="수강인원을 지정해주세요">
 							<span class="text-danger" id="registrationNumberError"></span>
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center">수료 점수</th>
 						<td>
-							<input name="registrationPassScore" id="registrationPassScore" value="${registrationPassScore}" type="number" min="1" max="100" class="form-control" placeholder="최소 수료점수를 지정해주세요">
+							<input name="registrationPassScore" id="registrationPassScore" value="${lectureInfo.registrationPassScore}" type="number" min="1" max="100" class="form-control" placeholder="최소 수료점수를 지정해주세요">
 							<span class="text-danger" id="registrationPassScoreError"></span>
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center">수강료</th>
 						<td>
-							<input name="lecCost" id="lecCost" value="${lecCost}" type="number" min="1" class="form-control" placeholder="수강료를 입력해주세요">
+							<input name="lecCost" id="lecCost" value="${lectureInfo.lecCost}" type="number" min="1" class="form-control" placeholder="수강료를 입력해주세요">
 							<span class="text-danger" id="lecCostError"></span>
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center">문의 연락처</th>
 						<td>
-							<input name="lecPhone" id="lecPhone" value="${lecPhone}" type="text" class="form-control" placeholder="문의 담당자 연락처를 입력해주세요">
+							<input name="lecPhone" id="lecPhone" value="${lectureInfo.lecPhone}" type="text" class="form-control" placeholder="문의 담당자 연락처를 입력해주세요">
 							<span class="text-danger" id="lecPhoneError"></span>
 						</td>
 					</tr>

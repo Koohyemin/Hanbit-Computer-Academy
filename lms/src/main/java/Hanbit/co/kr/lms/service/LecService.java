@@ -20,6 +20,28 @@ public class LecService {
 	
 	@Autowired LecMapper lecMapper;
 	
+	// 강의 삭제
+	public int getDeleteLec(String lectureName) {
+		return lecMapper.getDeleteLec(lectureName);
+	}
+	
+	// 강의 수정
+	public Map<String,Object> getUpdateLec(String lectureName) {
+		
+		// 카테고리 불러오기
+		List<Subject> subjectList = lecMapper.subjectList(); // 과목 목록
+		List<LecPlan> lecPlanList = lecMapper.lecPlanList(); // 강의계획 목록
+		List<LectureRoom> lectureRoomList = lecMapper.lectureRoomList(); // 강의실 목록
+		
+		// return값 하나의 값으로 묶어주기
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("subjectList", subjectList);
+		returnMap.put("lecPlanList", lecPlanList);
+		returnMap.put("lectureRoomList", lectureRoomList);
+		
+		return returnMap;
+	}
+	
 	// 강의 상세보기
 	public Lec getLecOne(String lectureName) {
 		return lecMapper.getLecOne(lectureName);

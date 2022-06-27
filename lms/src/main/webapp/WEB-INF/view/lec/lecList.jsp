@@ -33,14 +33,6 @@
 	                Lecture
 	            </div>
             </div>
-			<!-- 상단 전체, 강사, 학생별 공지사항 보기 nav바 -->
-			<ul class="nav nav-tabs">
-				<li class="nav-item">
-					<!-- 운영자, 강사, 학생 모두 확인 가능 -->
-					<a class="nav-link active" data-toggle="tab" href="#">수강강의</a> <!-- 기본값이 전체로 잡혀있기 때문에 현제 페이지로 이동하도록 조건을 잡아놓음 -->
-
-				</li>
-			</ul>
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -54,7 +46,7 @@
 					<c:forEach var="lec" items="${list}">
 						<tr>
 							<th class="text-center text-success">${lec.subjectName}</th>
-							<td class="text-center col-md-4"><a href="${pageContext.request.contextPath}/lec/getLecOne?lectureName=${lec.lectureName}" class="none-unline">${lec.lectureName}</a></td>
+							<td class="text-center col-md-4"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${lec.lectureName}" class="none-unline">${lec.lectureName}</a></td>
 							<td class="text-center">${lec.registrationNumber}</td>
 							<td class="text-center">${lec.beginClass}</td>
 							<!-- 강의가 없다면 개설된 강의가 없습니다. -->
