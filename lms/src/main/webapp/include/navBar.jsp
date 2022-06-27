@@ -87,7 +87,7 @@
                  <!--  강사index -->
                             <a class="nav-link" href="#">강의계획서</a>
                             <a class="nav-link" href="#">강의자료실</a>
-                            <a class="nav-link" href="#">공지사항</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/lecNotice/getLecNoticeListByPage">공지사항</a>
                             <a class="nav-link" href="#">과제게시판</a>
                             <a class="nav-link" href="#">Q&A</a>
                         </nav>
