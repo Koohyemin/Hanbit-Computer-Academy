@@ -209,7 +209,7 @@
 									<div class="row">
 										<!-- 사진 -->
 										<div class="col-4">
-											<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}" class="object-fit img-thumbnail teacher-info-img">
+											<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}.${m.photoType}" class="object-fit img-thumbnail teacher-info-img">
 										</div>
 										<div class="col-8">
 									<br>										<!-- 강좌이름  -->

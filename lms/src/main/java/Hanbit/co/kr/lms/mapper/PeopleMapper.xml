@@ -45,16 +45,18 @@
 	
 	<!--  학생 정보-->
 	<select id="getStudentList" parameterType="String" resultType="java.util.Map">
-	SELECT student_name studentName
-		, student_addr1 studentAddr1
-		, student_addr2 studentAddr2
-		, student_phone studentPhone
-		, student_birth studentBirth
-		, student_gender studentGender
-		, final_education finalEducation 
-		, student_email studentEmail 
-	FROM student
-	WHERE student_name LIKE CONCAT('%',#{searchValue},'%')
-	ORDER BY student_name
+	select s.student_name studentName
+		, s.student_addr1 studentAddr1
+		, s.student_addr2 studentAddr2
+		, s.student_phone studentPhone
+		, s.student_birth studentBirth
+		, s.student_gender studentGender
+		, s.final_education finalEducation 
+		, s.student_email studentEmail 
+		, p.photo_name photoName
+		, p.photo_type photoType
+	FROM student s INNER JOIN photo_file p 
+	ON s.student_id = p.member_id 
+	WHERE s.student_name LIKE CONCAT('%',#{searchValue},'%')
 	</select>
 </mapper>
