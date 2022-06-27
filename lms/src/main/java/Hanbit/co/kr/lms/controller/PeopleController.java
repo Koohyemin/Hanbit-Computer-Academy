@@ -30,6 +30,7 @@ public class PeopleController {
 		
 		
 		if(level == 2) {
+			
 		// SQL 쿼리에 검색어 매개값 적용
 		List<Map<String,Object>> list = peopleService.getTeacherList(searchValue);
 		
@@ -57,6 +58,7 @@ public class PeopleController {
 		model.addAttribute("listSize",listSize); // 목록이 1이상일때만 실행시키기 위한 개수
 		
 		}else if(level == 3) {
+			
 			// SQL 쿼리에 검색어 매개값 적용
 			List<Map<String,Object>> list = peopleService.getLecList(searchValue);
 			
@@ -67,6 +69,19 @@ public class PeopleController {
 			model.addAttribute("level", level); // 검색어
 			model.addAttribute("searchValue", searchValue); // 검색어
 			model.addAttribute("LecList",list); // 강의 정보를 담은 목록
+			model.addAttribute("listSize",listSize); // 목록이 1이상일때만 실행시키기 위한 개수
+		}else if(level == 1) {
+			
+			// SQL 쿼리에 검색어 매개값 적용
+			List<Map<String,Object>> list = peopleService.getStudentList(searchValue);
+			
+			// 리스트가 1개이상일 시 목록 출력을 위해 리스트 개수 변수 선언
+			int listSize = list.size();
+			log.debug(CF.KHM + "[PeopleController getMapping list.size] : " + CF.RESET + listSize); // listSize 디버깅
+			// model에 값 add
+			model.addAttribute("level", level); // 검색어
+			model.addAttribute("searchValue", searchValue); // 검색어
+			model.addAttribute("studentList",list); // 강의 정보를 담은 목록
 			model.addAttribute("listSize",listSize); // 목록이 1이상일때만 실행시키기 위한 개수
 		}
 		// people/teacherList.jsp로 이동

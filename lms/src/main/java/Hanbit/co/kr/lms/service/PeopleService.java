@@ -20,8 +20,13 @@ public class PeopleService {
 		return peopleMapper.getTeacherList(searchValue);
 	}
 	
-	// 수강에 필요한 강 정보 리스트
+	// 수강에 필요한 강좌 정보 리스트
 	public List<Map<String, Object>> getLecList(String searchValue){
 		return peopleMapper.getLecList(searchValue);
+	}
+	
+	// 조회에 필요한 학생 정보 리스트
+	public List<Map<String, Object>> getStudentList(String searchValue){
+		return peopleMapper.getStudentList(searchValue);
 	}
 }

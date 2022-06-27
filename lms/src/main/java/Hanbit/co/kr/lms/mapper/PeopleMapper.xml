@@ -42,5 +42,19 @@
 	FROM lec
 	WHERE lecture_name LIKE CONCAT('%',#{searchValue},'%')
 	</select>
+	
+	<!--  학생 정보-->
+	<select id="getStudentList" parameterType="String" resultType="java.util.Map">
+	SELECT student_name studentName
+		, student_addr1 studentAddr1
+		, student_addr2 studentAddr2
+		, student_phone studentPhone
+		, student_birth studentBirth
+		, student_gender studentGender
+		, final_education finalEducation 
+		, student_email studentEmail 
+	FROM student
+	WHERE student_name LIKE CONCAT('%',#{searchValue},'%')
+	ORDER BY student_name
+	</select>
 </mapper>
-
