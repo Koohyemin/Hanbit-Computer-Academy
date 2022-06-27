@@ -41,19 +41,13 @@
 
 				</li>
 			</ul>
-			<c:if test="${sessionMemberLv == 3}">
-				<!-- 강의 등록 버튼은 운영진에게만 보임 -->
-				<span class="float-end">
-					<a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/lec/addLec">강의 등록</a>
-				</span>
-			</c:if>
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th class="text-center">과목</th>
 						<th class="text-center">강의명</th>
 						<th class="text-center">수용인원</th>
-						<th class="text-center">등록일</th>
+						<th class="text-center">개강일</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,7 +56,7 @@
 							<th class="text-center text-success">${lec.subjectName}</th>
 							<td class="text-center col-md-4"><a href="${pageContext.request.contextPath}/lec/getLecOne?lectureName=${lec.lectureName}" class="none-unline">${lec.lectureName}</a></td>
 							<td class="text-center">${lec.registrationNumber}</td>
-							<td class="text-center">${lec.createDate}</td>
+							<td class="text-center">${lec.beginClass}</td>
 							<!-- 강의가 없다면 개설된 강의가 없습니다. -->
 							<c:if test="${totalCount == 0}">
 								<div class="text-primary">개설된 강의가 없습니다.</div>

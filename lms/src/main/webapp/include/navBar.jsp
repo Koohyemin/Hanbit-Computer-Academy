@@ -60,7 +60,7 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/authorizeMember">회원승인</a>
                     <a class="nav-link"href="${pageContext.request.contextPath}/people/peopleList">학생/강사 조회</a>
                		<a class="nav-link" href="#">납부 관리</a>
-                    <a class="nav-link" href="#">개설강좌 관리</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/lec/lecList">개설강좌 관리</a>
                     <a class="nav-link" href="#">수강신청 관리</a>   
                 </nav>
             </div>

@@ -112,6 +112,11 @@ public class NoticeController {
 	// 공지사항 등록 GET(운영자)
 	@GetMapping("/notice/addNotice")
 	public String getInsertNotice() {
+		// 세션을 이용한 권한 처리
+		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
+		if (memberLv != 3) { // 운영자가 아니라면 공지목록으로 돌아가기
+			return "redirect:/notice/getNoticeListByPage";
+		}
 		
 		// notice/addNotice.jsp로 이동
 		return "notice/addNotice";

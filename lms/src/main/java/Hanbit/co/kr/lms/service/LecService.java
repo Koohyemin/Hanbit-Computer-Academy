@@ -10,6 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import Hanbit.co.kr.lms.mapper.LecMapper;
 import Hanbit.co.kr.lms.vo.Lec;
+import Hanbit.co.kr.lms.vo.LecPlan;
+import Hanbit.co.kr.lms.vo.LectureRoom;
+import Hanbit.co.kr.lms.vo.Subject;
 
 @Service
 @Transactional
@@ -17,7 +20,29 @@ public class LecService {
 	
 	@Autowired LecMapper lecMapper;
 	
-	// 강의 리스트
+	// 강의 등록 POST
+	public int insertLec(Lec lec) {
+		return lecMapper.insertLec(lec);
+	}
+	
+	// 강의 등록 GET
+	public Map<String,Object> insertLec() {
+		
+		// 카테고리 불러오기
+		List<Subject> subjectList = lecMapper.subjectList(); // 과목 목록
+		List<LecPlan> lecPlanList = lecMapper.lecPlanList(); // 강의계획 목록
+		List<LectureRoom> lectureRoomList = lecMapper.lectureRoomList(); // 강의실 목록
+		
+		// return값 하나의 값으로 묶어주기
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("subjectList", subjectList);
+		returnMap.put("lecPlanList", lecPlanList);
+		returnMap.put("lectureRoomList", lectureRoomList);
+		
+		return returnMap;
+	}
+	
+	// 개강전 강의 리스트
 	public Map<String, Object> getLecListByPage(int currentPage, int rowPerPage) {
 		
 		// 현재페이지를 이욯하여 시작페이지 계산

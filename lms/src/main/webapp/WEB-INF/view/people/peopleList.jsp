@@ -77,6 +77,7 @@
 		            </div>
 	            </div>
             </form>
+            <br><br>
             <!-- 강사가 1명 이상일 시, teachList 출력 -->
          		<c:choose>
          			<c:when test="${listSize > 0}">
@@ -134,19 +135,26 @@
          		</c:if>
          		 <c:if test="${level == 3 }">
              <h3>Lec Information <span class="badge rounded-pill bg-dark">${listSize}</span></h3> <br>
+             <c:if test="${sessionMemberLv == 3}">
+				<!-- 강의 등록 버튼은 운영진에게만 보임 -->
+				<span class="float-end">
+					<a class="float-left btn btn-dark" href="${pageContext.request.contextPath}/lec/addLec">강의 등록</a>
+				</span>
+			</c:if>
               <!-- 검색 구현  -->
             <form method="get" action="${pageContext.request.contextPath}/people/peopleList">
 	            <div class="container float-end">
 		            <div class="col-lg-4 col-4 float-end btn-group">
 		            <input type="hidden" name="level" value="3">   		
 	            		<!-- 검색어가 있다면 검색어가 유지되도록 value값 셋팅 -->
-			           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="이름을 입력해주세요">
+			           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="강의명을 입력해주세요">
 		           		<div class="col-lg-2 col-2 float-end btn-group">
 				      		<button id="btn" type="submit" class="btn btn-dark float-end">검색</button>
 		           		</div>
 		            </div>
 	            </div>
             </form>
+             <br><br>
             <!-- 강의가 1개 이상일시 , teachList 출력 -->
          		<c:choose>
          			<c:when test="${listSize > 0}">
@@ -200,6 +208,7 @@
 		            </div>
 	            </div>
             </form>
+            <br><br>
             <!-- 강의가 1개 이상일시 , StudentList 출력 -->
          		<c:choose>
          			<c:when test="${listSize > 0}">

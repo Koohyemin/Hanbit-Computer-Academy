@@ -16,5 +16,5 @@ public class Lec {						// 강좌 테이블
 	private String lecPhone;			// 문의연락처
 	private String createDate;			// 생성일
 	private String updateDate;			// 수정일
-	private String lecState;			// 강의상태
+	private String beginClass;			// 강의시작일
 }

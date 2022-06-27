@@ -41,6 +41,7 @@
 		, lec_phone lecPhone
 	FROM lec
 	WHERE lecture_name LIKE CONCAT('%',#{searchValue},'%')
+	ORDER BY create_date DESC
 	</select>
 	
 	<!--  학생 정보-->
