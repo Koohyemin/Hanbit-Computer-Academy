@@ -15,6 +15,13 @@ import Hanbit.co.kr.lms.vo.Teacher;
 
 @Mapper
 public interface ImformationMapper {
+	
+	// 운영진
+	void updateManager(Manager manager);
+	
+	// 강사 정보 업데이트
+	void updateTeacher(Teacher teacher);
+	
 	// 학생 정보업데이트
 	void updateStudent(Student student);
 	

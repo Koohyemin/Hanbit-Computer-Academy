@@ -26,6 +26,20 @@ import lombok.extern.slf4j.Slf4j;
 public class ImformationService {
 	@Autowired ImformationMapper imformationMapper;
 	
+	// 운영진 업데이트
+	public void updateManager(Manager manager) {
+		
+		// service에서 mapper로 값 넘겨주기
+		imformationMapper.updateManager(manager);
+		return;
+	}
+	// 강사 업데이트
+	public void updateTeacher(Teacher teacher) {
+		
+		// service에서 mapper로 값 넘겨주기
+		imformationMapper.updateTeacher(teacher);
+		return;
+	}
 	// 학생 업데이트
 	public void updateStudent(Student student) {
 		

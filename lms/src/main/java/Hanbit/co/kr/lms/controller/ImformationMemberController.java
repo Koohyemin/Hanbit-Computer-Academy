@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.service.ImformationService;
 import Hanbit.co.kr.lms.util.CF;
+import Hanbit.co.kr.lms.vo.Manager;
 import Hanbit.co.kr.lms.vo.Student;
+import Hanbit.co.kr.lms.vo.Teacher;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -55,35 +57,56 @@ public class ImformationMemberController {
 		while((tempStr = br.readLine()) != null){
 		   sb.append(tempStr);                        // 응답결과 JSON 저장
 		    }
-    } catch(Exception e) {
-       e.printStackTrace();
-    }
-     return sb.toString();
-//		    	response.setCharacterEncoding("UTF-8");
-//				response.setContentType("text/xml");
-//				response.getWriter().write(sb.toString());			// 응답결과 반환
-		    	
-		    	//rest -> json형식으로 전송
-	}
+	    } catch(Exception e) {
+	       e.printStackTrace();
+	    }
+	     return sb.toString();
+		//		    	response.setCharacterEncoding("UTF-8");
+		//				response.setContentType("text/xml");
+		//				response.getWriter().write(sb.toString());			// 응답결과 반환
+				    	
+				    	//rest -> json형식으로 전송
+		}
 	
-	// 새창주소
+	// 개인정보 업데이트에 새창주소
 	@GetMapping("/member/addr")
 	public String addr() {
 		return "member/addr";
 	}
-	// 학생정보 업데이트 폼
+	// 멤버 업데이트 폼
 	@GetMapping("/member/modifyMember")
-	public String modifyStudent(Model model
+	public String modifyMember(Model model
 								,HttpServletRequest request) {
 		
-		// 세션에 있는 값 아이디값 담기
+		// 세션에 있는 값 아이디값과 레벨값 담기
 		HttpSession session = request.getSession();
-		String	studentId = (String)session.getAttribute("sessionMemberId");
-		log.debug(CF.SWB+"[ImformationMemberController modifyStudent studentId]"+CF.RESET+ studentId); // studentId 디버깅
-	
+		String	memberId = (String)session.getAttribute("sessionMemberId");
+		int memberLv = (int)session.getAttribute("sessionMemberLv");
+		log.debug(CF.SWB+"[ImformationMemberController modifyStudent studentId]"+CF.RESET+ memberId); // studentId 디버깅
+		log.debug(CF.SWB+"[ImformationMemberController modifyStudent memberLv]"+CF.RESET+ memberLv); // memberLv 디버깅
+
+		
+		Map<String, Object> returnMap = new HashMap<>();
+		if(memberLv == 1) { // 학생이라면
+			String studentId = memberId;
+			returnMap = imformation.studentOne(studentId);
+			model.addAttribute("student",returnMap.get("student"));
+			
+			log.debug(CF.SWB+"[ImformationMemberController modifyStudent student]"+CF.RESET+ returnMap.get("student").toString()); // student 디버깅
+		} else if(memberLv == 2) {
+			String teacherId = memberId;
+			returnMap = imformation.teacherOne(teacherId);
+			model.addAttribute("teacher",returnMap.get("teacher"));
+			
+			log.debug(CF.SWB+"[ImformationMemberController modifyStudent teacher]"+CF.RESET+ returnMap.get("teacher").toString()); // teacher 디버깅
+		} else if(memberLv == 3) {
+			String managerId = memberId;
+			returnMap = imformation.managerOne(managerId);	
+			model.addAttribute("manager",returnMap.get("manager"));
+			
+			log.debug(CF.SWB+"[ImformationMemberController modifyStudent manager]"+CF.RESET+ returnMap.get("manager").toString()); // manager 디버깅
+		}
 		// service에서 controller로 값 가져오기
-		Map<String, Object> returnMap = imformation.studentOne(studentId);
-		model.addAttribute("student",returnMap.get("student"));
 		return "member/modifyMember";
 	}
 	
@@ -93,19 +116,20 @@ public class ImformationMemberController {
 								,@RequestParam(name="addr") String addr
 								,@RequestParam(name="addr2") String addr2
 								,@RequestParam(name="phone") String phone
-								,@RequestParam(name="finalEdu") String finalEdu
+								,@RequestParam(name="finalEdu", defaultValue = "") String finalEdu
 								,@RequestParam(name="email") String email
 								,HttpServletRequest request
 								) {
 		
 		// 세션에 있는 멤버레벨값 받아오기
 		HttpSession session = request.getSession();
-		int	MemberLv = (int)session.getAttribute("sessionMemberLv");
-		String	studentId = (String)session.getAttribute("sessionMemberId");
-		log.debug(CF.SWB+"[ImformationMemberController modifyStudent MemberLv]"+CF.RESET + MemberLv); // MemberLv 디버깅
+		int	memberLv = (int)session.getAttribute("sessionMemberLv");
+		String	memberId = (String)session.getAttribute("sessionMemberId");
+		log.debug(CF.SWB+"[ImformationMemberController modifyStudent MemberLv]"+CF.RESET + memberLv); // MemberLv 디버깅
 		
-		// 학새이라면
-		if(MemberLv == 1) {
+		// 학생이라면
+		if(memberLv == 1) {
+			String studentId = memberId; // 변환
 			Student student = new Student();
 			student.setStudentId(studentId);
 			student.setStudentName(memberName);
@@ -116,6 +140,32 @@ public class ImformationMemberController {
 			student.setStudentEmail(email);
 			imformation.updateStudent(student);
 			log.debug(CF.SWB+"[ImformationMemberController modifyStudent students]"+CF.RESET + student.toString()); // student 디버깅
+			
+		// 강사라면
+		} else if(memberLv == 2) {
+			String teacherId = memberId;
+			Teacher teacher = new Teacher();
+			teacher.setTeacherId(teacherId);
+			teacher.setTeacherName(memberName);
+			teacher.setTeacherAddr1(addr);
+			teacher.setTeacherAddr2(addr2);
+			teacher.setTeacherPhone(phone);
+			teacher.setFinalEducation(finalEdu);
+			teacher.setTeacherEmail(email);
+			imformation.updateTeacher(teacher);
+			log.debug(CF.SWB+"[ImformationMemberController modifyStudent students]"+CF.RESET + teacher.toString()); // teacher 디버깅
+			
+		// 운영진이라면
+		} else if(memberLv == 3) {
+			String managerId = memberId;
+			Manager manager = new Manager();
+			manager.setManagerId(managerId);
+			manager.setManagerName(memberName);
+			manager.setManagerAddr1(addr);
+			manager.setManagerAddr2(addr2);
+			manager.setManagerPhone(phone);
+			manager.setManagerEmail(email);
+			imformation.updateManager(manager);
 		}
 		return "redirect:/member/getMemberOne";
 	}
@@ -140,23 +190,23 @@ public class ImformationMemberController {
 		if(memberLv == 1) { // 학생일때
 			studentId = (String)session.getAttribute("sessionMemberId"); // 변수등록 및 세션아이디 값 넣기
 			returnMap = imformation.studentOne(studentId);
-			log.debug(CF.SWB+"[ImformationMemberController memberOne student]"+ returnMap.get("student").toString()+CF.RESET); // student 디버깅
+			log.debug(CF.SWB+"[ImformationMemberController memberOne student]"+CF.RESET+ returnMap.get("student").toString()); // student 디버깅
 			model.addAttribute("student",returnMap.get("student"));
 		} else if(memberLv == 2) { // 강사일때
 			teacherId = (String)session.getAttribute("sessionMemberId");  // 변수등록 및 세션아이디 값 넣기
 			returnMap = imformation.teacherOne(teacherId);
 			model.addAttribute("teacher",returnMap.get("teacher"));
-			log.debug(CF.SWB+"[ImformationMemberController memberOne teacher]"+ returnMap.get("teacher").toString()+CF.RESET); // teacher 디버깅
+			log.debug(CF.SWB+"[ImformationMemberController memberOne teacher]"+CF.RESET+ returnMap.get("teacher").toString()); // teacher 디버깅
 			model.addAttribute("registrationList",returnMap.get("registrationList"));
 		} else if(memberLv == 3) { // 운영자일때
 			managerId = (String)session.getAttribute("sessionMemberId");  // 변수등록 및 세션아이디 값 넣기
 			returnMap = imformation.managerOne(managerId);
-			log.debug(CF.SWB+"[ImformationMemberController memberOne manager]"+ returnMap.get("manager").toString()+CF.RESET); // manager 디버깅
+			log.debug(CF.SWB+"[ImformationMemberController memberOne manager]"+CF.RESET+ returnMap.get("manager").toString()); // manager 디버깅
 			model.addAttribute("manager",returnMap.get("manager"));
 		}
 		
 		// returnMap.size 디버깅
-		log.debug(CF.SWB+"[ImformationMemberController memberOne returnMap.size()]"+ returnMap.size()+CF.RESET);
+		log.debug(CF.SWB+"[ImformationMemberController memberOne returnMap.size()]" +CF.RESET+ returnMap.size());
 		
 		// jsp로 값보내기
 		model.addAttribute("certificationList",returnMap.get("certificationList"));

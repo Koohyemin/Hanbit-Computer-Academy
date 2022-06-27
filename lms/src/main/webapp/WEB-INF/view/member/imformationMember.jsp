@@ -211,7 +211,7 @@
 	                   <div class="card-header" >
 	                       <i class="fas fa-chart-area me-1"></i>
 							보유 자격증
-							<a class="btn btn-dark btn-sm"  role="button" href="${pageContext.request.contextPath}/#">등록</a>
+							<a class="btn btn-dark btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/addCertification">등록</a>
 	                   </div>
 	        			<table class="table table-hover">
 	       				<thead>
@@ -230,10 +230,10 @@
 	        						<td class="text-center">${c.certificationIssued}</td>
 	        						<td class="text-center">${c.getDate}</td>
 	        						<td>
-		        						<a class="btn btn-outline-primary btn-sm"  role="button" href="${pageContext.request.contextPath}/#">수정</a>
+		        						<a class="btn btn-outline-primary btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/modifyCertification">수정</a>
 	        						</td>
 	        						<td>
-		        						<a class="btn btn-outline-danger btn-sm"  role="button" href="${pageContext.request.contextPath}/#">삭제</a>
+		        						<a class="btn btn-outline-danger btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/DeleteCertification">삭제</a>
 	        						</td>
 	        					</tr>
 	        				</c:forEach>
