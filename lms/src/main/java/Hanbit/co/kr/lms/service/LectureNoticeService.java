@@ -30,7 +30,7 @@ public class LectureNoticeService {
 			
 			// SQL 매개값 대입
 			List<LectureNotice> list = lectureNoticeMapper.getLecNoticeListByPage(map);
-			int totalCount = lectureNoticeMapper.totalCount(null); // 전체 공지 개수
+			int totalCount = lectureNoticeMapper.totalCount(); // 전체 공지 개수
 			
 			// 마지막 페이지
 			int lastPage = (int)(Math.ceil((double)totalCount / (double)rowPerPage));
@@ -42,5 +42,19 @@ public class LectureNoticeService {
 			
 			// returnMap 반환
 			return returnMap;
+		}
+	// 공지사항 상세보기
+		public LectureNotice getLecNoticeOne(int lecNoticeNo) {
+			return lectureNoticeMapper.getLecNoticeOne(lecNoticeNo);
+		}
+		
+	// 공지사항 입력
+		public int getInsertLectureNotice(LectureNotice lectureNotice) {
+			return lectureNoticeMapper.getInsertLectureNotice(lectureNotice);
+		}
+		
+	// 공지사항 삭제
+		public int getDeleteLectureNotice(int lecNoticeNo) {
+			return lectureNoticeMapper.getDeleteLectureNotice(lecNoticeNo);
 		}
 }

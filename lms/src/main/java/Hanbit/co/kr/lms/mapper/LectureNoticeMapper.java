@@ -14,18 +14,18 @@ public interface LectureNoticeMapper {
 		// 강좌 공지사항 목록(페이징 포함)
 		List<LectureNotice> getLecNoticeListByPage(Map<String, Object> map); 
 		// 공지 개수
-		int totalCount(String category); 
+		int totalCount(); 
 		
-		// 공지사항 상세보기(전체), 수정에서도 사용(운영자)
-		LectureNotice getLecNoticeOne(int managerNoticeNo); 
+		// 공지사항 상세보기(전체) 
+		LectureNotice getLecNoticeOne(int lecNoticeNo); 
 		
-		// 공지사항 작성(운영자)
-		int getInsertLecNotice(LectureNotice lectureNOtice); 
+		// 공지사항 작성(강사)
+		int getInsertLectureNotice(LectureNotice lectureNotice); 
 		
-		// 공지사항 수정(운영자)
-		int getUpdateLecNotice(LectureNotice lectureNOtice); 
+		// 공지사항 수정(강사)
+		int getUpdateLectureNotice(LectureNotice lectureNotice); 
 		
-		// 공지사항 삭제(운영자)
-		int getDeleteLecNotice(int lectureNOticeNo); 
+		// 공지사항 삭제(강사)
+		int getDeleteLectureNotice(int lecNoticeNo); 
 		
 	}

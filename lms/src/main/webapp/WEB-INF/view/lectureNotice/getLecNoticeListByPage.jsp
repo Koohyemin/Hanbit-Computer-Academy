@@ -44,7 +44,7 @@
 						            <c:forEach var="lectureNotice" items="${list}">
 						                <tr>
 						                   <td>${lectureNotice.lecNoticeNo}</td>
-						                   <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/lecNotice/getLectureNoticeOne?faqNo=${lectureNotice.lecNoticeNo}">${lectureNotice.title}</a></td>
+						                   <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeOne?lecNoticeNo=${lectureNotice.lecNoticeNo}">${lectureNotice.title}</a></td>
 						                   <td>${lectureNotice.lectureName}</td>
 						                   <td>${lectureNotice.memberId}</td>
 						                   <td>${lectureNotice.createDate}</td>
@@ -61,7 +61,7 @@
 								</c:if>
 							</div>
 		              		 <c:if test="${sessionMemberLv == 2 }">
-       							<a class="btn btn-dark" href="${pageContext.request.contextPath}/faq/addFaq">공지사항입력</a>
+       							<a class="btn btn-dark" href="${pageContext.request.contextPath}/lectureNotice/getInsertLectureNotice">공지사항입력</a>
        							</c:if> 
 	                	</div>
 	                	</div>     

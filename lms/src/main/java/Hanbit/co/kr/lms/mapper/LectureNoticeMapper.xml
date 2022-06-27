@@ -7,7 +7,7 @@
 		FROM lecture_notice
 	</select>
 	
-	<!-- NoticeMapper.getNoticeListByPage 공지사항 목록 (페이징) -->
+	<!-- NoticeMapper.getLectureNoticeListByPage 공지사항 목록 (페이징) -->
 	<select id="getLecNoticeListByPage" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.LectureNotice">
 		SELECT
 			 lec_notice_no lecNoticeNo
@@ -20,7 +20,43 @@
 		 LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 
-
-
-
+	<!-- LectureNotice getLecNoticeOne 공지사항 상세보기-->
+	<select id="getLecNoticeOne" parameterType="int" resultType="Hanbit.co.kr.lms.vo.LectureNotice">
+		SELECT
+			lec_notice_no lecNoticeNo
+			,member_id memberId
+			,lecture_name lectureName
+			,title
+			,content
+			,create_date createDate
+			,update_date updateDate
+		FROM lecture_notice
+		WHERE lec_notice_no = #{lecNoticeNo}
+	</select>
+	
+	
+	<insert id="getInsertLectureNotice" parameterType="Hanbit.co.kr.lms.vo.LectureNotice">
+		INSERT INTO ()
+			lecture_notice 
+			member_id
+			,lecture_name lectureName
+			,title
+			,content
+			,create_date createDate
+			, update_date updateDate
+			)VALUES( 
+			#{managerId}
+			,#{lectureName}
+			,#{title}
+			,#{content}
+			,NOW()
+			,NOW()
+	)		
+	</insert>
+	
+	<delete id="getDeleteLectureNotice" parameterType="int">
+		DELETE 
+		FROM lecture_notice
+		WHERE lec_notice_no = ${lecNoticeNo}
+	</delete>
 </mapper>
