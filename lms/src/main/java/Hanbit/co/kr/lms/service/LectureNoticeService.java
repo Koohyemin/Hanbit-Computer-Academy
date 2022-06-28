@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import Hanbit.co.kr.lms.mapper.LectureNoticeMapper;
+import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LectureNotice;
 import Hanbit.co.kr.lms.vo.ManagerNotice;
@@ -53,14 +54,11 @@ public class LectureNoticeService {
 		public LectureNotice getLecNoticeOne(int lecNoticeNo) {
 			return lectureNoticeMapper.getLecNoticeOne(lecNoticeNo);
 		}
-		
-	// 공지사항 입력
-		public List<LecPlan> getInsertLectureNotice(String teacherId) {
-			return lectureNoticeMapper.lectureNameList(teacherId);
+	// 공지사항 select(강사의 강좌)
+		public int addLectureNotice(LectureNotice lectureNotice) {
+			return lectureNoticeMapper.getInsertLectureNotice(lectureNotice);
 		}
 		
-	// 공지사항 입력?? 
-	
 		
 	// 공지사항 삭제
 		public int getDeleteLectureNotice(int lecNoticeNo) {
@@ -71,5 +69,7 @@ public class LectureNoticeService {
 		public int getUpdateLectureNotice(LectureNotice lectureNotice) {
 			return lectureNoticeMapper.getUpdateLectureNotice(lectureNotice);
 		}
-		
+		public List<LecPlan> lectureNameList(String teacherId) {
+			return lectureNoticeMapper.lectureNameList(teacherId);
+		}
 }

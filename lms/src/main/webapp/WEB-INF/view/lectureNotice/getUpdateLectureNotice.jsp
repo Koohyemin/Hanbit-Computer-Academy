@@ -33,7 +33,7 @@
 	                LectureNotice
 	            </div>
 				<br><br>
-				<form method="post" action="${pageContext.request.contextPath}/lectureNotice/getInsertLectureNotice">
+				<form method="post" action="${pageContext.request.contextPath}/lectureNotice/addLectureNotice">
 					<table class="table">
 						<tr>
 							<td> 
@@ -45,7 +45,7 @@
 								<select id="lectureName" name="lectureName">
 									<option value="">------------------------------선택---------------------------</option>
 									<c:forEach var="l" items="${lectureNameList}">
-										<option value="${l.lecPlanName}">${l.lecPlanName}</option>
+										<option value="${l.lectureName}" name="${l.lectureName}">11212</option>
 									</c:forEach>
 								</select>
 							</td>

@@ -36,16 +36,17 @@
 	
 	
 	<insert id="getInsertLectureNotice" parameterType="Hanbit.co.kr.lms.vo.LectureNotice">
-		INSERT INTO (
-			lecture_notice 
-			member_id
-			,lecture_name lectureName
+		INSERT INTO lecture_notice(
+			lec_notice_no 
+			,member_id
+			,lecture_name
 			,title
 			,content
-			,create_date createDate
-			, update_date updateDate
+			,create_date 
+			, update_date
 			)VALUES( 
-			#{managerId}
+			#{lecNoticeNo}
+			,#{memberId}
 			,#{lectureName}
 			,#{title}
 			,#{content}
@@ -63,14 +64,13 @@
 	<select id="lectureNameList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.LecPlan">
 		SELECT lecture_name lectureName
 		FROM lec_plan
-		WHERE teacher_id = #{teacher}
-
+		WHERE teacher_id = #{teacherId}
 	</select>
 	
 	<!-- 공지사항 수정 -->
 	<update id="getUpdateLectureNotice" parameterType="Hanbit.co.kr.lms.vo.LectureNotice">
-		UPDATE lecture_notice SET m
-		ember_id=#{memberId}
+		UPDATE lecture_notice SET 
+		member_id=#{memberId}
 		,title=#{title}
 		,content=#{Content}
 		, update_date=NOW()
