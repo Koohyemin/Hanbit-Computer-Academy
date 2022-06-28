@@ -42,7 +42,12 @@
 						</tr>
 						<tr>
 							<td> 
-								<input name="lectureName" type="text" value="${lectureName}" class="form-control" placeholder="강좌이름을 입력해주세요">
+								<select id="lectureName" name="lectureName">
+									<option value="">--------------선택-----------------</option>
+									<c:forEach var="result" items="${customerList}">
+										<option value="${result.idx}">${result.customer_name}</option>
+									</c:forEach>
+								</select>
 							</td>
 						</tr>
 						<tr>
@@ -53,7 +58,7 @@
 						</tr>
 						<tr>
 							<td>
-								<textarea name="content" id="content" class="form-control" placeholder="Faq 내용을 입력해주세요" cols="50" rows="8"></textarea>
+								<input name="content" id="content" class="form-control" placeholder="내용을 입력해주세요" cols="50" rows="8">
 								<span id="helpContent"></span>
 							</td>
 						</tr>
@@ -73,7 +78,7 @@
 	
 	$('#btnlecn').click(function () {
 		if($('#title').val() == ''){
-			$('#helpTitle').text('아이디를 입력해주세요');
+			$('#helpTitle').text('제목을 입력해주세요');
 			return false;
 		} else {
 			$('#helpTitle').text('');

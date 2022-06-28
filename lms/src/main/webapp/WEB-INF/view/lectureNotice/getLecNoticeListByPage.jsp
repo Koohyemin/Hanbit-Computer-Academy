@@ -54,10 +54,10 @@
 		              		 </table>
 		              		 <div class="text-center">
 								<c:if test="${currentPage>1}">
-									<a href="${pageContext.request.contextPath}/lectureNotice/lectureNoticeList?currentPage=${currentPage-1}" class="btn btn-dark">이전</a>
+									<a href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage?currentPage=${currentPage-1}" class="btn btn-dark">이전</a>
 								</c:if>
 								<c:if test="${lastPage>currentPage}">
-									<a href="${pageContext.request.contextPath}/lectureNotice/lectureNoticeList?currentPage=${currentPage+1}" class="btn btn-dark">다음</a>
+									<a href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage?currentPage=${currentPage+1}" class="btn btn-dark">다음</a>
 								</c:if>
 							</div>
 		              		 <c:if test="${sessionMemberLv == 2 }">

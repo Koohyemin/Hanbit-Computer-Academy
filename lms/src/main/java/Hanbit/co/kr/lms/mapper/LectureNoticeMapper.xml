@@ -36,7 +36,7 @@
 	
 	
 	<insert id="getInsertLectureNotice" parameterType="Hanbit.co.kr.lms.vo.LectureNotice">
-		INSERT INTO ()
+		INSERT INTO (
 			lecture_notice 
 			member_id
 			,lecture_name lectureName
@@ -59,4 +59,6 @@
 		FROM lecture_notice
 		WHERE lec_notice_no = ${lecNoticeNo}
 	</delete>
+	
+	
 </mapper>

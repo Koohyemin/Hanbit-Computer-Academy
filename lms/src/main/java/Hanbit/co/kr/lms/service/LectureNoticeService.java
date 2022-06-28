@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import Hanbit.co.kr.lms.mapper.LectureNoticeMapper;
 import Hanbit.co.kr.lms.vo.LectureNotice;
@@ -15,10 +18,11 @@ import Hanbit.co.kr.lms.vo.LectureNotice;
 @Transactional
 public class LectureNoticeService {
 	@Autowired LectureNoticeMapper lectureNoticeMapper;
+	@Autowired HttpSession session;
 	
 	
 	// 공지사항 리스트
-		public Map<String, Object> getLecNoticeListByPage(int currentPage, int rowPerPage) {
+		public Map<String, Object> getLecNoticeListByPage(int currentPage, int rowPerPage, String lectureName) {
 			
 			// 현재페이지를 이욯하여 시작페이지 계산
 			int beginRow = (currentPage-1) * rowPerPage;
@@ -27,7 +31,7 @@ public class LectureNoticeService {
 			Map<String, Object> map = new HashMap<>();
 			map.put("beginRow", beginRow); // 시작 페이지
 			map.put("rowPerPage", rowPerPage); // 한 페이지당 표시할 공지 개수	
-			
+			map.put("lectureName", lectureName); // 강사별 강좌 표시
 			// SQL 매개값 대입
 			List<LectureNotice> list = lectureNoticeMapper.getLecNoticeListByPage(map);
 			int totalCount = lectureNoticeMapper.totalCount(); // 전체 공지 개수
@@ -52,6 +56,7 @@ public class LectureNoticeService {
 		public int getInsertLectureNotice(LectureNotice lectureNotice) {
 			return lectureNoticeMapper.getInsertLectureNotice(lectureNotice);
 		}
+	
 		
 	// 공지사항 삭제
 		public int getDeleteLectureNotice(int lecNoticeNo) {
