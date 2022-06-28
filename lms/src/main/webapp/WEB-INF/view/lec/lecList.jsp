@@ -68,11 +68,11 @@
 									<a href="#" class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
 								</div>
 							</td>
+						</tr>
 							<!-- 강의가 없다면 개설된 강의가 없습니다. -->
 							<c:if test="${totalCount == 0}">
 								<div class="text-primary">개설된 강의가 없습니다.</div>
 							</c:if>
-						</tr>
 					</c:forEach>
 				</tbody>
 			</table>

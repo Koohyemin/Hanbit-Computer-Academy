@@ -37,7 +37,7 @@
 	        </div>
 			<a href="${pageContext.request.contextPath}/lec/lecList" class="btn btn-dark" style="float:right">이전으로</a>
 			<br><br>
-			<h1>[${lec.lectureName}]</h1>
+			<h1>${lec.lectureName}</h1>
 			<br><br>
 			<table class="table">
 				<tr>
@@ -49,12 +49,16 @@
 					<td>${lec.difficulty}</td>
 				</tr>
 				<tr>
+					<th class="text-center">담당 강사</th>
+					<td>${lec.teacherName}</td>
+				</tr>
+				<tr>
 					<th class="text-center">교육 기간</th>
-					<td>${lec.beginClass} ~ ${lec.endClass}</td>
+					<td>${lec.beginClass} - ${lec.endClass}</td>
 				</tr>
 				<tr>
 					<th class="text-center">교육 시간</th>
-					<td>${lec.startTime} ~ ${lec.endTime} (점심시간 : ${lec.lunchTime})</td>
+					<td>${lec.startTime} - ${lec.endTime} (점심시간 : ${lec.lunchTime})</td>
 				</tr>
 				<tr>
 					<th class="text-center">수강인원</th>

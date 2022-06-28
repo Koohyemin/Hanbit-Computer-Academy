@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import Hanbit.co.kr.lms.service.LecService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Lec;
+import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.TimeTable;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,9 +30,13 @@ public class LecController {
 	// 강의 삭제 POST
 	@PostMapping("lec/deleteLec")
 	public String deleteLec(@RequestParam(name="lectureName")String lectureName) {
-		int row = lecService.getDeleteLec(lectureName);
 		
-		if(row == 1) {
+		// 삭제 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
+		int lecRow = lecService.getDeleteLec(lectureName);
+		int lecPlanRow = lecService.getDeleteLecPlan(lectureName);
+		int timeRow = lecService.getDeleteTime(lectureName);
+		
+		if(lecRow == 1 && timeRow == 1 && lecPlanRow == 1) {
 			log.debug(CF.KHM + "[LecController postMapping deleteLec] :" + CF.RESET + "강의 삭제 성공"); // 성공
 			return "redirect:/people/peopleList?level=3";
 		} else {
@@ -42,12 +47,14 @@ public class LecController {
 	
 	// 강의 수정 POST
 	@PostMapping("lec/updateLec")
-	public String geUpdateLec(Lec lec) {
+	public String geUpdateLec(Lec lec, TimeTable timeTable, LecPlan lecPlan) {
 		
-		// 등록 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
-		int row = lecService.getUpdateLec(lec);
+		// 수정 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
+		int lecRow = lecService.getUpdateLec(lec);
+		int lecPlanRow = lecService.getUpdateLecPlan(lecPlan);
+		int timeRow = lecService.getUpdateTime(timeTable);
 		
-		if(row == 1) {
+		if(lecRow == 1 && timeRow == 1 && lecPlanRow == 1) {
 			log.debug(CF.KHM + "[LecController postMapping updateLec] :" + CF.RESET + "강의 수정 성공"); // 성공
 		} else {
 			log.debug(CF.KHM + "[LecController postMapping updateLec] :" + CF.RESET + "강의 수정 실패"); // 실패
@@ -64,20 +71,21 @@ public class LecController {
 		Lec lectureInfo = lecService.getLecOne(lectureName);
 		Map<String,Object> map = lecService.getUpdateLec(lectureName);
 		
+		// model에 카테고리 + 수정을 위해 필요한 정보 add
 		model.addAttribute("lectureInfo", lectureInfo);
 		model.addAttribute("subjectList", map.get("subjectList"));
 		model.addAttribute("lecPlanList", map.get("lecPlanList"));
 		model.addAttribute("lectureRoomList", map.get("lectureRoomList"));
+		model.addAttribute("teacherList", map.get("teacherList"));
 		
 		return "lec/updateLec";
 	}
 	
 	// 강의 상세보기 열린강좌에 대해서 전체 열람 가능
 	@GetMapping("lec/lecOne")
-	public String getLecOne(Model model,
-							@RequestParam(name="lectureName") String lectureName) {
+	public String getLecOne(Model model, @RequestParam(name="lectureName") String lectureName) {
 		
-		Lec getLecOne = lecService.getLecOne(lectureName);
+		Lec getLecOne = lecService.getLecOne(lectureName); // 강의 상세보기 정보
 		
 		// model에 상세보기 값 add
 		model.addAttribute("lec", getLecOne);
@@ -97,9 +105,10 @@ public class LecController {
 		
 		// 등록 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
 		int lecRow = lecService.insertLec(lec);
+		int lecPlanRow = lecService.insertTime(timeTable);
 		int timeRow = lecService.insertTime(timeTable);
 		
-		if(lecRow == 1 && timeRow == 1) { // 일정표, 강의 등록 성공 시 성공
+		if(lecRow == 1 && timeRow == 1 && lecPlanRow == 1) { // 일정표, 강의 등록 성공 시 성공
 			log.debug(CF.KHM + "[LecController postMapping addLec] :" + CF.RESET + "강의/일정표 등록 성공"); // 성공
 		} else {
 			log.debug(CF.KHM + "[LecController postMapping addLec] :" + CF.RESET + "강의/일정표 등록 실패"); // 실패
@@ -124,6 +133,7 @@ public class LecController {
 		model.addAttribute("subjectList", map.get("subjectList"));
 		model.addAttribute("lecPlanList", map.get("lecPlanList"));
 		model.addAttribute("lectureRoomList", map.get("lectureRoomList"));
+		model.addAttribute("teacherList", map.get("teacherList"));
 		
 		return "lec/addLec"; // lec/addLec.jsp로 이동
 		

@@ -77,18 +77,6 @@
 						</td>
 					</tr>
 					<tr>
-						<th class="text-center">강의 계획서</th>
-						<td>
-							<select name="lecPlanNo" id="lecPlan" class="form-control">
-								<option value="">강의계획서를 선택해주세요.</option>
-								<c:forEach var="l" items="${lecPlanList}">
-									<option value="${l.lecPlanNo}">${l.lecPlanName}</option>								
-								</c:forEach>
-							</select>
-							<span class="text-danger" id="lecPlanError"></span>
-						</td>
-					</tr>
-					<tr>
 						<th class="text-center">난이도</th>
 						<td>
 							<select name="difficulty" id="difficulty" class="form-control">
@@ -98,6 +86,18 @@
 								<option value="하">하</option>										
 							</select>
 							<span class="text-danger" id="difficultyError"></span>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center">강사</th>
+						<td>
+							<select name="teacherId" id="teacherId" class="form-control">
+								<option value="">강사를 선택해주세요.</option>
+								<c:forEach var="t" items="${teacherList}">
+									<option value="${t.teacherId}">${t.teacherName}</option>
+								</c:forEach>
+							</select>
+							<span class="text-danger" id="teacherIdError"></span>
 						</td>
 					</tr>
 					<tr>
@@ -297,14 +297,25 @@
 		   		} else {
 		   		      $('#lunchTimeError').text('');
 		   		}
+				
+				if($('#teacherId').val() == '') { // 강사 아이디
+		   		      $('#teacherIdError').text('강사를 선택해주세요');
+		   		} else {
+		   		      $('#teacherIdError').text('');
+		   		}
 	   		   
 	   		   
 	   		   
 	   		   // 전체 내용이 들어와 있다면 전송
 	   		   if($('#subject').val() != '' && $('#lectureRoom').val() != '' && $('#lecPlan').val() != '' && $('#difficulty').val() != '' && $('#lectureName').val() != '' 
-	   				   && $('#registrationNumber').val() != '' && $('#registrationPassScore').val() != '' && $('#lecCost').val() != '' && $('#lecPhone').val() !='') {
-	   			   alert('강의명은 수정 불가합니다. 강의 등록 전 검토 해주세요.');
-	   			   $('#addLecForm').submit();
+	   				   && $('#registrationNumber').val() != '' && $('#registrationPassScore').val() != '' && $('#lecCost').val() != '' && $('#lecPhone').val() !=''
+		   				&& $('#beginClass').val() != '' && $('#endClass').val() != '' && $('#startTime').val() != '' && $('#endTime').val() !=''
+			   			&& $('#lunchTime').val() !='' && $('#teacherId').val() !='') {
+		            if (confirm('강의명은 수정 불가합니다. 강의 등록 전 검토 해주세요.')) {
+		                $('#addLecForm').submit();
+		            } else {
+		            	return false;
+		            }
 	   		   }
 	   		});
 	   	init();

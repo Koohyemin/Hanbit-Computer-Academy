@@ -13,6 +13,7 @@ import Hanbit.co.kr.lms.vo.Lec;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LectureRoom;
 import Hanbit.co.kr.lms.vo.Subject;
+import Hanbit.co.kr.lms.vo.Teacher;
 import Hanbit.co.kr.lms.vo.TimeTable;
 
 @Service
@@ -21,45 +22,61 @@ public class LecService {
 	
 	@Autowired LecMapper lecMapper;
 	
-	// 강의 삭제
-	public int getDeleteLec(String lectureName) {
+	// 삭제
+	public int getDeleteLecPlan(String lectureName) { // 강의 계획 삭제 POST
+		return lecMapper.getDeleteLecPlan(lectureName);
+	}
+	
+	public int getDeleteTime(String lectureName) { // 일정표 삭제 POST
 		return lecMapper.getDeleteLec(lectureName);
 	}
 	
-	// 강의 수정 POST
-	public int getUpdateLec(Lec lec) {
+	public int getDeleteLec(String lectureName) { // 강의 삭제 POST
+		return lecMapper.getDeleteLec(lectureName);
+	}
+	
+	// 수정
+	public int getUpdateLecPlan(LecPlan lecPlan) { // 강의계획 수정 POST
+		return lecMapper.getUpdateLecPlan(lecPlan);
+	}
+	
+	public int getUpdateTime(TimeTable timeTable) { // 일정표 수정 POST
+		return lecMapper.getUpdateTime(timeTable);
+	}
+	
+	public int getUpdateLec(Lec lec) { // 강의 수정 POST
 		return lecMapper.getUpdateLec(lec);
 	}
 	
-	// 강의 수정
-	public Map<String,Object> getUpdateLec(String lectureName) {
+	public Map<String,Object> getUpdateLec(String lectureName) { // 강의 수정
 		
 		// 카테고리 불러오기
 		List<Subject> subjectList = lecMapper.subjectList(); // 과목 목록
 		List<LecPlan> lecPlanList = lecMapper.lecPlanList(); // 강의계획 목록
 		List<LectureRoom> lectureRoomList = lecMapper.lectureRoomList(); // 강의실 목록
+		List<Teacher> teacherList = lecMapper.teacherList(); // 재직중인 강사 목록
+		
 		
 		// return값 하나의 값으로 묶어주기
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("subjectList", subjectList);
 		returnMap.put("lecPlanList", lecPlanList);
 		returnMap.put("lectureRoomList", lectureRoomList);
+		returnMap.put("teacherList", teacherList);
 		
 		return returnMap;
 	}
 	
-	// 강의 상세보기
-	public Lec getLecOne(String lectureName) {
-		return lecMapper.getLecOne(lectureName);
-	}
-	
-	// 강의 등록 POST
-	public int insertLec(Lec lec) {
+	// 등록
+	public int insertLec(Lec lec) { // 강의 등록 POST
 		return lecMapper.insertLec(lec);
 	}
 	
-	// 일정표 등록 POST
-	public int insertTime(TimeTable timeTable) {
+	public int insertLecPlan(LecPlan lecPlan) { // 강의계획 등록 POST
+		return lecMapper.insertLecPlan(lecPlan);
+	}
+	
+	public int insertTime(TimeTable timeTable) { // 일정표 등록 POST
 		return lecMapper.insertTimeTable(timeTable);
 	}
 	
@@ -70,14 +87,21 @@ public class LecService {
 		List<Subject> subjectList = lecMapper.subjectList(); // 과목 목록
 		List<LecPlan> lecPlanList = lecMapper.lecPlanList(); // 강의계획 목록
 		List<LectureRoom> lectureRoomList = lecMapper.lectureRoomList(); // 강의실 목록
+		List<Teacher> teacherList = lecMapper.teacherList(); // 재직중인 강사 목록
 		
 		// return값 하나의 값으로 묶어주기
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("subjectList", subjectList);
 		returnMap.put("lecPlanList", lecPlanList);
 		returnMap.put("lectureRoomList", lectureRoomList);
+		returnMap.put("teacherList", teacherList);
 		
 		return returnMap;
+	}
+	
+	// 강의 상세보기
+	public Lec getLecOne(String lectureName) {
+		return lecMapper.getLecOne(lectureName);
 	}
 	
 	// 개강전 강의 리스트

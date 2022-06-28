@@ -7,7 +7,6 @@ public class Lec {						// 강좌 테이블
 	private String lectureName;			// 강좌이름(
 	private String lectureRoomName;		// 강좌 강의실(FK)
 	private String managerId;			// 운영자 id(FK)
-	private int lecPlanNo;				// 강의계획서(FK)
 	private String subjectName;			// 과목이름(FK)
 	private int registrationNumber;		// 수강인원
 	private int registrationPassScore;	// 수료인정점수
@@ -21,4 +20,6 @@ public class Lec {						// 강좌 테이블
 	private String startTime;			// 강의 시작시간
 	private String endTime;				// 강의 종료시간
 	private String lunchTime;			// 점심시간
+	private String teacherName;			// 강사 이름
+	private String lecState;			// 강의상태
 }

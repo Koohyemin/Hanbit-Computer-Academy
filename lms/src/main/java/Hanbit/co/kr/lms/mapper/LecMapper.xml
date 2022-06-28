@@ -1,57 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LecMapper">
-
-	<!-- 강의 삭제 -->
-	<delete id="getDeleteLec" parameterType="String">
-		DELETE
-		FROM lec
-		WHERE lecture_name = #{lectureName}
+	
+	<!-- 강의계획서 삭제 -->
+	<delete id="getDeleteLecPlan" parameterType="String">
+		DELETE 
+		FROM lec_plan
+		WHERE lectureName = #{lectureName}
 	</delete>
 	
-	<!-- 강의 수정 -->
-	<update id="getUpdateLec" parameterType="Hanbit.co.kr.lms.vo.Lec">
-			UPDATE lec SET
-				  lecture_name = #{lectureName}
-				, lecture_room_name = #{lectureRoomName} 
-				, manager_id = #{managerId}
-				, lec_plan_no = #{lecPlanNo}
-				, subject_name = #{subjectName}
-				, registration_number = #{registrationNumber}
-				, registration_pass_score = #{registrationPassScore}
-				, difficulty = #{difficulty}
-				, lec_cost = #{lecCost}
-				, lec_phone = #{lecPhone}
-				, update_date = NOW()
-			WHERE lecture_name = #{lectureName}
+	<!-- 강의계획 상태 수정(강의 수정&, 운영자 상태변경에도 사용예정) -->
+	<update id="getUpdateLecPlan" parameterType="Hanbit.co.kr.lms.vo.LecPlan">
+		UPDATE lec_plan SET 
+			 teacher_id = #{teacherId}
+			,lec_state = #{lecState}
+			,update_date = NOW()
+		WHERE lectureName = #{lectureName}
 	</update>
-	<!-- 강의 상세보기 -->
-	<select id="getLecOne" parameterType="String" resultType="Hanbit.co.kr.lms.vo.Lec">
-		SELECT 
-			 l.lecture_name lectureName
-			,l.lecture_room_name lectureRoomName
-			,l.subject_name subjectName
-			,l.registration_number registrationNumber
-			,l.registration_pass_score registrationPassScore
-			,l.lec_plan_no lecPlanNo
-			,l.lec_cost lecCost
-			,l.lec_phone lecPhone
-			,l.difficulty
-			,l.create_date createDate
-			,DATE(tt.begin_class) beginClass
-			,DATE(tt.end_class) endClass
-			,tt.start_time startTime
-			,tt.end_time endTime
-			,tt.lunch_time lunchTime
-		FROM lec l
-			LEFT JOIN time_table tt
-			ON l.lecture_name = tt.lecture_name
-		WHERE l.lecture_name = #{lectureName}
-		ORDER BY l.create_date DESC
+	
+	<!-- 강의계획 등록 -->
+	<select id="insertLecPlan" parameterType="Hanbit.co.kr.lms.vo.LecPlan">
+		INSERT INTO lec_plan (
+			lecture_name
+			,teacher_id
+			,lec_state
+			,create_date
+			,update_date
+		) VALUES(
+			 #{teacherId}
+			,#{lectureName}
+			,'F'
+			,NOW()
+			,NOW()
+		);
 	</select>
+	
+	<!-- 일정표 삭제 -->
+	<delete id="getDeleteTime" parameterType="String">
+		DELETE
+		FROM time_table
+		WHERE lecture_name=#{lectureName}
+	</delete>
+	
+	<!-- 일정표 수정 -->
+	<update id="getUpdateTime" parameterType="Hanbit.co.kr.lms.vo.TimeTable" >
+		UPDATE time_table SET
+			  start_time = #{startTime}
+			, end_time = #{endTime} 
+			, lunch_time = #{lunchTime}
+			, begin_class = #{beginClass}
+			, end_class = #{endClass}
+			, update_date = NOW()
+		WHERE lecture_name = #{lectureName}
+	</update>
+	
 	<!-- 일정표 등록 -->
 	<insert id="insertTimeTable" parameterType="Hanbit.co.kr.lms.vo.TimeTable">
-		INSERT INTO time_table(
+		INSERT INTO time_table (
 			 lecture_name
 			,start_time
 			,end_time
@@ -69,39 +74,102 @@
 			,#{endClass}
 			,NOW()
 			,NOW()
-		)
+		);
 	</insert>
+	
+	<!-- 강의 삭제 -->
+	<delete id="getDeleteLec" parameterType="String">
+		DELETE
+		FROM lec
+		WHERE lecture_name = #{lectureName}
+	</delete>
+	
+	<!-- 강의 수정 -->
+	<update id="getUpdateLec" parameterType="Hanbit.co.kr.lms.vo.Lec">
+			UPDATE lec SET
+				 lecture_name = #{lectureName}
+				,lecture_room_name = #{lectureRoomName} 
+				,manager_id = #{managerId}
+				,subject_name = #{subjectName}
+				,registration_number = #{registrationNumber}
+				,registration_pass_score = #{registrationPassScore}
+				,difficulty = #{difficulty}
+				,lec_cost = #{lecCost}
+				,lec_phone = #{lecPhone}
+				,update_date = NOW()
+			WHERE lecture_name = #{lectureName}
+	</update>
+	
+	<!-- 강의 상세보기 -->
+	<select id="getLecOne" parameterType="String" resultType="Hanbit.co.kr.lms.vo.Lec">
+		SELECT 
+			 l.lecture_name lectureName
+			,l.lecture_room_name lectureRoomName
+			,l.subject_name subjectName
+			,l.registration_number registrationNumber
+			,l.registration_pass_score registrationPassScore
+			,l.lec_cost lecCost
+			,l.lec_phone lecPhone
+			,l.difficulty
+			,l.create_date createDate
+			,tt.begin_class beginClass
+			,tt.end_class endClass
+			,tt.start_time startTime
+			,tt.end_time endTime
+			,tt.lunch_time lunchTime
+			,t.teacher_name teacherName
+			,lp.lec_state lecState
+		FROM lec l
+			INNER JOIN time_table tt
+				ON l.lecture_name = tt.lecture_name
+			INNER JOIN lec_plan lp
+				ON l.lecture_name = lp.lecture_name
+			INNER JOIN teacher t
+				ON lp.teacher_id = t.teacher_id
+		WHERE l.lecture_name = #{lectureName}
+		ORDER BY tt.begin_class DESC
+	</select>
 	
 	<!-- 강의 등록 -->
 	<insert id="insertLec" parameterType="Hanbit.co.kr.lms.vo.Lec">
-	INSERT INTO lec(
-		 lecture_name
-		,lecture_room_name
-		,manager_id
-		,lec_plan_no
-		,subject_name
-		,registration_number
-		,registration_pass_score
-		,difficulty
-		,lec_cost
-		,lec_phone
-		,create_date
-		,update_date
-	) VALUES(
-		 #{lectureName}
-		,#{lectureRoomName}
-		,#{managerId}
-		,#{lecPlanNo}
-		,#{subjectName}
-		,#{registrationNumber}
-		,#{registrationPassScore}
-		,#{difficulty}
-		,#{lecCost}
-		,#{lecPhone}
-		,NOW()
-		,NOW()
-	)
+		INSERT INTO lec (
+			 lecture_name
+			,lecture_room_name
+			,manager_id
+			,subject_name
+			,registration_number
+			,registration_pass_score
+			,difficulty
+			,lec_cost
+			,lec_phone
+			,create_date
+			,update_date
+		) VALUES(
+			 #{lectureName}
+			,#{lectureRoomName}
+			,#{managerId}
+			,#{subjectName}
+			,#{registrationNumber}
+			,#{registrationPassScore}
+			,#{difficulty}
+			,#{lecCost}
+			,#{lecPhone}
+			,NOW()
+			,NOW()
+		);
 	</insert>
+	
+	<!-- 재직 강사 정보 -->
+	<select id="teacherList" resultType="Hanbit.co.kr.lms.vo.Teacher">
+		SELECT 
+			 teacher_id teacherId
+			,teacher_name teacherName
+		FROM teacher t
+			INNER JOIN member m
+			ON t.teacher_id = m.member_id
+		WHERE m.member_state = '2'
+	</select>
+	
 	<!-- 과목 정보 -->
 	<select id="subjectList" resultType="Hanbit.co.kr.lms.vo.Subject">
 		SELECT 
@@ -113,24 +181,20 @@
 	
 	<!-- 강의별 강의계획서 정보 -->
 	<select id="lecPlan" resultType="Hanbit.co.kr.lms.vo.LecPlan">
-			SELECT
-			 lp.lec_plan_no lecPlanNo
-			,lp.teacher_id teacherId
-			,lp.lec_plan_name lecPlanName
+		SELECT
+			 lp.teacher_id teacherId
 			,lp.lec_state lecState
 			,lp.create_date createDate
 		FROM lec_plan lp
 			INNER JOIN lec l
-				ON l.lec_plan_no = lp.lec_plan_no
-		GROUP BY l.lec_plan_no
+				ON l.lecture_name = lp.lecture_name
+		GROUP BY l.lecture_name
 	</select>
 	
 	<!-- 강의계획서 정보 -->
 	<select id="lecPlanList" resultType="Hanbit.co.kr.lms.vo.LecPlan">
 		SELECT
-			 lp.lec_plan_no lecPlanNo
-			,lp.teacher_id teacherId
-			,lp.lec_plan_name lecPlanName
+			 lp.teacher_id teacherId
 			,lp.lec_state lecState
 			,lp.create_date createDate
 		FROM lec_plan lp
@@ -151,7 +215,7 @@
 		<![CDATA[
 			SELECT COUNT(*) cnt
 			FROM lec l
-				LEFT JOIN time_table tt
+				INNER JOIN time_table tt
 				ON l.lecture_name = tt.lecture_name
 			WHERE NOW() < tt.begin_class
 		]]>
@@ -168,9 +232,11 @@
 				,l.create_date createDate
 				,tt.begin_class beginClass
 			FROM lec l
-				LEFT JOIN time_table tt
+				INNER JOIN time_table tt
 				ON l.lecture_name = tt.lecture_name
-				WHERE NOW() < tt.begin_class
+				INNER JOIN lec_plan lp
+				ON l.lecture_name = lp.lecture_name
+			WHERE NOW() < tt.begin_class
 			ORDER BY tt.begin_class DESC
 			LIMIT #{beginRow}, #{rowPerPage}
 		]]>
