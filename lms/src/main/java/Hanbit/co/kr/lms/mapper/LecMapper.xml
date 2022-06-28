@@ -49,6 +49,28 @@
 		WHERE l.lecture_name = #{lectureName}
 		ORDER BY l.create_date DESC
 	</select>
+	<!-- 일정표 등록 -->
+	<insert id="insertTimeTable" parameterType="Hanbit.co.kr.lms.vo.TimeTable">
+		INSERT INTO time_table(
+			 lecture_name
+			,start_time
+			,end_time
+			,lunch_time
+			,begin_class
+			,end_class
+			,create_date
+			,update_date
+		) VALUES(
+			 #{lectureName}
+			,#{startTime}
+			,#{endTime}
+			,#{lunchTime}
+			,#{beginClass}
+			,#{endClass}
+			,NOW()
+			,NOW()
+		)
+	</insert>
 	
 	<!-- 강의 등록 -->
 	<insert id="insertLec" parameterType="Hanbit.co.kr.lms.vo.Lec">
@@ -78,7 +100,7 @@
 		,#{lecPhone}
 		,NOW()
 		,NOW()
-	) 
+	);
 	</insert>
 	<!-- 과목 정보 -->
 	<select id="subjectList" resultType="Hanbit.co.kr.lms.vo.Subject">
@@ -87,6 +109,20 @@
 			,subject_subscription subjectSubscription
 			,create_date createDate
 		FROM subject
+	</select>
+	
+	<!-- 강의별 강의계획서 정보 -->
+	<select id="lecPlan" resultType="Hanbit.co.kr.lms.vo.LecPlan">
+			SELECT
+			 lp.lec_plan_no lecPlanNo
+			,lp.teacher_id teacherId
+			,lp.lec_plan_name lecPlanName
+			,lp.lec_state lecState
+			,lp.create_date createDate
+		FROM lec_plan lp
+			INNER JOIN lec l
+				ON l.lec_plan_no = lp.lec_plan_no
+		GROUP BY l.lec_plan_no
 	</select>
 	
 	<!-- 강의계획서 정보 -->
@@ -98,9 +134,6 @@
 			,lp.lec_state lecState
 			,lp.create_date createDate
 		FROM lec_plan lp
-			INNER JOIN lec l
-			ON l.lec_plan_no = lp.lec_plan_no
-		GROUP BY l.lec_plan_no
 	</select>
 	
 	<!-- 강의실 정보 -->
@@ -109,7 +142,6 @@
 			 lecture_room_name lectureRoomName
 			,lecture_room_addr1 lectureRoomAddr1
 			,lecture_room_addr2 lectureRoomAddr2
-			,lecture_room__number lectureRoomNumber
 			,create_date createDate
 		FROM lecture_room
 	</select>
@@ -134,7 +166,7 @@
 				,l.registration_number registrationNumber
 				,l.difficulty
 				,l.create_date createDate
-				,DATE(tt.begin_class) beginClass
+				,tt.begin_class beginClass
 			FROM lec l
 				LEFT JOIN time_table tt
 				ON l.lecture_name = tt.lecture_name

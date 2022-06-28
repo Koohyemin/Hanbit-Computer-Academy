@@ -89,17 +89,15 @@
 				</div>
 			</c:if>
 				<c:if test="${sessionMemberLv == 3}">
+					<div class="btn-group" style="float:right">
 						<!-- 수정버튼 -->
-						<div class="d-grid gap-3">
-							<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${lec.lectureName}" class="btn btn-dark" style="float:right">수정</a>
-						</div>
+							<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${lec.lectureName}" class="btn btn-dark">수정</a>
 							<!-- 삭제버튼 -->
 							<form method="post" action="${pageContext.request.contextPath}/lec/deleteLec" id="del">
 								<input type="hidden" name="lectureName" value="${lec.lectureName}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
-								<div class="d-grid gap-3">
-									<input type="submit" value="삭제" class="btn btn-secondary" id="delBtn">
-								</div>
+								<input type="submit" value="삭제" class="btn btn-secondary" id="delBtn">
 							</form>
+					</div>
 				</c:if>
 			</div>
 		</div>

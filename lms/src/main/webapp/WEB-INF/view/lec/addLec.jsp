@@ -42,6 +42,10 @@
 			<br><br>
 			<form method="post" id="addLecForm" action="${pageContext.request.contextPath}/lec/addLec">
 				<table class="table">
+				<!-- 강의 등록 -->
+					<tr>
+						<th colspan="2" class="text-center table-dark">강의 정보</th>
+					</tr>
 					<tr>
 						<th class="text-center">등록자</th>
 						<td> <!-- pull받은 이후 value ${sessionMemberId}로 수정 -->
@@ -131,6 +135,65 @@
 							<span class="text-danger" id="lecPhoneError"></span>
 						</td>
 					</tr>
+					<!-- 일정표 등록 -->
+					<tr>
+						<th colspan="2" class="text-center table-dark">강의 일정</th>
+					</tr>
+					<tr>
+						<th>개강일</th>
+						<td>
+							<input name="beginClass" id="beginClass" type="date" class="form-control" placeholder="개강일을 지정해주세요">
+							<span class="text-danger" id="beginClassError"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>종강일</th>
+						<td>
+							<input name="endClass" id="endClass" type="date" class="form-control" placeholder="종강일을 지정해주세요">
+							<span class="text-danger" id="endClassError"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>시작 시간</th>
+						<td>
+							<select name="startTime" id="startTime" class="form-control">
+								<option value="">시작시간을 선택해주세요</option>
+								<option value="9:00:00">9:00</option>
+								<option value="9:30:00">9:30</option>
+								<option value="10:00:00">10:00</option>
+								<option value="10:30:00">10:30</option>
+								<option value="11:00:00">11:00</option>
+							</select>
+							<span class="text-danger" id="startTimeError"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>종료 시간</th>
+						<td>
+							<select name="endTime" id="endTime" class="form-control">
+								<option value="">종료시간을 선택해주세요</option>
+								<option value="16:00:00">16:00</option>
+								<option value="16:30:00">16:30</option>
+								<option value="17:00:00">17:00</option>
+								<option value="17:30:00">17:30</option>
+								<option value="18:00:00">18:00</option>
+							</select>
+							<span class="text-danger" id="endTimeError"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>점심 시간</th>
+						<td>
+							<select name="lunchTime" id="lunchTime" class="form-control">
+								<option value="">점심시간을 선택해주세요</option>
+								<option value="점심시간 없음">점심시간 없음</option>
+								<option value="11:30-12:00">11:30-12:00</option>
+								<option value="12:00-13:00">12:00-13:00</option>
+								<option value="12:30-13:30">12:30-13:30</option>
+							</select>
+							<span class="text-danger" id="lunchTimeError"></span>
+						</td>
+					</tr>
 				</table>
 				<button type="button" id="btn" class="btn btn-dark" style="float:right">등록</button>
 			</form>
@@ -203,13 +266,45 @@
 		   		} else {
 		   		      $('#lecPhoneError').text('');
 		   		}
+				
+				// 일정표
+				if($('#beginClass').val() == '') { // 개강일
+		   		      $('#beginClassError').text('개강일을 선택해주세요');
+		   		} else {
+		   		      $('#beginClassError').text('');
+		   		}
+	   		   
+				if($('#endClass').val() == '') { // 종강일
+		   		      $('#endClassError').text('종강일을 선택해주세요');
+		   		} else {
+		   		      $('#endClassError').text('');
+		   		}
+				
+				if($('#startTime').val() == '') { // 시작시간
+		   		      $('#startTimeError').text('시작시간을 선택해주세요');
+		   		} else {
+		   		      $('#startTimeError').text('');
+		   		}
+				
+				if($('#endTime').val() == '') { // 종료시간
+		   		      $('#endTimeError').text('종료시간을 선택해주세요');
+		   		} else {
+		   		      $('#endTimeError').text('');
+		   		}
+				
+				if($('#lunchTime').val() == '') { // 점심시간
+		   		      $('#lunchTimeError').text('점심시간을 선택해주세요');
+		   		} else {
+		   		      $('#lunchTimeError').text('');
+		   		}
 	   		   
 	   		   
 	   		   
 	   		   // 전체 내용이 들어와 있다면 전송
 	   		   if($('#subject').val() != '' && $('#lectureRoom').val() != '' && $('#lecPlan').val() != '' && $('#difficulty').val() != '' && $('#lectureName').val() != '' 
 	   				   && $('#registrationNumber').val() != '' && $('#registrationPassScore').val() != '' && $('#lecCost').val() != '' && $('#lecPhone').val() !='') {
-	   		      $('#addLecForm').submit();
+	   			   alert('강의명은 수정 불가합니다. 강의 등록 전 검토 해주세요.');
+	   			   $('#addLecForm').submit();
 	   		   }
 	   		});
 	   	init();

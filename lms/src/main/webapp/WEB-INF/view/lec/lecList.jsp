@@ -34,12 +34,17 @@
 	            </div>
             </div>
 			
-             <c:if test="${sessionMemberLv == 3}">
-				<!-- 전체 강의 관리 버튼은 운영진에게만 보임 -->
-				<span class="float-start">
-					<a class="btn btn-dark" href="${pageContext.request.contextPath}/people/peopleList?level=3">전체 강의 관리</a>
-				</span>
-			</c:if>
+			<ul class="nav nav-tabs">
+					<li class="nav-item">
+						<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/lec/lecList">수강 신청</a>
+					</li>
+		            <c:if test="${sessionMemberLv == 3}">
+						<!-- 전체 강의 관리 버튼은 운영진에게만 보임 -->
+						<li class="nav-item">
+							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=3">전체 강의</a>
+						</li>
+					</c:if>
+			</ul>
 
 			<table class="table table-hover">
 				<thead>

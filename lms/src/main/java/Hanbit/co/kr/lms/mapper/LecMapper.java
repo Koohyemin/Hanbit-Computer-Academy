@@ -9,6 +9,7 @@ import Hanbit.co.kr.lms.vo.Lec;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LectureRoom;
 import Hanbit.co.kr.lms.vo.Subject;
+import Hanbit.co.kr.lms.vo.TimeTable;
 
 @Mapper
 public interface LecMapper {
@@ -19,6 +20,8 @@ public interface LecMapper {
 	
 	// 강의 등록
 	int insertLec(Lec lec);
+	// 일정표 등록
+	int insertTimeTable(TimeTable timeTable);
 	
 	// 강의 상세보기, 수정
 	Lec getLecOne(String searchValue);
@@ -33,4 +36,7 @@ public interface LecMapper {
 	List<LectureRoom> lectureRoomList(); // 강의실 정보
 	List<LecPlan> lecPlanList(); // 강의계획서 정보
 	List<Subject> subjectList(); // 과목 정보
+
+	// 강의 계획서 상세보기
+	LecPlan lecPlan();
 }

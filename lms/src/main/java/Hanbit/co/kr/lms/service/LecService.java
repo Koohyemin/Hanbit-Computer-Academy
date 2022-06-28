@@ -13,6 +13,7 @@ import Hanbit.co.kr.lms.vo.Lec;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LectureRoom;
 import Hanbit.co.kr.lms.vo.Subject;
+import Hanbit.co.kr.lms.vo.TimeTable;
 
 @Service
 @Transactional
@@ -55,6 +56,11 @@ public class LecService {
 	// 강의 등록 POST
 	public int insertLec(Lec lec) {
 		return lecMapper.insertLec(lec);
+	}
+	
+	// 일정표 등록 POST
+	public int insertTime(TimeTable timeTable) {
+		return lecMapper.insertTimeTable(timeTable);
 	}
 	
 	// 강의 등록 GET

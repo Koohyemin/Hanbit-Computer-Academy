@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import Hanbit.co.kr.lms.service.LecService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Lec;
+import Hanbit.co.kr.lms.vo.TimeTable;
 import lombok.extern.slf4j.Slf4j;
 
+@Transactional
 @Slf4j
 @Controller
 public class LecController {
@@ -84,7 +87,7 @@ public class LecController {
 	
 	// 강의 등록 POST
 	@PostMapping("lec/addLec")
-	public String addLec(Lec lec) {
+	public String addLec(Lec lec, TimeTable timeTable) {
 		
 		// 세션을 이용한 권한 처리
 		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
@@ -93,12 +96,13 @@ public class LecController {
 		}
 		
 		// 등록 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
-		int row = lecService.insertLec(lec);
+		int lecRow = lecService.insertLec(lec);
+		int timeRow = lecService.insertTime(timeTable);
 		
-		if(row == 1) {
-			log.debug(CF.KHM + "[LecController postMapping addLec] :" + CF.RESET + "강의 등록 성공"); // 성공
+		if(lecRow == 1 && timeRow == 1) { // 일정표, 강의 등록 성공 시 성공
+			log.debug(CF.KHM + "[LecController postMapping addLec] :" + CF.RESET + "강의/일정표 등록 성공"); // 성공
 		} else {
-			log.debug(CF.KHM + "[LecController postMapping addLec] :" + CF.RESET + "강의 등록 실패"); // 실패
+			log.debug(CF.KHM + "[LecController postMapping addLec] :" + CF.RESET + "강의/일정표 등록 실패"); // 실패
 		}
 		
 		return "redirect:/people/peopleList?level=3";
