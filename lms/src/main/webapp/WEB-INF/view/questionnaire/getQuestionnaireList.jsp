@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,34 +27,58 @@
     <div id="layoutSidenav_content">
 	<div class="container-fluid px-4">
 	<!-- 컨텐츠 삽입 부분-->
-	<h2>설문조사</h2>
-		<table border="1">
+	<br>
+	<div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-chart-area me-1"></i>
+			강의평가
+        </div>
+        <div class="card-body">
+        <form>
+		<table class="table">
 			<thead>
 				<tr>
-					<th>구분번호</th>
+					<th>번호</th>
 					<th>강의이름</th>
 					<th>구분</th>
 					<th>질문내용</th>
+					<th class="text-center">전혀아니다</th>
+					<th class="text-center">아니다</th>
+					<th class="text-center">보통이다</th>
+					<th class="text-center">그렇다</th>
+					<th class="text-center">매우그렇다</th>
 				</tr>
 			</thead>
-			<tbody>
-			<c:forEach var="q" items="${list}">
-				<tr>
-					<td>${q.evaluationNo}</td>	
-					<td>${q.lectureName}</td>
-					<td>${q.category}</td>
-					<td>${q.questionnaireContent}</td>
-					<td>
-						<input type="radio" name="radio${q.evaluationNo}" value="1">전혀아니다<br>
-						<input type="radio" name="radio${q.evaluationNo}" value="2">아니다<br>
-						<input type="radio" name="radio${q.evaluationNo}" value="3">보통이다<br>
-						<input type="radio" name="radio${q.evaluationNo}" value="4">그렇다<br>
-						<input type="radio" name="radio${q.evaluationNo}" value="5">매우그렇다
-					</td>
-				</tr>
-			</c:forEach>
+			<tbody>	
+				<c:forEach var="q" items="${list}">
+					<tr>
+						<td>${q.evaluationNo}</td>	
+						<td>${q.lectureName}</td>
+						<td>${q.category}</td>
+						<td>${q.questionnaireContent}</td>
+						<td class="text-center">
+							<input type="radio" name="select${q.evaluationNo}" value="1">
+						</td>
+						<td class="text-center">
+							<input type="radio" name="select${q.evaluationNo}" value="2">
+						</td>
+						<td class="text-center">
+							<input type="radio" name="select${q.evaluationNo}" value="3">
+						</td>
+						<td class="text-center">
+							<input type="radio" name="select${q.evaluationNo}" value="4">
+						</td>
+						<td class="text-center">
+							<input type="radio" name="select${q.evaluationNo}" value="5">
+						</td>
+					</tr>
+				</c:forEach>
 			</tbody>	
 		</table>
+		<button type="button" class="btn btn-dark btn-block" id="btnQuestionnaire">제출하기</button>
+		</form>
+		</div>
+	</div>
 	</div>
 	<div id="footer"></div>
 	</div>

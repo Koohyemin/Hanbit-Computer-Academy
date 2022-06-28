@@ -31,9 +31,11 @@
 	      	<div class="card mb-4">
 	     		<div class="card-header">
 		     		<i class="fas fa-chart-area me-1"></i>
-					나의 정보
-					<a class="btn btn-dark" role="button" href="${pageContext.request.contextPath}/member/modifyMember">수정하기</a>
-					<a class="btn btn-secondary" role="button" href="${pageContext.request.contextPath}/#">회원탈퇴</a>
+					<span style="font-size:20px;">My information</span>
+					<div class="btn btn-group float-end">
+						<a class="btn btn-dark btn-sm" role="button" href="${pageContext.request.contextPath}/member/modifyMember">수정하기</a>
+						<a class="btn btn-secondary btn-sm" role="button" href="${pageContext.request.contextPath}/#">회원탈퇴</a>
+					</div>
 		        </div>
 		        <div class="card-body">
 					<div class="row"> 
@@ -45,7 +47,7 @@
 				           	<img src="${pageContext.request.contextPath}/upload/${photoFile.photoName}" class="img-fluid" alt="" width="150" height="200">  <!-- 사진추가 -->
 				        	<form method="post"action="${pageContext.request.contextPath}/updatePhoto"  enctype="multipart/form-data">
 				        		<input type="file" name="photoFile" multiple="multiple">
-				        		<button type="submit">사진 수정</button>
+				        		<button type="submit">사진수정</button>
 				        	</form>
 				        </div>
 				        <!-- 사진 끝 -->
@@ -137,7 +139,7 @@
 	      	<c:if test="${sessionMemberLv != 3}">
 	      	<div class="row">
 	      		<!-- 수강목록 -->
-     			<div class="col-lg-7">
+     			<div class="col-lg-6">
 	      			<div class="card mb-4">
 	                   <div class="card-header">
 	                       <i class="fas fa-chart-area me-1"></i>
@@ -211,12 +213,14 @@
 	     	<!-- 수강목록끝 -->
 	     			
 	     	<!-- 자격증 -->
-      		<div class="col-lg-5">
+      		<div class="col-lg-6">
 	               <div class="card mb-4">
 	                   <div class="card-header" >
 	                       <i class="fas fa-chart-area me-1"></i>
 							보유 자격증
+							<div class="float-end">
 							<a class="btn btn-dark btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/addCertification">등록</a>
+							</div>
 	                   </div>
 	        			<table class="table table-hover">
 	       				<thead>
@@ -235,14 +239,14 @@
 	        						<td class="text-center">${c.certificationIssued}</td>
 	        						<td class="text-center">${c.getDate}</td>
 	        						<td>
+	        						<div class="btn btn-group float-end">
 		        						<a class="btn btn-outline-primary btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/modifyCertification?certificationNo=${c.certificationNo}">수정</a>
-	        						</td>
-	        						<td>
 	        						<!-- 삭제버튼 -->
 	        							<form method="post" action="${pageContext.request.contextPath}/certificate/deleteCertification" id="del">
 			        						<input type="hidden" value="${c.certificationNo}" name="certificationNo">
-	        								<input class="btn btn-outline-danger btn-sm delBtn" value="삭제" type="submit"/>
+	        								<input class="btn btn-outline-danger  btn-sm delBtn" value="삭제" type="submit"/>
 	        							</form>
+	        							</div>
 	        						</td>
 	        					</tr>
 	        				</c:forEach>

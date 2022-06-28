@@ -225,18 +225,16 @@
          		<c:if test="${level == 1 }">
              <h3>Student Information <span class="badge rounded-pill bg-dark">${listSize}</span></h3> <br>
              <!-- 검색 구현  -->
-            <form method="get" action="${pageContext.request.contextPath}/people/peopleList">
-	            <div class="container float-end">
-		            <div class="col-lg-4 col-4 float-end btn-group">
-		            <input type="hidden" name="level" value="1">   		
-	            		<!-- 검색어가 있다면 검색어가 유지되도록 value값 셋팅 -->
-			           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="이름을 입력해주세요">
-		           		<div class="col-lg-2 col-2 float-end btn-group">
-				      		<button id="btn" type="submit" class="btn btn-dark float-end">검색</button>
-		           		</div>
-		            </div>
-	            </div>
-            </form>
+           <form method="get" action="${pageContext.request.contextPath}/people/peopleList">
+	            <div class="float-end btn-group">
+		            		<!-- 검색어가 있다면 검색어가 유지되도록 value값 셋팅 -->
+		            		<input type="hidden" name="level" value="1">   		
+				           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="이름을 입력해주세요">
+			           		<div class=" float-end btn-group">
+					      		<button id="btn" type="submit" class="btn btn-dark float-end btn-group">검색</button>
+			           		</div>
+			           </div>
+	            </form>
             <br><br>
             <!-- 강의가 1개 이상일시 , StudentList 출력 -->
          		<c:choose>

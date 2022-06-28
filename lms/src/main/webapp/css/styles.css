@@ -11714,7 +11714,6 @@ body {
 .waveSvg > svg{
 	transform: scaleY(-1);
 	width:100vw;
-	
 }
 
 .teacher-info img {
