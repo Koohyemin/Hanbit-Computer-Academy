@@ -2187,7 +2187,6 @@ progress {
 
 .form-control, .dataTable-input {
   display: block;
-  width: 100%;
   padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
@@ -11718,10 +11717,13 @@ body {
 	
 }
 
-.teacher-info-img {
+.teacher-info img {
 	width:300px;
 	height:300px;
 }
 .none-unline {
 	text-decoration: none;
+}
+.teacherListBox{
+	padding-left: 20px;
 }

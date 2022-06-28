@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,18 +68,17 @@
             <c:if test="${level == 2 }">
              <h3>Teacher Information <span class="badge rounded-pill bg-dark">${listSize}</span></h3> <br>
              <!-- 검색 구현  -->
-            <form method="get" action="${pageContext.request.contextPath}/people/peopleList">
-	            <div class="container float-end">
-		            <div class="col-lg-4 col-4 float-end btn-group">
-	            		<!-- 검색어가 있다면 검색어가 유지되도록 value값 셋팅 -->
-	            		<input type="hidden" name="level" value="2">   		
-			           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="이름을 입력해주세요">
-		           		<div class="col-lg-2 col-2 float-end btn-group">
-				      		<button id="btn" type="submit" class="btn btn-dark float-end">검색</button>
-		           		</div>
-		            </div>
-	            </div>
-            </form>
+           
+	            <form method="get" action="${pageContext.request.contextPath}/people/peopleList">
+	            <div class="float-end btn-group">
+		            		<!-- 검색어가 있다면 검색어가 유지되도록 value값 셋팅 -->
+		            		<input type="hidden" name="level" value="2">   		
+				           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="이름을 입력해주세요">
+			           		<div class=" float-end btn-group">
+					      		<button id="btn" type="submit" class="btn btn-dark float-end btn-group">검색</button>
+			           		</div>
+			           </div>
+	            </form>
             <br><br>
             <!-- 강사가 1명 이상일 시, teachList 출력 -->
          		<c:choose>
@@ -84,14 +86,15 @@
 	         			<c:forEach var="m" items="${teacherList}">
 								<div class="card">
 					            <div class="col-lg-12 col-sm-12">
-									<div class="row">
 										<!-- 사진 -->
-										<div class="col-4">
-											<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}" class="object-fit img-thumbnail teacher-info-img">
-										</div>
-										<div class="col-8">
-											<br>
-											<div>
+										<table>
+										<tr>
+											<td>
+											<div class="teacher-info">
+												<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}" class="object-fit img-thumbnail">
+											</div>
+											</td>
+											<td class="teacherListBox">
 												<!-- 강사 이름 -->
 												<h4 class="text-success">👩‍🏫 ${m.teacherName} 선생님</h4> <br>
 												<ul>
@@ -117,9 +120,9 @@
 														</c:otherwise>
 													</c:choose>
 												</ul>
-											</div>
-										</div>
-									</div>
+											</td>
+										</tr>
+									</table>
 								</div>
 							</div>
 							<br>
@@ -134,61 +137,75 @@
          		</c:choose>
          		</c:if>
          	<c:if test="${level == 3}">
-             <h3>Lec Information <span class="badge rounded-pill bg-dark">${listSize}</span></h3> <br>
-             <c:if test="${sessionMemberLv == 3}">
+             <h3>Lec Information <span class="badge rounded-pill bg-dark">${listSize}</span>
+              <c:if test="${sessionMemberLv == 3}">
 				<!-- 강의 등록 버튼은 운영진에게만 보임 -->
-				<span class="float-start">
 					<a class="btn btn-dark" href="${pageContext.request.contextPath}/lec/addLec">강의 등록</a>
-				</span>
 			</c:if>
-              <!-- 검색 구현  -->
-            <form method="get" action="${pageContext.request.contextPath}/people/peopleList">
-	            <div class="container float-end">
-		            <div class="col-lg-4 col-4 float-end btn-group">
-		            <input type="hidden" name="level" value="3">   		
-	            		<!-- 검색어가 있다면 검색어가 유지되도록 value값 셋팅 -->
-			           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="강의명을 입력해주세요">
-		           		<div class="col-lg-2 col-2 float-end btn-group">
-				      		<button id="btn" type="submit" class="btn btn-dark float-end">검색</button>
-		           		</div>
-		            </div>
-	            </div>
-            </form>
+             </h3>
+				<form method="get" action="${pageContext.request.contextPath}/people/peopleList">
+	            <div class="float-end btn-group">
+		            		<!-- 검색어가 있다면 검색어가 유지되도록 value값 셋팅 -->
+		            		<input type="hidden" name="level" value="3">   		
+				           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="이름을 입력해주세요">
+			           		<div class=" float-end btn-group">
+					      		<button id="btn" type="submit" class="btn btn-dark float-end btn-group">검색</button>
+			           		</div>
+			           </div>
+	            </form>
              <br><br>
             <!-- 강의가 1개 이상일시 , teachList 출력 -->
          		<c:choose>
          			<c:when test="${listSize > 0}">
 	         			<c:forEach var="m" items="${LecList}">
 								<div class="card">
-					            <div class="col-lg-12 col-sm-12">
-									<br>
-										<div class="btn-group float-end">
-											<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${m.lectureName}" class="btn btn-dark" style="float:right">수정</a>
-											<!-- 삭제버튼 -->
-											<form method="post" action="${pageContext.request.contextPath}/lec/deleteLec" id="del">
-												<input type="hidden" name="lectureName" value="${m.lectureName}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
-												<div class="d-grid gap-3">
-													<input type="submit" value="삭제" class="btn btn-secondary" id="delBtn">
-												</div>
-											</form>
-										</div>
+					            <div class="col-lg-12 col-sm-12 teacherListBox" >
+
 									<div>
-										<!-- 강좌이름  -->
-										<h4 class="text-success">👩‍🏫 ${m.lectureName} </h4> <br>
-										<ul>
 											<!-- 강의실  -->
-											<li><span>강의실</span><div>📧 <span>${m.lectureRoomName}</span></div></li>
-											<!-- 과목 -->
-											<li><span>과목</span><div>📧 <span>${m.subjectName}</span></div></li>
-											<!-- 모집인원  -->
-											<li><span>모집인원</span><div>📧 <span>${m.registrationNumber} 명</span></div></li>
-											<!-- 이수점수   -->
-											<li><span>이수점수</span><div>📧 <span>${m.registrationPassScore} 점</span></div></li>
-											<!-- 수강료   -->
-											<li><span>수강료</span><div>📧 <span>${m.lecCost}원 </span></div></li>
-											<!-- 문의 연락처    -->
-											<li><span>문의 연락처 </span><div>📧 <span>${m.lecPhone} </span></div></li>
-										</ul>
+											<table class="table">
+											<tr>
+												<td>
+												<!-- 강좌이름  -->
+												<span class="text-success" style="font-size:20px;"><b>👩‍🏫 ${m.lectureName}</b></span>  <b>#${m.subjectName}</b>
+												</td>
+												<td>
+													<div class="btn-group float-end">
+														<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${m.lectureName}" class="btn btn-dark btn-sm">수정</a>
+														<!-- 삭제버튼 -->
+														<form method="post" action="${pageContext.request.contextPath}/lec/deleteLec" id="del">
+															<input type="hidden" name="lectureName" value="${m.lectureName}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
+															<button type="submit"  class="btn btn-secondary btn-sm" id="delBtn">삭제</button>
+														</form>
+													</div>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">
+												<b>${m.lectureRoomName}</b> ${m.roomNumber}명 수용가능 ${m.roomSize}㎡ <sapn class="text-secondary">(${m.roomAddr1} ${m.roomAddr2})</sapn>
+												</td>
+											</tr>
+											<tr>
+												<td width="50%">
+												<!-- 이수점수   -->
+												<b>이수점수</b> ${m.registrationPassScore} 점<br>
+												</td>
+												<td>
+												<!-- 모집인원  -->
+												<b>모집인원</b> ${m.registrationNumber} 명<br>
+												<td>
+											</tr>
+											<tr>
+												<td>
+												<!-- 상담사  -->
+												<b>상담사</b> ${fn:substring(m.lecPhone,0,3)}-${fn:substring(m.lecPhone,3,7)}-${fn:substring(m.lecPhone,7,13)}<br>
+												</td>
+												<td>
+												<!-- 수강료   -->
+												<b>수강료</b> <fmt:formatNumber value="${m.lecCost}" pattern="#,###" />원 <br>
+												</td>
+											</tr>
+											</table>
 									</div>
 								</div>
 							</div>
@@ -205,7 +222,7 @@
          		</c:if>
          		<c:if test="${level == 1 }">
              <h3>Student Information <span class="badge rounded-pill bg-dark">${listSize}</span></h3> <br>
-              <!-- 검색 구현  -->
+             <!-- 검색 구현  -->
             <form method="get" action="${pageContext.request.contextPath}/people/peopleList">
 	            <div class="container float-end">
 		            <div class="col-lg-4 col-4 float-end btn-group">
@@ -228,7 +245,7 @@
 									<div class="row">
 										<!-- 사진 -->
 										<div class="col-4">
-											<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}.${m.photoType}" class="object-fit img-thumbnail teacher-info-img">
+											<img src="${pageContext.request.contextPath}/assets/img/${m.photoName}.${m.photoType}" class="object-fit img-thumbnail">
 										</div>
 										<div class="col-8">
 									<br>										<!-- 강좌이름  -->
@@ -263,8 +280,8 @@
          		</c:choose>
          		</c:if>
          		</div>		
+         		</div>
             </div>
-		</div>
 	<div id="footer"></div>
 	</div>
 </div>

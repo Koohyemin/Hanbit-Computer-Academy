@@ -91,7 +91,7 @@ public class CertificateController {
       return "redirect:/member/getMemberOne";
    }
    
-	// 납부 고지서 출력
+	// 납부 고지서  보여주기
 	@GetMapping("/certificate/paymentStudent")
 	public String paymentStudent(Model model
 			,HttpSession session) {
@@ -108,5 +108,17 @@ public class CertificateController {
 		return "certificate/paymentStudent";
 	}
 	
-   
+	//  수료증 보여주기
+	@GetMapping("/certificate/completion")
+	public String completion(Model model
+			,HttpSession session) {
+		
+		//세션에 있는 아이디 값 가져옴
+		String studentId = (String) session.getAttribute("sessionMemberId");
+		log.debug( CF.KYJ +"[CertificateController GetMapping completion studentId]: "+ studentId + CF.RESET);
+		
+		// certificateService로 selectRegistrationList(납부리스트) 
+		
+		return "certificate/paymentStudent";
+	}
 }
