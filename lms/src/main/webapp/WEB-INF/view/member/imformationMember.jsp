@@ -41,7 +41,11 @@
 						<!-- 사진 -->
 				        <div class="col-lg-3">
 				        <br>
-				           	<img src="${pageContext.request.contextPath}/assets/img/${photoFile.photoName}.${photoFile.photoType}" class="img-fluid" alt="" width="150" height="200">  <!-- 사진추가 -->
+				           	<img src="${pageContext.request.contextPath}/upload/${photoFile.photoName}" class="img-fluid" alt="" width="150" height="200">  <!-- 사진추가 -->
+				        	<form method="post"action="${pageContext.request.contextPath}/updatePhoto"  enctype="multipart/form-data">
+				        		<input type="file" name="photoFile" multiple="multiple">
+				        		<button type="submit">사진 수정</button>
+				        	</form>
 				        </div>
 				        <!-- 사진 끝 -->
 				        	

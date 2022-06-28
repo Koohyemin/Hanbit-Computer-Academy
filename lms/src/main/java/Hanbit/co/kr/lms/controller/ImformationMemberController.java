@@ -1,9 +1,5 @@
 package Hanbit.co.kr.lms.controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import Hanbit.co.kr.lms.service.ImformationService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Manager;
+import Hanbit.co.kr.lms.vo.PhotoFile;
 import Hanbit.co.kr.lms.vo.Student;
 import Hanbit.co.kr.lms.vo.Teacher;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +25,27 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class ImformationMemberController {
 	@Autowired ImformationService imformation;
+	
+	
+	// 사진 업데이트
+	@PostMapping("/updatePhoto")
+	public String updatePhoto(HttpSession session
+								, HttpServletRequest request
+								,PhotoFile photoFile) {
+		
+		// 세션에 있는 값 아이디값과 레벨값 담기
+		String	memberId = (String)session.getAttribute("sessionMemberId");
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePhoto memberId]"+CF.RESET+ memberId); // memberId 디버깅
+		
+		// 사진이 들어가 경로 설정 
+		String path = request.getServletContext().getRealPath("/upload/");
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePhoto path]"+CF.RESET+ path); // path디버깅
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePhoto photoFile]"+CF.RESET+ photoFile.getPhotoFile()); // photoFile디버깅
+		
+		// 컨트롤러에서 서비스로 파일에 필요한 값 보내주기
+		imformation.updatePhoto(path, memberId,photoFile);
+		return "redirect:/member/getMemberOne";
+	}
 	
 	// 개인정보 업데이트에 새창주소
 	@GetMapping("/member/addr")

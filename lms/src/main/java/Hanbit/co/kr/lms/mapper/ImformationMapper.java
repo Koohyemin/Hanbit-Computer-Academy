@@ -15,6 +15,11 @@ import Hanbit.co.kr.lms.vo.Teacher;
 
 @Mapper
 public interface ImformationMapper {
+	// 사진이름 찾기
+	String selectPhotoName(String memberId);
+	
+	// 사진 등록
+	void updatePhoto(PhotoFile photoFile);
 	
 	// 운영진
 	void updateManager(Manager manager);

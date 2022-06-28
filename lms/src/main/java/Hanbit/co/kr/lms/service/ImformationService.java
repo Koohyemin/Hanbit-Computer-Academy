@@ -1,14 +1,17 @@
 package Hanbit.co.kr.lms.service;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.Registration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import Hanbit.co.kr.lms.mapper.ImformationMapper;
 import Hanbit.co.kr.lms.util.CF;
@@ -25,6 +28,51 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class ImformationService {
 	@Autowired ImformationMapper imformationMapper;
+	
+	// 사진 업로드
+	public void updatePhoto(String path,String memberId,PhotoFile photoFile) {
+		if(photoFile.getPhotoFile() != null) {
+			MultipartFile mf = photoFile.getPhotoFile();
+			String originName = mf.getOriginalFilename();
+			
+			// originName에서 마지막 .문자열 위치
+			String ext = originName.substring(originName.lastIndexOf("."));
+			
+			// 파일을 저장할대 사용할 중복되지않는 새로운 이름 필요(UUID API사용)
+			// filename = filename.replace("-","");
+			String filename = UUID.randomUUID().toString();
+
+			filename = filename + ext;
+			
+			photoFile.setMemberId(memberId);
+			photoFile.setPhotoName(filename);
+			photoFile.setPhotoOriginalName(originName);
+			photoFile.setPhotoType(mf.getContentType());
+			photoFile.setPhotoSize(mf.getSize());
+			log.debug(CF.SWB+"[ImformationMemberController updatePhoto photoFile.photoFile]"+CF.RESET+ photoFile.toString()); // photoFile 디버깅
+			
+			// 원래 가지고 있는 photoName -> upload에 있는 사진 삭제할려고 찾음
+			String prePhotoName = imformationMapper.selectPhotoName(memberId);
+			log.debug(CF.SWB+"[ImformationMemberController updatePhoto prePhotoName]"+CF.RESET+prePhotoName); // prePhotoName 디버깅
+			
+			// 파일이 존재한다면 삭제
+			File f = new File(path+prePhotoName);
+			log.debug(CF.SWB+"[ImformationMemberController updatePhoto f]"+CF.RESET+f); // f 디버깅
+			if(f.exists()) {
+				f.delete();
+			}
+			
+			// 파일 업로드
+			imformationMapper.updatePhoto(photoFile);
+			try {
+				mf.transferTo(new File(path+filename));
+			} catch (Exception e) {
+				e.printStackTrace();
+				// 새로운 예외 발생시켜야지만 @Transactional 작동을 위해
+				throw new RuntimeException(); // RuntimeException은 예외처리를 하지 않아도 컴파일된다
+			}		
+		}
+	}
 	
 	// 운영진 업데이트
 	public void updateManager(Manager manager) {
