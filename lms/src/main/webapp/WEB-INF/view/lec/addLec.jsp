@@ -140,21 +140,21 @@
 						<th colspan="2" class="text-center table-dark">강의 일정</th>
 					</tr>
 					<tr>
-						<th>개강일</th>
+						<th class="text-center">개강일</th>
 						<td>
 							<input name="beginClass" id="beginClass" type="date" class="form-control" placeholder="개강일을 지정해주세요">
 							<span class="text-danger" id="beginClassError"></span>
 						</td>
 					</tr>
 					<tr>
-						<th>종강일</th>
+						<th class="text-center">종강일</th>
 						<td>
 							<input name="endClass" id="endClass" type="date" class="form-control" placeholder="종강일을 지정해주세요">
 							<span class="text-danger" id="endClassError"></span>
 						</td>
 					</tr>
 					<tr>
-						<th>시작 시간</th>
+						<th class="text-center">시작 시간</th>
 						<td>
 							<select name="startTime" id="startTime" class="form-control">
 								<option value="">시작시간을 선택해주세요</option>
@@ -168,7 +168,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>종료 시간</th>
+						<th class="text-center">종료 시간</th>
 						<td>
 							<select name="endTime" id="endTime" class="form-control">
 								<option value="">종료시간을 선택해주세요</option>
@@ -182,7 +182,7 @@
 						</td>
 					</tr>
 					<tr>
-						<th>점심 시간</th>
+						<th class="text-center">점심 시간</th>
 						<td>
 							<select name="lunchTime" id="lunchTime" class="form-control">
 								<option value="">점심시간을 선택해주세요</option>

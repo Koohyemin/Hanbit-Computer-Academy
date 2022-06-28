@@ -41,7 +41,7 @@
 			,DATE(tt.begin_class) beginClass
 			,DATE(tt.end_class) endClass
 			,tt.start_time startTime
-			,tt.end_titme endTime
+			,tt.end_time endTime
 			,tt.lunch_time lunchTime
 		FROM lec l
 			LEFT JOIN time_table tt
@@ -100,7 +100,7 @@
 		,#{lecPhone}
 		,NOW()
 		,NOW()
-	);
+	)
 	</insert>
 	<!-- 과목 정보 -->
 	<select id="subjectList" resultType="Hanbit.co.kr.lms.vo.Subject">
