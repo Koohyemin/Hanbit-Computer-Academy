@@ -11726,3 +11726,10 @@ body {
 .teacherListBox{
 	padding-left: 20px;
 }
+@media screen and (max-width: 768px) { 
+	/* 모바일에 적용할 스타일 */
+	.waveSvg > svg {
+    transform: scaleY(-1);
+    width: 261vw;
+}
+}
