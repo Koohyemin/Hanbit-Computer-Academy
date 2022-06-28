@@ -26,7 +26,32 @@ import lombok.extern.slf4j.Slf4j;
 public class ImformationMemberController {
 	@Autowired ImformationService imformation;
 	
-	
+	@GetMapping("/member/updatePw")
+	public String updatePw() {
+		return"/member/modifyPassword";
+	}
+	// 비밀번호 변경
+	@PostMapping("/member/updatePw")
+	public String updatePw(HttpSession session
+						,@RequestParam(name="memberPw")String memberPw
+						,@RequestParam(name="updatePw")String updatePw
+						,@RequestParam(name="checkPw")String checkPw) {
+		
+		// 세션에 있는 값 아이디값과 레벨값 담기
+		String	memberId = (String)session.getAttribute("sessionMemberId");
+		int	memberLv = (int)session.getAttribute("sessionMemberLv");
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePhoto memberId]"+CF.RESET+ memberId); // memberId 디버깅
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePhoto memberLv]"+CF.RESET+ memberLv); // memberLv 디버깅
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePw memberPw]"+CF.RESET+ memberPw); // memberPw 디버깅
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePw updatePw]"+CF.RESET+ updatePw); // updatePw 디버깅
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePw ckeckPw]"+CF.RESET+ checkPw); // checkPw 디버깅
+		
+		String error = imformation.modifyPw(memberId, memberPw, updatePw,checkPw,memberLv);
+		if(error == null) {
+			return "redirect:/login";
+		}
+		return "/member/modifyPassword";
+	}
 	// 사진 업데이트
 	@PostMapping("/updatePhoto")
 	public String updatePhoto(HttpSession session
@@ -171,12 +196,14 @@ public class ImformationMemberController {
 			returnMap = imformation.studentOne(studentId);
 			log.debug(CF.SWB+"[ImformationMemberController memberOne student]"+CF.RESET+ returnMap.get("student").toString()); // student 디버깅
 			model.addAttribute("student",returnMap.get("student"));
+			
 		} else if(memberLv == 2) { // 강사일때
 			teacherId = (String)session.getAttribute("sessionMemberId");  // 변수등록 및 세션아이디 값 넣기
 			returnMap = imformation.teacherOne(teacherId);
 			model.addAttribute("teacher",returnMap.get("teacher"));
 			log.debug(CF.SWB+"[ImformationMemberController memberOne teacher]"+CF.RESET+ returnMap.get("teacher").toString()); // teacher 디버깅
 			model.addAttribute("registrationList",returnMap.get("registrationList"));
+			
 		} else if(memberLv == 3) { // 운영자일때
 			managerId = (String)session.getAttribute("sessionMemberId");  // 변수등록 및 세션아이디 값 넣기
 			returnMap = imformation.managerOne(managerId);

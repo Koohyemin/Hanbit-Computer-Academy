@@ -1,5 +1,6 @@
 package Hanbit.co.kr.lms.mapper;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.Registration;
@@ -15,6 +16,12 @@ import Hanbit.co.kr.lms.vo.Teacher;
 
 @Mapper
 public interface ImformationMapper {
+	// 현재 비밀번호 확인용
+	int selectCurrentPw(HashMap<String , Object> map);
+	
+	// 최근 비밀번호리스트 비교 (개수조정 가능)
+	int selectPwList(HashMap<String, Object> map);
+	
 	// 사진이름 찾기
 	String selectPhotoName(String memberId);
 	

@@ -107,7 +107,12 @@ public class LoginController {
 		
 		// 레벨을 가지고 있다면 index로 이동
 		if(returnMemberLv == 1 || returnMemberLv == 2 || returnMemberLv == 3) {
+			long Days = loginService.passwordChange(memberId);
+			if(Days >90) {
+				return "redirect:/member/modifyPassword";
+			}else {
 			return "redirect:/home/index";
+			}
 		}
 		
 		// 레벨값이 없으면 로그인으로

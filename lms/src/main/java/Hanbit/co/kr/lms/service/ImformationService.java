@@ -14,10 +14,12 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import Hanbit.co.kr.lms.mapper.ImformationMapper;
+import Hanbit.co.kr.lms.mapper.MemberMapper;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Certification;
 import Hanbit.co.kr.lms.vo.Lec;
 import Hanbit.co.kr.lms.vo.Manager;
+import Hanbit.co.kr.lms.vo.PasswordUpdateDate;
 import Hanbit.co.kr.lms.vo.PhotoFile;
 import Hanbit.co.kr.lms.vo.Student;
 import Hanbit.co.kr.lms.vo.Teacher;
@@ -28,7 +30,38 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class ImformationService {
 	@Autowired ImformationMapper imformationMapper;
-	
+	@Autowired MemberMapper mamberMapper;
+	// 비밀번호 비교후 변경
+	public String modifyPw(String memberId, String memberPw, String udpatePw, String checkPw,int memberLv) {
+		
+		// 맴퍼에 두개의 값을 쓰기위해 map으로 묶음
+		HashMap<String , Object> map = new HashMap<>();
+		map.put("memberId",memberId);
+		map.put("memberPw",memberPw);
+		int row1 = imformationMapper.selectCurrentPw(map);
+		log.debug(CF.SWB+"[ImformationMemberController updatePhoto row1]"+CF.RESET+ row1); // photoFile 디버깅
+		
+		PasswordUpdateDate passwordUpdateDate = new PasswordUpdateDate();
+		passwordUpdateDate.setMemberId(memberId);
+		passwordUpdateDate.setMemberPw(udpatePw);
+		String error = null;
+		// 만약 row가 한개이상이라면 현재 비밀번호가 맞다
+		if(row1 > 0) {
+			int row2 = imformationMapper.selectPwList(map);
+			if(row2 == 0) {
+				if(memberLv ==  1) {
+					mamberMapper.updateActiveStudent(passwordUpdateDate);
+					mamberMapper.updateActivePasswordUpdateDate(passwordUpdateDate);
+				} // 미완성
+			} else {
+				error = "이전에 사용했던 비밀번호입니다";
+			}
+		} else {
+			error = "현재 비밀번호가 다릅니다";
+		}
+		
+		return error;
+	}
 	// 사진 업로드
 	public void updatePhoto(String path,String memberId,PhotoFile photoFile) {
 		if(photoFile.getPhotoFile() != null) {

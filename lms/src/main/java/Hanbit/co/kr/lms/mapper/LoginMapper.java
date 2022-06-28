@@ -6,6 +6,9 @@ import Hanbit.co.kr.lms.vo.Member;
 
 @Mapper
 public interface LoginMapper {
+	// 마지막 날짜 데이터
+	String selectPwDate(String memberId);
+	
 	// select student
 	Member selectStudent(String studentId, String studentPw);
 	
