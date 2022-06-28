@@ -202,7 +202,15 @@
 												</td>
 												<td>
 												<!-- 수강료   -->
-												<b>수강료</b> <fmt:formatNumber value="${m.lecCost}" pattern="#,###" />원 <br>
+												<b>수강료</b> <fmt:formatNumber value="${m.lecCost}" pattern="#,###" />원  
+												<br>
+												</td>
+											</tr>
+											<tr>
+												<td colspan="2">		
+													<div class="btn-group float-end">
+														<a href="#" class="btn btn-dark btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
+													</div>
 												</td>
 											</tr>
 											</table>
