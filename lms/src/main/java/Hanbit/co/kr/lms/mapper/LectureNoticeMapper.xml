@@ -60,5 +60,20 @@
 		WHERE lec_notice_no = ${lecNoticeNo}
 	</delete>
 	
+	<select id="lectureNameList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.LecPlan">
+		SELECT lecture_name lectureName
+		FROM lec_plan
+		WHERE teacher_id = #{teacher}
+
+	</select>
 	
+	<!-- 공지사항 수정 -->
+	<update id="getUpdateLectureNotice" parameterType="Hanbit.co.kr.lms.vo.LectureNotice">
+		UPDATE lecture_notice SET m
+		ember_id=#{memberId}
+		,title=#{title}
+		,content=#{Content}
+		, update_date=NOW()
+		WHERE lec_notice_no = #{lecNoticeNo}
+	</update>
 </mapper>

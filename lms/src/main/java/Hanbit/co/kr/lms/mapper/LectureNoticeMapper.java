@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LectureNotice;
 
 
@@ -28,4 +29,6 @@ public interface LectureNoticeMapper {
 		// 공지사항 삭제(강사)
 		int getDeleteLectureNotice(int lecNoticeNo); 
 		
+		// 학생 강좌정보 불러오기
+		List<LecPlan> lectureNameList (String teacherId);
 	}

@@ -70,7 +70,9 @@
 		</div>
 	</div>
 </body>
-
+	<script>
+	
+	</script>
 	<script>
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');

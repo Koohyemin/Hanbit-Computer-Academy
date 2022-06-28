@@ -41,11 +41,11 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td> 
 								<select id="lectureName" name="lectureName">
 									<option value="">------------------------------선택---------------------------</option>
 									<c:forEach var="l" items="${lectureNameList}">
-										<option value="${l.lectureName}">${l.lectureName} </option>
+										<option value="${l.lecPlanName}">${l.lecPlanName}</option>
 									</c:forEach>
 								</select>
 							</td>

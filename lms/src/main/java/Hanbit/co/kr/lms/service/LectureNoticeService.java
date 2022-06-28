@@ -12,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import Hanbit.co.kr.lms.mapper.LectureNoticeMapper;
+import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LectureNotice;
+import Hanbit.co.kr.lms.vo.ManagerNotice;
+import Hanbit.co.kr.lms.vo.Registration;
 
 @Service
 @Transactional
@@ -31,7 +34,6 @@ public class LectureNoticeService {
 			Map<String, Object> map = new HashMap<>();
 			map.put("beginRow", beginRow); // 시작 페이지
 			map.put("rowPerPage", rowPerPage); // 한 페이지당 표시할 공지 개수	
-			map.put("lectureName", lectureName); // 강사별 강좌 표시
 			// SQL 매개값 대입
 			List<LectureNotice> list = lectureNoticeMapper.getLecNoticeListByPage(map);
 			int totalCount = lectureNoticeMapper.totalCount(); // 전체 공지 개수
@@ -53,13 +55,21 @@ public class LectureNoticeService {
 		}
 		
 	// 공지사항 입력
-		public int getInsertLectureNotice(LectureNotice lectureNotice) {
-			return lectureNoticeMapper.getInsertLectureNotice(lectureNotice);
+		public List<LecPlan> getInsertLectureNotice(String teacherId) {
+			return lectureNoticeMapper.lectureNameList(teacherId);
 		}
+		
+	// 공지사항 입력?? 
 	
 		
 	// 공지사항 삭제
 		public int getDeleteLectureNotice(int lecNoticeNo) {
 			return lectureNoticeMapper.getDeleteLectureNotice(lecNoticeNo);
 		}
+		
+	// 공지사항 수정
+		public int getUpdateLectureNotice(LectureNotice lectureNotice) {
+			return lectureNoticeMapper.getUpdateLectureNotice(lectureNotice);
+		}
+		
 }
