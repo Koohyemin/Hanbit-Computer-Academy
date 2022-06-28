@@ -33,62 +33,93 @@
 	                Enquiry Board
 	            </div>
             </div>
-	<form action="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard" method="post">
-		<table border="1">
+			<a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardOne?enquiryBoardNo=${enquiryBoard.enquiryBoardNo}" class="btn btn-dark">이전으로</a>
+		<br><br>
+	<form action="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard" id="updateEnquiryBoardForm" method="post">
+		<table class="table">
 			<tr>
-				<th>글번호</th>
+				<th class="text-center">글번호</th>
 				<td><input type="text" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" readOnly = "readOnly"></td>
 			</tr>
 			<tr>	
-				<th>글쓴이</th>
+				<th class="text-center">글쓴이</th>
 				<td><input type="text" name="memberId" value="${sessionMemberId}" readOnly = "readOnly"></td> 			
 			</tr>		
 			<tr>
-				<th>구분</th>
+				<th class="text-center">구분</th>
 				<c:choose> 
 					<c:when test="${sessionMemberLv == 1}">
 				<td>
-					<select name="category">
+					<select name="category" id="category">
 						<option value="전체">전체</option>
 						<option value="강사">강사</option>
 						<option value="운영자">운영자</option>
 					</select>
+					<span id="categoryError"></span>
 				</td>
 					</c:when> 
 					<c:when test="${sessionMemberLv == 2}">
 				<td>
-					<select name="category">
+					<select name="category" id="category">
 						<option value="전체">전체</option>
 						<option value="강사">강사</option>
 					</select>
+					<span id="categoryError"></span>					
 				</td>	
 					</c:when>  
 					<c:otherwise>
 				<td>
-					<select name="category">
+					<select name="category" id="category">
 						<option value="전체">전체</option>
 						<option value="학생">학생</option>
 						<option value="강사">강사</option>
 					</select>
+					<span id="categoryError"></span>					
 				</td>						
 					</c:otherwise>
 				</c:choose> 
 			</tr>
 			<tr>									
 				<th>내용</th>
-				<td><textarea name="content" cols="50" rows="10" placeholder="${eb.content}"></textarea> 					
+				<td>
+				<textarea name="content" id="content" cols="50" rows="10" placeholder="${eb.content}"></textarea> 					
+				<span id="contentError"></span>					
+				</td>
 			</tr>							
 		</table>
-		<button type="submit">수정</button>
+		<button type="submit" id="btn" class="btn btn-dark">수정</button>
 	</form>
 <div id="footer"></div>
 	</div>
 </div>
 </body>
-	<script>
-    	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
-    	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
-    	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+<script>
+$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
+$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
+$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+
+	//유효성 검사
+   	$('#btn').click(function(){
+
+   			//카테고리
+   		if($('#category').val() == '전체'){
+   		      $('#categoryError').text('구분을 선택해주세요');
+   		      return false;
+   		   } else {
+   		      $('#categoryError').text('');
+   		   }
+   		   if( $('#content').val() == '') {
+   			      $('#contentError').text('내용을 입력해주세요');
+   			      return false;
+   			   } else {
+   			      $('#contentError').text(''); 
+   			   }
+
+   		   if($('#category').val() != '' && $('#content').val() != '') {
+   		      $('#updateEnquiryBoardForm').submit();
+   		   }
+   		})
+
    	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>

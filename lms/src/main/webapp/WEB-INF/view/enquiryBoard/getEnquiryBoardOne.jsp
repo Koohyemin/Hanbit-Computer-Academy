@@ -35,7 +35,7 @@
             </div>
 	<form action="${pageContext.request.contextPath}/enquiryBoard/deleteEnquiryBoard" method="post">
 
-	<table border="1">
+	<table class="table">
 			<tr>
 				<th>글번호</th>
 				<td><input type="text" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" readonly = "readonly"></td>
@@ -61,8 +61,8 @@
 				<td>${eb.updateDate}</td> 								
 			</tr>	
 	</table>
-	<a href="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard?enquiryBoardNo=${enquiryBoardNo}">수정</a>
-		<button type="submit">삭제</button>
+	<a class="btn btn-dark" href="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard?enquiryBoardNo=${enquiryBoardNo}">수정</a>
+		<button class="btn btn-dark" type="submit">삭제</button>
 </form>			
 <div id="footer"></div>
 	</div>

@@ -38,6 +38,9 @@ public class EnquiryBoardController {
 			
 		//서비스 호출 > 맵으로 묶어줌
 		Map<String, Object> map = 	enquiryBoardService.selectEnquiryBoardListByPage(currentPage, rowPerPage, category);
+		int lastPage = (int)(map.get("lastPage"));
+		log.debug( CF.KHN +"[EnquiryBoardController GetMapping lastPage]: "+ CF.RESET + lastPage);
+
 		
 		//값 디버깅
 		log.debug( CF.KHN +"[EnquiryBoardController GetMapping map]: "+ CF.RESET + map);

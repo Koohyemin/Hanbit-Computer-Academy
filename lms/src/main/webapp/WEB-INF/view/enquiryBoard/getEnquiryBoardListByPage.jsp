@@ -30,11 +30,11 @@
         	<div class="card mb-4">
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
-					EnquiryBoard
+					Enquiry Board
 	            </div>
             </div>     	
-     	
-		<table border="1">
+           <div class="card-body">
+		<table class="table">
 			<thead>
 				<tr>
 					<th>글번호</th>
@@ -53,18 +53,21 @@
 				</tr>
 			</c:forEach>
 			</tbody>
-			<c:if test="${currentPage > 1}">
-				<a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage-1}">이전</a>				
-			</c:if>
-			<c:if test="${currentPage < lastPage}">
-				<a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage+1}">다음</a>			
-			</c:if>
 		</table>
 		<!-- 운영자는 입력버튼 안보여야함 -->
-		<c:if test="${sessionMemberLv != 3}">
-			<a href="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard">입력</a>
-		</c:if>
-		
+			<c:if test="${sessionMemberLv != 3}">
+				<a class="btn btn-dark"  href="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard">입력</a>
+			</c:if>
+			
+		<!-- 페이징 -->	
+		<div class="text-center">
+			<c:if test="${currentPage > 1}">
+				<a class =" btn btn-warning" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage-1}">이전</a>				
+			</c:if>
+			<c:if test="${currentPage < lastPage}">
+				<a class =" btn btn-warning" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage+1}">다음</a>			
+			</c:if>
+		</div>	
 		</div>
 		<div id="footer"></div>
 	</div>

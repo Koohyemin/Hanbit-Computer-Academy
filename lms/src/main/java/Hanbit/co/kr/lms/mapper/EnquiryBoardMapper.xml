@@ -6,7 +6,11 @@
 		parameterType="String">
 			SELECT COUNT(*) 
 			FROM enquiry_board
-			WHERE category=#{category}
+			<where>
+	            <if test="category != '전체' ">
+	            category like concat(#{category})
+	         	</if>
+         	</where>
 	</select>
 	
 	<select id="selectEnquiryBoardListByPage" resultType="Hanbit.co.kr.lms.vo.EnquiryBoard"

@@ -45,6 +45,10 @@ public class EnquiryBoardService {
 		//마지막 페이지 계산
 		int lastPage = (int)(Math.ceil((double)(totalCount) / (double)rowPerPage));
 		
+		//디버깅
+		log.debug( CF.KHN +"[EnquiryBoardService selectEnquiryBoardListByPage lastPage]: "+ CF.RESET+lastPage);		
+				
+		
 		//맵으로 묶어줌
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("list", list);
