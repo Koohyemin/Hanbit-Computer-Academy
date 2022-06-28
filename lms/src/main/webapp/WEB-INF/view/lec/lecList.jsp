@@ -65,7 +65,7 @@
 							<td class="text-center">${lec.beginClass}</td>
 							<td>
 								<div class="btn-group float-end">
-									<a href="#" class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
+									<a href="${pageContext.request.contextPath}/lec/lecList" class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
 								</div>
 							</td>
 						</tr>
