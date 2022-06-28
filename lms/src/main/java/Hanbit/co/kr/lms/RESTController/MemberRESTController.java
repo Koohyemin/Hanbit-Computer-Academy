@@ -1,4 +1,4 @@
-package Hanbit.co.kr.lms.controller;
+package Hanbit.co.kr.lms.RESTController;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import Hanbit.co.kr.lms.service.MemberService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Member;
+import Hanbit.co.kr.lms.vo.PasswordUpdateDate;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -86,4 +87,30 @@ public class MemberRESTController {
 //주민등록 유효성
 //최종 제출 버튼 클릭 후 id 유효성 받은 걸 꼭 검사
 	}
+	@GetMapping("/prePw")
+	public boolean prePw(PasswordUpdateDate passwordUpdateDate){
+		
+		log.debug(CF.LKL+"MemberRESTController.prePw.passwordUpdateDate : "+ CF.RESET + passwordUpdateDate);
+		
+		int row= memberService.changePwbyactivity(passwordUpdateDate);
+		
+		boolean pwCheck=false;
+		if(row==0) {
+			
+			pwCheck= true;
+			
+		} else {
+			
+			pwCheck= false;
+			
+		}
+		
+		log.debug(CF.LKL+"MemberRESTController.prePw.pwCheck : "+ CF.RESET + pwCheck);
+		
+		return pwCheck;
+		
+	}
+
+	
+	
 }

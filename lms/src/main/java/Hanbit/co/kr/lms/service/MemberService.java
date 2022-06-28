@@ -220,4 +220,13 @@ public class MemberService {
 		return row;
 		
 	}
+	
+	public int changePwbyactivity(PasswordUpdateDate passwordUpdateDate) {
+		
+		log.debug(CF.LKL+"MemberService.changePwbyactivity.passwordUpdateDate" + CF.RESET + passwordUpdateDate );
+		
+		int row= memberMapper.changePwbyactivity(passwordUpdateDate);
+		
+		return row;
+	}
 }

@@ -113,9 +113,15 @@ public class MemberController {
 		return "redirect:/authorizeMember";
 	}
 	
-	@GetMapping("activeMember")
-	public String activeMember() {																	//휴면 계정 해제 뷰 호출
+	@GetMapping("activeMember")													//휴면 계정 해제 뷰 호출
+	public String activeMember(Model model
+								,HttpSession session) {				
 		
+		String memberId = (String) session.getAttribute("sessionMemberId");
+		
+		log.debug(CF.LKL+"MemberController.activeMember.memberId" + CF.RESET + memberId );
+		
+		model.addAttribute("memberId",memberId);
 		return "/addMember/activeMember";
 	}
 	@PostMapping("activeMember")

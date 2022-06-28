@@ -29,7 +29,7 @@
          <br><br><br>
          <h1 class="text-center text-white">Hanbit Computer Academy LMS</h1>
          <br>
-         <div id="sp">휴면 계정입니다. 비밀번호를 바꿔주세요.</div>
+         <div id="sp"><span id="spa">휴면 계정입니다. 비밀번호를 바꿔주세요.</span></div>
          <div class="row justify-content-center">
             <div class="col-lg-4">
                <br>
@@ -44,7 +44,7 @@
                    </div>
                     <button id="btn" class="btn btn-primary btn-block" type="submit" >비밀번호 바꾸기</button>
                 </form>
-
+						
                  <br>
              
                   <a class="btn btn-light btn-block" role="button" href="${pageContext.request.contextPath}/login">Login Page</a>
@@ -71,69 +71,51 @@
             </svg>
    </div>
 <script>
-   //학생
-  /*  $('#btnstudent').click(function(){
-   if($('#studentId').val() == '') {
-	      $('.helpId').text('ID를 입력하세요');
-	   } else {
-	      $('.helpId').text('');
-	   }
-   if($('#studentName').val() == '') {
-      $('.helpName').text('이름을 입력하세요');
-   } else {
-      $('.helpName').text('');
-   }
-   if($('#studentPhone').val() == '') {
-      $('.helpPhone').text('연락처를 입력하세요');
-      } else {
-         $('.helpPhone').text('');
-      }
-      if($('#studentId').val() != '' && $('#studentName').val() != '' && $('#studentPhone').val() != '') {
-         $("#findPw").submit();
-      }
+
+	
+   //비밀번호 유효성 검사
+    $('#btn').click(function(){
+    	if(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/.test($('#pw').val())) {			//숫자영문 혼합 8자리 이상 유효성
+    		
+    		$('#spa').text('비밀번호 영문 숫자 포함 8자리 이상.');
+    		return false;
+    	} 
+    	if($('#pw').val() != $('#pwCk').val()) {												//비밀번호 일치
+    		
+			$('#spa').text('비밀번호가 일치하지 않습니다.');
+			return false;
+		 } 
+    	
+    	
+    	
+    	console.log($('#pw').val());
+    	console.log(${memberId});
+    	
+		$.ajax({																				//이전 비밀번호 못쓰게 ajax를 사용하여 물어본다.
+			type:"get"
+			,url:'/lms/prePw' 	//REST 컨트롤러 연결
+			,data:{'memberPw':$('#pw').val(),'memberId':${memberId}} //키워드 받는 데이터
+			,success:function(check){
+				
+				pwCheck = check;
+				
+				
+				console.log(pwCheck);
+				
+				if(pwCheck == false) {												//직전 비밀번호와 일치하면
+		    		
+					$('#spa').text('현재 비밀번호는 사용할 수 없습니다.');
+					return false;
+				 } 
+			} 
+		});
+
+	    
+	     
+	   
+
    });
-   //강사
-   $('#btnteacher').click(function(){
-   if($('#teacherId').val() == '') {
-	   $('.helpId').text("ID를 입력하세요");
-    	} else {
-    		$('.helpId').text('');
-    	} 	 
-   if($('#teacherName').val() == '') {
-      $('.helpName').text('이름을 입력하세요');
-   } else {
-      $('.helpName').text('');
-   }
-   if($('#teacherPhone').val() == '') {
-      $('.helpPhone').text('연락처를 입력하세요');
-      } else {
-         $('.helpPhone').text('');
-      }
-      if($('#teacherId').val() != '' && $('#teacherName').val() != '' && $('#teacherPhone').val() != '') {
-         $("#findPw").submit();
-      }
-   });
-   //운영자   
-   $('#btnmanager').click(function(){
-   if($('#managerId').val() == '') {
-	   $('.helpId').text("ID를 입력하세요");
-   		} else {
-	  		$('.helpId').text('');
-   		}	 
-   if($('#managerName').val() == '') {
-      $('.helpName').text('이름을 입력하세요');
-   } else {
-      $('.helpName').text('');
-   }
-   if($('#managerPhone').val() == '') {
-      $('.helpPhone').text('연락처를 입력하세요');
-      } else {
-         $('.helpPhone').text('');
-      }
-      if($('#managerId').val() != '' && $('#managerName').val() != '' && $('#managerPhone').val() != '') {
-         $("#findPw").submit();
-      }
-   }); */
+  
 </script>
 </body>
 </html>

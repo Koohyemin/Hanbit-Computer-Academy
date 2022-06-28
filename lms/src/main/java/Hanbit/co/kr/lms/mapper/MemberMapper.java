@@ -39,4 +39,7 @@ public interface MemberMapper {
 	int updateActiveManager(PasswordUpdateDate passwordUpdateDate);
 	
 	
+	//휴면계정 활성화 비밀번호(직전비밀번호 비교)
+	int changePwbyactivity(PasswordUpdateDate passwordUpdateDate);
+	
 }
