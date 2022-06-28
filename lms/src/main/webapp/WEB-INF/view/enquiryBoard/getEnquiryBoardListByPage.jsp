@@ -26,6 +26,13 @@
     <div id="layoutSidenav_content">
 		<div class="container-fluid px-4">
      	<!-- 컨텐츠 삽입 부분-->
+		<br>
+        	<div class="card mb-4">
+	            <div class="card-header">
+	                <i class="fas fa-chart-area me-1"></i>
+					EnquiryBoard
+	            </div>
+            </div>     	
      	
 		<table border="1">
 			<thead>
@@ -53,7 +60,11 @@
 				<a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage+1}">다음</a>			
 			</c:if>
 		</table>
-		<a href="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard">입력</a>
+		<!-- 운영자는 입력버튼 안보여야함 -->
+		<c:if test="${sessionMemberLv != 3}">
+			<a href="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard">입력</a>
+		</c:if>
+		
 		</div>
 		<div id="footer"></div>
 	</div>

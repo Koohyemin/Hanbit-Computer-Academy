@@ -66,5 +66,10 @@
 		WHERE enquiry_board_no = #{enquiryBoardNo} 
 	</update>
 
+	<delete id="deleteEnquiryBoard" parameterType="int">
+		DELETE FROM 
+			enquiry_board
+		WHERE enquiry_board_no = #{enquiryBoardNo}	
+	</delete>
 	
 </mapper>

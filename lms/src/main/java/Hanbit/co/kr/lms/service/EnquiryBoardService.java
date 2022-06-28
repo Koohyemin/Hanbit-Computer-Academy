@@ -68,5 +68,10 @@ public class EnquiryBoardService {
 	public int updateEnquiryBoard(EnquiryBoard enquiryBoard) {
 		return enquiryBoardMapper.updateEnquiryBoard(enquiryBoard);
 	}
+	
+	//삭제하기
+	public int deleteEnquiryBoard(int enquiryBoardNo) {
+		return enquiryBoardMapper.deleteEnquiryBoard(enquiryBoardNo);
 	}
+}
 

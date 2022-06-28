@@ -25,4 +25,7 @@ public interface EnquiryBoardMapper {
 	
 	//수정
 	int updateEnquiryBoard(EnquiryBoard enquiryBoard);
+	
+	//삭제
+	int deleteEnquiryBoard(int enquiryBoardNo);
 }
