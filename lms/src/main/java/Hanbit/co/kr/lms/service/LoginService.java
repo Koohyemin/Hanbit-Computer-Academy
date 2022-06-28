@@ -57,11 +57,11 @@ public class LoginService {
 		if(member != null) {
 			if(member.getMemberState() == 1) { // 비승인 상태면 에러메세지 보내기
 				error = "비승인 계정입니다. 담당자한테 문의해주세요";
-			} else if(member.getMemberState() == 2) { // 멤버가 회원 승인 상태이면
+			} else if(member.getMemberState() == 2 || member.getMemberState() == 3) { // 멤버가 회원 승인 상태이면
 				// 접속 날짜 업데이트
 				loginMapper.updateLogDate(memberId);
 				returnMap.put("member", member);
-			}
+			} 
 		} else if(member == null){ // 아이디가 존재하지 않으면 에러메세지
 			error = "아이디와 비밀번호를 확인해주세요";
 		}

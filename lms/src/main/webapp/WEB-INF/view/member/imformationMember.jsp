@@ -33,6 +33,7 @@
 		     		<i class="fas fa-chart-area me-1"></i>
 					나의 정보
 					<a class="btn btn-dark" role="button" href="${pageContext.request.contextPath}/member/modifyMember">수정하기</a>
+					<a class="btn btn-secondary" role="button" href="${pageContext.request.contextPath}/#">회원탈퇴</a>
 		        </div>
 		        <div class="card-body">
 					<div class="row"> 
@@ -165,7 +166,7 @@
 	        						<c:when test="${fn:length(lecList) > 0}">
 				        				<c:forEach var="r" items="${registrationList}">
 				        					<tr>
-				        						<td class="text-center"><a target='_blank' href="${pageContext.request.contextPath}/#">${r.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
+				        						<td class="text-center"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${l.lectureName}">${r.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
 				        						<td class="text-center">${r.subjectName}</td>
 				        						<td class="text-center text-danger">수업 진행중</td>
 				        						<td class="text-center">${r.createDate}</td>
@@ -173,7 +174,7 @@
 				        				</c:forEach>
 				        				<c:forEach var="l" items="${lecList}">
 				        					<tr>
-				        						<td class="text-center"><a target='_blank' href="${pageContext.request.contextPath}/#">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
+				        						<td class="text-center"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${l.lectureName}">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
 				        						<td class="text-center">${l.subjectName}</td>
 				        						<td class="text-center">수강 신청기간</td>
 				        						<td class="text-center">${l.createDate}</td>
@@ -190,7 +191,7 @@
 	        						<c:when test="${fn:length(lecList) > 0}">
 				        				<c:forEach var="l" items="${lecList}">
 				        					<tr>
-				        						<td class="text-center"><a target='_blank' href="${pageContext.request.contextPath}/#">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
+				        						<td class="text-center"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${l.lectureName}">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
 				        						<td class="text-center">${l.subjectName}</td>
 				        						<td class="text-center">수강 중</td>
 				        						<td class="text-center">${l.createDate}</td>

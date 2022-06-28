@@ -1,6 +1,5 @@
 package Hanbit.co.kr.lms.controller;
 
-import java.lang.ProcessBuilder.Redirect;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,9 +73,14 @@ public class LoginController {
 		
 		// 서비스에서 값 받고 view로 값 보내주기
 		Map<String, Object> returnMap= loginService.selectMemberId(map);
+		log.debug(CF.SWB+"[LoginController Post login returnMap.member]"+CF.RESET +returnMap.get("member")+CF.RESET);	
+		
+		// member 값 넣기
 		if((Member)returnMap.get("member") != null) {  
 			member = (Member)returnMap.get("member");
 		}
+		
+		log.debug(CF.SWB+"[LoginController Post login member.getMemberState]"+CF.RESET + member.getMemberState()); // member.getMemberState 디버깅
 		
 		// 변수등록
 		String returnMemberId = null;
@@ -95,6 +99,11 @@ public class LoginController {
 		session.setAttribute("sessionMemberId",returnMemberId);
 		session.setAttribute("sessionMemberLv",returnMemberLv);
 		String error =(String) returnMap.get("error");
+		
+		// 만약 멤버 상태가 휴면상태이면 비밀번호 변경jsp로 이동
+		if(member.getMemberState() == 3) {
+			return "redirect:/activeMember";
+		}
 		
 		// 레벨을 가지고 있다면 index로 이동
 		if(returnMemberLv == 1 || returnMemberLv == 2 || returnMemberLv == 3) {
