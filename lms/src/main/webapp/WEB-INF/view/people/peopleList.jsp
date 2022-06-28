@@ -44,6 +44,7 @@
 						 	<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=2">강사</a>
 						 </c:if>
 					</li>
+					 <c:if test="${sessionMemberLv == 3}"> 
 						<li class="nav-item">
 						<c:if test="${level == 3}">
 						 <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=3">강의</a>
@@ -52,7 +53,7 @@
 						  <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=3">강의</a>
 						 </c:if>
 					</li>
-					<!-- <c:if test="${sessionMemberLv == 3}"> -->
+					
 					<li class="nav-item">
 						<c:if test="${level == 1}">
 						<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=1">학생</a>
@@ -61,7 +62,7 @@
 						<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=1">학생</a>
 						</c:if>
 					</li>
-					<!-- </c:if> -->
+					 </c:if>
 			</ul>
             <div class="card-body">
              <!-- 강사소개 -->
@@ -204,13 +205,6 @@
 												<!-- 수강료   -->
 												<b>수강료</b> <fmt:formatNumber value="${m.lecCost}" pattern="#,###" />원  
 												<br>
-												</td>
-											</tr>
-											<tr>
-												<td colspan="2">		
-													<div class="btn-group float-end">
-														<a href="#" class="btn btn-dark btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
-													</div>
 												</td>
 											</tr>
 											</table>

@@ -53,6 +53,7 @@
 						<th class="text-center">강의명</th>
 						<th class="text-center">수용인원</th>
 						<th class="text-center">개강일</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,6 +63,11 @@
 							<td class="text-center col-md-4"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${lec.lectureName}" class="none-unline">${lec.lectureName}</a></td>
 							<td class="text-center">${lec.registrationNumber}</td>
 							<td class="text-center">${lec.beginClass}</td>
+							<td>
+								<div class="btn-group float-end">
+									<a href="#" class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
+								</div>
+							</td>
 							<!-- 강의가 없다면 개설된 강의가 없습니다. -->
 							<c:if test="${totalCount == 0}">
 								<div class="text-primary">개설된 강의가 없습니다.</div>
