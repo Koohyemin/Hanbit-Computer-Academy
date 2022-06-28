@@ -20,60 +20,64 @@
 <body class="sb-nav-fixed">
 <div id="nav"></div>
 <div id="layoutSidenav">
-	<div id="layoutSidenav_nav">
-		<div id="navbar"></div>
-	</div>
+   <div id="layoutSidenav_nav">
+      <div id="navbar"></div>
+   </div>
     <div id="layoutSidenav_content">
-		<div class="container-fluid px-4">
-     	<!-- 컨텐츠 삽입 부분-->
-     			<br>
-        	<div class="card mb-4">
-	            <div class="card-header">
-	                <i class="fas fa-chart-area me-1"></i>
-	                Enquiry Board
-	            </div>
+      <div class="container-fluid px-4">
+        <!-- 컨텐츠 삽입 부분-->
+              <br>
+           <div class="card mb-4">
+               <div class="card-header">
+                   <i class="fas fa-chart-area me-1"></i>
+                   Enquiry Board
+               </div>
+               <div class="card-body">
+               <form action="${pageContext.request.contextPath}/enquiryBoard/deleteEnquiryBoard" method="post">
+               <table class="table">
+                  <tr>   
+                     <th>글쓴이</th>
+                     <td>${eb.memberId}
+                     <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" readonly = "readonly">
+                     </td>          
+                  </tr>      
+                  <tr>
+                     <th>구분</th>
+                     <td>${eb.category}</td> 
+                  </tr>
+                                    <tr>   
+                     <th>작성일</th>
+                     <td>${eb.createDate}</td>                      
+                  </tr>
+                  <tr>   
+                     <th>수정일</th>
+                     <td>${eb.updateDate}</td>                         
+                  </tr>
+                  <tr>                           
+                     <th>내용</th>
+                     <td style="height:400px; ">${eb.content}</td>
+                  </tr>   
+               </table>
+               <br>
+               <a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage" class="btn btn-dark">뒤로가기</a>
+               <div class="btn-group float-end">
+               <a href="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard?enquiryBoardNo=${enquiryBoardNo}" class="btn btn-secondary">수정</a>
+               <button type="submit" class="btn btn-dark">삭제</button>
+               </div>
+            </form>         
+               </div>
             </div>
-	<form action="${pageContext.request.contextPath}/enquiryBoard/deleteEnquiryBoard" method="post">
-
-	<table class="table">
-			<tr>
-				<th>글번호</th>
-				<td><input type="text" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" readonly = "readonly"></td>
-			</tr>
-			<tr>	
-				<th>글쓴이</th>
-				<td>${eb.memberId}</td> 			
-			</tr>		
-			<tr>
-				<th>구분</th>
-				<td>${eb.category}</td> 
-			</tr>
-			<tr>									
-				<th>내용</th>
-				<td>${eb.content}</td>
-			</tr>
-			<tr>	
-				<th>작성일</th>
-				<td>${eb.createDate}</td> 							
-			</tr>
-			<tr>	
-				<th>수정일</th>
-				<td>${eb.updateDate}</td> 								
-			</tr>	
-	</table>
-	<a class="btn btn-dark" href="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard?enquiryBoardNo=${enquiryBoardNo}">수정</a>
-		<button class="btn btn-dark" type="submit">삭제</button>
-</form>			
-<div id="footer"></div>
-	</div>
+   </div>
+   <div id="footer"></div>
+   </div>
 </div>
 </body>
-	<script>
-    	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
-    	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
-    	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-   	</script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+   <script>
+       $('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
+       $('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
+       $('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+      </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="assets/demo/chart-area-demo.js"></script>

@@ -20,65 +20,62 @@
 <body class="sb-nav-fixed">
 <div id="nav"></div>
 <div id="layoutSidenav">
-	<div id="layoutSidenav_nav">
-		<div id="navbar"></div>
-	</div>
+   <div id="layoutSidenav_nav">
+      <div id="navbar"></div>
+   </div>
     <div id="layoutSidenav_content">
-		<div class="container-fluid px-4">
-     	<!-- 컨텐츠 삽입 부분-->
-		<br>
-        	<div class="card mb-4">
-	            <div class="card-header">
-	                <i class="fas fa-chart-area me-1"></i>
-					Enquiry Board
-	            </div>
-            </div>     	
-           <div class="card-body">
-		<table class="table">
-			<thead>
-				<tr>
-					<th>글번호</th>
-					<th>글쓴이</th>
-					<th>내용</th>
-					<th>작성일</th>
-				</tr>
-			</thead>
-			<tbody>
-			<c:forEach var="e" items="${list}">
-				<tr>
-					<td>${e.enquiryBoardNo}</td>
-					<td>${e.memberId}</td>
-					<td><a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardOne?enquiryBoardNo=${e.enquiryBoardNo}">${e.content}</a></td>					
-					<td>${e.createDate}</td>
-				</tr>
-			</c:forEach>
-			</tbody>
-		</table>
-		<!-- 운영자는 입력버튼 안보여야함 -->
-			<c:if test="${sessionMemberLv != 3}">
-				<a class="btn btn-dark"  href="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard">입력</a>
-			</c:if>
-			
-		<!-- 페이징 -->	
-		<div class="text-center">
-			<c:if test="${currentPage > 1}">
-				<a class =" btn btn-warning" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage-1}">이전</a>				
-			</c:if>
-			<c:if test="${currentPage < lastPage}">
-				<a class =" btn btn-warning" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage+1}">다음</a>			
-			</c:if>
-		</div>	
-		</div>
-		<div id="footer"></div>
-	</div>
+      <div class="container-fluid px-4">
+        <!-- 컨텐츠 삽입 부분-->
+      <br>
+           <div class="card mb-4">
+               <div class="card-header">
+                   <i class="fas fa-chart-area me-1"></i>
+               EnquiryBoard
+               </div>
+               <div class="card-body">
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th>글번호</th>
+                        <th>글쓴이</th>
+                        <th>내용</th>
+                        <th>작성일</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                  <c:forEach var="e" items="${list}">
+                     <tr>
+                        <td>${e.enquiryBoardNo}</td>
+                        <td>${e.memberId}</td>
+                        <td><a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardOne?enquiryBoardNo=${e.enquiryBoardNo}">${e.content}</a></td>               
+                        <td>${e.createDate}</td>
+                     </tr>
+                  </c:forEach>
+                  </tbody>
+                  <c:if test="${currentPage > 1}">
+                     <a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage-1}">이전</a>            
+                  </c:if>
+                  <c:if test="${currentPage < lastPage}">
+                     <a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage+1}">다음</a>         
+                  </c:if>
+               </table>
+               <!-- 운영자는 입력버튼 안보여야함 -->
+               <c:if test="${sessionMemberLv != 3}">
+                  <a href="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard" class="btn btn-dark">입력</a>
+               </c:if>
+            </div>
+         </div>
+      </div>
+      <div id="footer"></div>
+   </div>
 </div>
 </body>
-	<script>
-    	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
-    	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
-    	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-   	</script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+   <script>
+       $('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
+       $('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
+       $('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+      </script>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="assets/demo/chart-area-demo.js"></script>
