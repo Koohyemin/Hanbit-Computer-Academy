@@ -8,6 +8,7 @@
 <meta property="og:title" content="한빛컴퓨터아카데미LMS">
 <meta property="og:url" content="lms/login">
 <meta property="og:image" content="${pageContext.request.contextPath}/../img/previewer.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>LMS Login</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
@@ -31,30 +32,30 @@
 						<li class="nav-item">
 							<c:choose>
 								<c:when test="${role eq 'student'}">
-									<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">🧑 Student </a>
+									<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">🧑 Student</a>
 								</c:when>
 								<c:otherwise>
-								    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">🧑 Student </a>
+								    <a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=student">🧑 Student</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
 						<li class="nav-item">
 							<c:choose>
 								<c:when test="${role == 'teacher'}">
-								    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=teacher">🧓 Teacher </a>
+								    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=teacher">🧓 Teacher</a>
 								</c:when>
 								<c:otherwise>
-									<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=teacher">🧓 Teacher </a>
+									<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=teacher">🧓 Teacher</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
 						<li class="nav-item">
 							<c:choose>
 								<c:when test="${role eq 'manager'}">
-								    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=manager">👨‍🦱 Manager </a>
+								    <a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=manager">👨‍🦱 Manager</a>
 								</c:when>
 								<c:otherwise>
-									<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=manager">👨‍🦱 Manager </a>
+									<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/login?role=manager">👨‍🦱 Manager</a>
 								</c:otherwise>
 							</c:choose>
 						</li>
