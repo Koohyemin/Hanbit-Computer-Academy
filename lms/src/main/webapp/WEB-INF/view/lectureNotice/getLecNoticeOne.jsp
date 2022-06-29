@@ -50,7 +50,7 @@
 	                           <form method="post" action="${pageContext.request.contextPath}/lectureNotice/getDeleteLectureNotice" >
 	                           <input type="hidden" name="lecNoticeNo" value="${lectureNotice.lecNoticeNo}" >
 	                           <input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
-	                           <a href="${pageContext.request.contextPath}/lectureNotice/getUpdateLectureNotice?lectureNoticeNo=${lectureNotice.lecNoticeNo}" class="btn btn-info">수정</a>
+	                           <a href="${pageContext.request.contextPath}/lectureNotice/getUpdateLectureNotice?lecNoticeNo=${lectureNotice.lecNoticeNo}" class="btn btn-info">수정</a>
 	                           </form>
 	                           </c:if>
 				</div>	

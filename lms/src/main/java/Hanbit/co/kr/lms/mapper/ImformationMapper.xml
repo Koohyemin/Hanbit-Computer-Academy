@@ -120,7 +120,7 @@
 		FROM teacher t INNER JOIN lec_plan lp
 		ON t.teacher_id = lp.teacher_id
 			INNER JOIN lec l
-				ON lp.lec_plan_no = l.lec_plan_no
+				ON lp.lecture_name = l.lecture_name
 		WHERE t.teacher_id = #{teacherId}
 		except
 	
@@ -131,7 +131,7 @@
 		FROM teacher t INNER JOIN lec_plan lp
 			ON t.teacher_id = lp.teacher_id
 				INNER JOIN lec l
-					ON lp.lec_plan_no = l.lec_plan_no
+					ON lp.lecture_name = l.lecture_name
 						INNER JOIN registration r
 							ON  l.lecture_name = r.lecture_name
 		WHERE t.teacher_id = #{teacherId}
@@ -160,7 +160,7 @@
 		FROM teacher t INNER JOIN lec_plan lp
 			ON t.teacher_id = lp.teacher_id
 				INNER JOIN lec l
-					ON lp.lec_plan_no = l.lec_plan_no
+					ON lp.lecture_name = l.lecture_name
 						INNER JOIN registration r
 							ON  l.lecture_name = r.lecture_name
 		WHERE t.teacher_id = #{teacherId}		

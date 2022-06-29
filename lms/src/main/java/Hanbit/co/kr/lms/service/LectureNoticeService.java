@@ -65,10 +65,13 @@ public class LectureNoticeService {
 			return lectureNoticeMapper.getDeleteLectureNotice(lecNoticeNo);
 		}
 		
-	// 공지사항 수정
-		public int getUpdateLectureNotice(LectureNotice lectureNotice) {
-			return lectureNoticeMapper.getUpdateLectureNotice(lectureNotice);
+	// 공지사항 수정 서비스
+		public int updateLecNotice(LectureNotice lectureNotice) {
+			return lectureNoticeMapper.updateLecNotice(lectureNotice);
 		}
+		
+		
+	// 공지사항 수강별 강좌
 		public List<LecPlan> lectureNameList(String teacherId) {
 			return lectureNoticeMapper.lectureNameList(teacherId);
 		}

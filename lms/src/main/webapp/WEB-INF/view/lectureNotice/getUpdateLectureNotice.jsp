@@ -30,10 +30,10 @@
 	        	<div class="card mb-4">
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
-	                LectureNotice
+	                UpdateLectureNotice
 	            </div>
 				<br><br>
-				<form method="post" action="${pageContext.request.contextPath}/lectureNotice/addLectureNotice">
+				<form method="post" action="${pageContext.request.contextPath}/lectureNotice/getUpdateLectureNotice">
 					<table class="table">
 						<tr>
 							<td> 
@@ -43,22 +43,22 @@
 						<tr>
 							<td> 
 								<select id="lectureName" name="lectureName">
-									<option value="">------------------------------선택---------------------------</option>
 									<c:forEach var="l" items="${lectureNameList}">
-										<option value="${l.lectureName}" name="${l.lectureName}">11212</option>
+										<option value="">${l.lectureName}</option>
+										<option value="${l.lectureName}">${l.lectureName}</option>
 									</c:forEach>
 								</select>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input name="title" id="title" type="text" class="form-control" placeholder="제목을 입력해주세요">
+								<input name="title" id="title" type="text" class="form-control">
 								<span id="helpTitle"></span>
 							</td>
 						</tr>
 						<tr>
 							<td>
-								<input name="content" id="content" class="form-control" placeholder="내용을 입력해주세요" cols="50" rows="8">
+								<textarea name="content" id="content" class="form-control" rows="8" cols="50"></textarea>
 								<span id="helpContent"></span>
 							</td>
 						</tr>

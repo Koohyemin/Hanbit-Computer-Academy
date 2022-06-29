@@ -24,7 +24,7 @@ public interface LectureNoticeMapper {
 		int getInsertLectureNotice(LectureNotice lectureNotice); 
 		
 		// 공지사항 수정(강사)
-		int getUpdateLectureNotice(LectureNotice lectureNotice); 
+		int updateLecNotice(LectureNotice lectureNotice); 
 		
 		// 공지사항 삭제(강사)
 		int getDeleteLectureNotice(int lecNoticeNo); 
