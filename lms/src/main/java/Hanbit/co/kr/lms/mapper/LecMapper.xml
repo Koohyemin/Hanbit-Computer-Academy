@@ -9,13 +9,22 @@
 		WHERE lecture_name = #{lectureName}
 	</delete>
 	
-	<!-- 강의계획 상태 수정(강의 수정&, 운영자 상태변경에도 사용예정) -->
+	<!-- 강의계획 수정(강사 변경) -->
 	<update id="getUpdateLecPlan" parameterType="Hanbit.co.kr.lms.vo.LecPlan">
 		UPDATE lec_plan SET 
 			 teacher_id = #{teacherId}
 			,update_date = NOW()
 		WHERE lecture_name = #{lectureName}
 	</update>
+	
+	<!-- 강의계획 상태 수정(승인/비승인) -->
+	<update id="getUpdateLecState" parameterType="Hanbit.co.kr.lms.vo.LecPlan">
+		UPDATE lec_plan SET 
+			 lec_state = #{lecState}
+			,update_date = NOW()
+		WHERE lecture_name = #{lectureName}
+	</update>
+	
 	
 	<!-- 강의계획 등록 -->
 	<insert id="insertLecPlan" parameterType="Hanbit.co.kr.lms.vo.LecPlan">

@@ -9,8 +9,7 @@
 			,a.teacher_email teacherEmail
 			,a.PhotoName photoName
 			,GROUP_CONCAT(DISTINCT(b.certification_name)) certificationName
-			,GROUP_CONCAT(DISTINCT(c.lec_plan_name)) lecPlanName
-			,GROUP_CONCAT(DISTINCT(c.lec_plan_no)) lecPlanNo
+			,GROUP_CONCAT(DISTINCT(c.lecture_name)) lecPlanName
 			FROM(SELECT 
 					 t.teacher_id
 					,t.teacher_name
@@ -25,7 +24,7 @@
 				GROUP BY t.teacher_id) a 
 					LEFT JOIN (SELECT member_id,certification_name FROM certification) b
 					ON a.teacher_id = b.member_id
-					LEFT JOIN (SELECT teacher_id, lec_plan_name, lec_plan_no FROM lec_plan)c
+					LEFT JOIN (SELECT teacher_id, lecture_name FROM lec_plan)c
 					ON a.teacher_id = c.teacher_id
 		GROUP BY a.teacher_name
 	</select>

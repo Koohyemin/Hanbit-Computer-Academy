@@ -27,9 +27,37 @@ public class LecController {
 	@Autowired LecService lecService;
 	@Autowired HttpSession session;
 	
+	// 운영자 강의 승인
+	@PostMapping("lec/updateLecState")
+	public String getUpdateLecState(@RequestParam(name="lectureName") String lectureName, @RequestParam(name="lecState") String lecState) {
+		
+		// 세션을 이용한 권한 처리
+		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
+		if (memberLv != 3) { // 운영자가 아니라면 공지목록으로 돌아가기
+			return "redirect:/lec/lecList";
+		}
+		
+		// 수정 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
+		int row = lecService.getUpdateLecState(lectureName, lecState);
+		
+		if(row == 1) {
+			log.debug(CF.KHM + "[LecController postMapping updateLecState] :" + CF.RESET + "강의 승인/비승인 수정 성공"); // 성공
+		} else {
+			log.debug(CF.KHM + "[LecController postMapping updateLecState] :" + CF.RESET + "강의 승인/비승인 수정 실패"); // 실패
+		}
+		
+		return "redirect:/people/peopleList?level=3";
+	}
+	
 	// 강의 삭제 POST
 	@PostMapping("lec/deleteLec")
 	public String deleteLec(@RequestParam(name="lectureName") String lectureName) {
+		
+		// 세션을 이용한 권한 처리
+		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
+		if (memberLv != 3) { // 운영자가 아니라면 공지목록으로 돌아가기
+			return "redirect:/lec/lecList";
+		}
 		
 		// 삭제 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
 		int timeRow = lecService.getDeleteTime(lectureName);
@@ -49,6 +77,12 @@ public class LecController {
 	@PostMapping("lec/updateLec")
 	public String geUpdateLec(Lec lec, TimeTable timeTable, LecPlan lecPlan) {
 		
+		// 세션을 이용한 권한 처리
+		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
+		if (memberLv != 3) { // 운영자가 아니라면 공지목록으로 돌아가기
+			return "redirect:/lec/lecList";
+		}
+		
 		// 수정 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
 		int lecRow = lecService.getUpdateLec(lec);
 		int lecPlanRow = lecService.getUpdateLecPlan(lecPlan);
@@ -67,6 +101,12 @@ public class LecController {
 	@GetMapping("lec/updateLec")
 	public String getUpdateLec(Model model,
 							@RequestParam(name="lectureName") String lectureName) {
+		
+		// 세션을 이용한 권한 처리
+		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
+		if (memberLv != 3) { // 운영자가 아니라면 공지목록으로 돌아가기
+			return "redirect:/lec/lecList";
+		}
 		
 		Lec lectureInfo = lecService.getLecOne(lectureName);
 		Map<String,Object> map = lecService.getUpdateLec(lectureName);

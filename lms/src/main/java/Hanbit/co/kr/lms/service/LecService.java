@@ -36,7 +36,7 @@ public class LecService {
 	}
 	
 	// 수정
-	public int getUpdateLecPlan(LecPlan lecPlan) { // 강의계획 수정 POST
+	public int getUpdateLecPlan(LecPlan lecPlan) { // 강사 수정(강의계획)
 		return lecMapper.getUpdateLecPlan(lecPlan);
 	}
 	
@@ -46,6 +46,10 @@ public class LecService {
 	
 	public int getUpdateLec(Lec lec) { // 강의 수정 POST
 		return lecMapper.getUpdateLec(lec);
+	}
+	
+	public int getUpdateLecState(String lectureName, String lecState) {
+		return lecMapper.getUpdateLecState(lectureName, lecState);
 	}
 	
 	public Map<String,Object> getUpdateLec(String lectureName) { // 강의 수정

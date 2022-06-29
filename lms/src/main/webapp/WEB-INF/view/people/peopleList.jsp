@@ -168,20 +168,21 @@
 											<tr>
 												<td colspan="2">
 												<!-- 강좌이름  -->
-													<span class="text-success" style="font-size:20px;"><b>👩‍🏫 ${m.lectureName}</b></span>  <b>#${m.subjectName}</b>
+													<span style="font-size:20px;"><b><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${m.lectureName}" class="none-unline text-success">👩‍🏫 ${m.lectureName}</a></b></span>  <b>#${m.subjectName}</b>
 												
 													<!-- 운영자만 수정, 상태변경 가능 -->
 													<c:if test="${sessionMemberLv == 3}">
 														<div class="float-end">
 															<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${m.lectureName}" class="btn btn-dark" >강의 수정</a>
-															<form style="display: inline;">
+															<form method="post" action="${pageContext.request.contextPath}/lec/updateLecState" style="display: inline;">
+																<input type="hidden" name="lectureName" value="${m.lectureName}">
 																<div class="btn-group">
 																	<select name="lecState" class="form-control">
 																		<option>:: 강의 상태 변경 ::</option>
 																		<option class="text-center" value="T" <c:if test="${m.lecState eq 'T'}">selected="selected"</c:if>>승인</option>
 																		<option class="text-center" value="F" <c:if test="${m.lecState eq 'F'}">selected="selected"</c:if>>비승인</option>
 																	</select>
-																	<button type="button" class="btn btn-dark">변경</button>
+																	<button type="submit" class="btn btn-dark">변경</button>
 																</div>
 															</form>
 														</div>
@@ -190,7 +191,7 @@
 											</tr>
 											<tr>
 												<td colspan="2">
-												<b>${m.lectureRoomName}</b> ${m.roomNumber}명 수용가능 ${m.roomSize}㎡ <sapn class="text-secondary">(${m.roomAddr1} ${m.roomAddr2})</sapn>
+												<b>${m.lectureRoomName}</b> ${m.roomNumber}명 수용가능 ${m.roomSize}㎡ <span class="text-secondary"> (${m.roomAddr1} ${m.roomAddr2})</span>
 												</td>
 											</tr>
 											<tr>
@@ -310,12 +311,5 @@
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-	   	 $("#delBtn").click(function(){
-	            if (confirm('해당 강의를 삭제 하시겠습니까?')) {
-	                $('#del').submit();
-	            } else {
-	            	return false;
-	            }
-	        });
    	</script>
 </html>

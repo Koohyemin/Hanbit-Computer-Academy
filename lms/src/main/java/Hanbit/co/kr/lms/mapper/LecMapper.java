@@ -35,7 +35,8 @@ public interface LecMapper {
 	// 강의계획서
 	int insertLecPlan(LecPlan lecPlan); // 강의계획서 등록
 	int getUpdateLecPlan(LecPlan lecPlan); // 강의계획서 수정
-	int getDeleteLecPlan(String lecPlanName); // 강의계획서 삭제
+	int getDeleteLecPlan(String lectureName); // 강의계획서 삭제
+	int getUpdateLecState(String lectureName, String lecState); // 강의 상태 수정
 	
 	// 카테고리
 	List<LectureRoom> lectureRoomList(); // 강의실 정보
