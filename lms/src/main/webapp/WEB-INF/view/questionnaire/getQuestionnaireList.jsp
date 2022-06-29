@@ -52,7 +52,7 @@
 			<tbody>	
 				<c:forEach var="q" items="${list}">
 					<tr>
-						<td>${q.evaluationNo}</td>	
+						<td>${q.evaluationNo}<input type="hidden" name="content" value="${q.evaluationNo}"></td>	
 						<td>${q.lectureName}</td>
 						<td>${q.category}</td>
 						<td>${q.questionnaireContent}</td>
@@ -88,12 +88,42 @@
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+    	
+    	$('#btnQuestionnaire').click(function() {
+    		// 설문 입력 값 배열로 묶기
+    		var quelist = new Array(); // 설문 입력 값
+ 		   $("input[name=content]").each(function(index, item){
+ 			   quelist.push($(item).val());
+ 		   }); 
+ 		  console.log(quelist);
+    		
+ 		// 답변 스코어 배열로 묶기
+ 		var checklist = new Array();// 답변 스코어 배열
+   		   $("input[type=radio]:checked").each(function(index, item){
+   			checklist.push($(item).val());
+				
+   		   });
+   		 console.log(checklist);	
+   		 
+	   		$.ajax({
+				url : "${pageContext.request.contextPath}/questionnaire/getQuestionnaireCheckList"
+				,type : 'POST'
+				,data : {
+					'quelist' : quelist
+					,'checklist' : checklist
+				}
+				,success : function(data) {
+					console.log("완료");
+			     }
+				,error : function() {
+					alert("error");
+				}
+			});	
+});
+		
    	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
 </html>

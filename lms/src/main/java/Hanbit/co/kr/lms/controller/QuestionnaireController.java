@@ -1,6 +1,5 @@
 package Hanbit.co.kr.lms.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+
 public class QuestionnaireController {
 	@Autowired QuestionnaireService questionnaireService;
 	
@@ -37,4 +37,6 @@ public class QuestionnaireController {
 		//뷰 포워딩
 		return "questionnaire/getQuestionnaireList";
 	}
+	
+
 }

@@ -12,4 +12,19 @@
 			FROM questionnaire
 			WHERE lecture_name = #{lectureName}
 	</select>
+	
+	<insert id="selectQuestionnairecheck" parameterType="java.util.Map">
+		INSERT INTO questionnaire_answer
+			(questionnaire_no
+			, student_id
+			, selected_evaluation_no
+			, create_date
+			, update_date
+		) VALUES
+			(#{questions}
+			, #{studentId}
+			, #{score}
+			, NOW()
+			, NOW())
+	</insert>
 </mapper>
