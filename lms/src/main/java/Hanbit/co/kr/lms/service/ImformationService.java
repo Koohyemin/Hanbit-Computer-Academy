@@ -30,36 +30,98 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class ImformationService {
 	@Autowired ImformationMapper imformationMapper;
-	@Autowired MemberMapper mamberMapper;
+	@Autowired MemberMapper memberMapper;
+	
+	// 비밀번호 연장하기
+	public void updatePw90(String memberId, int memberLv) {
+		
+		// vo.PasswordUpdateDate 등록
+		PasswordUpdateDate passwordUpdateDate = new PasswordUpdateDate();
+		
+		// 레벨에 따른 분기
+		if(memberLv == 1) { // 학생이라면
+			String studentId = memberId;
+			
+			// 로그인 한 학생의 비밀번호 뽑기
+			Student student = imformationMapper.selectStudentOne(studentId);
+			log.debug(CF.SWB+"[ImformationService updatePw90 studentPw]"+CF.RESET+ student.getStudentPw()); // studentPw 디버깅
+			
+			// vo.PasswordUpdateDate에 값넣어주기
+			passwordUpdateDate.setMemberId(memberId);
+			passwordUpdateDate.setMemberPw(student.getStudentPw());
+			
+			// 비밀번호 변경로그 등록하기
+			memberMapper.updateActiveStudent(passwordUpdateDate);
+			
+		} else if(memberLv == 2) { // 강사라면
+			String teacherId = memberId;
+			
+			// 로그인 한 강사의 비밀번호 뽑기
+			Teacher teacher = imformationMapper.selectTeacherOne(teacherId);
+			log.debug(CF.SWB+"[ImformationService updatePw90 teacherPw]"+CF.RESET+ teacher.getTeacherPw()); // teacherPw 디버깅
+			
+			// vo.PasswordUpdateDate에 값넣어주기
+			passwordUpdateDate.setMemberId(memberId);
+			passwordUpdateDate.setMemberPw(teacher.getTeacherPw());
+			
+			// 비밀번호 변경로그 등록하기
+			memberMapper.updateActiveTeacher(passwordUpdateDate);
+			
+		} else if(memberLv == 3) {
+			String manaberId = memberId;
+			
+			Manager manager = imformationMapper.selectManagerOne(manaberId);
+			log.debug(CF.SWB+"[ImformationService updatePw90 teacherPw]"+CF.RESET+ teacher.getTeacherPw()); // teacherPw 디버깅
+			
+		}
+	}
+	
 	// 비밀번호 비교후 변경
-	public String modifyPw(String memberId, String memberPw, String udpatePw, String checkPw,int memberLv) {
+	public String modifyPw(String memberId, String memberPw, String updatePw, String checkPw,int memberLv) {
 		
 		// 맴퍼에 두개의 값을 쓰기위해 map으로 묶음
 		HashMap<String , Object> map = new HashMap<>();
 		map.put("memberId",memberId);
 		map.put("memberPw",memberPw);
-		int row1 = imformationMapper.selectCurrentPw(map);
-		log.debug(CF.SWB+"[ImformationMemberController updatePhoto row1]"+CF.RESET+ row1); // photoFile 디버깅
 		
+		// 디버깅
+		int row1 = 0;
+		if(imformationMapper.selectCurrentPw(map) != 0) {
+			row1 = imformationMapper.selectCurrentPw(map);
+		}
+		log.debug(CF.SWB+"[ImformationService modifyPw row1]"+CF.RESET+ row1); // row1 디버깅
+		
+		// vo.PasswordUpdateDate 등록
 		PasswordUpdateDate passwordUpdateDate = new PasswordUpdateDate();
 		passwordUpdateDate.setMemberId(memberId);
-		passwordUpdateDate.setMemberPw(udpatePw);
-		String error = null;
+		passwordUpdateDate.setMemberPw(updatePw);
+		
+		String error = null; // error 변수 등록
+		
 		// 만약 row가 한개이상이라면 현재 비밀번호가 맞다
 		if(row1 > 0) {
-			int row2 = imformationMapper.selectPwList(map);
+			int row2 = imformationMapper.selectPwList(passwordUpdateDate);
+			log.debug(CF.SWB+"[ImformationService modifyPw row2]"+CF.RESET+ row2); // row2 디버깅
+			
+			// 설정한 개수만큼 이전 개수까지 비밀번호가 없으면 비밀번호 변경해주기
 			if(row2 == 0) {
-				if(memberLv ==  1) {
-					mamberMapper.updateActiveStudent(passwordUpdateDate);
-					mamberMapper.updateActivePasswordUpdateDate(passwordUpdateDate);
-				} // 미완성
+				if(memberLv ==  1) { // 학생이라면
+					memberMapper.updateActiveStudent(passwordUpdateDate);
+					memberMapper.updateActivePasswordUpdateDate(passwordUpdateDate);
+				} else if(memberLv == 2) { // 강사라면
+					memberMapper.updateActiveManager(passwordUpdateDate);
+					memberMapper.updateActivePasswordUpdateDate(passwordUpdateDate);
+				} else if(memberLv == 3) {
+					memberMapper.updateActiveManager(passwordUpdateDate);
+					memberMapper.updateActivePasswordUpdateDate(passwordUpdateDate);
+				}
 			} else {
 				error = "이전에 사용했던 비밀번호입니다";
 			}
 		} else {
-			error = "현재 비밀번호가 다릅니다";
+			error = "The current password is different";
 		}
-		
+		log.debug(CF.SWB+"[ImformationService modifyPw error]"+CF.RESET+ error); // error 디버깅
 		return error;
 	}
 	// 사진 업로드
@@ -82,15 +144,15 @@ public class ImformationService {
 			photoFile.setPhotoOriginalName(originName);
 			photoFile.setPhotoType(mf.getContentType());
 			photoFile.setPhotoSize(mf.getSize());
-			log.debug(CF.SWB+"[ImformationMemberController updatePhoto photoFile.photoFile]"+CF.RESET+ photoFile.toString()); // photoFile 디버깅
+			log.debug(CF.SWB+"[ImformationService updatePhoto photoFile.photoFile]"+CF.RESET+ photoFile.toString()); // photoFile 디버깅
 			
 			// 원래 가지고 있는 photoName -> upload에 있는 사진 삭제할려고 찾음
 			String prePhotoName = imformationMapper.selectPhotoName(memberId);
-			log.debug(CF.SWB+"[ImformationMemberController updatePhoto prePhotoName]"+CF.RESET+prePhotoName); // prePhotoName 디버깅
+			log.debug(CF.SWB+"[ImformationService updatePhoto prePhotoName]"+CF.RESET+prePhotoName); // prePhotoName 디버깅
 			
 			// 파일이 존재한다면 삭제
 			File f = new File(path+prePhotoName);
-			log.debug(CF.SWB+"[ImformationMemberController updatePhoto f]"+CF.RESET+f); // f 디버깅
+			log.debug(CF.SWB+"[ImformationService updatePhoto f]"+CF.RESET+f); // f 디버깅
 			if(f.exists()) {
 				f.delete();
 			}

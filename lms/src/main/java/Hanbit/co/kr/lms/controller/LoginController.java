@@ -108,10 +108,11 @@ public class LoginController {
 		// 레벨을 가지고 있다면 index로 이동
 		if(returnMemberLv == 1 || returnMemberLv == 2 || returnMemberLv == 3) {
 			long Days = loginService.passwordChange(memberId);
-			if(Days >90) {
-				return "redirect:/member/modifyPassword";
+			if(Days >90) { // 비밀번호를 90일동안 바꾸지 않았다면
+				log.debug(CF.SWB+"[LoginController login Days]"+ returnMemberId+CF.RESET+Days); // Days 디버깅
+				return "redirect:member/updatePw";
 			}else {
-			return "redirect:/home/index";
+				return "redirect:/home/index";
 			}
 		}
 		

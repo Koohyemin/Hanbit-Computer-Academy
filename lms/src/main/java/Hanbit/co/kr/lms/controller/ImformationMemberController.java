@@ -30,9 +30,25 @@ public class ImformationMemberController {
 	public String updatePw() {
 		return"/member/modifyPassword";
 	}
+	
+	// 90일 연장하기
+	@PostMapping("/member/prolongPw")
+	public String prolongPw(HttpSession session) {
+		
+		// 세션에 있는 값 아이디값과 레벨값 담기
+		String	memberId = (String)session.getAttribute("sessionMemberId");
+		int	memberLv = (int)session.getAttribute("sessionMemberLv");
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping prolongPw memberId]"+CF.RESET+ memberId); // memberId 디버깅
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping prolongPw memberLv]"+CF.RESET+ memberLv); // memberLv 디버깅
+		
+		imformation.updatePw90(memberId, memberLv);
+		
+		return "redirect:/home/index";
+	}
 	// 비밀번호 변경
 	@PostMapping("/member/updatePw")
 	public String updatePw(HttpSession session
+						,Model model
 						,@RequestParam(name="memberPw")String memberPw
 						,@RequestParam(name="updatePw")String updatePw
 						,@RequestParam(name="checkPw")String checkPw) {
@@ -46,12 +62,18 @@ public class ImformationMemberController {
 		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePw updatePw]"+CF.RESET+ updatePw); // updatePw 디버깅
 		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePw ckeckPw]"+CF.RESET+ checkPw); // checkPw 디버깅
 		
+		
+		/// 에러문구 받아오기
 		String error = imformation.modifyPw(memberId, memberPw, updatePw,checkPw,memberLv);
+		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePw error]"+CF.RESET+ error); // error 디버깅
+		model.addAttribute("error",error);
 		if(error == null) {
 			return "redirect:/login";
 		}
-		return "/member/modifyPassword";
+		
+		return "redirect:/member/updatePw";
 	}
+	
 	// 사진 업데이트
 	@PostMapping("/updatePhoto")
 	public String updatePhoto(HttpSession session
@@ -77,6 +99,7 @@ public class ImformationMemberController {
 	public String addr() {
 		return "member/addr";
 	}
+	
 	// 멤버 업데이트 폼
 	@GetMapping("/member/modifyMember")
 	public String modifyMember(Model model
