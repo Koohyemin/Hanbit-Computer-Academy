@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.ImformationMapper">
-				<select id="selectCurrentPw"
-			parameterType="java.util.Map"
-			resultType="integer">
-		 SELECT 
-         count(*),pw
-         FROM 
-         (SELECT member_pw pw
-         FROM password_update_date
-         WHERE member_id =#{memberId}
-         ORDER BY create_date DESC
-         LIMIT 1) t
-         WHERE t.pw = PASSWORD(#{memberPw}) 
+	<insert id="managerLogInsertPw"
+			parameterType="String">
+		insert into password_update_date 
+			(member_id,member_pw, create_date) 
+		VALUE 
+			(#{memberId} , (SELECT manager_pw FROM manager WHERE manager_id = #{memberId}),NOW())
+	</insert>
+	
+	<insert id="teacherLogInsertPw"
+			parameterType="String">
+		insert into password_update_date 
+			(member_id,member_pw, create_date) 
+		VALUE 
+			(#{memberId} , (SELECT teacher_pw FROM teacher WHERE teacher_id = #{memberId}),NOW())
+	</insert>
+	
+	<insert id="studentLogInsertPw"
+			parameterType="String"
+			>
+		insert into password_update_date 
+			(member_id,member_pw, create_date) 
+		VALUE 
+			(#{memberId} , (SELECT student_pw FROM student WHERE student_id = #{memberId}),NOW())
+	</insert>
+	
+	<select id="selectCurrentPw"
+			parameterType="java.util.Map">
+		SELECT
 	</select>
 	
 	<select id="selectPwList"

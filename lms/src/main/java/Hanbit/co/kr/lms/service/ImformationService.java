@@ -35,45 +35,28 @@ public class ImformationService {
 	// 비밀번호 연장하기
 	public void updatePw90(String memberId, int memberLv) {
 		
-		// vo.PasswordUpdateDate 등록
-		PasswordUpdateDate passwordUpdateDate = new PasswordUpdateDate();
-		
 		// 레벨에 따른 분기
 		if(memberLv == 1) { // 학생이라면
-			String studentId = memberId;
 			
-			// 로그인 한 학생의 비밀번호 뽑기
-			Student student = imformationMapper.selectStudentOne(studentId);
-			log.debug(CF.SWB+"[ImformationService updatePw90 studentPw]"+CF.RESET+ student.getStudentPw()); // studentPw 디버깅
-			
-			// vo.PasswordUpdateDate에 값넣어주기
-			passwordUpdateDate.setMemberId(memberId);
-			passwordUpdateDate.setMemberPw(student.getStudentPw());
-			
-			// 비밀번호 변경로그 등록하기
-			memberMapper.updateActiveStudent(passwordUpdateDate);
+			// 현재 사용중인 비밀번호로 현재날짜로 insert 해주기
+			int row = imformationMapper.studentLogInsertPw(memberId);
+			log.debug(CF.SWB+"[ImformationService updatePw90 row]"+CF.RESET+ row); // row 디버깅
 			
 		} else if(memberLv == 2) { // 강사라면
-			String teacherId = memberId;
 			
-			// 로그인 한 강사의 비밀번호 뽑기
-			Teacher teacher = imformationMapper.selectTeacherOne(teacherId);
-			log.debug(CF.SWB+"[ImformationService updatePw90 teacherPw]"+CF.RESET+ teacher.getTeacherPw()); // teacherPw 디버깅
+			// 현재 사용중인 비밀번호로 현재날짜로 insert 해주기
+			int row2 = imformationMapper.teacherLogInsertPw(memberId);
+			log.debug(CF.SWB+"[ImformationService updatePw90 row2]"+CF.RESET+ row2); // row2 디버깅
+	
+		} else if(memberLv == 3) { // 운영진이라면
 			
-			// vo.PasswordUpdateDate에 값넣어주기
-			passwordUpdateDate.setMemberId(memberId);
-			passwordUpdateDate.setMemberPw(teacher.getTeacherPw());
+			// 현재 사용중인 비밀번호로 현재날짜로 insert 해주기
+			int row3 = imformationMapper.managerLogInsertPw(memberId);
 			
-			// 비밀번호 변경로그 등록하기
-			memberMapper.updateActiveTeacher(passwordUpdateDate);
-			
-		} else if(memberLv == 3) {
-			String manaberId = memberId;
-			
-			Manager manager = imformationMapper.selectManagerOne(manaberId);
-			log.debug(CF.SWB+"[ImformationService updatePw90 teacherPw]"+CF.RESET+ teacher.getTeacherPw()); // teacherPw 디버깅
-			
+			log.debug(CF.SWB+"[ImformationService updatePw90 row3]"+CF.RESET+ row3); // row3 디버깅
 		}
+		
+		return;
 	}
 	
 	// 비밀번호 비교후 변경
@@ -85,10 +68,7 @@ public class ImformationService {
 		map.put("memberPw",memberPw);
 		
 		// 디버깅
-		int row1 = 0;
-		if(imformationMapper.selectCurrentPw(map) != 0) {
-			row1 = imformationMapper.selectCurrentPw(map);
-		}
+		int row1 = imformationMapper.selectCurrentPw(map);
 		log.debug(CF.SWB+"[ImformationService modifyPw row1]"+CF.RESET+ row1); // row1 디버깅
 		
 		// vo.PasswordUpdateDate 등록

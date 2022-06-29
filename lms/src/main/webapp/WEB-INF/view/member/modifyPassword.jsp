@@ -8,15 +8,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta property="og:title" content="한빛컴퓨터아카데미LMS">
 <meta property="og:url" content="lms/login">
-<meta property="og:image"
-	content="${pageContext.request.contextPath}/img/previewer.png">
+<meta property="og:image"content="${pageContext.request.contextPath}/img/previewer.png">
 <title>findPw</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-<link href="${pageContext.request.contextPath}/css/styles.css"
-	rel="stylesheet" />
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet"href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<link href="${pageContext.request.contextPath}/css/styles.css"rel="stylesheet" />
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style>
 #sp {
 	color: white;
@@ -44,26 +40,28 @@
 					<div class="col-lg-4">
 						<br>
 
-						<form id="findPw" method="post" action="${pageContext.request.contextPath}/member/updatePw">
+						<form id="changPw" method="post" action="${pageContext.request.contextPath}/member/updatePw">
 							<div class="form-group">
-								<input type="password" id="beforePw" class="form-control" placeholder="현재 비밀번호 입력" name="memberPw">
+								<input type="password" id="currentPw" class="form-control" placeholder="현재 비밀번호 입력" name="memberPw">
+								<span id="helpCurrentPw"></span>
 							</div>
 							<div class="form-group">
 								<input type="password" id="pw" class="form-control" placeholder="새로운 비밀번호 입력" name="updatePw">
+								<span id="helpPw"></span>
 							</div>
 							<div class="form-group">
 								<input type="password" id="pwCk" class="form-control" placeholder="비밀번호 확인" name="checkPw">
-
+								<span id="helpPwCk"></span>
 							</div>
-							<button id="btn" class="btn btn-primary btn-block" type="submit">비밀번호	바꾸기</button>
+							<button id="btn" class="btn btn-primary btn-block" type="button">비밀번호	바꾸기</button>
 						</form>
-								
 						<br> 
 						<div>
-							<a class="btn btn-light btn-block" role="button" href="${pageContext.request.contextPath}/login">90일 연장하기</a>
+							<a class="btn btn-light btn-block" role="button" href="${pageContext.request.contextPath}/member/prolongPw">90일 연장하기</a>
 						</div>
+						<br>
 						<div>
-							<a class="btn btn-light btn-block" role="button" href="${pageContext.request.contextPath}/logout">로그아웃</a>
+							<a class="btn btn-danger btn-block" role="button" href="${pageContext.request.contextPath}/logout">로그아웃</a>
 						</div>
 					</div>
 				</div>
@@ -101,69 +99,33 @@
             </svg>
 	</div>
 	<script>
-		//학생
-		/*  $('#btnstudent').click(function(){
-		 if($('#studentId').val() == '') {
-		      $('.helpId').text('ID를 입력하세요');
-		   } else {
-		      $('.helpId').text('');
-		   }
-		 if($('#studentName').val() == '') {
-		    $('.helpName').text('이름을 입력하세요');
-		 } else {
-		    $('.helpName').text('');
-		 }
-		 if($('#studentPhone').val() == '') {
-		    $('.helpPhone').text('연락처를 입력하세요');
-		    } else {
-		       $('.helpPhone').text('');
-		    }
-		    if($('#studentId').val() != '' && $('#studentName').val() != '' && $('#studentPhone').val() != '') {
-		       $("#findPw").submit();
-		    }
-		 });
-		 //강사
-		 $('#btnteacher').click(function(){
-		 if($('#teacherId').val() == '') {
-		   $('.helpId').text("ID를 입력하세요");
-		  	} else {
-		  		$('.helpId').text('');
-		  	} 	 
-		 if($('#teacherName').val() == '') {
-		    $('.helpName').text('이름을 입력하세요');
-		 } else {
-		    $('.helpName').text('');
-		 }
-		 if($('#teacherPhone').val() == '') {
-		    $('.helpPhone').text('연락처를 입력하세요');
-		    } else {
-		       $('.helpPhone').text('');
-		    }
-		    if($('#teacherId').val() != '' && $('#teacherName').val() != '' && $('#teacherPhone').val() != '') {
-		       $("#findPw").submit();
-		    }
-		 });
-		 //운영자   
-		 $('#btnmanager').click(function(){
-		 if($('#managerId').val() == '') {
-		   $('.helpId').text("ID를 입력하세요");
-		 		} else {
-		  		$('.helpId').text('');
-		 		}	 
-		 if($('#managerName').val() == '') {
-		    $('.helpName').text('이름을 입력하세요');
-		 } else {
-		    $('.helpName').text('');
-		 }
-		 if($('#managerPhone').val() == '') {
-		    $('.helpPhone').text('연락처를 입력하세요');
-		    } else {
-		       $('.helpPhone').text('');
-		    }
-		    if($('#managerId').val() != '' && $('#managerName').val() != '' && $('#managerPhone').val() != '') {
-		       $("#findPw").submit();
-		    }
-		 }); */
+	$('#btn').click(function() {
+		// 현재 비밀번호 유효성 검사
+		if($('#currentPw').val() == '') {
+			$('#helpCurrentPw').text('현재 비밀번호를 입력해주세요');
+			console.log('1111111');
+		} else {
+			$('#helpCurrentPw').text('');
+		}
+		
+		// 새로운 비밀번호 유효성 검사
+		if($('#pw').val() == '') {
+			$('#helpPw').text('새로운 비밀번호를 입력해주세요');
+		} else {
+			$('#helpPw').text('');
+		}
+		
+		// 비밀번호 체크 유효성 검사
+		if($('#pwCk').val() == '') {
+			$('#helpPwCk').text('확인 비밀번호를 입력해주세요');
+		} else {
+			$('#helpPwCk').text('');
+		}
+		
+		if($('#currentPw').val() != '' && $('#pw').val() != '' && $('#pwCk').val() != ''){
+			$("#changPw").submit();
+		}
+	});
 	</script>
 </body>
 </html>

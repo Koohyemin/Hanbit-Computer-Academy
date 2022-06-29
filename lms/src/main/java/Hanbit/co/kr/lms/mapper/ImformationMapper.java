@@ -17,11 +17,17 @@ import Hanbit.co.kr.lms.vo.Teacher;
 
 @Mapper
 public interface ImformationMapper {
+	
+	// 비밀번호 90일 연장하기
+	int studentLogInsertPw(String memberId); // 학생
+	int teacherLogInsertPw(String memberId); // 강사
+	int managerLogInsertPw(String memberId); // 운영진
+	
 	// 현재 비밀번호 확인용
-	Integer selectCurrentPw(HashMap<String , Object> map);
+	int selectCurrentPw(HashMap<String , Object> map);
 	
 	// 최근 비밀번호리스트 비교 (개수조정 가능)
-	Integer selectPwList(PasswordUpdateDate passwordUpdateDate);
+	int selectPwList(PasswordUpdateDate passwordUpdateDate);
 	
 	// 사진이름 찾기
 	String selectPhotoName(String memberId);

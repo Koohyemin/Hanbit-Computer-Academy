@@ -32,7 +32,7 @@ public class ImformationMemberController {
 	}
 	
 	// 90일 연장하기
-	@PostMapping("/member/prolongPw")
+	@GetMapping("/member/prolongPw")
 	public String prolongPw(HttpSession session) {
 		
 		// 세션에 있는 값 아이디값과 레벨값 담기
@@ -43,7 +43,7 @@ public class ImformationMemberController {
 		
 		imformation.updatePw90(memberId, memberLv);
 		
-		return "redirect:/home/index";
+		return "home/index";
 	}
 	// 비밀번호 변경
 	@PostMapping("/member/updatePw")
