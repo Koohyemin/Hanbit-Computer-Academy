@@ -51,6 +51,7 @@ public class PeopleController {
 				}
 			}
 		*/
+		
 		// model에 값 add
 		model.addAttribute("level", level); // 검색어
 		model.addAttribute("searchValue", searchValue); // 검색어

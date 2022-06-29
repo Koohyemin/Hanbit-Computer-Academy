@@ -28,7 +28,7 @@ public class LecService {
 	}
 	
 	public int getDeleteTime(String lectureName) { // 일정표 삭제 POST
-		return lecMapper.getDeleteLec(lectureName);
+		return lecMapper.getDeleteTime(lectureName);
 	}
 	
 	public int getDeleteLec(String lectureName) { // 강의 삭제 POST

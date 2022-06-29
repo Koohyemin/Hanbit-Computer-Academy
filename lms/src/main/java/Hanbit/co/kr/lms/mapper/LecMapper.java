@@ -19,6 +19,8 @@ public interface LecMapper {
 	List<Lec> getLecListByPage(Map<String,Object> map); // 개강일 이전 강좌 목록(운영자, 강사 - 전체 / 학생 - 상태가 T인것만 조회)
 	int totalCount(); // 강좌 상태별 상태, 총 개수
 	
+	// 삭제 기능 제거할 예정
+	
 	// 강의
 	int insertLec(Lec lec); // 강의 등록
 	Lec getLecOne(String searchValue); // 강의 상세보기, 수정

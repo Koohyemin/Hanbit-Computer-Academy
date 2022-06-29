@@ -148,7 +148,7 @@
 	            <div class="float-end btn-group">
 		            		<!-- 검색어가 있다면 검색어가 유지되도록 value값 셋팅 -->
 		            		<input type="hidden" name="level" value="3">   		
-				           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="이름을 입력해주세요">
+				           	<input type="text" name="searchValue" class="form-control" value="${searchValue}" placeholder="강의명을 입력해주세요">
 			           		<div class=" float-end btn-group">
 					      		<button id="btn" type="submit" class="btn btn-dark float-end btn-group">검색</button>
 			           		</div>
@@ -166,19 +166,26 @@
 											<!-- 강의실  -->
 											<table class="table">
 											<tr>
-												<td>
+												<td colspan="2">
 												<!-- 강좌이름  -->
-												<span class="text-success" style="font-size:20px;"><b>👩‍🏫 ${m.lectureName}</b></span>  <b>#${m.subjectName}</b>
-												</td>
-												<td>
-													<div class="btn-group float-end">
-														<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${m.lectureName}" class="btn btn-dark btn-sm">수정</a>
-														<!-- 삭제버튼 -->
-														<form method="post" action="${pageContext.request.contextPath}/lec/deleteLec" id="del">
-															<input type="hidden" name="lectureName" value="${m.lectureName}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
-															<button type="submit"  class="btn btn-secondary btn-sm" id="delBtn">삭제</button>
-														</form>
-													</div>
+													<span class="text-success" style="font-size:20px;"><b>👩‍🏫 ${m.lectureName}</b></span>  <b>#${m.subjectName}</b>
+												
+													<!-- 운영자만 수정, 상태변경 가능 -->
+													<c:if test="${sessionMemberLv == 3}">
+														<div class="float-end">
+															<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${m.lectureName}" class="btn btn-dark" >강의 수정</a>
+															<form style="display: inline;">
+																<div class="btn-group">
+																	<select name="lecState" class="form-control">
+																		<option>:: 강의 상태 변경 ::</option>
+																		<option class="text-center" value="T" <c:if test="${m.lecState eq 'T'}">selected="selected"</c:if>>승인</option>
+																		<option class="text-center" value="F" <c:if test="${m.lecState eq 'F'}">selected="selected"</c:if>>비승인</option>
+																	</select>
+																	<button type="button" class="btn btn-dark">변경</button>
+																</div>
+															</form>
+														</div>
+													</c:if>
 												</td>
 											</tr>
 											<tr>
