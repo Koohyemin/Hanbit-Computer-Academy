@@ -231,7 +231,7 @@
 		WHERE 
 			manager_id = #{memberId}
 	</update>
-	<!-- password 체크 (직전 비밀번호는 사용못한다.) -->
+	<!-- 직전 password 체크 (직전 비밀번호는 사용못한다.) -->
 	<select id="changePwbyactivity"
 			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate"
 			resultType="int">

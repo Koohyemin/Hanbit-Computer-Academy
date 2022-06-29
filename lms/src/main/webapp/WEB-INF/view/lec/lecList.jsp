@@ -53,7 +53,7 @@
 						<th class="text-center">강의명</th>
 						<th class="text-center">수용인원</th>
 						<th class="text-center">개강일</th>
-						<th></th>
+						<th>${totalCount}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -65,7 +65,7 @@
 							<td class="text-center">${lec.beginClass}</td>
 							<td>
 								<div class="btn-group float-end">
-									<a href="${pageContext.request.contextPath}/lec/lecList" class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
+									<a href="${pageContext.request.contextPath}/keeping/addKeeping?lectureName=${lec.lectureName}" class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
 								</div>
 							</td>
 						</tr>
@@ -101,4 +101,14 @@
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+    <script>
+    
+    console.log(${totalCount});
+
+    
+    for(let i=0; i< ${totalCount}; i++){
+    	console.log("i"+i);
+    }
+
+    </script>
 </html>
