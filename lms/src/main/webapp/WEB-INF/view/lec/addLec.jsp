@@ -224,11 +224,6 @@
 		   		      $('#lectureRoomError').text('');
 		   		}
 	   		   
-	   		   if($('#lecPlan').val() == '') { // 강의계획서
-		   		      $('#lecPlanError').text('강의계획서를 선택해주세요');
-		   		} else {
-		   		      $('#lecPlanError').text('');
-		   		}
 	   			
 	   		   if($('#difficulty').val() == '') { // 난이도
 		   		      $('#difficultyError').text('난이도를 선택해주세요');
@@ -307,7 +302,7 @@
 	   		   
 	   		   
 	   		   // 전체 내용이 들어와 있다면 전송
-	   		   if($('#subject').val() != '' && $('#lectureRoom').val() != '' && $('#lecPlan').val() != '' && $('#difficulty').val() != '' && $('#lectureName').val() != '' 
+	   		   if($('#subject').val() != '' && $('#lectureRoom').val() != '' && $('#difficulty').val() != '' && $('#lectureName').val() != '' 
 	   				   && $('#registrationNumber').val() != '' && $('#registrationPassScore').val() != '' && $('#lecCost').val() != '' && $('#lecPhone').val() !=''
 		   				&& $('#beginClass').val() != '' && $('#endClass').val() != '' && $('#startTime').val() != '' && $('#endTime').val() !=''
 			   			&& $('#lunchTime').val() !='' && $('#teacherId').val() !='') {

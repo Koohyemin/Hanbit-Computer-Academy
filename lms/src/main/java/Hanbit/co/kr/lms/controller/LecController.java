@@ -29,12 +29,12 @@ public class LecController {
 	
 	// 강의 삭제 POST
 	@PostMapping("lec/deleteLec")
-	public String deleteLec(@RequestParam(name="lectureName")String lectureName) {
+	public String deleteLec(@RequestParam(name="lectureName") String lectureName) {
 		
 		// 삭제 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
-		int lecRow = lecService.getDeleteLec(lectureName);
-		int lecPlanRow = lecService.getDeleteLecPlan(lectureName);
 		int timeRow = lecService.getDeleteTime(lectureName);
+		int lecPlanRow = lecService.getDeleteLecPlan(lectureName);
+		int lecRow = lecService.getDeleteLec(lectureName);
 		
 		if(lecRow == 1 && timeRow == 1 && lecPlanRow == 1) {
 			log.debug(CF.KHM + "[LecController postMapping deleteLec] :" + CF.RESET + "강의 삭제 성공"); // 성공
@@ -95,7 +95,7 @@ public class LecController {
 	
 	// 강의 등록 POST
 	@PostMapping("lec/addLec")
-	public String addLec(Lec lec, TimeTable timeTable) {
+	public String addLec(Lec lec, TimeTable timeTable, LecPlan lecPlan) {
 		
 		// 세션을 이용한 권한 처리
 		int memberLv = (Integer)session.getAttribute("sessionMemberLv");
@@ -105,7 +105,7 @@ public class LecController {
 		
 		// 등록 성공 행 반환(1 성공, 0 실패, 그 외 DB이상)
 		int lecRow = lecService.insertLec(lec);
-		int lecPlanRow = lecService.insertTime(timeTable);
+		int lecPlanRow = lecService.insertLecPlan(lecPlan);
 		int timeRow = lecService.insertTime(timeTable);
 		
 		if(lecRow == 1 && timeRow == 1 && lecPlanRow == 1) { // 일정표, 강의 등록 성공 시 성공

@@ -9,8 +9,7 @@
 			,a.teacher_email teacherEmail
 			,a.PhotoName photoName
 			,GROUP_CONCAT(DISTINCT(b.certification_name)) certificationName
-			,GROUP_CONCAT(DISTINCT(c.lec_plan_name)) lecPlanName
-			,GROUP_CONCAT(DISTINCT(c.lec_plan_no)) lecPlanNo
+			,GROUP_CONCAT(DISTINCT(c.lecture_name)) lecPlanName
 			FROM(SELECT 
 					 t.teacher_id
 					,t.teacher_name
@@ -25,28 +24,28 @@
 				GROUP BY t.teacher_id) a 
 					LEFT JOIN (SELECT member_id,certification_name FROM certification) b
 					ON a.teacher_id = b.member_id
-					LEFT JOIN (SELECT teacher_id, lec_plan_name, lec_plan_no FROM lec_plan)c
+					LEFT JOIN (SELECT teacher_id, lecture_name FROM lec_plan)c
 					ON a.teacher_id = c.teacher_id
 		GROUP BY a.teacher_name
 	</select>
 	
 	<!-- 강의 정보-->
 	<select id="getLecList" parameterType="String" resultType="java.util.Map">
-	SELECT l.lecture_name lectureName
-		, l.lecture_room_name lectureRoomName
-		, lr.lecture_room_addr1 roomAddr1
-		, lr.lecture_room_addr2 roomAddr2
-		, lr.lecture_room_number roomNumber
-		, lr.lecture_room_size roomSize
-		, l.subject_name subjectName
-		, l.registration_number registrationNumber
-		, l.registration_pass_score registrationPassScore
-		, l.lec_cost lecCost
-		, l.lec_phone lecPhone
-	FROM lec l INNER JOIN lecture_room lr
-	ON l.lecture_room_name = lr.lecture_room_name
-	WHERE l.lecture_name LIKE CONCAT('%',#{searchValue},'%')
-	ORDER BY l.create_date DESC
+		SELECT l.lecture_name lectureName
+			, l.lecture_room_name lectureRoomName
+			, lr.lecture_room_addr1 roomAddr1
+			, lr.lecture_room_addr2 roomAddr2
+			, lr.lecture_room_number roomNumber
+			, lr.lecture_room_size roomSize
+			, l.subject_name subjectName
+			, l.registration_number registrationNumber
+			, l.registration_pass_score registrationPassScore
+			, l.lec_cost lecCost
+			, l.lec_phone lecPhone
+		FROM lec l INNER JOIN lecture_room lr
+		ON l.lecture_room_name = lr.lecture_room_name
+		WHERE l.lecture_name LIKE CONCAT('%',#{searchValue},'%')
+		ORDER BY l.create_date DESC
 	</select>
 	
 	<!--  학생 정보-->
