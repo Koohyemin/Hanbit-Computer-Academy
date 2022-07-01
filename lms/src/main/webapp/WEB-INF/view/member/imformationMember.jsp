@@ -45,9 +45,10 @@
 				        <div class="col-lg-3">
 				        <br>
 				           	<img src="${pageContext.request.contextPath}/upload/${photoFile.photoName}" class="img-fluid" alt="" width="150" height="200">  <!-- 사진추가 -->
-				        	<form method="post"action="${pageContext.request.contextPath}/updatePhoto"  enctype="multipart/form-data">
-				        		<input type="file" name="photoFile" multiple="multiple">
-				        		<button type="submit">사진수정</button>
+				        	<form id="photoSubmit" method="post" action="${pageContext.request.contextPath}/updatePhoto"  enctype="multipart/form-data">
+				        		<input type="file" id="photo"name="photoFile" multiple="multiple">
+				        		<span id="helpPhoto"></span>
+				        		<button id="photoBtn"type="button">사진수정</button>
 				        	</form>
 				        </div>
 				        <!-- 사진 끝 -->
@@ -267,16 +268,28 @@
 </div>
 </body>
 	<script>
-    	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
-    	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
-    	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-		$(".delBtn").click(function(){
-			if (confirm('해당 자격증을 삭제 하시겠습니까?')) {
-				$('#del').submit();
-			} else {
-				return false;
-			}
-		});
+	$('#photoBtn').click(function(){
+		if($('#photo').val() == ''){
+			$('#helpPhoto').text('사진을 선택해주세요');
+		} else {
+			$('#helpPhoto').text('');
+		}
+		if($('#photo').val() != '') {
+			$("#photoSubmit").submit();
+		}
+	});
+	
+	
+	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
+	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
+	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+	$(".delBtn").click(function(){
+		if (confirm('해당 자격증을 삭제 하시겠습니까?')) {
+			$('#del').submit();
+		} else {
+			return false;
+		}
+	});
    	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
