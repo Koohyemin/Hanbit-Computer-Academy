@@ -16,4 +16,7 @@ public interface KeepingMapper {
 	
 	//찜 삭제
 	int deleteKeeping(Keeping keeping);
+	
+	//찜 유효성
+	//List<Keeping> selectKeepingbyStudentId(Keeping keeping);
 }

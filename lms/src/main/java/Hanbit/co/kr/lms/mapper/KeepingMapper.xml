@@ -17,7 +17,7 @@
 		);
 		
 	</insert>
-	
+	<!-- 해당 학생 찜 리스트 조회 -->
 	<select id="getKeepingByStudentId"
 			parameterType="String"
 			resultType="Hanbit.co.kr.lms.vo.Keeping">
@@ -28,15 +28,14 @@
 			,update_date updateDate
 		FROM keeping
 		WHERE student_id = #{studentId}
-			
+		
 	</select>
-	
+	<!-- 해당 학생 찜 리스트 삭젠 -->
 	<delete id="deleteKeeping"
 			parameterType="Hanbit.co.kr.lms.vo.Keeping">
 		DELETE FROM keeping
 		WHERE student_id = #{studentId} AND lecture_name = #{lectureName}
 			
 	</delete>
-	
 	
 </mapper>
