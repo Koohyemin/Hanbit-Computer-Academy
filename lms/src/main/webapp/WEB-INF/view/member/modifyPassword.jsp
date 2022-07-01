@@ -99,6 +99,7 @@
             </svg>
 	</div>
 	<script>
+	
 	$('#btn').click(function() {
 		// 현재 비밀번호 유효성 검사
 		if($('#currentPw').val() == '') {
@@ -111,6 +112,8 @@
 		// 새로운 비밀번호 유효성 검사
 		if($('#pw').val() == '') {
 			$('#helpPw').text('새로운 비밀번호를 입력해주세요');
+		} else if(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/.test($('#pw').val())){
+			$('#helpPw').text('영문, 숫자 혼용하여 8자리 이상 입력하세요.');
 		} else {
 			$('#helpPw').text('');
 		}
@@ -118,12 +121,20 @@
 		// 비밀번호 체크 유효성 검사
 		if($('#pwCk').val() == '') {
 			$('#helpPwCk').text('확인 비밀번호를 입력해주세요');
+		} else if($('#pw').val() != $('#pwCk').val()){
+			$('#helpPwCk').text('입력하신 비밀번호가 다릅니다.');
 		} else {
 			$('#helpPwCk').text('');
 		}
 		
-		if($('#currentPw').val() != '' && $('#pw').val() != '' && $('#pwCk').val() != ''){
-			$("#changPw").submit();
+		if($('#currentPw').val() == '' && $('#pw').val() == '' && $('#pwCk').val() == ''){
+			console.log('22222');
+		} else if(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/.test($('#pw').val())) {
+			console.log('3');
+		} else if($('#pw').val() != $('#pwCk').val()){
+			console.log('44444');
+		} else {
+			$('#changPw').submit();
 		}
 	});
 	</script>

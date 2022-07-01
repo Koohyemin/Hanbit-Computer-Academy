@@ -201,7 +201,7 @@
 				        				</c:forEach>		        					
 	        						</c:when>
 	        						<c:otherwise>
-	        							<td class="text-center text-danger" colspan="4">수강중인게 없습니다</td>
+	        							<td class="text-center text-danger" colspan="4">수강중인 강의가 없습니다</td>
 	        						</c:otherwise>
 	        					</c:choose>
 	       					</c:when>

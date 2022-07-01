@@ -43,7 +43,7 @@ public class ImformationMemberController {
 		
 		imformation.updatePw90(memberId, memberLv);
 		
-		return "home/index";
+		return "redirect:/home/index";
 	}
 	// 비밀번호 변경
 	@PostMapping("/member/updatePw")

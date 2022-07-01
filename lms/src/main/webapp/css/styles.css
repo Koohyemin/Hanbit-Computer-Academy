@@ -11698,7 +11698,7 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
-#helpId, #helpPw ,#helpCurrentPw, #helpPwCk{
+#helpId, #helpPw ,#helpCurrentPw, #helpPwCk, #helpCertificate,#helpGive,#helpDate {
 	font-size: 11px;
 	color:#dd1111;
 }

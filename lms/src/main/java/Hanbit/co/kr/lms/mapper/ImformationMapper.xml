@@ -27,8 +27,17 @@
 	</insert>
 	
 	<select id="selectCurrentPw"
-			parameterType="java.util.Map">
-		SELECT
+			parameterType="java.util.Map"
+			resultType="integer">
+		 SELECT 
+         count(*),pw
+         FROM 
+         (SELECT member_pw pw
+         FROM password_update_date
+         WHERE member_id =#{memberId}
+         ORDER BY create_date DESC
+         LIMIT 1) t
+         WHERE t.pw = PASSWORD(#{memberPw}) 
 	</select>
 	
 	<select id="selectPwList"
