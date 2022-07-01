@@ -70,10 +70,17 @@
 							<select name="lectureRoomName" id="lecturerRoom" class="form-control">
 								<option value="">강의실을 선택해주세요.</option>
 								<c:forEach var="l" items="${lectureRoomList}">
-									<option value="${l.lectureRoomName}">${l.lectureRoomName}</option>								
+									<option value="${l.lectureRoomName}">${l.lectureRoomName}</option>						
 								</c:forEach>
 							</select>
 							<span class="text-danger" id="lectureRoomError"></span>
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center">수강인원</th>
+						<td>
+							<input name="registrationNumber" id="registrationNumber" type="number" min="1" class="form-control" placeholder="수강인원을 지정해주세요">
+							<span class="text-danger" id="registrationNumberError"></span>
 						</td>
 					</tr>
 					<tr>
@@ -105,13 +112,6 @@
 						<td>
 							<input name="lectureName" id="lectureName" type="text" class="form-control" placeholder="강의명을 입력해주세요">
 							<span class="text-danger" id="lectureNameError"></span>
-						</td>
-					</tr>
-					<tr>
-						<th class="text-center">수강인원</th>
-						<td>
-							<input name="registrationNumber" id="registrationNumber" type="number" min="1" class="form-control" placeholder="수강인원을 지정해주세요">
-							<span class="text-danger" id="registrationNumberError"></span>
 						</td>
 					</tr>
 					<tr>
@@ -298,6 +298,8 @@
 		   		} else {
 		   		      $('#teacherIdError').text('');
 		   		}
+				
+				// if('#lectureRoom option:selected').val()
 	   		   
 	   		   
 	   		   

@@ -60,7 +60,6 @@ public class LecService {
 		List<LectureRoom> lectureRoomList = lecMapper.lectureRoomList(); // 강의실 목록
 		List<Teacher> teacherList = lecMapper.teacherList(); // 재직중인 강사 목록
 		
-		
 		// return값 하나의 값으로 묶어주기
 		Map<String, Object> returnMap = new HashMap<>();
 		returnMap.put("subjectList", subjectList);

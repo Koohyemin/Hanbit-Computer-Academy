@@ -215,6 +215,7 @@
 			 lecture_room_name lectureRoomName
 			,lecture_room_addr1 lectureRoomAddr1
 			,lecture_room_addr2 lectureRoomAddr2
+			,lecture_room_number
 			,create_date createDate
 		FROM lecture_room
 	</select>
@@ -245,7 +246,7 @@
 				ON l.lecture_name = tt.lecture_name
 				INNER JOIN lec_plan lp
 				ON l.lecture_name = lp.lecture_name
-			WHERE NOW() < tt.begin_class
+			WHERE NOW() < tt.begin_class AND lp.lec_state='T'
 			ORDER BY tt.begin_class DESC
 			LIMIT #{beginRow}, #{rowPerPage}
 		]]>
