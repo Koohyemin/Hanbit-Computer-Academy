@@ -27,8 +27,8 @@ public class KeepingController {
 		
 	    String memberId = (String) session.getAttribute("sessionMemberId");
 
-		log.debug(CF.LKL+"KeepingController.addBascket.lectureName :"+CF.RESET+keeping);
-		log.debug(CF.LKL+"KeepingController.addBascket.sessionMemberId :"+CF.RESET+memberId);
+		log.debug(CF.LKL+"KeepingController.addKeeping.lectureName :"+CF.RESET+keeping);
+		log.debug(CF.LKL+"KeepingController.addKeeping.sessionMemberId :"+CF.RESET+memberId);
 		
 		keeping.setStudentId(memberId);
 		
@@ -44,7 +44,7 @@ public class KeepingController {
 		
 	    String memberId = (String) session.getAttribute("sessionMemberId");
 
-		log.debug(CF.LKL+"KeepingController.addBascket.sessionMemberId :"+CF.RESET+memberId);
+		log.debug(CF.LKL+"KeepingController.getKeeping.sessionMemberId :"+CF.RESET+memberId);
 		
 		List<Keeping> keepingList = keepingService.getKeeping(memberId);
 

@@ -1,5 +1,6 @@
 package Hanbit.co.kr.lms.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -189,6 +190,7 @@ public class LecController {
 		
 		log.debug(CF.KHM +"[LecController GetMapping currentPage]: " + CF.RESET + currentPage); // 현재페이지 디버깅
 		//	log.debug(CF.KHM +"[LecController GetMapping totalCount]: " + CF.RESET + map.get("totalCount")); // 현재페이지 디버깅
+		
 		
 		// model에 값 add
 		model.addAttribute("list", map.get("list"));
