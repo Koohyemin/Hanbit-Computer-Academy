@@ -215,7 +215,7 @@
 			 lecture_room_name lectureRoomName
 			,lecture_room_addr1 lectureRoomAddr1
 			,lecture_room_addr2 lectureRoomAddr2
-			,lecture_room_number
+			,lecture_room_number lectureRoomNumber
 			,create_date createDate
 		FROM lecture_room
 	</select>
