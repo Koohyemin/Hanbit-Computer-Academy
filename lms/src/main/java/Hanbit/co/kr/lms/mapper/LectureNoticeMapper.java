@@ -17,18 +17,21 @@ public interface LectureNoticeMapper {
 		// 공지 개수
 		int totalCount(); 
 		
-		// 공지사항 상세보기(전체) 
+		//  상세보기(전체) 
 		LectureNotice getLecNoticeOne(int lecNoticeNo); 
 		
-		// 공지사항 작성(강사)
+		//  작성(강사)
 		int getInsertLectureNotice(LectureNotice lectureNotice); 
 		
-		// 공지사항 수정(강사)
+		//  수정(강사)
 		int updateLecNotice(LectureNotice lectureNotice); 
 		
-		// 공지사항 삭제(강사)
+		//  삭제(강사)
 		int getDeleteLectureNotice(int lecNoticeNo); 
 		
-		// 학생 강좌정보 불러오기
-		List<LecPlan> lectureNameList (String teacherId);
+		// 강사 강좌정보 불러오기
+		List<LecPlan> lectureNameList(String teacherId);
+		
+		// 학생 강좌장버 블러오기
+		List<LecPlan> studentIdList(); 
 	}

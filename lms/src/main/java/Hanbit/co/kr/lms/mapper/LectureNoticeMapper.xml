@@ -5,6 +5,7 @@
 	<select id="totalCount" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		FROM lecture_notice
+		WHERE lecture_name = #{lectureName}
 	</select>
 	
 	<!-- NoticeMapper.getLectureNoticeListByPage 공지사항 목록 (페이징) -->
@@ -16,6 +17,7 @@
 			,title 
 		 	,create_date createDate
 		 FROM lecture_notice
+		 WHERE lecture_name = #{lectureName}
 		 ORDER BY create_date DESC
 		 LIMIT #{beginRow}, #{rowPerPage}
 	</select>
@@ -61,19 +63,30 @@
 		WHERE lec_notice_no = ${lecNoticeNo}
 	</delete>
 	
-	<select id="lectureNameList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.LecPlan">
-		SELECT lecture_name lectureName
-		FROM lec_plan
-		WHERE teacher_id = #{teacherId}
-	</select>
-	
 	<!-- 공지사항 수정 -->
-	<update id="getUpdateLectureNotice" parameterType="Hanbit.co.kr.lms.vo.LectureNotice">
+	<update id="updateLecNotice" parameterType="Hanbit.co.kr.lms.vo.LectureNotice">
 		UPDATE lecture_notice SET 
 		member_id=#{memberId}
 		,title=#{title}
-		,content=#{Content}
-		, update_date=NOW()
+		,content=#{content}
+		,update_date=NOW()
 		WHERE lec_notice_no = #{lecNoticeNo}
 	</update>
+	
+	
+	<select id="lectureNameList"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.LecPlan">
+		SELECT lecture_name lectureName
+		FROM lec_plan
+		WHERE lec_state = 'T' AND teacher_id = #{teacherId}
+	</select>
+	
+	<select id="studentIdList" resultType="Hanbit.co.kr.lms.vo.LecPlan">
+		SELECT l.lecture_name
+		FROM lec_plan l INNER JOIN registration r
+		ON l.lecture_name = r.lecture_name
+		WHERE r.student_id = ,#{r.studentId}
+	</select>
+	
 </mapper>
