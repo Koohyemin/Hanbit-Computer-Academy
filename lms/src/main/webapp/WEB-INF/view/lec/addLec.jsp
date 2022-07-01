@@ -70,7 +70,7 @@
 							<select name="lectureRoomName" id="lecturerRoom" class="form-control">
 								<option value="">강의실을 선택해주세요.</option>
 								<c:forEach var="l" items="${lectureRoomList}">
-									<option value="${l.lectureRoomName}">${l.lectureRoomName}</option>						
+									<option value="${l.lectureRoomName}" data-sub="${l.lectureRoomNumber}">${l.lectureRoomName} [수용인원 : ${l.lectureRoomNumber}]</option>		
 								</c:forEach>
 							</select>
 							<span class="text-danger" id="lectureRoomError"></span>
@@ -142,14 +142,14 @@
 					<tr>
 						<th class="text-center">개강일</th>
 						<td>
-							<input name="beginClass" id="beginClass" type="date" class="form-control" placeholder="개강일을 지정해주세요">
+							<input name="beginClass" id="datepicker1" type="date" class="form-control" placeholder="개강일을 지정해주세요">
 							<span class="text-danger" id="beginClassError"></span>
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center">종강일</th>
 						<td>
-							<input name="endClass" id="endClass" type="date" class="form-control" placeholder="종강일을 지정해주세요">
+							<input name="endClass" id="datepicker2" type="date" class="form-control" placeholder="종강일을 지정해주세요">
 							<span class="text-danger" id="endClassError"></span>
 						</td>
 					</tr>
@@ -223,7 +223,6 @@
 		   		} else {
 		   		      $('#lectureRoomError').text('');
 		   		}
-	   		   
 	   			
 	   		   if($('#difficulty').val() == '') { // 난이도
 		   		      $('#difficultyError').text('난이도를 선택해주세요');
@@ -263,13 +262,13 @@
 		   		}
 				
 				// 일정표
-				if($('#beginClass').val() == '') { // 개강일
+				if($('#startDate').val() == '') { // 개강일
 		   		      $('#beginClassError').text('개강일을 선택해주세요');
 		   		} else {
 		   		      $('#beginClassError').text('');
 		   		}
 	   		   
-				if($('#endClass').val() == '') { // 종강일
+				if($('#endDate').val() == '') { // 종강일
 		   		      $('#endClassError').text('종강일을 선택해주세요');
 		   		} else {
 		   		      $('#endClassError').text('');
@@ -299,9 +298,45 @@
 		   		      $('#teacherIdError').text('');
 		   		}
 				
-				// if('#lectureRoom option:selected').val()
-	   		   
-	   		   
+				/*
+				// 개강일은 오늘날짜 이후, 종강일은 개강일보다 작아야함(진행 중)
+				
+				// 오늘 날짜
+				var today = new Date(); 
+				var year = today.getFullYear(); // 연도
+				var month =  today.getMonth() + 1; // 월
+				var day =  today.getDate(); // 일
+				
+				var startDate = $('#startDate').val();
+				var endDate = $('#endDate').val();
+				var startArray = startDate.split('-');  // -을 구분자로 연,월,일로 잘라내어 배열로 반환
+				
+				var to_date = new Date(year, month, day); // 오늘날짜 객체 생성
+				var start_date = new Date(startArray[0], startArray[1], startArray[2]); // 배열에 담겨있는 연,월,일을 사용해서 Date 객체 생성
+				var end_date = new Date(endArray[0], endArray[1], endArray[2]); // 날짜를 숫자형태의 날짜 정보로 변환하여 비교
+				
+				// 오늘 날짜보다 작다면, 개강일은 오늘 이후
+				if(start_date.getTime() < to_date.getTime()) {
+					alert('개강일은 오늘날짜 이후로 설정해주세요.');	            
+					return false;
+				} else if(start_date.getTime() > end_date.getTime()){
+					// 종강일은 개강일 이후
+					alert('종강일은 개강일 이후로 설정해주세요.');
+					return false;
+				}
+				*/
+				
+				/*
+				
+				// 강의실 수용인원보다 수강생이 많을 때를 대비 (진행 중)
+				$('#lectueRoom').on('change', function(){
+		   		   $('#lecturerRoom option:selected').val();
+		 			var value = $(this).val();
+		 			var subValue = $(this).find('option:selected').data('sub');
+					alert(subValue);
+				});
+				
+				*/
 	   		   
 	   		   // 전체 내용이 들어와 있다면 전송
 	   		   if($('#subject').val() != '' && $('#lectureRoom').val() != '' && $('#difficulty').val() != '' && $('#lectureName').val() != '' 
