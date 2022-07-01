@@ -64,8 +64,8 @@
 							<td class="text-center">${lec.registrationNumber}</td>
 							<td class="text-center">${lec.beginClass}</td>
 							<td>
-								<div class="btn-group float-end" onclick="check(this)" value="${lec.lectureName}" id="ck${status.index}">
-									<a href="${pageContext.request.contextPath}/keeping/addKeeping?lectureName=${lec.lectureName}"  class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
+								<div class="btn-group float-end">
+									<a href="${pageContext.request.contextPath}/keeping/addKeeping?lectureName=${lec.lectureName}"  id="${lec.lectureName}" value="${lec.lectureName}" class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
 								</div>
 							</td>
 						</tr>
@@ -107,11 +107,6 @@
 	
 
 
-   function check(ths){
-       var hello = ths.val();
-      	alert(hello);
-        console.log($('#lecVal').val());
-        console.log($('#lecVal').text());
-    }
+	()
     </script>
 </html>

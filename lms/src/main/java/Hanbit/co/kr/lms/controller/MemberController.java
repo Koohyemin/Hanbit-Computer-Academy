@@ -128,7 +128,7 @@ public class MemberController {
 	public String activeMember(HttpSession session
 								,PasswordUpdateDate passwordUpdateDate) {				//휴면계정 해제 액션 호출
 		
-		System.out.println(" ewae wae wae wae awe a eawe awe awe wae awe wae wae wae wa");
+		
 		log.debug(CF.LKL+"MemberController.activeMember.passwordUpdateDate" + CF.RESET + passwordUpdateDate );
 		
 		String memberId = (String) session.getAttribute("sessionMemberId");

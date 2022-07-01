@@ -217,7 +217,7 @@
 	$("input[name='level']").change(function(){										
 		var level = $("input[name='level']:checked").val();			//<--id로 수정
 			alert(level);			
-		if(level == 3){
+		if(level == 3){ 
 			$('#fEud').hide();
 		} else{
 			$('#fEud').show();
