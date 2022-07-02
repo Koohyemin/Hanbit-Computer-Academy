@@ -9,15 +9,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import Hanbit.co.kr.lms.mapper.LectureNoticeMapper;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LectureNotice;
-import Hanbit.co.kr.lms.vo.ManagerNotice;
-import Hanbit.co.kr.lms.vo.Registration;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @Transactional
 public class LectureNoticeService {
@@ -25,8 +24,13 @@ public class LectureNoticeService {
 	@Autowired HttpSession session;
 	
 	
-	// 공지사항 리스트
+		// 공지사항 리스트
 		public Map<String, Object> getLecNoticeListByPage(int currentPage, int rowPerPage, String lectureName) {
+			
+			// 컨트롤러에서 가져온 값 
+			log.debug(CF.KHV +"[LectureNoticeService getLecNoticeListByPage currentPage ]: " + CF.RESET + currentPage);
+			log.debug(CF.KHV +"[LectureNoticeService getLecNoticeListByPage rowPerPage ]: " + CF.RESET + rowPerPage);
+			log.debug(CF.KHV +"[LectureNoticeService getLecNoticeListByPage lectureName ]: " + CF.RESET + lectureName);
 			
 			// 현재페이지를 이욯하여 시작페이지 계산
 			int beginRow = (currentPage-1) * rowPerPage;
@@ -35,8 +39,10 @@ public class LectureNoticeService {
 			Map<String, Object> map = new HashMap<>();
 			map.put("beginRow", beginRow); // 시작 페이지
 			map.put("rowPerPage", rowPerPage); // 한 페이지당 표시할 공지 개수	
+			map.put("lectureName", lectureName);
+			
 			// SQL 매개값 대입
-			List<LectureNotice> list = lectureNoticeMapper.getLecNoticeListByPage(map);
+			List<LectureNotice> list = lectureNoticeMapper.getLecNoticeListByPage(map);	
 			int totalCount = lectureNoticeMapper.totalCount(); // 전체 공지 개수
 			
 			// 마지막 페이지
@@ -50,22 +56,24 @@ public class LectureNoticeService {
 			// returnMap 반환
 			return returnMap;
 		}
-	// 공지사항 상세보기
+		
+		// 강좌공지사항 상세보기
 		public LectureNotice getLecNoticeOne(int lecNoticeNo) {
 			return lectureNoticeMapper.getLecNoticeOne(lecNoticeNo);
 		}
-	// 공지사항 select(강사의 강좌)
+		
+		// 강좌공지사항 select(강사의 강좌)
 		public int addLectureNotice(LectureNotice lectureNotice) {
 			return lectureNoticeMapper.getInsertLectureNotice(lectureNotice);
 		}
 		
 		
-	// 공지사항 삭제
+		// 강좌공지사항 삭제
 		public int getDeleteLectureNotice(int lecNoticeNo) {
 			return lectureNoticeMapper.getDeleteLectureNotice(lecNoticeNo);
 		}
 		
-	// 공지사항 수정 서비스
+		// 강좌공지사항 수정 서비스
 		public int updateLecNotice(LectureNotice lectureNotice) {
 			return lectureNoticeMapper.updateLecNotice(lectureNotice);
 		}
@@ -73,6 +81,8 @@ public class LectureNoticeService {
 		
 	// 공지사항 수강별 강좌
 		public List<LecPlan> lectureNameList(String teacherId) {
-			return lectureNoticeMapper.lectureNameList(teacherId);
+			List<LecPlan> lecPlan = lectureNoticeMapper.lectureNameList(teacherId);
+			log.debug( CF.KHV +"[lectureNoticeService lectureNameList]: "+ CF.RESET + lecPlan.size());
+			return lecPlan;
 		}
 }

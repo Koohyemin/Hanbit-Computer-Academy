@@ -129,11 +129,11 @@ public class ImformationService {
 			// 원래 가지고 있는 photoName -> upload에 있는 사진 삭제할려고 찾음
 			String prePhotoName = imformationMapper.selectPhotoName(memberId);
 			log.debug(CF.SWB+"[ImformationService updatePhoto prePhotoName]"+CF.RESET+prePhotoName); // prePhotoName 디버깅
-			
+			log.debug(CF.SWB+"[ImformationService updatePhoto path]"+CF.RESET+path);
 			// 파일이 존재한다면 삭제
 			File f = new File(path+prePhotoName);
 			log.debug(CF.SWB+"[ImformationService updatePhoto f]"+CF.RESET+f); // f 디버깅
-			if(f.exists()) {
+			if(f.exists() && !"defaultProfile.jsp".equals(prePhotoName)) {
 				f.delete();
 			}
 			

@@ -174,15 +174,15 @@
 													<c:if test="${sessionMemberLv == 3}">
 														<div class="float-end">
 															<a href="${pageContext.request.contextPath}/lec/updateLec?lectureName=${m.lectureName}" class="btn btn-dark" >강의 수정</a>
-															<form method="post" action="${pageContext.request.contextPath}/lec/updateLecState" style="display: inline;">
+															<form method="post" id="updateStateForm" action="${pageContext.request.contextPath}/lec/updateLecState" class="display-inline">
 																<input type="hidden" name="lectureName" value="${m.lectureName}">
 																<div class="btn-group">
-																	<select name="lecState" class="form-control">
-																		<option>:: 강의 상태 변경 ::</option>
+																	<select name="lecState" id="lecStateMsg" class="form-control">
+																		<option value="">:: 강의 상태 변경 ::</option>
 																		<option class="text-center" value="T" <c:if test="${m.lecState eq 'T'}">selected="selected"</c:if>>승인</option>
 																		<option class="text-center" value="F" <c:if test="${m.lecState eq 'F'}">selected="selected"</c:if>>비승인</option>
 																	</select>
-																	<button type="submit" class="btn btn-dark">변경</button>
+																	<button type="button" id="updateBtn" class="btn btn-dark">변경</button>
 																</div>
 															</form>
 														</div>
@@ -298,18 +298,22 @@
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+    	
+    	$( document ).ready(function(){
+    		// id가 btn인 버튼을 클릭 했을 시 발생
+    	   	$('#updateBtn').click(function(){
+   	   		   // 승인, 비승인 여부가 선택되어있다면 작동
+   	   		   if($('#lecStateMsg').val() != '') {
+   		          $('#updateStateForm').submit();
+   	   		   } else {
+   	   				alert('승인/비승인 여부를 선택해주세요');
+   	   		   }
+    	   	});
+    	});
    	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     
-	<script>
-    	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
-    	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
-    	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-   	</script>
 </html>

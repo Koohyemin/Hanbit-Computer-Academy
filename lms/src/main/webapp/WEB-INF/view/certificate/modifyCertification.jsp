@@ -36,54 +36,77 @@
 		        <div class="card-body">
 					<div class="row"> 
 						<div class="col-lg-1"></div>
-						<form method="post" action="${pageContext.request.contextPath}/certificate/modifyCertification">
+						<form id="update" method="post" action="${pageContext.request.contextPath}/certificate/modifyCertification">
 							<table class="table table-hover">
 								<tr>
-									<th>번호</th>
-									<td>
+									<th class="text-center">번호</th>
+									<td class="text-center">
 										${certification.certificationNo}
 										<input type="hidden"  name="certificationNo" value="${certification.certificationNo}">
 									</td>
 								</tr>
 								<tr>
-									<th>아이디</th>
-									<td>
+									<th class="text-center">아이디</th>
+									<td class="text-center">
 										${sessionMemberId}
 									</td>
 								</tr>
 								<tr>
-									<th>자젹증명</th>
-									<td>
-										<input type = "text" name="certificationName" value="${certification.certificationName}">
+									<th class="text-center">자젹증명</th>
+									<td class="text-center">
+										<input type = "text" id="certificate" name="certificationName" value="${certification.certificationName}">
+										<span  id="helpCertificate"></span>
 									</td>
 								</tr>
 								<tr>
-									<th>발행처</th>
-									<td>
-										<input type = "text" name="certificationIssued" value="${certification.certificationIssued}">
+									<th class="text-center">발행처</th>
+									<td class="text-center">
+										<input type = "text" id="give" name="certificationIssued" value="${certification.certificationIssued}">
+										<span  id="helpGive"></span>
 									</td>
 								</tr>
 								<tr>
-									<th>취득일</th>
-									<td>
-										<input type="date" name="getDate" value="${certification.getDate}">
+									<th class="text-center">취득일</th>
+									<td class="text-center">
+										<input type="date" id="date" name="getDate" value="${certification.getDate}">
+										<span  id="helpDate"></span>
 									</td>
 								</tr>
 							</table>
-							<button type="submit">등록</button>
 						</form>
 		       		</div>
 		       	</div>
 			</div>
+				<button class="btn btn-primary" type="button" id="btn">수정</button>
 		</div>
 	<div id="footer"></div>
    	</div>
 </div>
 </body>
 	<script>
-    	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
-    	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
-    	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+	$('#btn').click(function(){
+		if($('#certificate').val() == '') {
+			$('#helpCertificate').text('자격증 명을 써주세요');
+		} else {
+			$('#helpCertificate').text('');
+		}
+		if($('#give').val() == '') {
+			$('#helpGive').text('발행처를 써주세요');
+		} else {
+			$('#helpGive').text('');
+		}
+		if($('#date').val() == '') {
+			$('#helpDate').text('날짜를 확인해주세요');
+		} else {
+			$('#helpDate').text('');
+		}
+		if($('#certificate').val() != '' && $('#give').val() != '' && $('#date').val() != '') {
+			$("#update").submit();
+		}
+	});
+   	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
+   	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
+   	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
    	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>

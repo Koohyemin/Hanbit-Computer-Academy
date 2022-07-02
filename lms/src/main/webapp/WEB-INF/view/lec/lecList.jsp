@@ -53,19 +53,19 @@
 						<th class="text-center">강의명</th>
 						<th class="text-center">수용인원</th>
 						<th class="text-center">개강일</th>
-						<th>${totalCount}</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="lec" items="${list}">
+					<c:forEach var="lec" items="${list}" varStatus="status">
 						<tr>
 							<th class="text-center text-success">${lec.subjectName}</th>
-							<td class="text-center col-md-4"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${lec.lectureName}" class="none-unline">${lec.lectureName}</a></td>
+							<td class="text-center col-md-4" ><a id="lecVal" href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${lec.lectureName}" class="none-unline">${lec.lectureName}</a></td>
 							<td class="text-center">${lec.registrationNumber}</td>
 							<td class="text-center">${lec.beginClass}</td>
 							<td>
 								<div class="btn-group float-end">
-									<a href="${pageContext.request.contextPath}/keeping/addKeeping?lectureName=${lec.lectureName}" class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
+									<a href="${pageContext.request.contextPath}/keeping/addKeeping?lectureName=${lec.lectureName}"  id="${lec.lectureName}" value="${lec.lectureName}" class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
 								</div>
 							</td>
 						</tr>
@@ -103,12 +103,10 @@
     <script src="js/datatables-simple-demo.js"></script>
     <script>
     
-    console.log(${totalCount});
+    console.log(${totalCount}); 
+	
 
-    
-    for(let i=0; i< ${totalCount}; i++){
-    	console.log("i"+i);
-    }
 
+	()
     </script>
 </html>

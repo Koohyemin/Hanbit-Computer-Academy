@@ -11,7 +11,7 @@
 <meta property="og:title" content="한빛컴퓨터아카데미LMS">
 <meta property="og:url" content="lms/login">
 <meta property="og:image" content="${pageContext.request.contextPath}/img/previewer.png">
-<title>addFaq</title>
+<title>updateLactureNotice</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="../css/styles.css" rel="stylesheet" />
@@ -41,10 +41,15 @@
 							</td>
 						</tr>
 						<tr>
+							<td>
+								<input name="lecNoticeNo" type="number" value="${lecNoticeNo}" readonly="readonly" class="form-control">
+							</td>
+						</tr>
+						
+						<tr>
 							<td> 
 								<select id="lectureName" name="lectureName">
 									<c:forEach var="l" items="${lectureNameList}">
-										<option value="">${l.lectureName}</option>
 										<option value="${l.lectureName}">${l.lectureName}</option>
 									</c:forEach>
 								</select>

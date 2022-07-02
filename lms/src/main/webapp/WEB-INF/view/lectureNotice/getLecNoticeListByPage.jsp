@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,14 +31,35 @@
 	                    </div>
 	                    <div class="card-body">
 							<!-- LecQuestion 목록 리스트  -->
+							
+						<form method="post" action="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage">
+						   
+						   <div class="form-group btn-group" >
+						    <select id="lectureName" name="lectureName" class="form-control">
+						 	   <option selected="selected" >-----------------------------강좌선택--------------------------</option>
+								<c:forEach var="l" items="${lectureNameList}">
+								<option value="${l.lectureName}">${l.lectureName}</option>
+								</c:forEach>
+							</select>	
+							<button type="submit" class="btn btn-dark">공지사항 조회</button>					   
+							</div>					             	
+				        </form>
+				        <c:if test="${fn:length(list) == 0}">
+				        <br>
+				        	<b>강좌를 선택해주세요</b><br>
+				        	<c:if test="${sessionMemberLv == 2 }">
+       							<a class="btn btn-dark" href="${pageContext.request.contextPath}/lectureNotice/getInsertLectureNotice">공지사항입력</a>
+       							</c:if> 
+       						</c:if>
+				         <c:if test="${fn:length(list) != 0}">
 			               <table class="table">
 			                   <thead>
 			                       <tr>
 			                           	<th>번호</th>
-						                <th>제목</th>
-						                <th>강좌명</th>
-						                <th>작성자</th>
-						                <th>날짜</th>
+						                <th>제목	</th>
+						                <th>강의</th>
+										<th>작성자</th>
+						                <th>작성일</th>
 			                       </tr>
 			                   </thead>
 				                  <tbody>
@@ -52,6 +74,7 @@
 						            </c:forEach>
 						        </tbody>
 		              		 </table>
+				        
 		              		 <div class="text-center">
 								<c:if test="${currentPage>1}">
 									<a href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage?currentPage=${currentPage-1}" class="btn btn-dark">이전</a>
@@ -63,6 +86,7 @@
 		              		 <c:if test="${sessionMemberLv == 2 }">
        							<a class="btn btn-dark" href="${pageContext.request.contextPath}/lectureNotice/getInsertLectureNotice">공지사항입력</a>
        							</c:if> 
+       						</c:if>
 	                	</div>
 	                	</div>     
 	                	</div>
@@ -71,7 +95,6 @@
 	</div>
 </body>
 	<script>
-	
 	</script>
 	<script>
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');

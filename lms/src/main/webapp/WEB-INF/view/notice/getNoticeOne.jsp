@@ -50,7 +50,7 @@
 				</tr>
 				<tr style="height:20%;">
 					<th class="text-center sm-mb-5" style="vertical-align: middle">내용</th>
-					<td><div style="height: 100px;">${managerNotice.managerNoticeContent}</div></td>
+					<td><div style="height: 300px;">${managerNotice.managerNoticeContent}</div></td>
 				</tr>
 				<tr>
 					<th class="text-center">작성자</th>

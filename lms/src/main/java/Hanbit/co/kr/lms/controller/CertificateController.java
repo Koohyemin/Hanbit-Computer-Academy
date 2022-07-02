@@ -1,6 +1,8 @@
 package Hanbit.co.kr.lms.controller;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -11,13 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.service.CertificateService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Certification;
-import Hanbit.co.kr.lms.vo.Registration;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -66,9 +66,16 @@ public class CertificateController {
       // 컨트롤러에서 서비스로 값 넘겨주기
       Certification certification = certificateService.selectCertification(certificationNo);
       log.debug(CF.SWB+"[CertificateController modifyCertification certification]"+CF.RESET+certification.toString()); // certification 디버깅
-      
+	 
+      // 현재 날짜 값 출력
+      SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+      Calendar time = Calendar.getInstance();
+	  String nowDate = format1.format(time.getTime());
+	  log.debug(CF.SWB+"[CertificateController modifyCertification nowDate]"+CF.RESET+nowDate); // certification 디버깅
+	  
       // 컨트롤러에서 jsp로 값 보내주기
       model.addAttribute("certification",certification);
+      model.addAttribute("nowDate", nowDate);
       return "certificate/modifyCertification";
    }
    
@@ -77,7 +84,6 @@ public class CertificateController {
    public String modifyCertification(Certification certification) {
       
       log.debug(CF.SWB+"[CertificateController modifyCertification certification]"+CF.RESET+certification.toString()); // certification 디버깅
-      
       // 컨트롤러에서 서비스로 값 보내기
       certificateService.updateCertification(certification);
       
