@@ -164,6 +164,22 @@
 			
 	</select>
 	
+	<select id="selectLecTime"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.TimeTable">
+		SELECT 
+			t.lecture_name lectureName
+			,t.begin_class beginClass
+			,t.end_class endClass
+			,lp.lec_state lecState
+		FROM 
+		time_table t INNER JOIN lec l
+		ON t.lecture_name = l.lecture_name
+		INNER JOIN lec_plan lp
+		ON l.lecture_name = lp.lecture_name
+		WHERE lp.teacher_id = #{teacherId}
+	</select>
+	
 	<select id="selectTeacherPhoto"
 			parameterType="String"
 			resultType="Hanbit.co.kr.lms.vo.PhotoFile">
@@ -173,22 +189,6 @@
 		FROM teacher INNER JOIN photo_file
 			ON teacher_id = member_id 
 		WHERE teacher_id =  #{teacherId}
-	</select>
-	
-	<select id="selectRegistrationList"
-			parameterType="String"
-			resultType="Hanbit.co.kr.lms.vo.Lec">
-		SELECT
-			r.lecture_name lectureName
-			,l.subject_name subjectName
-			,r.create_date createDate
-		FROM teacher t INNER JOIN lec_plan lp
-			ON t.teacher_id = lp.teacher_id
-				INNER JOIN lec l
-					ON lp.lecture_name = l.lecture_name
-						INNER JOIN registration r
-							ON  l.lecture_name = r.lecture_name
-		WHERE t.teacher_id = #{teacherId}		
 	</select>
 	
 	<select id="selectTeacherCertification"

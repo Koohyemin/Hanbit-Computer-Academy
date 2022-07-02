@@ -157,35 +157,42 @@
 	       				<thead>
 	       					<tr>
 	       						<th class="text-center">강좌</th>
-	       						<th class="text-center">과목</th>
-	       						<th class="text-center">상태</th>
-	       						<th class="text-center">개설날짜</th>
+	       						<th class="text-center">개강 날짜</th>
+	       						<th class="text-center">종강 날짜</th>
+	       						<th></th>
+	       						<th class="text-center">승인 상태</th>
 	       					</tr>
 	       				</thead>
 	       				<tbody>
 	       				<c:choose>
 	       					<c:when test="${sessionMemberLv == 2}">
 	       						<c:choose>
-	        						<c:when test="${fn:length(lecList) > 0}">
-				        				<c:forEach var="r" items="${registrationList}">
-				        					<tr>
-				        						<td class="text-center"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${l.lectureName}">${r.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
-				        						<td class="text-center">${r.subjectName}</td>
-				        						<td class="text-center text-danger">수업 진행중</td>
-				        						<td class="text-center">${r.createDate}</td>
-				        					</tr>		        				
-				        				</c:forEach>
-				        				<c:forEach var="l" items="${lecList}">
+	        						<c:when test="${fn:length(lecTimeList) > 0}">
+				        				<c:forEach var="l" items="${lecTimeList}">
 				        					<tr>
 				        						<td class="text-center"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${l.lectureName}">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->    						
-				        						<td class="text-center">${l.subjectName}</td>
-				        						<td class="text-center">수강 신청기간</td>
-				        						<td class="text-center">${l.createDate}</td>
-				        					</tr>
+				        						<td class="text-center">${l.beginClass}</td>
+				        						<td class="text-center">${l.endClass}</td>
+				        						
+				        						<!-- 수강상태 분기 -->
+				        						<c:choose>
+				        							<c:when test="${l.checkLec == 0}">
+					        							<td class="text-center">수강 접수 중</td>
+				        							</c:when>
+				        							<c:when test="${l.checkLec == 1}">
+					        							<td class="text-center text-danger">수업 진행 중</td>
+				        							</c:when>
+				        							<c:when test="${l.checkLec == 2}">
+				        								<td class="text-center text-danger">종강</td>
+				        							</c:when>
+				        						</c:choose>
+				        						
+				        						<td class="text-center">${l.lecState}</td>
+				        					</tr>		        				
 				        				</c:forEach>
 	        						</c:when>
 				        			<c:otherwise>
-				        				<td class="text-center text-danger" colspan="4">계설된 강좌가 없습니다.</td>
+				        				<td class="text-center text-danger" colspan="5">계설된 강좌가 없습니다.</td>
 				        			</c:otherwise>
 	       						</c:choose>
 	       					</c:when>

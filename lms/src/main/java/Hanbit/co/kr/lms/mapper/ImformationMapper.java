@@ -14,6 +14,7 @@ import Hanbit.co.kr.lms.vo.PasswordUpdateDate;
 import Hanbit.co.kr.lms.vo.PhotoFile;
 import Hanbit.co.kr.lms.vo.Student;
 import Hanbit.co.kr.lms.vo.Teacher;
+import Hanbit.co.kr.lms.vo.TimeTable;
 
 @Mapper
 public interface ImformationMapper {
@@ -62,8 +63,8 @@ public interface ImformationMapper {
 	// 강사 자격증리스트
 	List<Certification> selectTeacherCertification(String teacherId);
 	
-	// 강사 수강
-	List<Registration> selectRegistrationList(String teacherId);
+	// 강사 수강 시간
+	List<TimeTable> selectLecTime(String teacherId);
 	
 	// 강사 사진
 	PhotoFile selectTeacherPhoto(String teacherId);

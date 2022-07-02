@@ -12,4 +12,8 @@ public class TimeTable { //시간표
 	private String endClass; //종강일
 	private String createDate;
 	private String updateDate;
+	
+	// db없는 컬럼
+	private int checkLec;
+	private String lecState;
 }

@@ -25,11 +25,11 @@ public class LoginService {
 		String lastDate = loginMapper.selectPwDate(memberId);
 		log.debug(CF.SWB+"[LoginService passwordChange lastDate]"+CF.RESET+ lastDate);
 		
-		//오늘날짜 yyyy-MM-dd로 생성
+		// 오늘날짜 yyyy-MM-dd로 생성
 		String todayfm = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
 		log.debug(CF.SWB+"[LoginService passwordChange todayfm]"+CF.RESET+ todayfm);
 		
-		//yyyy-MM-dd 포맷 설정
+		// yyyy-MM-dd 포맷 설정
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		log.debug(CF.SWB+"[LoginService passwordChange todayfdateFormatm]"+CF.RESET+ dateFormat);
 	  

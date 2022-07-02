@@ -224,8 +224,9 @@ public class ImformationMemberController {
 			teacherId = (String)session.getAttribute("sessionMemberId");  // 변수등록 및 세션아이디 값 넣기
 			returnMap = imformation.teacherOne(teacherId);
 			model.addAttribute("teacher",returnMap.get("teacher"));
+			model.addAttribute("lecTimeList",returnMap.get("lecTimeList"));
 			log.debug(CF.SWB+"[ImformationMemberController memberOne teacher]"+CF.RESET+ returnMap.get("teacher").toString()); // teacher 디버깅
-			model.addAttribute("registrationList",returnMap.get("registrationList"));
+			log.debug(CF.SWB+"[ImformationMemberController memberOne lecTimeList]"+CF.RESET+ returnMap.get("lecTimeList").toString()); // lecTimeList 디버깅
 			
 		} else if(memberLv == 3) { // 운영자일때
 			managerId = (String)session.getAttribute("sessionMemberId");  // 변수등록 및 세션아이디 값 넣기

@@ -1,6 +1,9 @@
 package Hanbit.co.kr.lms.service;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,7 @@ import Hanbit.co.kr.lms.vo.PasswordUpdateDate;
 import Hanbit.co.kr.lms.vo.PhotoFile;
 import Hanbit.co.kr.lms.vo.Student;
 import Hanbit.co.kr.lms.vo.Teacher;
+import Hanbit.co.kr.lms.vo.TimeTable;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -133,7 +137,7 @@ public class ImformationService {
 			// 파일이 존재한다면 삭제
 			File f = new File(path+prePhotoName);
 			log.debug(CF.SWB+"[ImformationService updatePhoto f]"+CF.RESET+f); // f 디버깅
-			if(f.exists() && !"defaultProfile.jsp".equals(prePhotoName)) {
+			if(f.exists() && !"defaultProfile.jpg".equals(prePhotoName)) {
 				f.delete();
 			}
 			
@@ -200,6 +204,7 @@ public class ImformationService {
 		returnMap.put("photoFile", photoFile);
 		return returnMap;
 	}
+	
 	// 나의 정보(선생개인정보+자격증리스트+수강내용+사진+(강좌-수강))
 	public Map<String, Object> teacherOne(String teacherId) {
 
@@ -211,24 +216,66 @@ public class ImformationService {
 		List<Certification> certificationList = imformationMapper.selectTeacherCertification(teacherId);
 		log.debug(CF.SWB+"[ImformationService teacherOne certificationList]"+ certificationList+CF.RESET); // certificationList 디버깅
 		
-		// 한 강사의 수강목록
-		List<Registration> registrationList = imformationMapper.selectRegistrationList(teacherId);
-		log.debug(CF.SWB+"[ImformationService teacherOne registrationList]"+ registrationList.toString()+CF.RESET); // registrationList 디버깅
+		// 한 강사의 수강시간
+		List<TimeTable> lecTimeList = imformationMapper.selectLecTime(teacherId);
+		log.debug(CF.SWB+"[ImformationService teacherOne lecTime]"+CF.RESET+ lecTimeList.toString()); // lecTimeList 디버깅
+		
+		// 날짜 비교하기
+		if(lecTimeList.size() > 0) {
+			for(int i= 0; i<lecTimeList.size();i++) {
+				// 변수등록
+				String startDate = lecTimeList.get(i).getBeginClass();
+				String endDate = lecTimeList.get(i).getEndClass();
+				
+				// 오늘날짜 yyyy-MM-dd로 생성
+				String todayfm = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
+				log.debug(CF.SWB+"[ImformationService teacherOne todayfm]"+CF.RESET+ todayfm);
+				
+				// yyyy-MM-dd 포맷 설정
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+				log.debug(CF.SWB+"[LoginService teacherOne dateFormat]"+CF.RESET+ dateFormat);
+				
+				// date 변수 선언
+				Date date1 = null;
+				Date date2 = null;
+				Date today = null;
+				
+				// 예외처리
+				try {
+					date1 = dateFormat.parse(startDate);
+					date2 = dateFormat.parse(endDate);
+					today = dateFormat.parse(todayfm);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				// 오늘날짜에 따른 분기
+				if(date1.getTime() <= today.getTime() && today.getTime() <= date2.getTime()) { // 오늘날짜가 개강시작일과 종강날짜에 있다면 수업진행중
+					lecTimeList.get(i).setCheckLec(1);
+					log.debug(CF.SWB+"[ImformationService teacherOne i checkLec]"+CF.RESET +i+ lecTimeList.get(i).getCheckLec());
+				} else if(date1.getTime() > today.getTime()){ // 오늘날짜가 개강일보다 전이라면
+					lecTimeList.get(i).setCheckLec(0);
+					log.debug(CF.SWB+"[ImformationService teacherOne i checkLec]"+CF.RESET+ i+lecTimeList.get(i).getCheckLec());
+				} else if(today.getTime() > date2.getTime()){ // 오늘날짜가 종강날짜 이후라면
+					lecTimeList.get(i).setCheckLec(2);
+				}
+			}
+		}
 		
 		// 한 강사의 사진
 		PhotoFile photoFile = imformationMapper.selectTeacherPhoto(teacherId);
 		log.debug(CF.SWB+"[ImformationService teacherOne photoFile]"+ photoFile+CF.RESET); // photoFile디버깅
 		
-		// 한 강가의 강의-수강
+		// 한 강사의 강의-수강
 		List<Lec> lecList = imformationMapper.selectTeacherLecList(teacherId);
 		log.debug(CF.SWB+"[ImformationService teacherOne lecList]"+ lecList+CF.RESET); // 강의 디버깅
 		
 		
 		// 5개를 묶어서 contoller에 보내주기
 		Map<String,Object> returnMap = new HashMap<>();
+		returnMap.put("lecTimeList", lecTimeList);
 		returnMap.put("teacher", teacher);
 		returnMap.put("certificationList", certificationList);
-		returnMap.put("registrationList", registrationList);
 		returnMap.put("lecList", lecList);
 		returnMap.put("photoFile", photoFile);
 		return returnMap;
