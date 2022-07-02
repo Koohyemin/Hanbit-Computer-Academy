@@ -30,7 +30,7 @@
            <div class="card mb-4">
                <div class="card-header">
                    <i class="fas fa-chart-area me-1"></i>
-               EnquiryBoard
+               Enquiry Board
                </div>
                <div class="card-body">
                <table class="table">

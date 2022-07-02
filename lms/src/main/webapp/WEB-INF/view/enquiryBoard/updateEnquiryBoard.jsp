@@ -16,6 +16,11 @@
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="../css/styles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<!-- 썸머노트 cdn -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body class="sb-nav-fixed">
 <div id="nav"></div>
@@ -33,7 +38,7 @@
                    Enquiry Board
                </div>
                <div class="card-body">
-                  <form action="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard" method="post">
+                  <form id = "updateEnquiryBoardForm" action="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard" method="post">
                      <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" readOnly = "readOnly" class="form-control">
                   <input type="hidden" name="memberId" value="${sessionMemberId}" readOnly = "readOnly" class="form-control">            
                <table class="table">
@@ -47,6 +52,7 @@
                            <option value="강사">강사</option>
                            <option value="운영자">운영자</option>
                         </select>
+							<span class="text-danger" id="categoryError"></span>                        
                      </td>
                         </c:when> 
                         <c:when test="${sessionMemberLv == 2}">
@@ -55,6 +61,7 @@
                            <option value="전체">전체</option>
                            <option value="강사">강사</option>
                         </select>
+ 							<span class="text-danger" id="categoryError"></span>                       
                      </td>   
                         </c:when>  
                         <c:otherwise>
@@ -64,17 +71,19 @@
                            <option value="학생">학생</option>
                            <option value="강사">강사</option>
                         </select>
+ 							<span class="text-danger" id="categoryError"></span>                       
                      </td>                  
                         </c:otherwise>
                      </c:choose> 
                   </tr>
                   <tr>                           
-                  <th>내용</th>
-                  <td><textarea name="content" class="form-control col-sm-12" rows="20" placeholder="${eb.content}"></textarea>                
+					<th class="text-center" style="vertical-align: middle">내용</th>                  
+					<td><textarea name="content" id="summernote">${eb.content}</textarea>                
+						<span class="text-danger" id="contentError"></span>                  
                   </tr>                     
                </table>
                <div class="float-end">
-                  <button type="submit" class="btn btn-dark">수정</button>
+                  <button type="button" id="btn" class="btn btn-dark" style="float:right">수정</button>
                </div>
                </form>
                </div>
@@ -88,7 +97,46 @@
        $('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
        $('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
        $('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-      </script>
+
+       $( document ).ready(function(){
+   	   	$('#btn').click(function(){
+   	   		// 카테고리
+   	   		   if($('#category').val() == ''){
+   	   		      $('#categoryError').text('대상을 선택해주세요');
+   	   		   } else {
+   	   		      $('#categoryError').text('');
+   	   		   }
+   	   		   // 내용
+   	   		   if( $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, '') == '') {
+   	   			      $('#contentError').text('내용을 입력해주세요');
+   	   			   } else {
+   	   			      $('#contentError').text(''); 
+   	   			   }
+
+   	   		   if($('#category').val() != '' && $('#title').val() != '' && $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, '') != '') {
+   	   		      $('#updateEnquiryBoardForm').submit();
+   	   		   }
+   	   		});
+   	   	init();
+   		summernoteHide();
+   	});
+   	
+   	// 기본설정으로 summernote라는 id사용하는 태그를 summernote로 설정
+   	function init(){
+   		$('#summernote').summernote({
+   			  tabsize: 2,
+   			  height: 400
+   		});
+   	}
+
+   	// height 높이 조절, hide는 사진이나 사용하고싶은 버튼이있다면 지우면 됨.
+   	function summernoteHide(){
+   		$(".note-editor button[aria-label='Picture']").hide();
+   		$(".note-editor button[aria-label='Video']").hide();
+   		$(".note-editor .note-view").hide();
+   	}
+   	       
+     </script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

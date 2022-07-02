@@ -1,6 +1,8 @@
 package Hanbit.co.kr.lms.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
+
+import Hanbit.co.kr.lms.vo.PasswordUpdateDate;
 @Mapper
 public interface UserFindMapper {
 	//학생 id찾기
@@ -33,4 +35,6 @@ public interface UserFindMapper {
 	//비밀번호 변경이력 추가
 	int passwordUpdate(String id, String pw);
 	
+	//직전 비밀번호 비교
+	int selectBeforePassword(PasswordUpdateDate passwordUpdateDate);
 }

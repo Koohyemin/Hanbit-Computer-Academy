@@ -5,9 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import Hanbit.co.kr.lms.mapper.UserFindMapper;
-import Hanbit.co.kr.lms.vo.Manager;
-import Hanbit.co.kr.lms.vo.Student;
-import Hanbit.co.kr.lms.vo.Teacher;
+import Hanbit.co.kr.lms.vo.PasswordUpdateDate;
 import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
@@ -61,5 +59,11 @@ public class UserFindService {
 	public int passwordUpdate(String id, String pw) {
 		return userFindMapper.passwordUpdate(id, pw);
 	}
+	
+	//직전 비밀번호 비교
+	public int selectBeforePassword(PasswordUpdateDate passwordUpdateDate) {
+	      return userFindMapper.selectBeforePassword(passwordUpdateDate);
+	   }
+	   
 	
 }

@@ -61,8 +61,10 @@
                <br>
                <a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage" class="btn btn-dark">뒤로가기</a>
                <div class="btn-group float-end">
-               <a href="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard?enquiryBoardNo=${enquiryBoardNo}" class="btn btn-secondary">수정</a>
-               <button type="submit" class="btn btn-dark">삭제</button>
+               <c:if test="${sessionMemberId eq eb.memberId}">
+	              	<a href="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard?enquiryBoardNo=${enquiryBoardNo}" class="btn btn-secondary">수정</a>
+	               	<button type="submit" class="btn btn-dark">삭제</button>
+           		</c:if>
                </div>
             </form>         
                </div>

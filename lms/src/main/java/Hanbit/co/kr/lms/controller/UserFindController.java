@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.service.UserFindService;
 import Hanbit.co.kr.lms.util.CF;
+import Hanbit.co.kr.lms.vo.PasswordUpdateDate;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -147,7 +148,7 @@ public class UserFindController {
 	@PostMapping("/user/updatePw")
 	public String modifyPw(Model model
 			,@RequestParam(name="Id") String Id
-			,@RequestParam(name="pw") String pw	
+			,@RequestParam(name="pw") String pw
 			,@RequestParam(name="role") String role) {
 		
 		//id + pw + role 값 디버깅
@@ -212,6 +213,34 @@ public class UserFindController {
 				log.debug( CF.KHN +"[UserFindController PostMapping modifyPw 수정실패 ]:  "+ CF.RESET);
 			}
 		}	
-		return "redirect:/login";
+		return "redirect:/user/updatePw";
 	}
+
+	
+	//직전 비밀번호 비교
+	@PostMapping("/user/selectBeforePassword")
+	   public String getBeforePassword(Model model, PasswordUpdateDate passwordUpdateDate) {
+		
+		  //서비스 호출
+	      int pud = userFindService.selectBeforePassword(passwordUpdateDate);
+	      
+	      //값 디버깅
+	      log.debug( CF.KHN +"[UserFindController PostMapping getBeforePassword pud ]:  "+ CF.RESET+ pud);
+	      
+	      //중복비교 성공 실패 디버깅
+	      if(pud == 0) {
+				log.debug( CF.KHN +"[UserFindController PostMapping getBeforePassword 중복아님 ]:  "+ CF.RESET);
+				return "redirect:/login";
+				
+	      } else {
+				log.debug( CF.KHN +"[UserFindController PostMapping getBeforePassword 중복 ]:  "+ CF.RESET);
+    	  
+	      }
+	      
+	      //모델값 넘겨줌
+	      model.addAttribute("pud", pud);
+	      
+	      return "redirect:/user/updatePw";	      
+	      
+	   }
 }

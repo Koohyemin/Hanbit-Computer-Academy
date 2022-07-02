@@ -124,12 +124,15 @@
                   <c:if test="${check == 0}">
                   
                      <div class="text-white">
-						<form action="${pageContext.request.contextPath}/user/updatePw" method="post">
-							<input type="hidden" name="Id" value="${checkId}">
-							<input type="hidden" name="role"  value="${checkRole}">
-							<input type="password" name="pw" id="checkPassword" placeholder="변경하려는 비밀번호를 입력하세요.">	
-							<button type="submit">변경하기</button>						
-						</form>
+							<form id = "updatePw" action="${pageContext.request.contextPath}/user/updatePw" method="post">
+								<input type="text" name="Id" value="${checkId}">
+								<input type="text" name="role"  value="${checkRole}"> 
+	 							<input type="password" name="pw" id="pw" placeholder="새로운 비밀번호">   
+	                        		<span id="helpPw"></span><br><br> 
+	                    	 	<input type="password" name="pwCk" id="pwCk" placeholder="비밀번호 확인">   
+	                       			<span id="helpPwCk"></span>                     
+	                     		<button id = "pwBtn" type="button">변경하기</button>
+							</form>
 						</div>
                   </c:if>
                <hr class="bg-white">
@@ -220,6 +223,25 @@
          $("#findPw").submit();
       }
    });
+ //비밀번호
+ 
+ $('#pwBtn').click(function() {
+	 if($('#pw').val() == '') {
+		 $('#helpPw').text('새로운 비밀번호를 입력하세요');
+	 } else if(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/.test($('#pw').val())) {
+		 $('#helpPw').text('영문 숫자 혼용하여 8자리 이상 입력하세요');
+	 } else if($('#pw').val() == '' && $('#pwCk').val() =='') {
+		 $('#helpPw').text('비밀번호를 입력하세요')
+     }  else if($('#pw').val() != $('#pwCk').val()) {
+			$('#helpPwCk').text("같은 비밀번호 입력하세요");
+     } else if('${row}' == '1') {
+         $('#helpPwCk').text('직전 비밀번호는 사용 할 수 없습니다.');   
+     }  else {
+   	  $('#updatePw').submit();
+     }
+  });
+  
+   
 </script>
 </body>
 </html>

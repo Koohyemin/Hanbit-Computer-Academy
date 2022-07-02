@@ -16,6 +16,11 @@
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="../css/styles.css" rel="stylesheet" />
 <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<!-- 썸머노트 cdn -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body class="sb-nav-fixed">
 <div id="nav"></div>
@@ -33,7 +38,7 @@
                    Enquiry Board
                </div>
             <div class="card-body">
-         <form action="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard" method="post">
+         <form id="addEnquiryBoardForm" action="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard" method="post">
             <table class="table">
                <tr>   
                   <th style="width:150px;">글쓴이</th>
@@ -50,6 +55,7 @@
                         <option value="강사">강사</option>
                         <option value="운영자">운영자</option>
                      </select>
+							<span class="text-danger" id="categoryError"></span>                     
                      </div>
                   </td>
                      </c:when> 
@@ -60,21 +66,23 @@
                         <option value="전체">전체</option>
                         <option value="강사">강사</option>
                      </select>
+							<span class="text-danger" id="categoryError"></span>                     
                      </div>
                   </td>   
                      </c:when>  
                   </c:choose> 
                </tr>
                <tr>                           
-                  <th>내용</th>
+				<th class="text-center" style="vertical-align: middle">내용</th>
                   <td>
-                     <textarea name="content" class="form-control col-sm-12" rows="20" placeholder="내용을 입력하세요"></textarea>
+					<textarea name="content" id="summernote"></textarea>
+						<span class="text-danger" id="contentError"></span>                
                   </td>                
                </tr>
             </table>
-         <div class="float-end">
-            <button type="submit" class="btn btn-dark">입력</button>
-            </div>
+            <div class="float-end">            
+            <button type="button" id="btn" class="btn btn-dark" style="float:right">등록</button>
+			</div>         
          </form>
          </div>
         </div>
@@ -87,7 +95,37 @@
        $('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
        $('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
        $('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-      
+
+       $( document ).ready(function(){
+   	   	$('#btn').click(function(){
+   	   		// 카테고리
+   	   		   if($('#category').val() == ''){
+   	   		      $('#categoryError').text('대상을 선택해주세요');
+   	   		   } else {
+   	   		      $('#categoryError').text('');
+   	   		   }
+   	   		   // 내용
+   	   		   if( $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, '') == '') {
+   	   			      $('#contentError').text('내용을 입력해주세요');
+   	   			   } else {
+   	   			      $('#contentError').text(''); 
+   	   			   }
+
+   	   		   if($('#category').val() != '' && $('#title').val() != '' && $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, '') != '') {
+   	   		      $('#addEnquiryBoardForm').submit();
+   	   		   }
+   	   		});
+   	   	init();
+   		summernoteHide();
+   	});
+   	
+   	// 기본설정으로 summernote라는 id사용하는 태그를 summernote로 설정
+   	function init(){
+   		$('#summernote').summernote({
+   			  tabsize: 2,
+   			  height: 400
+   		});
+   	}    
    
     </script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

@@ -114,6 +114,7 @@
 						</c:if>
 					<hr class="bg-white">
 						<a class="btn btn-light btn-block" role="button" href="${pageContext.request.contextPath}/login">Login Page</a>
+						<a class="btn btn-light btn-block" role="button" href="${pageContext.request.contextPath}/user/findPw">find PW</a>
 				</div>
 			</div>
 		</div>

@@ -75,4 +75,18 @@
 		, PASSWORD(#{pw})
 		, now())
 	</insert>
+	
+	<!-- 직전 비밀번호 비교 -->
+   <select id="selectBeforePassword" parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate"
+      resultType="int">
+             SELECT count(*)      
+             FROM 
+         (SELECT member_pw pw
+         FROM password_update_date
+         WHERE member_id =#{memberId}
+         ORDER BY create_date DESC
+         LIMIT 1) t
+         WHERE t.pw = PASSWORD(#{memberPw}) 
+      
+   </select>
 </mapper>
