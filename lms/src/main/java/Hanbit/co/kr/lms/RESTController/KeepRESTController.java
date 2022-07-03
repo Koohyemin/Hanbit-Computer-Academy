@@ -19,18 +19,15 @@ public class KeepRESTController {
 	KeepingService keepingService;
 	
 	@GetMapping("/checkKeeping")
-	public String checkKeeping(@RequestParam(name="studentId") String studentId
-								,@RequestParam(name="lectureName") String lectureName){
-
-		Keeping keeping = null;
-		keeping.setLectureName(lectureName);
-		keeping.setStudentId(studentId);
+	public boolean checkKeeping(Keeping keeping){
+		System.out.println("sadsasdasdadsasdadsadsasdasdasdadsads");
 		
-		log.debug(CF.LKL+"KeepRESTController.checkKeeping.keeping" +CF.LKL +keeping);
 		
-		String check = keepingService.checkKeeping(keeping);
+		//log.debug(CF.LKL+"KeepRESTController.checkKeeping.keeping" +CF.RESET +keeping);
+		System.out.println(keeping);
+		boolean check = keepingService.checkKeeping(keeping);
 		
-		log.debug(CF.LKL+"KeepRESTController.checkKeeping.check" + CF.LKL + check);
+		log.debug(CF.LKL+"KeepRESTController.checkKeeping.check" + CF.RESET + check);
 		
 		return check;
 			

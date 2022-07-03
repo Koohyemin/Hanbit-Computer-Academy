@@ -192,12 +192,16 @@ public class LecController {
 		//	log.debug(CF.KHM +"[LecController GetMapping totalCount]: " + CF.RESET + map.get("totalCount")); // 현재페이지 디버깅
 		
 		
+
+		
+		
 		// model에 값 add
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("currentPage", map.get("currnetPage"));
 		model.addAttribute("totalCount", map.size());
-		
+
+			
 		return "lec/lecList"; // lec/lecList.jsp로 이동
 	}
 }

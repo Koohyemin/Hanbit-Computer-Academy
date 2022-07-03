@@ -60,12 +60,14 @@
 					<c:forEach var="lec" items="${list}" varStatus="status">
 						<tr>
 							<th class="text-center text-success">${lec.subjectName}</th>
-							<td class="text-center col-md-4" ><a id="lecVal" href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${lec.lectureName}" class="none-unline">${lec.lectureName}</a></td>
+							<td class="text-center col-md-4" ><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${lec.lectureName}" class="none-unline">${lec.lectureName}</a></td>
 							<td class="text-center">${lec.registrationNumber}</td>
 							<td class="text-center">${lec.beginClass}</td>
-							<td>
+							<td id="point">
+								<input type="hidden" id="CKTxt${status.index}" class ="CKTxt" value="${lec.lectureName}">
+								<td><input type="text"  value="${lec.lectureName}" id="a${status.index}" hidden="hidden">
 								<div class="btn-group float-end">
-									<a href="${pageContext.request.contextPath}/keeping/addKeeping?lectureName=${lec.lectureName}"  id="${lec.lectureName}" value="${lec.lectureName}" class="btn btn-danger btn-sm">담아두기 <i class="fa-solid fa-heart-circle-plus"></i></a>
+									<a href="${pageContext.request.contextPath}/keeping/addKeeping?lectureName=${lec.lectureName}"  id="keepingCK${status.index}" class="btn btn-danger btn-sm ktx" > 담아두기<i class="fa-solid fa-heart-circle-plus"></i></a>
 								</div>
 							</td>
 						</tr>
@@ -105,8 +107,35 @@
     
     console.log(${totalCount}); 
 	
+    for(let i =0; i<${list.size()}; i++){
+    	let ck= false;
+		$('#keepingCK'+i).click(function(){
+			
+			let q = $('#a'+i).val();
+			console.log(q);
+			console.log($('#keepingCK'+i).attr("href"));
+			$.ajax({
+				type:"get"
+				,url:'/lms/checkKeeping' 												//RESTController 
+				,data:{'lectureName': $('#a'+i).val(), 'studentId':'${sessionMemberId}'} //키워드 받는 데이터
+				,success:function(check){
+					
+						
+					console.log(check);
+					ck=check;
 
+				}
+				
+			});
+			if(ck == false){
+				
+				return false;
+			}
+			
+			
+			
+		});
+   	   }
 
-	()
     </script>
 </html>

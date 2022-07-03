@@ -53,7 +53,7 @@ public class KeepingService {
 	
 	
 	//찜 유효성 검사
-	public String checkKeeping(Keeping keeping) {
+	public boolean checkKeeping(Keeping keeping) {
 		
 		List<Keeping> checkKeepingList = keepingMapper.getKeepingByStudentId(keeping.getStudentId());
 		
@@ -64,12 +64,12 @@ public class KeepingService {
 			
 			if(checkKeepingList.get(i).getLectureName().equals(keeping.getLectureName())){			// 찜 테이블에 있는 강의이름과 추가할 강의이름이 있는지 중복 조회  
 				
-				return "false";																		// 있으면 false 리턴
+				return false;																		// 있으면 false 리턴
 			} 
 			
 		}
 
 		
-		return "true";  																				//없으면 true 리턴
+		return true;  																				//없으면 true 리턴
 	}
 }

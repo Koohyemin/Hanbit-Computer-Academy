@@ -35,7 +35,16 @@
 			parameterType="Hanbit.co.kr.lms.vo.Keeping">
 		DELETE FROM keeping
 		WHERE student_id = #{studentId} AND lecture_name = #{lectureName}
-			
 	</delete>
+	<!-- 학생 찜리스트 확인(유효성) -->
+	<select id="checkKeepingByStudent"
+				parameterType="Hanbit.co.kr.lms.vo.Keeping"
+				resultType="java.lang.String">
+		SELECT lecture_name
+			FROM keeping
+				WHERE student_id = #{studentId}
+	</select>
+	
+	
 	
 </mapper>
