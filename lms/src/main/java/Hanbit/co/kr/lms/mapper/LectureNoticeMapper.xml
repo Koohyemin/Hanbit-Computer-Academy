@@ -82,11 +82,11 @@
 		WHERE lec_state = 'T' AND teacher_id = #{teacherId}
 	</select>
 	
-	<select id="studentIdList" resultType="Hanbit.co.kr.lms.vo.LecPlan">
+	<select id="studentIdList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.LecPlan">
 		SELECT l.lecture_name
 		FROM lec_plan l INNER JOIN registration r
-		ON l.lecture_name = r.lecture_name
-		WHERE r.student_id = ,#{r.studentId}
+		ON l.lecture_name = r.lecture_name	
+		WHERE r.student_id = #{r.studentId}
 	</select>
 	
 </mapper>

@@ -33,5 +33,5 @@ public interface LectureNoticeMapper {
 		List<LecPlan> lectureNameList(String teacherId);
 		
 		// 학생 강좌장버 블러오기
-		List<LecPlan> studentIdList(); 
+		List<LecPlan> studentIdList(String studuntId); 
 	}
