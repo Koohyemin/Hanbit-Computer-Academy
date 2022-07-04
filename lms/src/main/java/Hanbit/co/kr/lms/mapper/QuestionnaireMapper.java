@@ -6,9 +6,17 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import Hanbit.co.kr.lms.vo.Questionnaire;
+import Hanbit.co.kr.lms.vo.Registration;
 
 @Mapper
 public interface QuestionnaireMapper {
+	
+	// 설문 여부 체크
+	int selectQuestioncheck(String studentId);
+	
+	// 강의듣는 과목 리스트
+	List<Registration> selectlecList(String studentId);
+	
 	//설문지 목록 불러오기
 	List<Questionnaire> selectQuestionnaireList(String lectureName);
 	

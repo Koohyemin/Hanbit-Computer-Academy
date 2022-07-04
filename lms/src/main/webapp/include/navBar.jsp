@@ -102,7 +102,7 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="#">강의 평가 조회</a>
                              <c:if test="${sessionMemberLv == 1}">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getQuestionnaireList">강의 평가하기</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getLecQuestionnaireList">강의 평가하기</a>
                             </c:if>
                             <a class="nav-link" href="#">성적조회</a>
                         </nav>

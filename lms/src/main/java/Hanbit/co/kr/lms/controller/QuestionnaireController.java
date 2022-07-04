@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import Hanbit.co.kr.lms.service.QuestionnaireService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Questionnaire;
+import Hanbit.co.kr.lms.vo.Registration;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -26,30 +27,68 @@ public class QuestionnaireController {
 	
 	//설문지 목록 불러오기 get
 	@GetMapping("/questionnaire/getQuestionnaireList")
-	public String getQuestionnaireList(Questionnaire questionnaire, Model model
-			,@RequestParam(name="lectureName", defaultValue="자바 웹 스피드 취업반") String lectureName) {
+	public String getQuestionnaireList(Questionnaire questionnaire
+			, Model model
+			, HttpSession session
+			,@RequestParam(name="lectureName") String lectureName) {
 		
-		//list에 서비스호출
-		List<Questionnaire> list = questionnaireService.selectQuestionnaireList(lectureName);
+		//세션에 있는 아이디 값 가져옴
+		String studentId = (String) session.getAttribute("sessionMemberId");
+		log.debug( CF.KYJ +"[QuestionnaireController GetMapping studentId]: "+ studentId + CF.RESET);
 		
-		//list + lectureName 디버깅
-		log.debug( CF.KHN +"[QuestionnaireController GetMapping list]: "+list+ CF.RESET);
-		log.debug( CF.KHN +"[QuestionnaireController GetMapping lectureName]: "+lectureName+ CF.RESET);
+		// 설문 여부 체크
+		int row = questionnaireService.selectcheck(studentId);
 		
-		//model값 list > jsp로 전달
-		model.addAttribute("list", list);
+		if(row != 0) {
+			log.debug( CF.KYJ +"[QuestionnaireController GetMapping studentId]: "+ "설문을 이미 함" + CF.RESET);
+			int error = 1;
+			model.addAttribute("error",error);
+			return "questionnaire/getLecQuestionnaireLis";
+		}else {
 		
-		//뷰 포워딩
-		return "questionnaire/getQuestionnaireList";
+			log.debug( CF.KYJ +"[QuestionnaireController GetMapping studentId]: "+ lectureName + CF.RESET);
+			//list에 서비스호출
+			List<Questionnaire> list = questionnaireService.selectQuestionnaireList(lectureName);
+			
+			//list + lectureName 디버깅
+			log.debug( CF.KHN +"[QuestionnaireController GetMapping list]: "+list+ CF.RESET);
+			log.debug( CF.KHN +"[QuestionnaireController GetMapping lectureName]: "+lectureName+ CF.RESET);
+			
+			//model값 list > jsp로 전달
+			model.addAttribute("list", list);
+			
+			//뷰 포워딩
+			return "questionnaire/getQuestionnaireList";
+		}
 	}
-
-	//설문지 목록 불러오기 get
+	
+		// 강의 평가 강좌 리스트 
+		@GetMapping("/questionnaire/getLecQuestionnaireList")
+		public String getLecQuestionnaireList(Model model, HttpSession session
+				,@RequestParam (name="error",defaultValue = "0") int error) {
+			
+			//세션에 있는 아이디 값 가져옴
+			String studentId = (String) session.getAttribute("sessionMemberId");
+			log.debug( CF.KYJ +"[QuestionnaireController PostMapping studentId]: "+ studentId + CF.RESET);
+			
+			
+			
+			// 아이디에 해당하는 강의 평가 강좌 리스트 
+			List<Registration> selectLecList = questionnaireService.lecList(studentId);
+			model.addAttribute("selectLecList",selectLecList);
+			model.addAttribute("error",error);
+			
+			return "questionnaire/getLecQuestionnaireList";
+		}
+		
+		
+		// 설문 응답 완료	
 		@PostMapping("/questionnaire/getQuestionnaireList")
 		public String getQuestionnaireList(
-				@RequestParam(value="quelist[]") List<Integer> quelistmap
-				,@RequestParam(value="checklist[]") List<Integer> checklistmap
-				,HttpSession session) {
-			
+			@RequestParam(value="quelist[]") List<Integer> quelistmap
+			,@RequestParam(value="checklist[]") List<Integer> checklistmap
+			,HttpSession session) {
+		
 			// 문제 번호 가져오기 
 			log.debug( CF.KYJ +"[QuestionnaireController PostMapping quelistmap]: "+quelistmap+ CF.RESET);
 			
@@ -67,9 +106,11 @@ public class QuestionnaireController {
 			map.put("checklistmap", checklistmap);
 			
 			questionnaireService.selectQuestionnairepoint(map);
+	
+			log.debug( CF.KYJ +"[QuestionnaireController PostMapping]: "+ "설문 성공" + CF.RESET);
 			
+			return "redirect/:home/index";
 
-			return "redirect:/home/index";
-		}
+	}
 
 }

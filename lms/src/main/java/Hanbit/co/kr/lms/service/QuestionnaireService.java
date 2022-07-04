@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import Hanbit.co.kr.lms.mapper.QuestionnaireMapper;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Questionnaire;
+import Hanbit.co.kr.lms.vo.Registration;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -18,6 +19,16 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class QuestionnaireService {
 	@Autowired QuestionnaireMapper questionnaireMapper;
+	
+	// 설문 여부 체크
+	public int selectcheck(String studentId) {
+		return questionnaireMapper.selectQuestioncheck(studentId);
+	}
+	
+	// 강의 목록 출력
+	public List<Registration> lecList(String studentId){
+		return questionnaireMapper.selectlecList(studentId);
+	}
 	
 	//설문지 목록 불러오기
 	public List<Questionnaire> selectQuestionnaireList(String lectureName) {

@@ -89,7 +89,7 @@
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
     	
-    	$('#btnQuestionnaire').click(function() {
+    	$('#btnQuestionnaire').click(function(){
     		// 설문 입력 값 배열로 묶기
     		var quelist = new Array(); // 설문 입력 값
  		   $("input[name=content]").each(function(index, item){
@@ -120,7 +120,7 @@
 					alert("error");
 				}
 			});	
-});
+		});
 		
    	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
