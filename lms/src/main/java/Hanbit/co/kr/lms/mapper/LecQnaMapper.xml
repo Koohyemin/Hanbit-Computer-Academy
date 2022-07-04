@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.LecQnaMapper">
+
+	
+	<!-- 학생이 수강 중인  -->
+	<select id="lectureList" parameterType="String" resultType="String">
+		SELECT r.lecture_name lectureName
+		FROM registration r
+			INNER JOIN time_table tt
+			ON r.lecture_name = tt.lecture_name
+			INNER JOIN lec_plan lp
+			ON lp.lecture_name = r.lecture_name
+		WHERE tt.begin_class <![CDATA[<=]]> NOW() AND lp.lec_state = 'T' AND student_id = #{studentId}
+	</select>
+	
+	<!-- 강의실 질문 등록(수강 학생) -->
+	<insert id="insertQuestion" parameterType="Hanbit.co.kr.lms.vo.LecQuestion">
+		INSERT INTO lec_question (
+			 member_id
+			,lecture_name
+			,lec_question_title
+			,lec_question_content
+			,revelation
+			,create_date
+			,udpate_date
+		) VALUE (
+			 #{memberId}
+			,#{lectureName}
+			,#{lecQuestionTitle}
+			,#{lecQuestionContent}
+			,#{revelation}
+			,NOW()
+			,NOW()
+		)
+	</insert>
+</mapper>
