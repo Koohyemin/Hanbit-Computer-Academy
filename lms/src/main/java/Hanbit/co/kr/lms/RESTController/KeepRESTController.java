@@ -20,11 +20,9 @@ public class KeepRESTController {
 	
 	@GetMapping("/checkKeeping")
 	public boolean checkKeeping(Keeping keeping){
-		System.out.println("sadsasdasdadsasdadsadsasdasdasdadsads");
 		
-		
-		//log.debug(CF.LKL+"KeepRESTController.checkKeeping.keeping" +CF.RESET +keeping);
-		System.out.println(keeping);
+		log.debug(CF.LKL+"KeepRESTController.checkKeeping.keeping" +CF.RESET +keeping);
+
 		boolean check = keepingService.checkKeeping(keeping);
 		
 		log.debug(CF.LKL+"KeepRESTController.checkKeeping.check" + CF.RESET + check);
