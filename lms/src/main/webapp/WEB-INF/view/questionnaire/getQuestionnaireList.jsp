@@ -95,7 +95,6 @@
  		   $("input[name=content]").each(function(index, item){
  			   quelist.push($(item).val());
  		   }); 
- 		  console.log(quelist);
     		
  		// 답변 스코어 배열로 묶기
  		var checklist = new Array();// 답변 스코어 배열
@@ -103,15 +102,17 @@
    			checklist.push($(item).val());
 				
    		   });
-   		 console.log(checklist);	
+   		 
+   		 var list = quelist.concat(checklist);
+   		 console.log("list"+list);
    		 
 	   		$.ajax({
-				url : "${pageContext.request.contextPath}/questionnaire/getQuestionnaireCheckList"
+				url : '${pageContext.request.contextPath}/questionnaire/getQuestionnaireList'
 				,type : 'POST'
 				,data : {
-					'quelist' : quelist
-					,'checklist' : checklist
-				}
+					quelist:quelist
+					,checklist:checklist
+					}
 				,success : function(data) {
 					console.log("완료");
 			     }

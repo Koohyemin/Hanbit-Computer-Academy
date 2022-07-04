@@ -21,10 +21,12 @@
 			, create_date
 			, update_date
 		) VALUES
-			(#{questions}
-			, #{studentId}
-			, #{score}
+			(
+			#{que}
+			,#{studentId}			 
+			,#{check}
 			, NOW()
-			, NOW())
+			, NOW()
+			)
 	</insert>
 </mapper>
