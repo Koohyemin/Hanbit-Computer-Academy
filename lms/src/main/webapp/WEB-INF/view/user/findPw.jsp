@@ -10,6 +10,7 @@
 <meta property="og:image" content="${pageContext.request.contextPath}/img/previewer.png">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>findPw</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
 <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -125,8 +126,8 @@
                   
                      <div class="text-white">
 							<form id = "updatePw" action="${pageContext.request.contextPath}/user/updatePw" method="post">
-								<input type="text" name="Id" value="${checkId}">
-								<input type="text" name="role"  value="${checkRole}"> 
+								<input type="hidden" name="Id" value="${checkId}">
+								<input type="hidden" name="role"  value="${checkRole}"> 
 	 							<input type="password" name="pw" id="pw" placeholder="새로운 비밀번호">   
 	                        		<span id="helpPw"></span><br><br> 
 	                    	 	<input type="password" name="pwCk" id="pwCk" placeholder="비밀번호 확인">   
@@ -223,23 +224,45 @@
          $("#findPw").submit();
       }
    });
- //비밀번호
  
+ //비밀번호 유효성검사
  $('#pwBtn').click(function() {
+	 //var p = null;
 	 if($('#pw').val() == '') {
 		 $('#helpPw').text('새로운 비밀번호를 입력하세요');
+		 	return false;
 	 } else if(!/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/.test($('#pw').val())) {
-		 $('#helpPw').text('영문 숫자 혼용하여 8자리 이상 입력하세요');
+		 $('#helpPw').text('영문 숫자 혼용하여 8자리 이상');
+			return false
 	 } else if($('#pw').val() == '' && $('#pwCk').val() =='') {
 		 $('#helpPw').text('비밀번호를 입력하세요')
+		 return false;
      }  else if($('#pw').val() != $('#pwCk').val()) {
 			$('#helpPwCk').text("같은 비밀번호 입력하세요");
-     } else if('${row}' == '1') {
-         $('#helpPwCk').text('직전 비밀번호는 사용 할 수 없습니다.');   
-     }  else {
-   	  $('#updatePw').submit();
-     }
-  });
+			return false;
+     } 
+	 //console.log($('#pw').val());
+	 
+//직전 비밀번호 비교
+			$.ajax({
+				type:'get' //get타입임
+				,url:'/lms/user/selectBeforePassword' //컨트롤러에서 대기중인 url주소
+				,data:{'pw': $('#pw').val()} 
+				,success:function(ck) { 				
+					console.log(ck);
+					if(ck == false) {
+						alert('4');
+						$('#helpPw').text('직전 비밀번호입니다.');
+						return false;
+					} else {
+						console.log('....');
+					}
+					$('#updatePw').submit();
+		} 
+	}); 
+
+ });
+ 
   
    
 </script>
