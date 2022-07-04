@@ -22,7 +22,103 @@
        <div id="layoutSidenav_content">
 			<div class="container-fluid px-4">
                 <!-- 컨텐츠 삽입 부분-->
-
+                <c:choose>
+                	<c:when test="${sessionMemberLv == 3}">
+                	<h5>가입요청 목록</h5> 
+                 <table class="table">
+					<thead>
+						<tr>
+							<th>아이디</th>
+							<th>신청일</th>
+							<th>등급</th>
+							<th>상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="w"  items="${waitingList}">
+							<tr>
+								<td>${w.memberId}</td>		
+								<td>${w.createDate}</td>
+								<td>${w.memberLevel}</td>
+								<td>${w.meberState}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+							
+                <h5>강의계획서 승인요청</h5>
+                 <table class="table">
+					<thead>
+						<tr>
+							<th>강의계획서</th>		
+							<th>강사ID</th>
+							<th>상태</th>												
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach var="l" items="${lecPlanList}">
+						<tr>
+							<td>${l.lectureName}</td>
+							<td>${l.teacherId}</td>
+							<td>${l.lecState}</td>
+						</tr>
+					</c:forEach>					
+					</tbody>
+				</table>
+				
+				<h5>문의사항리스트</h5>
+                 <table class="table">
+                  <thead>
+                     <tr>
+                        <th>글번호</th>
+                        <th>글쓴이</th>
+                        <th>내용</th>
+                        <th>작성일</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                  <c:forEach var="e" items="${enquiryBoardList}">
+                     <tr>
+                        <td>${e.enquiryBoardNo}</td>
+                        <td>${e.memberId}</td>
+                        <td>${e.content}</td>               
+                        <td>${e.createDate}</td>
+                     </tr>
+                  </c:forEach>
+                  </tbody>
+               </table>
+               
+               <h5>공지사항 목록</h5>
+                 <table class="table">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>대상</th>
+						<th>제목</th>
+						<th>작성자</th>
+						<th>작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="n" items="${noticeList}">
+						<tr>
+							<td>${n.managerNoticeNo}</td>
+							<td>${n.category}</td>
+							<td>${n.managerNoticeTitle}</td>
+							<td>${n.managerId}</td>
+							<td>${n.createDate}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+         		</c:when>
+                	<c:when test="${sessionMemberLv == 2}">
+                		
+					</c:when>         		
+                </c:choose>
+                
+               
+               
 			</div>
 				<div id="footer"></div>
         	</div>
