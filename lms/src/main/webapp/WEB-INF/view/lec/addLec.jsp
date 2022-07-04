@@ -67,10 +67,10 @@
 					<tr>
 						<th class="text-center">강의실</th>
 						<td>
-							<select name="lectureRoomName" id="lecturerRoom" class="form-control">
+							<select name="lectureRoomName" id="lectureRoom" class="form-control">
 								<option value="">강의실을 선택해주세요.</option>
 								<c:forEach var="l" items="${lectureRoomList}">
-									<option value="${l.lectureRoomName}" data-sub="${l.lectureRoomNumber}">${l.lectureRoomName} [수용인원 : ${l.lectureRoomNumber}]</option>		
+									<option value="${l.lectureRoomName}" maxPerson="${l.lectureRoomNumber}">${l.lectureRoomName} [수용인원 : ${l.lectureRoomNumber}]</option>		
 								</c:forEach>
 							</select>
 							<span class="text-danger" id="lectureRoomError"></span>
@@ -142,14 +142,14 @@
 					<tr>
 						<th class="text-center">개강일</th>
 						<td>
-							<input name="beginClass" id="datepicker1" type="date" class="form-control" placeholder="개강일을 지정해주세요">
+							<input name="beginClass" id="beginClass" type="date" class="form-control" placeholder="개강일을 지정해주세요">
 							<span class="text-danger" id="beginClassError"></span>
 						</td>
 					</tr>
 					<tr>
 						<th class="text-center">종강일</th>
 						<td>
-							<input name="endClass" id="datepicker2" type="date" class="form-control" placeholder="종강일을 지정해주세요">
+							<input name="endClass" id="endClass" type="date" class="form-control" placeholder="종강일을 지정해주세요">
 							<span class="text-danger" id="endClassError"></span>
 						</td>
 					</tr>
@@ -212,19 +212,19 @@
 		// id가 btn인 버튼을 클릭 했을 시 발생
 	   	$('#btn').click(function(){
 	   			// 카테고리
-	   		   if($('#subject').val() == '') { // 과목
+	   		   if($('#subject option:selected').val() == '') { // 과목
 	   		      $('#subjectError').text('과목을 선택해주세요');
 	   		   } else {
 	   		      $('#subjectError').text('');
 	   		   }
 	   		   
-	   		   if($('#lectureRoom').val() == '') { // 강의실
+	   		   if($('#lectureRoom option:selected').val() == '') { // 강의실
 		   		      $('#lectureRoomError').text('강의실을 선택해주세요');
 		   		} else {
 		   		      $('#lectureRoomError').text('');
 		   		}
 	   			
-	   		   if($('#difficulty').val() == '') { // 난이도
+	   		   if($('#difficulty option:selected').val() == '') { // 난이도
 		   		      $('#difficultyError').text('난이도를 선택해주세요');
 		   		} else {
 		   		      $('#difficultyError').text('');
@@ -237,9 +237,13 @@
 		   		      $('#lectureNameError').text('');
 		   		}
 	   		   
+				// 수강인원은 1명 이상이고, 강의실 수용인원보다 클 수없다.
+				var maxPerson = $("#lectureRoom option:selected").attr('maxPerson');
 				if($('#registrationNumber').val() == '') { // 수강인원
 		   		      $('#registrationNumberError').text('수강인원을 입력해주세요');
-		   		} else {
+		   		} else if (1 > $('#registrationNumber').val() || $('#registrationNumber').val() > maxPerson) {
+					$('#registrationNumberError').text('수강인원이 1명 미만이거나, 강의실 수용인원을 초과할 수 없습니다');
+				} else {
 		   		      $('#registrationNumberError').text('');
 		   		}
 				
@@ -261,88 +265,102 @@
 		   		      $('#lecPhoneError').text('');
 		   		}
 				
-				// 일정표
-				if($('#startDate').val() == '') { // 개강일
-		   		      $('#beginClassError').text('개강일을 선택해주세요');
-		   		} else {
-		   		      $('#beginClassError').text('');
-		   		}
-	   		   
-				if($('#endDate').val() == '') { // 종강일
-		   		      $('#endClassError').text('종강일을 선택해주세요');
-		   		} else {
-		   		      $('#endClassError').text('');
-		   		}
 				
-				if($('#startTime').val() == '') { // 시작시간
+				// 일정표
+			   	
+				// 유효한 날짜인지 확인 정규식
+			    var dateRegex = /^(?=\d)(?:(?:31(?!.(?:0?[2469]|11))|(?:30|29)(?!.0?2)|29(?=.0?2.(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(?:\x20|$))|(?:2[0-8]|1\d|0?[1-9]))([-.\/])(?:1[012]|0?[1-9])\1(?:1[6-9]|[2-9]\d)?\d\d(?:(?=\x20\d)\x20|$))?(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$/;
+			    var result = dateRegex.test(d+'-'+m+'-'+y);
+			    
+				var date = $('#beginClass').val().split("-"); // ''-'를 기준으로 자름
+			   	var y = parseInt(date[0], 10), // 연도
+			        m = parseInt(date[1], 10), // 월
+			        d = parseInt(date[2], 10); // 일
+				
+			    // 종강일 유효성
+				date = $('#endClass').val().split("-");
+			   	y = parseInt(date[0], 10),
+			    m = parseInt(date[1], 10),
+			    d = parseInt(date[2], 10);
+	   		   
+			    dateRegex = /^(?=\d)(?:(?:31(?!.(?:0?[2469]|11))|(?:30|29)(?!.0?2)|29(?=.0?2.(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00)))(?:\x20|$))|(?:2[0-8]|1\d|0?[1-9]))([-.\/])(?:1[012]|0?[1-9])\1(?:1[6-9]|[2-9]\d)?\d\d(?:(?=\x20\d)\x20|$))?(((0?[1-9]|1[012])(:[0-5]\d){0,2}(\x20[AP]M))|([01]\d|2[0-3])(:[0-5]\d){1,2})?$/;
+			    result = dateRegex.test(d+'-'+m+'-'+y);
+			    
+			    // 개강일자가 오늘 이후날짜여야되고, 종강일자는 개강일자보다 크거나 같다
+			    var beginDateSplit = $('#beginClass').val().split("-");
+			    var beginDate = beginDateSplit[0] + beginDateSplit[1] + beginDateSplit[2];
+			    
+			    var date = new Date();
+			    
+			    var year = date.getFullYear();
+			    
+			    var month = date.getMonth();
+			    month += 1;
+			    if (month <= 9){
+			        month = "0" + month;
+			    }
+
+			    var day = date.getDate();
+			    if (day <= 9){
+			        day = "0" + day;
+			    }
+			    
+			    var today = year + month + day;
+			    
+			    var endDateSplit = $('#endClass').val().split("-");
+			    var endDate = endDateSplit[0] + endDateSplit[1] + endDateSplit[2];
+			    
+			    
+			   	if($('#beginClass').val() == '') { // 개강일
+		   		 	$('#beginClassError').text('개강일을 선택해주세요');
+		   		} else if (!result && $('#beginClassError').text()) {
+			    	$('#beginClassError').text('개강일의 날짜형식이 유효하지 않습니다.');
+			    } else if (today > beginDate) {
+				    $('#beginClassError').text('개강일은 오늘날짜 이후로 설정하여야 합니다.');
+				} else {
+				    $('#beginClassError').text('');
+				}
+			   	
+			   	
+				if($('#endClass').val() == '') { // 종강일
+		   		      $('#endClassError').text('종강일을 선택해주세요');
+		   		} else if (!result) {
+			    	$('#endClassError').text('종강일의 날짜형식이 유효하지 않습니다.');
+			    } else if (beginDate > endDate) {
+				    $('#endClassError').text('종강일은 개강일 이후로 설정하여야 합니다.');
+				} else {
+				    $('#endClassError').text('');
+				}
+				
+				if($('#startTime option:selected').val() == '') { // 시작시간
 		   		      $('#startTimeError').text('시작시간을 선택해주세요');
 		   		} else {
 		   		      $('#startTimeError').text('');
 		   		}
 				
-				if($('#endTime').val() == '') { // 종료시간
+				if($('#endTime option:selected').val() == '') { // 종료시간
 		   		      $('#endTimeError').text('종료시간을 선택해주세요');
 		   		} else {
 		   		      $('#endTimeError').text('');
 		   		}
 				
-				if($('#lunchTime').val() == '') { // 점심시간
+				if($('#lunchTime option:selected').val() == '') { // 점심시간
 		   		      $('#lunchTimeError').text('점심시간을 선택해주세요');
 		   		} else {
 		   		      $('#lunchTimeError').text('');
 		   		}
 				
-				if($('#teacherId').val() == '') { // 강사 아이디
+				if($('#teacherId option:selected').val() == '') { // 강사 아이디
 		   		      $('#teacherIdError').text('강사를 선택해주세요');
 		   		} else {
 		   		      $('#teacherIdError').text('');
 		   		}
-				
-				/*
-				// 개강일은 오늘날짜 이후, 종강일은 개강일보다 작아야함(진행 중)
-				
-				// 오늘 날짜
-				var today = new Date(); 
-				var year = today.getFullYear(); // 연도
-				var month =  today.getMonth() + 1; // 월
-				var day =  today.getDate(); // 일
-				
-				var startDate = $('#startDate').val();
-				var endDate = $('#endDate').val();
-				var startArray = startDate.split('-');  // -을 구분자로 연,월,일로 잘라내어 배열로 반환
-				
-				var to_date = new Date(year, month, day); // 오늘날짜 객체 생성
-				var start_date = new Date(startArray[0], startArray[1], startArray[2]); // 배열에 담겨있는 연,월,일을 사용해서 Date 객체 생성
-				var end_date = new Date(endArray[0], endArray[1], endArray[2]); // 날짜를 숫자형태의 날짜 정보로 변환하여 비교
-				
-				// 오늘 날짜보다 작다면, 개강일은 오늘 이후
-				if(start_date.getTime() < to_date.getTime()) {
-					alert('개강일은 오늘날짜 이후로 설정해주세요.');	            
-					return false;
-				} else if(start_date.getTime() > end_date.getTime()){
-					// 종강일은 개강일 이후
-					alert('종강일은 개강일 이후로 설정해주세요.');
-					return false;
-				}
-				*/
-				
-				/*
-				
-				// 강의실 수용인원보다 수강생이 많을 때를 대비 (진행 중)
-				$('#lectueRoom').on('change', function(){
-		   		   $('#lecturerRoom option:selected').val();
-		 			var value = $(this).val();
-		 			var subValue = $(this).find('option:selected').data('sub');
-					alert(subValue);
-				});
-				
-				*/
 	   		   
 	   		   // 전체 내용이 들어와 있다면 전송
-	   		   if($('#subject').val() != '' && $('#lectureRoom').val() != '' && $('#difficulty').val() != '' && $('#lectureName').val() != '' 
-	   				   && $('#registrationNumber').val() != '' && $('#registrationPassScore').val() != '' && $('#lecCost').val() != '' && $('#lecPhone').val() !=''
-		   				&& $('#beginClass').val() != '' && $('#endClass').val() != '' && $('#startTime').val() != '' && $('#endTime').val() !=''
-			   			&& $('#lunchTime').val() !='' && $('#teacherId').val() !='') {
+	   		   if($('#subjectError').text() == '' && $('#lectureRoomError').text() == '' && $('#difficultyError').text() == '' && $('#lectureNameError').text() == '' 
+	   				   && $('#registrationNumberError').text() == '' && $('#registrationPassScoreError').text() == '' && $('#lecCostError').text() == '' && $('#lecPhoneError').text() ==''
+		   				&& $('#beginClassError').text() == '' && $('#endClassError').text() == '' && $('#startTimeError').text() == '' && $('#endTimeError').text() ==''
+			   			&& $('#lunchTimeError').text() == '' && $('#teacherIdError').text() =='') {
 		            if (confirm('강의명은 수정 불가합니다. 강의 등록 전 검토 해주세요.')) {
 		                $('#addLecForm').submit();
 		            } else {
@@ -350,6 +368,7 @@
 		            }
 	   		   }
 	   		});
+		
 	   	init();
 		summernoteHide();
 	});
@@ -378,3 +397,5 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
 </html>
+
+
