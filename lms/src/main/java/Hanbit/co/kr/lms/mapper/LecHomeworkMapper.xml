@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.LecHomeworkMapper">
+	<select id="homeworkList"
+			parameterType="Hanbit.co.kr.lms.vo.LecPlan"
+			resultType="java.util.Map">
+		SELECT
+			h.lecture_name lectureName
+			,h.homework_make_title homeworkMakeTitle
+			,h.homework_make_content homeworkMakeContent
+			,h.homework_deadline homeworkDeadline
+			,h.create_date createDate
+			,l.registration_number registrationNumber
+			,COUNT(l.lecture_name) cnt
+		FROM homework_make h INNER JOIN lec l
+		ON h.lecture_name = l.lecture_name INNER JOIN lec_plan lp
+		ON l.lecture_name = lp.lecture_name INNER JOIN homework_submission hs
+		ON h.homework_make_no = hs.homework_make_no
+		where lp.teacher_id = #{teacherId} 
+		<if test="lectureName != null and lectureName != '-----------------------------강좌선택--------------------------'">
+			AND l.lecture_name = #{lectureName}
+		</if>
+		GROUP BY l.lecture_name
+	</select>
+</mapper>
