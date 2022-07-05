@@ -16,7 +16,11 @@
 	<insert id="insertRegistration"
 			parameterType="Hanbit.co.kr.lms.vo.Registration">
 		INSERT INTO registration(
-		
+		lecture_name
+		,student_id
+		,payment
+		,create_date
+		,update_date
 		) VALUES(
 			#{lectureName}
 			,#{studentId}

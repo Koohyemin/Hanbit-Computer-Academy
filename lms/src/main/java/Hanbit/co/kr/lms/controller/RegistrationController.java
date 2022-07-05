@@ -22,8 +22,12 @@ public class RegistrationController {
 	@Autowired RegistrationService registrationService;
 	@Autowired HttpSession session;
 	
-	@PostMapping("/registration/addregistration")
+	@GetMapping("/registration/addregistration")
 	public String addRegistration(Registration registration) {
+		
+		String studentId = (String) session.getAttribute("sessionMemberId");
+		
+		registration.setStudentId(studentId);
 		
 		log.debug(CF.LKL+"RegistrationController.addRegistration.registration"+CF.RESET+registration);
 		

@@ -119,8 +119,7 @@
 				,url:'/lms/checkKeeping' 												//RESTController 
 				,data:{'lectureName': $('#a'+i).val(), 'studentId':'${sessionMemberId}'} //키워드 받는 데이터
 				,success:function(check){
-					
-						
+
 					console.log(check);
 					ck=check;
 
@@ -131,9 +130,7 @@
 				
 				return false;
 			}
-			
-			
-			
+	
 		});
    	   }
 

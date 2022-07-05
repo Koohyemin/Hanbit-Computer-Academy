@@ -3,6 +3,7 @@ package Hanbit.co.kr.lms.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.spi.RegisterableService;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.service.LecService;
+import Hanbit.co.kr.lms.service.RegistrationService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Lec;
 import Hanbit.co.kr.lms.vo.LecPlan;
+import Hanbit.co.kr.lms.vo.Registration;
 import Hanbit.co.kr.lms.vo.TimeTable;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 public class LecController {
 	
 	@Autowired LecService lecService;
+	@Autowired RegistrationService registrationService;
 	@Autowired HttpSession session;
 	
 	// 운영자 강의 승인
@@ -126,8 +130,13 @@ public class LecController {
 	@GetMapping("lec/lecOne")
 	public String getLecOne(Model model, @RequestParam(name="lectureName") String lectureName) {
 		
-		Lec getLecOne = lecService.getLecOne(lectureName); // 강의 상세보기 정보
+		String studentId = (String) session.getAttribute("sessionMemberId");
 		
+		Lec getLecOne = lecService.getLecOne(lectureName); // 강의 상세보기 정보
+		List<Registration> regiList = registrationService.getRegistration(studentId);
+
+		log.debug(CF.KHM +"[LecController GetMapping regiList]: " + CF.RESET + regiList); // 현재페이지 디버깅
+		model.addAttribute("regiList",regiList);
 		// model에 상세보기 값 add
 		model.addAttribute("lec", getLecOne);
 		
@@ -191,16 +200,12 @@ public class LecController {
 		log.debug(CF.KHM +"[LecController GetMapping currentPage]: " + CF.RESET + currentPage); // 현재페이지 디버깅
 		//	log.debug(CF.KHM +"[LecController GetMapping totalCount]: " + CF.RESET + map.get("totalCount")); // 현재페이지 디버깅
 		
-		
-
-		
-		
 		// model에 값 add
 		model.addAttribute("list", map.get("list"));
 		model.addAttribute("lastPage", map.get("lastPage"));
 		model.addAttribute("currentPage", map.get("currnetPage"));
 		model.addAttribute("totalCount", map.size());
-
+		
 			
 		return "lec/lecList"; // lec/lecList.jsp로 이동
 	}

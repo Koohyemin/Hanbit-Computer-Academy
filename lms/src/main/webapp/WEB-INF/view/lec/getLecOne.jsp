@@ -37,7 +37,7 @@
 	        </div>
 			<a href="${pageContext.request.contextPath}/lec/lecList" class="btn btn-dark" style="float:right">이전으로</a>
 			<br><br>
-			<h1>${lec.lectureName}</h1>
+			<h1>${lec.lectureName} </h1>
 			<br><br>
 			<table class="table">
 				<tr>
@@ -85,11 +85,12 @@
 					<td>${fn:substring(lec.lecPhone,0,3)} - ${fn:substring(lec.lecPhone,3,7)} - ${fn:substring(lec.lecPhone,7,13)}</td>
 				</tr>
 			</table>
+			 
 			<div>
 			<!-- 운영자만 수정, 삭제 버튼을 볼 수 있음 -->
 			<c:if test="${sessionMemberLv == 1}">
 				<div class="d-grid gap-3">
-					<a href="#" class="btn btn-dark btn-block">수강신청</a>
+					<a href="${pageContext.request.contextPath}/registration/addregistration?lectureName=${lec.lectureName}" id="btn" class="btn btn-dark btn-block">수강신청</a>
 				</div>
 			</c:if>
 				<c:if test="${sessionMemberLv == 3}">
@@ -123,4 +124,35 @@
     <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+
+    <script>
+    
+	
+   var lectureName='${lec.lectureName}';
+	var list1 = new Array();
+
+	<c:forEach var="i" items="${regiList}">
+		 list1.push("${i.lectureName}");
+	 </c:forEach> 
+	console.log(list1);
+	var count = 0;
+	$("#btn").click(function(){
+			for(var i=0; i<list1.length; i++){
+				console.log(lectureName);
+				if(lectureName == list1[i]){
+					
+				count++;
+				console.log(count);
+				}
+			}
+			
+			if(count>0){
+				console.log(count);
+				alert('이미 수강 등록한 강좌입니다.');
+				return false;
+			}
+		});
+		
+
+    </script>
 </html>
