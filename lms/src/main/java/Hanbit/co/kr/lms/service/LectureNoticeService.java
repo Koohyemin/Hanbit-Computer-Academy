@@ -14,6 +14,7 @@ import Hanbit.co.kr.lms.mapper.LectureNoticeMapper;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LectureNotice;
+import Hanbit.co.kr.lms.vo.Registration;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -87,9 +88,15 @@ public class LectureNoticeService {
 		}
 		
 		// 공지사항 학생 수강별 강좌
-		public List<LecPlan> studentIdList(String studentId) {
-			List<LecPlan> lecPlan = lectureNoticeMapper.studentIdList(studentId);
-			log.debug( CF.KHV +"[lectureNoticeService lectureNameList]: "+ CF.RESET + lecPlan.size());
-			return lecPlan;
+		public List<Registration> studentLectureNameList(String studentId) {
+			List<Registration> registrations = lectureNoticeMapper.studentLectureNameList(studentId);
+			log.debug( CF.KHV +"[lectureNoticeService studentLectureNameList studentId]: "+ CF.RESET + registrations);
+			return registrations;
+		}
+		
+	// 공지사항 운영자 확인 강좌
+		public List<LectureNotice> lecNoticeList(String managerId) {
+			List<LectureNotice> lectureNotice = lectureNoticeMapper.lecNoticeList(managerId);
+			return lectureNotice;
 		}
 }

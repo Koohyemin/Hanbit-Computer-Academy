@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LectureNotice;
-
+import Hanbit.co.kr.lms.vo.Registration;
 
 @Mapper
 public interface LectureNoticeMapper {
@@ -33,5 +33,8 @@ public interface LectureNoticeMapper {
 		List<LecPlan> lectureNameList(String teacherId);
 		
 		// 학생 강좌장버 블러오기
-		List<LecPlan> studentIdList(String studuntId); 
+		List<Registration> studentLectureNameList(String studuntId); 
+		
+		// 운영자 강좌장버 블러오기
+		List<LectureNotice> lecNoticeList(String managerId);
 	}

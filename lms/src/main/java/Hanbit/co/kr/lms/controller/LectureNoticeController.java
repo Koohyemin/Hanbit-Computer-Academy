@@ -17,6 +17,7 @@ import Hanbit.co.kr.lms.service.LectureNoticeService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LectureNotice;
+import Hanbit.co.kr.lms.vo.Registration;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
@@ -53,14 +54,17 @@ public class LectureNoticeController {
 			String teacherId = (String) session.getAttribute("sessionMemberId");
 			// 뷰를 호출시 모델레이어로 부터 반환된 값(모델)을 뷰로 전송				
 			List<LecPlan> lectureNameList = lectureNoticeService.lectureNameList(teacherId);		
-			
 			// 강좌 선택을 위해 가르치는 강좌 리스트를 보내줌
 			model.addAttribute("lectureNameList", lectureNameList);
 			} else if(memberLv == 1) {
 			String StuduntId = (String) session.getAttribute("sessionMemberId");
-			List<LecPlan> studentIdList = lectureNoticeService.studentIdList(StuduntId);
+			List<Registration> studentLectureNameList = lectureNoticeService.studentLectureNameList(StuduntId);
+			log.debug( CF.KHV +"[lectureNoticeService studentLectureNameList]: "+ CF.RESET + studentLectureNameList);
+			
+			model.addAttribute("studentLectureNameList", studentLectureNameList);	
 			} else if(memberLv == 3) {
-				
+			
+			
 			}
 			return "lectureNotice/getLecNoticeListByPage";
 		}
