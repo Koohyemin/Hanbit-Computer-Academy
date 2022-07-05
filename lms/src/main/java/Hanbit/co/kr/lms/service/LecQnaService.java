@@ -17,6 +17,11 @@ public class LecQnaService {
 	
 	// insertQuestion Post
 	public int insertQuestion(LecQuestion lecQuestion) {
+		// 비공개 여부 선택이 없다면 공백이나 null로 들어온다.
+		if(lecQuestion.getRevelation() == null || "".equals(lecQuestion.getRevelation())) {
+			lecQuestion.setRevelation("T"); // 공개여부를 표시하는 T로 값 셋팅
+		}
+		
 		return lecQnaMapper.insertQuestion(lecQuestion); // 입력 성공 행
 	}
 

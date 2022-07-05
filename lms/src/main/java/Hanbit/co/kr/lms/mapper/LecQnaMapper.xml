@@ -2,8 +2,89 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LecQnaMapper">
 
+	<!-- 답변 보기 -->
+	<select id="lecAnswerList" parameterType="int" resultType="Hanbit.co.kr.lms.vo.LecAnswer">
+		SELECT 
+			 lec_answer_no lecAnswerNo
+			,lec_question_no lecQuestionNo
+			,member_id memberId
+			,lec_answer_content lecAnswerContent
+			,revelation
+			,create_date createDate
+			,update_date updateDate
+		FROM lec_answer
+		WHERE lec_question_no=#{lecQuestionNo}
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
 	
-	<!-- 학생이 수강 중인  -->
+	<!-- 답변 삭제 -->
+	<delete id="deleteOneAnswer" parameterType="int">
+		DELETE
+		FROM lec_answer
+		WHERE lec_answer_no = #{lecAnswerNo}
+	</delete>
+	
+	<!-- 답변 수정 -->
+	<update id="updateAnswer" parameterType="Hanbit.co.kr.lms.vo.LecAnswer">
+		UPDATE lec_answer SET
+			 lec_answer_content = #{lecAnswerContent}
+			,revelation = #{revelation}
+			,update_date = NOW()
+		WHERE lec_question_no=#{lecQuestionNo}
+	</update>
+	<!-- 답변 등록 -->
+	<insert id="insertAnswer" parameterType="Hanbit.co.kr.lms.vo.LecAnswer">
+		INSERT INTO lec_answer (
+			 lec_question_no
+			,member_id
+			,lec_answer_content
+			,revelation
+			,create_date
+			,update_date
+		) VALUE (
+			 #{lecQuestionNo}
+			,#{memberId}
+			,#{lecAnswerContent}
+			,#{revelation}
+			,NOW()
+			,NOW()
+		)
+	</insert>
+	
+	<!-- 질문 상세보기 -->
+	<select id="lecQuestionOne" parameterType="int" resultType="Hanbit.co.kr.lms.vo.LecQuestion">
+		SELECT
+			 lec_question_no lecQuestionNo
+			,member_id memberId
+			,lecture_name lectureName
+			,lec_question_title lecQuestionTitle
+			,lec_question_content lecQuestionContent
+			,revelation
+			,create_date createDate
+			,udpate_date updateDate
+		FROM lec_question
+		WHERE lec_question_no = #{lecQuestionNo}
+	</select>
+	
+	<!-- 강의 목록 + 댓글 개수 -->
+	<select id="lecQuestionList" parameterType="int" resultType="Hanbit.co.kr.lms.vo.LecQuestion">
+		SELECT
+			 lq.lec_question_no lecQuestionNo
+			,lq.member_id memberId
+			,lq.lecture_name lectureName
+			,lq.lec_question_title lecQuestionTitle
+			,lq.lec_question_content lecQuestionContent
+			,lq.revelation
+			,lq.create_date createDate
+			,lq.udpate_date updateDate
+			,la.cnt answerCount
+		FROM lec_question lq 
+			INNER JOIN (SELECT lec_question_no, COUNT(*) cnt FROM lec_answer) la
+			ON lq.lec_question_no = la.lec_question_no
+		LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+	
+	<!-- 학생이 수강 중인 강의 목록  -->
 	<select id="lectureList" parameterType="String" resultType="String">
 		SELECT r.lecture_name lectureName
 		FROM registration r
@@ -13,6 +94,31 @@
 			ON lp.lecture_name = r.lecture_name
 		WHERE tt.begin_class <![CDATA[<=]]> NOW() AND lp.lec_state = 'T' AND student_id = #{studentId}
 	</select>
+	
+	<!-- 관련 답변 삭제 -->
+	<delete id="deleteAnswer" parameterType="int">
+		DELETE
+		FROM lec_answer
+		WHERE lec_question_no=#{lecQuestionNo}
+	</delete>
+	
+	<!-- 강의실 질문 삭제(수강 학생) -->
+	<delete id="deleteQuestion" parameterType="int">
+		DELETE
+		FROM lec_question
+		WHERE lec_question_no = #{lecQuestionNo} AND member_id = #{studentId}
+	</delete>
+	
+	<!-- 강의실 질문 수정(수강 학생) -->
+	<update id="updateQuestion" parameterType="Hanbit.co.kr.lms.vo.LecQuestion">
+		UPDATE lec_question SET
+			 lecture_name = #{lectureName}
+			,lec_question_title = #{lectureTitle}
+			,lec_question_content = #{lecQuestionContent}
+			,revelation = #{revelation}
+			,udpate_date = NOW()
+		WHERE lec_question_no = #{lecQuestionNo} AND member_id = #{studentId}
+	</update>
 	
 	<!-- 강의실 질문 등록(수강 학생) -->
 	<insert id="insertQuestion" parameterType="Hanbit.co.kr.lms.vo.LecQuestion">

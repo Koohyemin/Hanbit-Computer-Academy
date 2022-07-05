@@ -40,7 +40,7 @@
             </div>
 			<a href="${pageContext.request.contextPath}/lecQna/lecQnaList" class="btn btn-dark" style="float:right">이전으로</a>
 			<br><br>
-			<form method="post" id="addNoticeForm" action="${pageContext.request.contextPath}/notice/addNotice">
+			<form method="post" id="addLecQnaForm" action="${pageContext.request.contextPath}/lecQna/addLecQna">
 				<table class="table">
 					<tr>
 						<th class="text-center">등록자</th>
@@ -59,7 +59,14 @@
 						<th class="text-center">강좌명</th>
 						<td>
 							<select name="lectureName" id="lectureName" class="form-control">
-								<option value="">강좌를 선택해주세요.</option>
+								<c:choose>
+									<c:when test="${lectureSize eq 0}">
+										<option value="">수강중인 강의가 없습니다</option>
+									</c:when>
+									<c:otherwise>
+										<option value="">강좌를 선택해주세요.</option>
+									</c:otherwise>
+								</c:choose>
 								<c:forEach var="l" items="${lectureList}">
 									<option value="${l}">${l}</option>					
 								</c:forEach>
@@ -119,7 +126,7 @@
 	   			   }
 	   		   // 전체 내용이 들어와 있다면 전송
 	   		   if($('#lectureNameError').text() == '' && $('#lecQuestionTitleError').text() == '' &&  $('#lecQuestionContentError').text() == '') {
-	   		      $('#addLecQna').submit();
+	   		      $('#addLecQnaForm').submit();
 	   		   }
 	   		});
 	   	init();
