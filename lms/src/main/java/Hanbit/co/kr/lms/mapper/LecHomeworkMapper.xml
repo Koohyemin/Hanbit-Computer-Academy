@@ -1,25 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LecHomeworkMapper">
+	<select id="selectHomeworkOne"
+			parameterType="int"
+			resultType="Hanbit.co.kr.lms.vo.HomeworkMake">
+		SELECT 
+			lecture_name lectureName
+			,homework_make_title homeworkMakeTitle
+			,homework_make_content homeworkMakeContent
+			,homework_deadline homeworkDeadline
+			,create_date createDate
+			,update_date updateDate
+		FROM homework_make
+		WHERE homework_make_no = #{homeworkMakeNo}
+	</select>
+	
+	<select id="homeworkSubmitList"
+			parameterType="int"
+	        resultType="java.util.Map">
+	    SELECT 
+			hm.lecture_name lectureName
+			,hs.student_id studnetId
+			,hs.homework_submission_title homeworkSubmissionTitle
+			,hs.homework_submission_content homeworkSubmissionContent
+			,hs.homework_score homeworkScore
+			,hs.create_date createDate
+			,hs.update_date updateDate
+			,s.student_name studentName
+		FROM homework_submission hs INNER JOIN homework_make hm
+			ON hs.homework_make_no = hm.homework_make_no
+		INNER JOIN student s
+			ON hs.student_id = s.student_id
+		WHERE hm.homework_make_no = #{homeworkMakeNo}   
+	</select>
 	<select id="homeworkList"
 			parameterType="Hanbit.co.kr.lms.vo.LecPlan"
 			resultType="java.util.Map">
 		SELECT
-			h.lecture_name lectureName
+			h.homework_make_no homeworkMakeNo
+			,h.lecture_name lectureName
 			,h.homework_make_title homeworkMakeTitle
 			,h.homework_make_content homeworkMakeContent
 			,h.homework_deadline homeworkDeadline
 			,h.create_date createDate
 			,l.registration_number registrationNumber
-			,COUNT(l.lecture_name) cnt
 		FROM homework_make h INNER JOIN lec l
 		ON h.lecture_name = l.lecture_name INNER JOIN lec_plan lp
-		ON l.lecture_name = lp.lecture_name INNER JOIN homework_submission hs
-		ON h.homework_make_no = hs.homework_make_no
+		ON l.lecture_name = lp.lecture_name
 		where lp.teacher_id = #{teacherId} 
 		<if test="lectureName != null and lectureName != '-----------------------------강좌선택--------------------------'">
 			AND l.lecture_name = #{lectureName}
 		</if>
-		GROUP BY l.lecture_name
 	</select>
+	
+	<insert id="insertHomework"
+			parameterType="Hanbit.co.kr.lms.vo.HomeworkMake">
+		INSERT INTO homework_make 
+			(lecture_name, homework_make_title , homework_make_content, homework_deadline ,create_date ,update_date)
+		VALUE 
+			(#{lectureName} ,#{homeworkMakeTitle},#{homeworkMakeContent},#{homeworkDeadline},NOW(),NOW())
+	</insert>
+	
 </mapper>

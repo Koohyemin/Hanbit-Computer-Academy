@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.IndexMapper">
+	
+	<!-- 가입 비승인목록 -->
+		<resultMap type="java.util.HashMap" id="waitingList">
+		 <id column="memberId" property="memberId"/>
+		 <id column="createDate" property="createDate"/>
+		 <id column="meberState" property="meberState"/>
+		 <id column="memberLevel" property="memberLevel"/>
+	</resultMap>
+	<select id="selectIndexNonApprovalList"
+			resultMap="waitingList">
+		SELECT 
+			member_id memberId
+			,create_date createDate
+			,member_state meberState
+			,CASE member_level WHEN '1' THEN '학생'
+							   WHEN '2' THEN '강사'
+							   WHEN '3' THEN '운영자'
+							   ELSE 'error' END AS 'memberLevel'
+		FROM member
+		WHERE member_state = '1'
+		LIMIT 5
+	</select>
+
+	<!-- 강의계획서 비승인목록 -->
+	<select id="selectIndexLecList" resultType="Hanbit.co.kr.lms.vo.LecPlan"
+		parameterType ="Hanbit.co.kr.lms.vo.LecPlan">
+		SELECT 
+			lecture_name lectureName
+			,teacher_id teacherId
+			,lec_state lecState
+		FROM lec_plan
+		LIMIT 5
+	</select>
+	
+	<!-- 운영진에게 문의목록 -->
+	<select id="selectIndexEnquiryBoardList" resultType="Hanbit.co.kr.lms.vo.EnquiryBoard"
+		parameterType ="Hanbit.co.kr.lms.vo.EnquiryBoard">
+			SELECT 
+				enquiry_board_no enquiryBoardNo
+				, member_id memberId
+				, content
+				, category
+				, create_date createDate
+			FROM enquiry_board
+			LIMIT 5
+	</select>
+	
+	<!-- 전체 공지사항 -->
+	<select id="selectIndexNoticeList" resultType="Hanbit.co.kr.lms.vo.ManagerNotice"
+		parameterType ="Hanbit.co.kr.lms.vo.ManagerNotice">
+		SELECT
+			 manager_notice_no managerNoticeNo
+			,manager_id managerId
+			,manager_notice_title managerNoticeTitle
+			,category
+		 	,create_date createDate
+		 FROM manager_notice
+		 LIMIT 5
+	</select>
+
+</mapper>

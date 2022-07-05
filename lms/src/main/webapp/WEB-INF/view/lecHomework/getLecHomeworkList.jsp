@@ -26,8 +26,13 @@
                 <br>
 	                <div class="card mb-4">
 	                    <div class="card-header">
-	                        <i class="fas fa-chart-area me-1"></i>
+	                        <span style="font-size:20px;"><i class="fas fa-chart-area me-1"></i>
 	                        LectureHomework
+	                        <c:if test="${sessionMemberLv == 2}">
+				                <div class="btn btn-group float-end">
+									<a class="btn btn-dark btn-sm" role="button" href="${pageContext.request.contextPath}/lecHomework/addHomework">과제등록</a>
+								</div>
+	                        </c:if>
 	                    </div>
 	                    <div class="card-body">
 	                    <form method="get" action="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList">
@@ -60,11 +65,14 @@
 									<c:forEach var="h" items="${homeworkMake}">
 										<tr>
 										   <td>${h.lectureName}</td>
-											<td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/#">${h.homeworkMakeTitle}</a></td>
+											<td>${h.homeworkMakeTitle}</td>
 											<td>${h.homeworkMakeContent}</td>
 											<td>${h.homeworkDeadline}</td>
 											<td>${h.createDate}</td>
 											<td>${h.cnt}/${h.registrationNumber}</td>
+											<td>
+												<a  href="${pageContext.request.contextPath}/lecHomework/lecHomeworkOne?homeworkMakeNo=${h.homeworkMakeNo}">수정 및 학생과제 평가</a>
+											</td>
 										</tr>
 									</c:forEach>
 								</c:if>

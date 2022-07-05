@@ -12,4 +12,5 @@ public class LecQuestion {
 	private String revelation; // 공개여부
 	private String createDate; // 생성날짜
 	private String updateDate; // 업데이트날짜
+	private int answerCount; // 답변 수
 }

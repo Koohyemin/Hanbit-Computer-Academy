@@ -47,7 +47,7 @@
                      <tr>
                         <td>${e.enquiryBoardNo}</td>
                         <td>${e.memberId}</td>
-                        <td><a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardOne?enquiryBoardNo=${e.enquiryBoardNo}">${e.content}</a></td>               
+                        <td><a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardOne?enquiryBoardNo=${e.enquiryBoardNo}" class="text-dark none-unline"><b>${e.content}</b></a></td>               
                         <td>${e.createDate}</td>
                      </tr>
                   </c:forEach>
