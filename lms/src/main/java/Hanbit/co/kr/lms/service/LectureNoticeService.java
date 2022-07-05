@@ -81,10 +81,10 @@ public class LectureNoticeService {
 		
 		
 	// 공지사항 강사 수강별 강좌
-		public List<LecPlan> lectureNameList(String teacherId) {
-			List<LecPlan> lecPlan = lectureNoticeMapper.lectureNameList(teacherId);
-			log.debug( CF.KHV +"[lectureNoticeService lectureNameList]: "+ CF.RESET + lecPlan.size());
-			return lecPlan;
+	public List<LecPlan> lectureNameList(String teacherId) {
+		List<LecPlan> lecPlan = lectureNoticeMapper.lectureNameList(teacherId);
+		log.debug( CF.KHV +"[lectureNoticeService lectureNameList]: "+ CF.RESET + lecPlan.size());
+		return lecPlan;
 		}
 		
 		// 공지사항 학생 수강별 강좌
@@ -94,5 +94,9 @@ public class LectureNoticeService {
 			return registrations;
 		}
 		
-	// 공지사항 운영자 확인 강좌
+		// 공지사항 운영자 확인 강좌
+		public List<Registration> managerLectureNameList() {
+			List<Registration> registrations = lectureNoticeMapper.managerLectureNameList();
+			return registrations;
+			}
 }

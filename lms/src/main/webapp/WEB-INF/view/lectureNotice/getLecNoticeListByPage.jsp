@@ -184,13 +184,13 @@
 			                       </tr>
 			                   </thead>
 				                  <tbody>
-						            <c:forEach var="lectureNotice" items="${list}">
+						            <c:forEach var="lectureNotice" items="${map}">
 						                <tr>
-						                   <td>${lectureNotice.lecNoticeNo}</td>
-						                   <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeOne?lecNoticeNo=${lectureNotice.lecNoticeNo}">${lectureNotice.title}</a></td>
-						                   <td>${lectureNotice.lectureName}</td>
-						                   <td>${lectureNotice.memberId}</td>
-						                   <td>${lectureNotice.createDate}</td>
+						                   <td>${map.lecNoticeNo}</td>
+						                   <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeOne?lecNoticeNo=${map.lecNoticeNo}">${map.title}</a></td>
+						                   <td>${map.lectureName}</td>
+						                   <td>${map.memberId}</td>
+						                   <td>${map.createDate}</td>
 						                </tr>
 						            </c:forEach>
 						        </tbody>

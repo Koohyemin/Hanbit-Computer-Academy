@@ -89,7 +89,7 @@
 	</select>
 	
 	<!-- LectureNoticeMapper.getLectureNoticeListByPage 공지사항 목록 (페이징) -->
-	<select id="lecNoticeList" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.LectureNotice">
+	<select id="managerLectureNameList" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.LectureNotice">
 		SELECT
 			 lec_notice_no lecNoticeNo
 			,member_id memberId

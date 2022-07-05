@@ -56,15 +56,17 @@ public class LectureNoticeController {
 			List<LecPlan> lectureNameList = lectureNoticeService.lectureNameList(teacherId);		
 			// 강좌 선택을 위해 가르치는 강좌 리스트를 보내줌
 			model.addAttribute("lectureNameList", lectureNameList);
-			} else if(memberLv == 1) {
+			} else if(memberLv == 1) { // 학생이면 학생이 수강중인 수업 공지만 표시
 			String StuduntId = (String) session.getAttribute("sessionMemberId");
 			List<Registration> studentLectureNameList = lectureNoticeService.studentLectureNameList(StuduntId);
 			log.debug( CF.KHV +"[lectureNoticeService studentLectureNameList]: "+ CF.RESET + studentLectureNameList);
 			
 			model.addAttribute("studentLectureNameList", studentLectureNameList);	
-			} else if(memberLv == 3) {		
-			}
-			return "lectureNotice/getLecNoticeListByPage";
+			} else if(memberLv == 3) {	
+			String managerId = (String) session.getAttribute("sessionMemberId");
+			List<Registration> managerLectureNameList = lectureNoticeService.managerLectureNameList();
+				
+         	}return "lectureNotice/getLecNoticeListByPage";
 		}
 		
 		
