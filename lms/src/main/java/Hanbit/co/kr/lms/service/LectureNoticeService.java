@@ -95,8 +95,4 @@ public class LectureNoticeService {
 		}
 		
 	// 공지사항 운영자 확인 강좌
-		public List<LectureNotice> lecNoticeList(String managerId) {
-			List<LectureNotice> lectureNotice = lectureNoticeMapper.lecNoticeList(managerId);
-			return lectureNotice;
-		}
 }

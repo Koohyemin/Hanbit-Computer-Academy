@@ -36,5 +36,4 @@ public interface LectureNoticeMapper {
 		List<Registration> studentLectureNameList(String studuntId); 
 		
 		// 운영자 강좌장버 블러오기
-		List<LectureNotice> lecNoticeList(String managerId);
 	}

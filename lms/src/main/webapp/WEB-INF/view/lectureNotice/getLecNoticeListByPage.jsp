@@ -93,54 +93,7 @@
 	                	</div>
 	                	</c:if>
 	                	
-	                <c:if test="${sessionMemberLv == 3 }">
-	               	 	<br>
-		                <div class="card mb-4">
-		                    <div class="card-header">
-		                        <i class="fas fa-chart-area me-1"></i>
-		                        LectureNotice
-	                    </div>
-	                    <div class="card-body">
-					
-			               <table class="table">
-			                   <thead>
-			                       <tr>
-			                           	<th>번호</th>
-						                <th>제목	</th>
-						                <th>강의</th>
-										<th>작성자</th>
-						                <th>작성일</th>
-			                       </tr>
-			                   </thead>
-				                  <tbody>
-						            <c:forEach var="lectureNotice" items="${list}">
-						                <tr>
-						                   <td>${lectureNotice.lecNoticeNo}</td>
-						                   <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeOne?lecNoticeNo=${lectureNotice.lecNoticeNo}">${lectureNotice.title}</a></td>
-						                   <td>${lectureNotice.lectureName}</td>
-						                   <td>${lectureNotice.memberId}</td>
-						                   <td>${lectureNotice.createDate}</td>
-						                </tr>
-						            </c:forEach>
-						        </tbody>
-		              		 </table>
-				        
-		              		 <div class="text-center">
-								<c:if test="${currentPage>1}">
-									<a href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage?currentPage=${currentPage-1}" class="btn btn-dark">이전</a>
-								</c:if>
-								<c:if test="${lastPage>currentPage}">
-									<a href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage?currentPage=${currentPage+1}" class="btn btn-dark">다음</a>
-								</c:if>
-							</div>
-		              		 <c:if test="${sessionMemberLv == 2 }">
-       							<a class="btn btn-dark" href="${pageContext.request.contextPath}/lectureNotice/getInsertLectureNotice">공지사항입력</a>
-       							</c:if> 
-       						</c:if>
-	                	</div>
-	                	</div>     
-	                	</div>
-	                	
+	                	    	
 	                <c:if test="${sessionMemberLv == 1 }">
 	               	 <br>
 		                <div class="card mb-4">
@@ -210,6 +163,54 @@
 	                	</div>     
 	                	</div>
 	                	</c:if>
+	                	
+	                <c:if test="${sessionMemberLv == 3 }">
+	               	 	<br>
+		                <div class="card mb-4">
+		                    <div class="card-header">
+		                        <i class="fas fa-chart-area me-1"></i>
+		                        LectureNotice
+	                    </div>
+	                    <div class="card-body">
+					
+			               <table class="table">
+			                   <thead>
+			                       <tr>
+			                           	<th>번호</th>
+						                <th>제목	</th>
+						                <th>강의</th>
+										<th>작성자</th>
+						                <th>작성일</th>
+			                       </tr>
+			                   </thead>
+				                  <tbody>
+						            <c:forEach var="lectureNotice" items="${list}">
+						                <tr>
+						                   <td>${lectureNotice.lecNoticeNo}</td>
+						                   <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeOne?lecNoticeNo=${lectureNotice.lecNoticeNo}">${lectureNotice.title}</a></td>
+						                   <td>${lectureNotice.lectureName}</td>
+						                   <td>${lectureNotice.memberId}</td>
+						                   <td>${lectureNotice.createDate}</td>
+						                </tr>
+						            </c:forEach>
+						        </tbody>
+		              		 </table>
+				        
+		              		 <div class="text-center">
+								<c:if test="${currentPage>1}">
+									<a href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage?currentPage=${currentPage-1}" class="btn btn-dark">이전</a>
+								</c:if>
+								<c:if test="${lastPage>currentPage}">
+									<a href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage?currentPage=${currentPage+1}" class="btn btn-dark">다음</a>
+								</c:if>
+							</div>
+		              		 <c:if test="${sessionMemberLv == 2 }">
+       							<a class="btn btn-dark" href="${pageContext.request.contextPath}/lectureNotice/getInsertLectureNotice">공지사항입력</a>
+       							</c:if> 
+       						</c:if>
+	                	</div>
+	                	</div>     
+	                	</div>
 			<div id="footer"></div>
 		</div>
 	</div>
