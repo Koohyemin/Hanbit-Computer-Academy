@@ -2,15 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.IndexMapper">
 
-			<!-- 가입 비승인목록 -->	
+		<!-- 가입 비승인목록 -->	
 		<resultMap type="java.util.HashMap" id="waitingList">
 		 <id column="memberId" property="memberId"/>
 		 <id column="createDate" property="createDate"/>
 		 <id column="meberState" property="meberState"/>
 		 <id column="memberLevel" property="memberLevel"/>
 	</resultMap>
-	<select id="selectIndexNonApprovalList"
-			resultMap="waitingList">
+	<select id="selectIndexNonApprovalList"	resultMap="waitingList">
 		SELECT 
 			member_id memberId
 			,create_date createDate
@@ -37,14 +36,14 @@
 	
 		<!-- 운영진에게 문의목록 -->
 	<select id="selectIndexEnquiryBoardList" resultType="Hanbit.co.kr.lms.vo.EnquiryBoard">
-			SELECT 
-				enquiry_board_no enquiryBoardNo
-				, member_id memberId
-				, content
-				, category
-				, create_date createDate
-			FROM enquiry_board
-			LIMIT 5
+		SELECT 
+			enquiry_board_no enquiryBoardNo
+			, member_id memberId
+			, content
+			, category
+			, create_date createDate
+		FROM enquiry_board
+		LIMIT 5
 	</select>
 	
 		<!-- 전체 공지사항 -->
@@ -60,11 +59,32 @@
 		 LIMIT 5
 	</select>
 	
-	<!-- 강의 중인 강좌의 학생 문의사항 -->
+		<!-- 강의 중인 강좌의 학생 문의사항 / category="강사"인 조회문-->
+	<select id="selectIndexStudentEnquiryBoardList" resultType="Hanbit.co.kr.lms.vo.EnquiryBoard"
+		parameterType="String">
+		SELECT 
+			enquiry_board_no enquiryBoardNo
+			, member_id memberId
+			, content
+			, category
+			,create_date createDate
+		FROM enquiry_board
+		WHERE category='강사'
+		LIMIT 5		
+	</select>
 	
-	<!-- 강사에 따른 담당강좌 -->
+		<!-- 강사에 따른 담당강좌 -->
+	<select id="selectIndexTeacherLecList" resultType="Hanbit.co.kr.lms.vo.LecPlan"
+		parameterType="String">
+		SELECT 
+			lecture_name lectureName
+			, teacher_id teacherId
+		FROM lec_plan
+		WHERE lec_state = 'T'
+		 LIMIT 5		
+	</select>
 		
-	<!-- 강사 공지사항 -->
+		<!-- 강사 공지사항 -->
 	<select id="selectIndexTeacherNoticeList" resultType="Hanbit.co.kr.lms.vo.ManagerNotice"
 		parameterType = "String">
 		SELECT
@@ -78,18 +98,19 @@
 		 LIMIT 5
 	</select>
 	
-	<!--학생별 강좌 목록 -->
+		<!--학생별 강좌 목록 -->
 	<select id= "selectIndexStudentLectureNameList" resultType="Hanbit.co.kr.lms.vo.Registration"
-		parameterType="String">
+		parameterType = "String">
 		SELECT 
 			registration_no registrationNo
 			,lecture_name lectureName
 			,student_id studentId
 		FROM registration
  		WHERE student_id = #{studentId}
+		 LIMIT 5 		
 	</select>
 	
-	<!-- 학생 공지사항 -->
+		<!-- 학생 공지사항 -->
 	<select id="selectIndexStudentNoticeList" resultType="Hanbit.co.kr.lms.vo.ManagerNotice"
 		parameterType = "String">
 		SELECT

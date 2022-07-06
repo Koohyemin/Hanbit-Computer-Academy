@@ -26,13 +26,16 @@ public interface IndexMapper {
 	//전체 공지사항 목록
 	List<ManagerNotice> selectIndexNoticeList();
 	
+	//강사에게 문의사항 목록
+	List<EnquiryBoard> selectIndexStudentEnquiryBoardList(String category);
+	
 	//강사에 따른 담당강좌
-
+	List<LecPlan> selectIndexTeacherLecList(String teacherId);
 	//강사 공지사항 목록
 	List<ManagerNotice> selectIndexTeacherNoticeList(ManagerNotice managerNotice);
 	
 	//학생이 수강중인 강좌
-	List<Registration> selectIndexStudentLectureNameList(Registration registration);
+	List<Registration> selectIndexStudentLectureNameList(String studentId);
 	
 	//학생 공지사항 목록
 	List<ManagerNotice> selectIndexStudentNoticeList(ManagerNotice managerNotice);

@@ -44,8 +44,16 @@ public class IndexService {
 		return indexMapper.selectIndexNoticeList();
 	}
 	
+	//강사에게 문의사항
+	public List<EnquiryBoard> selectIndexStudentEnquiryBoardList(String category) {
+		return indexMapper.selectIndexStudentEnquiryBoardList(category);
+	}
+
 	//강사에 따른 담당강좌
-	
+	public List<LecPlan> selectIndexTeacherLecList(String teacherId) {
+		return indexMapper.selectIndexTeacherLecList(teacherId);
+	}
+
 	//강사 공지사항 목록
 	public List<ManagerNotice> selectIndexTeacherNoticeList(ManagerNotice managerNotice) {
 		return indexMapper.selectIndexTeacherNoticeList(managerNotice);
@@ -53,8 +61,8 @@ public class IndexService {
 	
 	
 	//학생이 수강중인 강의
-	public List<Registration> selectIndexStudentLectureNameList(Registration registration) {
-		return indexMapper.selectIndexStudentLectureNameList(registration);
+	public List<Registration> selectIndexStudentLectureNameList(String studentId) {
+		return indexMapper.selectIndexStudentLectureNameList(studentId);
 	}
 	
 	//학생 공지사항 목록

@@ -27,10 +27,12 @@ public class IndexAdminController {
 	@Autowired IndexService indexService;
 	@Autowired HttpSession session;
 
-	
 	@GetMapping("/home/index")
 	public String indexAdminBoardList(ManagerNotice managerNotice, Registration registration, Model model) {
+		
+		//세션값
 		String studentId = (String) session.getAttribute("sessionMemberId");
+		
 		//운영자
 		List<Map<String, Object>> waitingList = indexService.selectIndexNonApprovalList();
 		log.debug( CF.KHN +"[IndexAdminController selectIndexNonApprovalList waitingList]: "+ CF.RESET + waitingList);
@@ -45,11 +47,17 @@ public class IndexAdminController {
 		log.debug( CF.KHN +"[IndexAdminController selectIndexNoticeList noticeList]: "+ CF.RESET + noticeList);
 		
 		//강사
+		List<EnquiryBoard> teacherEqList = indexService.selectIndexStudentEnquiryBoardList(studentId);
+		log.debug( CF.KHN +"[IndexAdminController selectIndexTeacherNoticeList teacherEqList]: "+ CF.RESET + teacherEqList);
+		
+		List<LecPlan> teacherLecList = indexService.selectIndexTeacherLecList(studentId);
+		log.debug( CF.KHN +"[IndexAdminController selectIndexTeacherNoticeList teacherLecList]: "+ CF.RESET + teacherLecList);
+		
 		List<ManagerNotice> teacherList = indexService.selectIndexTeacherNoticeList(managerNotice);
 		log.debug( CF.KHN +"[IndexAdminController selectIndexTeacherNoticeList teacherList]: "+ CF.RESET + teacherList);
 		
 		//학생
-		List<Registration> studentLecList = indexService.selectIndexStudentLectureNameList(registration);
+		List<Registration> studentLecList = indexService.selectIndexStudentLectureNameList(studentId);
 		log.debug( CF.KHN +"[IndexAdminController selectIndexStudentLectureNameList studentLecList]: "+ CF.RESET + studentLecList);	
 		
 		List<ManagerNotice> studentList = indexService.selectIndexStudentNoticeList(managerNotice);
@@ -62,17 +70,14 @@ public class IndexAdminController {
 		model.addAttribute("noticeList", noticeList);
 		
 		//강사
+		model.addAttribute("teacherEqList", teacherEqList);
+		model.addAttribute("teacherLecList", teacherLecList);
 		model.addAttribute("teacherList", teacherList);
 		
 		//학생
 		model.addAttribute("studentLecList", studentLecList);
 		model.addAttribute("studentList", studentList);
-		
-		
-		//강사
-		
-		//학생
-		
+
 		//뷰 포워딩
 		return "home/index";
 	}
