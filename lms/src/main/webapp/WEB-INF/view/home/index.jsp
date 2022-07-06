@@ -147,17 +147,18 @@
 					<table>
 						<thead>
 							<tr>
-								<th>
-									
-								</th>
+								<th>번호</th>
+								<th>수업이름</th>
+								<th>ID</th>
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="studentLecList" items="${studentLecList}">
 								<tr>
-									<td>수업이름</td>
-									<td></td>
-									
+									<td>${studentLecList.registrationNo}</td>
+									<td>${studentLecList.lectureName}</td>
+									<td>${studentLecList.studentId}</td>
+
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -174,13 +175,13 @@
 								</tr>
 							</thead>
 							<tbody>
-								<c:forEach var="s" items="${studentList}">
+								<c:forEach var="studentList" items="${studentList}">
 									<tr>
-										<td>${s.managerNoticeNo}</td>
-										<td>${s.managerId}</td>
-										<td>${s.managerNoticeTitle}</td>
-										<td>${s.category}</td>
-										<td>${s.createDate}</td>
+										<td>${studentList.managerNoticeNo}</td>
+										<td>${studentList.managerId}</td>
+										<td>${studentList.managerNoticeTitle}</td>
+										<td>${studentList.category}</td>
+										<td>${studentList.createDate}</td>
 									</tr>
 								</c:forEach>
 							</tbody>

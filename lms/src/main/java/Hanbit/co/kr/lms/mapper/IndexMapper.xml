@@ -79,8 +79,12 @@
 	</select>
 	
 	<!--학생별 강좌 목록 -->
-	<select id= "selectIndexStudentLectureNameList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.Registration">
-		SELECT lecture_name lectureName
+	<select id= "selectIndexStudentLectureNameList" resultType="Hanbit.co.kr.lms.vo.Registration"
+		parameterType="String">
+		SELECT 
+			registration_no registrationNo
+			,lecture_name lectureName
+			,student_id studentId
 		FROM registration
  		WHERE student_id = #{studentId}
 	</select>
