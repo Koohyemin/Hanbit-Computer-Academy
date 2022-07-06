@@ -8,7 +8,7 @@
 		WHERE lecture_name = #{lectureName}
 	</select>
 	
-	<!-- LectureNoticeMapper.getLectureNoticeListByPage 공지사항 목록 (페이징) -->
+	<!-- LectureNoticeMapper.getLectureNoticeListByPage 운영자 공지사항 목록 (페이징) -->
 	<select id="getLecNoticeListByPage" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.LectureNotice">
 		SELECT
 			 lec_notice_no lecNoticeNo
@@ -88,18 +88,5 @@
  		WHERE student_id = #{studentId}
 	</select>
 	
-	<!-- LectureNoticeMapper.getLectureNoticeListByPage 공지사항 목록 (페이징) -->
-	<select id="managerLectureNameList" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.LectureNotice">
-		SELECT
-			 lec_notice_no lecNoticeNo
-			,member_id memberId
-			,lecture_name lectureName
-			,title 
-		 	,create_date createDate
-		 FROM lecture_notice
-		 WHERE lecture_name = #{lectureName}
-		 ORDER BY create_date DESC
-		 LIMIT #{beginRow}, #{rowPerPage}
-	</select>
-	
+
 </mapper>

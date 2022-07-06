@@ -1,4 +1,4 @@
-package Hanbit.co.kr.lms.service;
+    package Hanbit.co.kr.lms.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -94,9 +94,4 @@ public class LectureNoticeService {
 			return registrations;
 		}
 		
-		// 공지사항 운영자 확인 강좌
-		public List<Registration> managerLectureNameList() {
-			List<Registration> registrations = lectureNoticeMapper.managerLectureNameList();
-			return registrations;
-			}
 }

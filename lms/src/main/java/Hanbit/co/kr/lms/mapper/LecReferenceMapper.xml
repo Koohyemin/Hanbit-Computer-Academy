@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.LecReferenceMapper">
+<!-- LectureNoticeMapper.getLectureReferenceListByPage 운영자 공지사항 목록 (페이징) -->
+	<select id="getLecReferenceListByPage" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.LecReference">
+		SELECT
+			 lec_reference_no lecReferenceNo
+			,member_id memberId
+			,lecture_name lectureName
+			,title 
+		 	,create_date createDate
+		 FROM lecture_notice
+		 WHERE lecture_name = #{lectureName}
+		 ORDER BY create_date DESC
+		 LIMIT #{beginRow}, #{rowPerPage}
+	</select>
+
+	<insert id="getInsertLectureNotice" parameterType="Hanbit.co.kr.lms.vo.LecReference">
+		INSERT INTO lecture_notice(
+			lec_notice_no 
+			,member_id
+			,lecture_name
+			,title
+			,content
+			,create_date 
+			, update_date
+			)VALUES( 
+			#{lecNoticeNo}
+			,#{memberId}
+			,#{lectureName}
+			,#{title}
+			,#{content}
+			,NOW()
+			,NOW()
+	)		
+	</insert>
+</mapper>

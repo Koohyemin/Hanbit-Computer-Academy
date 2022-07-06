@@ -63,9 +63,7 @@ public class LectureNoticeController {
 			
 			model.addAttribute("studentLectureNameList", studentLectureNameList);	
 			} else if(memberLv == 3) {	
-			String managerId = (String) session.getAttribute("sessionMemberId");
-			List<Registration> managerLectureNameList = lectureNoticeService.managerLectureNameList();
-				
+			
          	}return "lectureNotice/getLecNoticeListByPage";
 		}
 		

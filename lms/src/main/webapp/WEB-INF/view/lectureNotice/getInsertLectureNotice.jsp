@@ -105,7 +105,7 @@
 			   }
 		   // 전체 내용이 들어와 있다면 전송
 		   if($('#category').val() != '' && $('#title').val() != '' && $('#summernote').summernote('code').replace(/<\/?[^>]+(>|$)/g, '') != '') {
-		      $('#addNoticeForm').submit();
+		      $('#getInsertLectureNoticeForm').submit();
 		   }
 	});
 	// 썸머노트
