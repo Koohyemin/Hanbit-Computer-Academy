@@ -1,6 +1,8 @@
 package Hanbit.co.kr.lms.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +30,12 @@ public class RegistrationService {
 		log.debug(CF.LKL+"RegistrationService.getRegistration.studentId"+CF.RESET+studentId);
 		
 		return registrationMapper.selectRegistration(studentId);
+	}
+	public HashMap getRegistrationByStudent(Registration registration){
+		
+		log.debug(CF.LKL+"RegistrationService.selectRegistrationByStudent.studentId"+CF.RESET+registration);
+		
+		return registrationMapper.selectRegistrationByStudent(registration);
+		
 	}
 }

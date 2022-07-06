@@ -1,5 +1,6 @@
 package Hanbit.co.kr.lms.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.imageio.spi.RegisterableService;
@@ -10,9 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.service.RegistrationService;
 import Hanbit.co.kr.lms.util.CF;
+import Hanbit.co.kr.lms.vo.Lec;
 import Hanbit.co.kr.lms.vo.Registration;
 import lombok.extern.slf4j.Slf4j;
 
@@ -53,4 +56,22 @@ public class RegistrationController {
 		
 		return "/registration/getRegistration";
 	}
+	
+	@GetMapping("registration/registrationOne")
+	public String getRegistrationOne(Model model, Registration registration) {
+		
+		String studentId = (String) session.getAttribute("sessionMemberId");
+		
+		registration.setStudentId(studentId);
+		
+		HashMap regimap = registrationService.getRegistrationByStudent(registration); // 강의 상세보기 정보
+
+		log.debug(CF.LKL +"RegistrationController.registrationService.getRegistrationOne: " + CF.RESET + regimap); // 현재페이지 디버깅
+		
+		// model에 상세보기 값 add
+		model.addAttribute("regimap", regimap);
+		
+		return "registration/getRegistrationOne";
+	}
+
 }
