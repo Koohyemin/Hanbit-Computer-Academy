@@ -1,5 +1,7 @@
 package Hanbit.co.kr.lms.vo;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 
 @Data
@@ -12,4 +14,5 @@ public class HomeworkFile {
 	private int homeworkFileSize; // 파일 크기
 	private String createDate;
 	private String updateDate;
+	private MultipartFile homeworkFile;
 }

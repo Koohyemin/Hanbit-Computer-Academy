@@ -3,6 +3,8 @@ package Hanbit.co.kr.lms.service;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.Registration;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import Hanbit.co.kr.lms.mapper.LecHomeworkMapper;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.HomeworkMake;
+import Hanbit.co.kr.lms.vo.HomeworkSubmission;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,9 +20,26 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @Transactional
 public class LecHomeworkService {
-	private static final int HashMap = 0;
 	@Autowired LecHomeworkMapper lecHomeworkMapper;
 	
+	// 학생 과제제출 
+	public void insertSubmitStudent(HomeworkSubmission homeworkSubmission) {
+		log.debug(CF.SWB+"[insertSubmitStudent  insertSubmitStudent homeworkSubmission]"+CF.RESET+ homeworkSubmission); // homeworkSubmission 디버깅
+		lecHomeworkMapper.insertSubmitStudent(homeworkSubmission);
+		return;
+	}
+	
+	// 수강리스트
+	public List<Registration> selectLectureList(String studentId){
+		List<Registration> registration = lecHomeworkMapper.lectureNameList(studentId);
+		return registration;
+	}
+	
+	// 학생의 과제리스트
+	public List<HomeworkMake> studentHomeworkList(String studentId, String lectureName) {
+		List<HomeworkMake> homeworkMake = lecHomeworkMapper.studentHomeworkList(studentId, lectureName);
+		return homeworkMake;
+	}
 	// 과제리스트
 	public List<HashMap<String,Object>> homeworkList(LecPlan lecPlan) {
 		List<HashMap<String, Object>> list = lecHomeworkMapper.homeworkList(lecPlan);

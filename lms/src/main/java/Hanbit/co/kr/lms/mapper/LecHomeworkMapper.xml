@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LecHomeworkMapper">
+	<insert id="insertSubmitStudent"
+			parameterType="Hanbit.co.kr.lms.vo.HomeworkSubmission">
+		INSERT INTO homework_submission
+			(homework_make_no, student_id, homework_submission_title, homework_submission_content, create_date, update_date)
+		VALUE
+			(#{homeworkMakeNo},#{studentId},#{homeworkSubmissionTitle},#{homeworkSubmissionContent},NOW(),NOW())
+	</insert>
+	<select id="studentHomeworkList"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.HomeworkMake">
+		SELECT 
+			hm.homework_make_no homeworkMakeNo
+			,hm.lecture_name lectureName
+			,hm.homework_make_title homeworkMakeTitle
+			,hm.homework_make_content homeworkMakeContent
+			,hm.homework_deadline homeworkDeadline
+			,hm.create_date createDate
+		FROM registration r INNER JOIN homework_make hm
+			ON r.lecture_name = hm.lecture_name
+		WHERE student_id = #{studentId}
+		<if test="lectureName != null and lectureName != '-----------------------------강좌선택--------------------------'">
+			AND hm.lecture_name = #{lectureName}
+		</if>
+	</select>
+	<select id="lectureNameList"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.Registration">
+		SELECT 
+			lecture_name lectureName
+		FROM registration 
+		WHERE student_id = #{studentId}
+	</select>
+
 	<select id="selectHomeworkOne"
 			parameterType="int"
 			resultType="Hanbit.co.kr.lms.vo.HomeworkMake">

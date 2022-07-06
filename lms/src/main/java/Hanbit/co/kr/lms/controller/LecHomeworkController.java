@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.Registration;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import Hanbit.co.kr.lms.service.LecHomeworkService;
 import Hanbit.co.kr.lms.service.LectureNoticeService;
 import Hanbit.co.kr.lms.util.CF;
+import Hanbit.co.kr.lms.vo.HomeworkFile;
 import Hanbit.co.kr.lms.vo.HomeworkMake;
+import Hanbit.co.kr.lms.vo.HomeworkSubmission;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,6 +31,41 @@ public class LecHomeworkController {
 	@Autowired LectureNoticeService lectureNoticeService;
 	@Autowired HttpSession session;
 	
+	// 학생이 과제제출 액션
+	@PostMapping("lecHomework/addSubmit")
+	public String addSubmit(HomeworkFile homeworkFile
+							,@RequestParam(name="homeworkMakeNo")int homeworkMakeNo
+							,@RequestParam(name="homeworkSubmissionTitle")String homeworkSubmissionTitle
+							,@RequestParam(name="homeworkSubmissionContent")String homeworkSubmissionContent) {
+		
+		// 세션에 있는 값 아이디값
+		String sutdnetId = (String)session.getAttribute("sessionMemberId");
+		
+		log.debug(CF.SWB+"[LecHomeworkController post addSubmit homeworkMakeNo]"+CF.RESET+ homeworkMakeNo); // homeworkMakeNo 디버깅
+		log.debug(CF.SWB+"[LecHomeworkController post addSubmit homeworkSubmissionTitle]"+CF.RESET+ homeworkSubmissionTitle); // homeworkSubmissionTitile 디버깅
+		log.debug(CF.SWB+"[LecHomeworkController post addSubmit homeworkSubmissionContent]"+CF.RESET+ homeworkSubmissionContent); // homeworkSubmissionContent 디버깅
+		
+		HomeworkSubmission homeworkSubmission = new HomeworkSubmission();
+		homeworkSubmission.setHomeworkMakeNo(homeworkMakeNo);
+		homeworkSubmission.setStudentId(sutdnetId);
+		homeworkSubmission.setHomeworkSubmissionTitle(homeworkSubmissionTitle);
+		homeworkSubmission.setHomeworkSubmissionContent(homeworkSubmissionContent);
+		
+		lecHomeworkSerivce.insertSubmitStudent(homeworkSubmission);
+		
+		return "redirect:/lecHomework/getLecHomeworkList";
+	}
+	
+	// 학생이 과제제출 폼
+	@GetMapping("/lecHomework/addSubmit")
+	public String addSubmit(Model model
+							,@RequestParam(name="homeworkMakeNo")int homeworkMakeNo
+							,@RequestParam(name="homeworkMakeTitle")String homeworkMakeTitle) {
+		
+		model.addAttribute("homeworkMakeTitle",homeworkMakeTitle);
+		model.addAttribute("homeworkMakeNo",homeworkMakeNo);
+		return "/lecHomework/addSubmit";
+	}
 	// 과제 리스트
 	@GetMapping("/lecHomework/getLecHomeworkList")
 	public String getLecHomeworkList(Model model
@@ -35,22 +73,36 @@ public class LecHomeworkController {
 		
 		log.debug(CF.SWB+"[LecHomeworkController getLecHomeworkList lectureName]"+CF.RESET+ lectureName); // lectureName 디버깅
 		// 강사 아이디 값 가져오기 
-		String teacherId = (String) session.getAttribute("sessionMemberId");	
+		String memberId = (String) session.getAttribute("sessionMemberId");	
+		int memberLv = (int) session.getAttribute("sessionMemberLv");
 		
+		String studentId = null;
+		String teacherId = null;
+		if(memberLv == 1) {
+			studentId = memberId;
+		}
+		if(memberLv == 2) {
+			teacherId = memberId;
+		}
 		// vo
 		LecPlan lecPlan = new LecPlan();
 		lecPlan.setLectureName(lectureName);
 		lecPlan.setTeacherId(teacherId);
 		
 		// 뷰를 호출시 모델레이어로 부터 반환된 값(모델)을 뷰로 전송				
-		List<LecPlan> lectureNameList = lectureNoticeService.lectureNameList(teacherId);		
+		List<LecPlan> lectureNameList = lectureNoticeService.lectureNameList(teacherId);
+		List<Registration> studentLectureNameList = lecHomeworkSerivce.selectLectureList(studentId);
 		
 		// 강좌 선택을 위해 가르치는 강좌 리스트를 보내줌
 		model.addAttribute("lectureNameList", lectureNameList);
+		model.addAttribute("studentLectureNameList", studentLectureNameList);
+		
 		// 뷰를 호출시 모델레이어로 부터 반환된 값(모델)을 뷰로 전송				
 		List<HashMap<String,Object>> homeworkMake = lecHomeworkSerivce.homeworkList(lecPlan);
+		List<HomeworkMake> studnetHomeworkMake = lecHomeworkSerivce.studentHomeworkList(studentId, lectureName);
 		log.debug(CF.SWB+"[LecHomeworkController getLecHomeworkList homeworkMake]"+CF.RESET+ homeworkMake); // 과제리스트 디버깅
 		
+		model.addAttribute("studnetHomeworkMake",studnetHomeworkMake);
 		model.addAttribute("homeworkMake",homeworkMake);
 		return "lecHomework/getLecHomeworkList";
 	}
@@ -106,5 +158,12 @@ public class LecHomeworkController {
 		model.addAttribute("homeworkMake", map.get("homeworkMake")); 
 		
 		return "/lecHomework/lecHomeworkOne";
+	}
+	
+	// 과제제출 상세보기
+	@GetMapping("lecHomework/submitOne")
+	public String submitOne() {
+		
+		return "redirect:/lecHomework/submitOne";
 	}
 }

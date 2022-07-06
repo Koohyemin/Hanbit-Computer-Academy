@@ -39,11 +39,18 @@
 							<div class="form-group btn-group" >
 								<select id="lectureName" name="lectureName" class="form-control">
 									<option selected="selected" >-----------------------------강좌선택--------------------------</option>
-										<c:forEach var="l" items="${lectureNameList}">
-											<option value="${l.lectureName}">${l.lectureName}</option>
-										</c:forEach>
+										<c:if test="${sessionMemberLv == 2}">
+											<c:forEach var="l" items="${lectureNameList}">
+												<option value="${l.lectureName}">${l.lectureName}</option>
+											</c:forEach>
+										</c:if>
+										<c:if test="${sessionMemberLv == 1}">
+											<c:forEach var="s" items="${studentLectureNameList}">
+												<option value="${s.lectureName}">${s.lectureName}</option>
+											</c:forEach>
+										</c:if>
 								</select>	
-							<button type="submit" class="btn btn-dark">공지사항 조회</button>					   
+							<button type="submit" class="btn btn-dark">강의조회</button>					   
 							</div>					             	
 				        </form>
 						<table class="table">
@@ -53,28 +60,49 @@
 						            <th>제목	</th>
 									<th>내용</th>
 									<th>마감일</th>
-					           		<th>작성일</th>
+					           		<th>과제 등록일</th>
 					           		<th>과제제출인원</th>
 				                </tr>
 				            </thead>
 							<tbody>
-								<c:if test="${fn:length(homeworkMake) == 0}">
-								 	<td class="text-center text-danger" colspan="5">등록된 과제가 없습니다.</td>
+								<c:if test="${sessionMemberLv == 2}">
+									<c:if test="${fn:length(homeworkMake) == 0}">
+									 	<td class="text-center text-danger" colspan="5">등록된 과제가 없습니다.</td>
+									</c:if>
+									<c:if test="${fn:length(homeworkMake) != 0}">
+										<c:forEach var="h" items="${homeworkMake}">
+											<tr>
+											   <td>${h.lectureName}</td>
+												<td>${h.homeworkMakeTitle}</td>
+												<td>${h.homeworkMakeContent}</td>
+												<td>${h.homeworkDeadline}</td>
+												<td>${h.createDate}</td>
+												<td>${h.cnt}/${h.registrationNumber}</td>
+												<td>
+													<a  href="${pageContext.request.contextPath}/lecHomework/lecHomeworkOne?homeworkMakeNo=${h.homeworkMakeNo}">수정 및 학생과제 평가</a>
+												</td>
+											</tr>
+										</c:forEach>
+									</c:if>
 								</c:if>
-								<c:if test="${fn:length(homeworkMake) != 0}">
-									<c:forEach var="h" items="${homeworkMake}">
-										<tr>
-										   <td>${h.lectureName}</td>
-											<td>${h.homeworkMakeTitle}</td>
-											<td>${h.homeworkMakeContent}</td>
-											<td>${h.homeworkDeadline}</td>
-											<td>${h.createDate}</td>
-											<td>${h.cnt}/${h.registrationNumber}</td>
-											<td>
-												<a  href="${pageContext.request.contextPath}/lecHomework/lecHomeworkOne?homeworkMakeNo=${h.homeworkMakeNo}">수정 및 학생과제 평가</a>
-											</td>
-										</tr>
-									</c:forEach>
+								<c:if test="${sessionMemberLv == 1}">
+									<c:if test="${fn:length(studnetHomeworkMake) == 0}">
+									 	<td class="text-center text-danger" colspan="5">등록된 과제가 없습니다.</td>
+									</c:if>
+									<c:if test="${fn:length(studnetHomeworkMake) != 0}">
+										<c:forEach var="s" items="${studnetHomeworkMake}">
+											<tr>
+											   <td>${s.lectureName}</td>
+												<td>${s.homeworkMakeTitle}</td>
+												<td>${s.homeworkMakeContent}</td>
+												<td>${s.homeworkDeadline}</td>
+												<td>${s.createDate}</td>
+												<td>
+													<a href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">과제 제출</a>
+												</td>
+											</tr>
+										</c:forEach>
+									</c:if>
 								</c:if>
 							</tbody>
 						</table>
