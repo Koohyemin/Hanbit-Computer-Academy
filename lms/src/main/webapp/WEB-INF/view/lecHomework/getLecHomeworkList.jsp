@@ -60,8 +60,11 @@
 						            <th>제목	</th>
 									<th>내용</th>
 									<th>마감일</th>
+									<th>점수</th>
 					           		<th>과제 등록일</th>
-					           		<th>과제제출인원</th>
+					           		<c:if test="${sessionMemberLv==2}">
+						           		<th>과제제출인원</th>
+					           		</c:if>
 				                </tr>
 				            </thead>
 							<tbody>
@@ -96,9 +99,15 @@
 												<td>${s.homeworkMakeTitle}</td>
 												<td>${s.homeworkMakeContent}</td>
 												<td>${s.homeworkDeadline}</td>
+												<td>${s.homeworkScore}</td>
 												<td>${s.createDate}</td>
 												<td>
-													<a href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">과제 제출</a>
+													<c:if test="${s.homeworkSubmissionNo == 0}">
+														<a href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">과제 제출</a>
+													</c:if>
+													<c:if test="${s.homeworkSubmissionNo != 0}">
+														<a href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">수정</a>
+													</c:if>
 												</td>
 											</tr>
 										</c:forEach>

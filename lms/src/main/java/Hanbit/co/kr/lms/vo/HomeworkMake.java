@@ -11,4 +11,8 @@ public class HomeworkMake {
 	private String homeworkDeadline; // 과제 마감일
 	private String createDate;
 	private String updateDate;
+	
+	// DB에 없는 데이터
+	private int homeworkScore;
+	private int homeworkSubmissionNo;
 }

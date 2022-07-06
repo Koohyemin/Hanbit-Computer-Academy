@@ -18,9 +18,15 @@
 			,hm.homework_make_content homeworkMakeContent
 			,hm.homework_deadline homeworkDeadline
 			,hm.create_date createDate
-		FROM registration r INNER JOIN homework_make hm
-			ON r.lecture_name = hm.lecture_name
-		WHERE student_id = #{studentId}
+			,r.student_id
+			,hs.homework_score homeworkScore
+			,hs.homework_submission_no homeworkSubmissionNo
+		FROM registration r INNER JOIN homework_make hm 
+			ON r.lecture_name = hm.lecture_name 
+		left JOIN homework_submission hs
+			ON hs.homework_make_no = hm.homework_make_no
+		WHERE r.student_id = #{studentId}
+		GROUP BY hm.homework_make_no
 		<if test="lectureName != null and lectureName != '-----------------------------강좌선택--------------------------'">
 			AND hm.lecture_name = #{lectureName}
 		</if>

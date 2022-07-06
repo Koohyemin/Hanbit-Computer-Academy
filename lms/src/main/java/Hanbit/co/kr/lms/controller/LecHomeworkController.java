@@ -62,6 +62,7 @@ public class LecHomeworkController {
 							,@RequestParam(name="homeworkMakeNo")int homeworkMakeNo
 							,@RequestParam(name="homeworkMakeTitle")String homeworkMakeTitle) {
 		
+		
 		model.addAttribute("homeworkMakeTitle",homeworkMakeTitle);
 		model.addAttribute("homeworkMakeNo",homeworkMakeNo);
 		return "/lecHomework/addSubmit";
@@ -150,7 +151,7 @@ public class LecHomeworkController {
 	// 과제 상세보기
 	@GetMapping("lecHomework/lecHomeworkOne")
 	public String lecHomeworkOne(Model model
-			           							,@RequestParam(name="homeworkMakeNo")int homeworkMakeNo) {
+			           			,@RequestParam(name="homeworkMakeNo")int homeworkMakeNo) {
 		
 		HashMap<String, Object> map = lecHomeworkSerivce.selectHomeworkOne(homeworkMakeNo);
 		model.addAttribute("submitList", map.get("submitList")); 
