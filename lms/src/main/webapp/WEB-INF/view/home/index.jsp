@@ -21,10 +21,11 @@
 		</div>
        <div id="layoutSidenav_content">
 			<div class="container-fluid px-4">
-                <!-- 컨텐츠 삽입 부분-->
-                <c:choose>
+               <!-- 컨텐츠 삽입 부분-->
+               <c:choose>
                 	<c:when test="${sessionMemberLv == 3}">
-                	<h5>가입요청 목록</h5> 
+                	<div class="col-lg-7 col-md-7">
+               <h5>가입요청 목록</h5> 
                  <table class="table">
 					<thead>
 						<tr>
@@ -35,91 +36,158 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="w"  items="${waitingList}">
+						<c:forEach var="waitingList"  items="${waitingList}">
 							<tr>
-								<td>${w.memberId}</td>		
-								<td>${w.createDate}</td>
-								<td>${w.memberLevel}</td>
-								<td>${w.meberState}</td>
+								<td>${waitingList.memberId}</td>		
+								<td>${waitingList.createDate}</td>
+								<td>${waitingList.memberLevel}</td>
+								<td>${waitingList.meberState}</td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-							
-                <h5>강의계획서 승인요청</h5>
-                 <table class="table">
-					<thead>
-						<tr>
-							<th>강의계획서</th>		
-							<th>강사ID</th>
-							<th>상태</th>												
-						</tr>
-					</thead>
-					<tbody>
-					<c:forEach var="l" items="${lecPlanList}">
-						<tr>
-							<td>${l.lectureName}</td>
-							<td>${l.teacherId}</td>
-							<td>${l.lecState}</td>
-						</tr>
-					</c:forEach>					
-					</tbody>
-				</table>
-				
-				<h5>문의사항리스트</h5>
-                 <table class="table">
-                  <thead>
+			<h5>강의계획서 목록</h5>
+				<table class="table">
+					  <thead>
                      <tr>
-                        <th>글번호</th>
+                        <th>이름</th>
                         <th>글쓴이</th>
-                        <th>내용</th>
+                        <th>상태</th>
                         <th>작성일</th>
                      </tr>
                   </thead>
                   <tbody>
-                  <c:forEach var="e" items="${enquiryBoardList}">
+                  <c:forEach var="lecPlanList" items="${lecPlanList}">
                      <tr>
-                        <td>${e.enquiryBoardNo}</td>
-                        <td>${e.memberId}</td>
-                        <td>${e.content}</td>               
-                        <td>${e.createDate}</td>
+                        <td>${lecPlanList.lectureName}</td>
+                        <td>${lecPlanList.teacherId}</td>
+                        <td>${lecPlanList.lecState}</td>               
+                        <td>${lecPlanList.createDate}</td>
                      </tr>
                   </c:forEach>
                   </tbody>
-               </table>
-               
-               <h5>공지사항 목록</h5>
-                 <table class="table">
-				<thead>
-					<tr>
-						<th>번호</th>
-						<th>대상</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성일</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="n" items="${noticeList}">
+				</table>
+			<h5>문의사항 목록</h5>
+				<table class="table">
+					<thead>
 						<tr>
-							<td>${n.managerNoticeNo}</td>
-							<td>${n.category}</td>
-							<td>${n.managerNoticeTitle}</td>
-							<td>${n.managerId}</td>
-							<td>${n.createDate}</td>
+							<th>번호</th>
+							<th>글쓴이</th>
+							<th>내용</th>
+							<th>구분</th>
+							<th>작성일</th>
 						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
-         		</c:when>
-                	<c:when test="${sessionMemberLv == 2}">
-                		
-					</c:when>         		
-                </c:choose>
-                
-               
-               
-			</div>
+					</thead>
+					<tbody>
+						<c:forEach var="enquiryBoardList" items="${enquiryBoardList}">
+							<tr>
+								<td>${enquiryBoardList.enquiryBoardNo}</td>
+								<td>${enquiryBoardList.memberId}</td>
+								<td>${enquiryBoardList.content}</td>
+								<td>${enquiryBoardList.category}</td>
+								<td>${enquiryBoardList.createDate}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			<h5>공지사항 목록</h5>
+				<table>
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>글쓴이</th>
+							<th>제목</th>
+							<th>내용</th>
+							<th>구분</th>
+							<th>작성일</th>
+						</tr>						
+					</thead>
+					<tbody>
+						<c:forEach var="noticeList" items="${noticeList}">
+							<tr>
+								<td>${noticeList.managerNoticeNo}</td>
+								<td>${noticeList.managerId}</td>
+								<td>${noticeList.managerNoticeTitle}</td>
+								<td>${noticeList.managerNoticeContent}</td>
+								<td>${noticeList.category}</td>
+								<td>${noticeList.createDate}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>	
+				</div>
+				</c:when>
+				<c:when test="${sessionMemberLv == 2}">
+					<h5>강사 공지사항 목록</h5>
+						<table>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>글쓴이</th>
+									<th>제목</th>
+									<th>구분</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="teacherList" items="${teacherList}">
+									<tr>
+										<td>${teacherList.managerNoticeNo}</td>
+										<td>${teacherList.managerId}</td>
+										<td>${teacherList.managerNoticeTitle}</td>
+										<td>${teacherList.category}</td>
+										<td>${teacherList.createDate}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+				</c:when>
+				<c:otherwise>
+					<h5>학생이 수강중인 강좌</h5>
+					<table>
+						<thead>
+							<tr>
+								<th>
+									
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="studentLecList" items="${studentLecList}">
+								<tr>
+									<td>수업이름</td>
+									<td></td>
+									
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+					<h5>학생 공지사항 목록</h5>
+					<table>
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>글쓴이</th>
+									<th>제목</th>
+									<th>구분</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:forEach var="s" items="${studentList}">
+									<tr>
+										<td>${s.managerNoticeNo}</td>
+										<td>${s.managerId}</td>
+										<td>${s.managerNoticeTitle}</td>
+										<td>${s.category}</td>
+										<td>${s.createDate}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+				</c:otherwise>
+				</c:choose>               
+				</div>
 				<div id="footer"></div>
         	</div>
         </div>

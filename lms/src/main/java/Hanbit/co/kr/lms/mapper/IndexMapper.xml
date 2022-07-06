@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.IndexMapper">
-	
-	<!-- 가입 비승인목록 -->
+
+			<!-- 가입 비승인목록 -->	
 		<resultMap type="java.util.HashMap" id="waitingList">
 		 <id column="memberId" property="memberId"/>
 		 <id column="createDate" property="createDate"/>
@@ -24,20 +24,19 @@
 		LIMIT 5
 	</select>
 
-	<!-- 강의계획서 비승인목록 -->
-	<select id="selectIndexLecList" resultType="Hanbit.co.kr.lms.vo.LecPlan"
-		parameterType ="Hanbit.co.kr.lms.vo.LecPlan">
+		<!-- 강의계획서 비승인목록 -->
+	<select id="selectIndexLecPlanList" resultType="Hanbit.co.kr.lms.vo.LecPlan">
 		SELECT 
 			lecture_name lectureName
 			,teacher_id teacherId
 			,lec_state lecState
+			,create_date createDate
 		FROM lec_plan
 		LIMIT 5
 	</select>
 	
-	<!-- 운영진에게 문의목록 -->
-	<select id="selectIndexEnquiryBoardList" resultType="Hanbit.co.kr.lms.vo.EnquiryBoard"
-		parameterType ="Hanbit.co.kr.lms.vo.EnquiryBoard">
+		<!-- 운영진에게 문의목록 -->
+	<select id="selectIndexEnquiryBoardList" resultType="Hanbit.co.kr.lms.vo.EnquiryBoard">
 			SELECT 
 				enquiry_board_no enquiryBoardNo
 				, member_id memberId
@@ -48,9 +47,26 @@
 			LIMIT 5
 	</select>
 	
-	<!-- 전체 공지사항 -->
-	<select id="selectIndexNoticeList" resultType="Hanbit.co.kr.lms.vo.ManagerNotice"
-		parameterType ="Hanbit.co.kr.lms.vo.ManagerNotice">
+		<!-- 전체 공지사항 -->
+	<select id="selectIndexNoticeList" resultType="Hanbit.co.kr.lms.vo.ManagerNotice">
+		SELECT
+			 manager_notice_no managerNoticeNo
+			,manager_id managerId
+			,manager_notice_title managerNoticeTitle
+			,manager_notice_content managerNoticeContent
+			,category
+		 	,create_date createDate
+		 FROM manager_notice
+		 LIMIT 5
+	</select>
+	
+	<!-- 강의 중인 강좌의 학생 문의사항 -->
+	
+	<!-- 강사에 따른 담당강좌 -->
+		
+	<!-- 강사 공지사항 -->
+	<select id="selectIndexTeacherNoticeList" resultType="Hanbit.co.kr.lms.vo.ManagerNotice"
+		parameterType = "String">
 		SELECT
 			 manager_notice_no managerNoticeNo
 			,manager_id managerId
@@ -58,7 +74,28 @@
 			,category
 		 	,create_date createDate
 		 FROM manager_notice
+		 where category = '강사'
 		 LIMIT 5
 	</select>
-
+	
+	<!--학생별 강좌 목록 -->
+	<select id= "selectIndexStudentLectureNameList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.Registration">
+		SELECT lecture_name lectureName
+		FROM registration
+ 		WHERE student_id = #{studentId}
+	</select>
+	
+	<!-- 학생 공지사항 -->
+	<select id="selectIndexStudentNoticeList" resultType="Hanbit.co.kr.lms.vo.ManagerNotice"
+		parameterType = "String">
+		SELECT
+			 manager_notice_no managerNoticeNo
+			,manager_id managerId
+			,manager_notice_title managerNoticeTitle
+			,category
+		 	,create_date createDate
+		 FROM manager_notice
+		 where category = '학생'
+		 LIMIT 5
+		 </select>
 </mapper>
