@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 	@Slf4j
 	
 	// 세션 값이 없으면 로그인 페이지로 이동하는 필터 
-	@WebFilter(value = { "/certificate/*", "/faq/*", "/notice/*", "/questionnaire/*", "/teacher/*", "/student/*", "/people/*", "/index", "/lec/*" ,"/member/*" , "/enquiryBoard/*" , "/home/*" , "/lectureNotice/*","/lecHomework/*"})
+	@WebFilter(value = { "/certificate/*", "/faq/*", "/notice/*", "/questionnaire/*", "/lecQna/*", "/teacher/*", "/student/*", "/people/*", "/index", "/lec/*" ,"/member/*" , "/enquiryBoard/*" , "/home/*" , "/lectureNotice/*","/lecHomework/*"})
 	public class LoginFilter extends HttpFilter implements Filter {
 	   @Override
 	   public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

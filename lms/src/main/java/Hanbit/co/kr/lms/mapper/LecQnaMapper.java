@@ -12,7 +12,8 @@ import Hanbit.co.kr.lms.vo.LecQuestion;
 public interface LecQnaMapper {
 	// 질문
 	LecQuestion lecQuestionOne(int questionNo); // 질문 상세보기
-	List<LecQuestion> lecQuestionList(int beginPage, int rowPerPage); // 강의별 질문게시판 목록 (페이징)
+	List<LecQuestion> lecQuestionList(Map<String,Object> map); // 강의별 질문게시판 목록 (페이징) lectureName, beginPage, rowPerPage
+	int totalCount(String lectureName); // 강의별 질문 개수
 	int insertQuestion(LecQuestion lecQuestion); // 질문 등록
 	int updateQuestion(LecQuestion lecQuestion); // 질문 수정
 	int deleteQuestion(int lecQuestionNo); // 답변과 함께 삭제

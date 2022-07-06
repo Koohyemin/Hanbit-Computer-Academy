@@ -66,8 +66,15 @@
 		WHERE lec_question_no = #{lecQuestionNo}
 	</select>
 	
-	<!-- 강의 목록 + 댓글 개수 -->
-	<select id="lecQuestionList" parameterType="int" resultType="Hanbit.co.kr.lms.vo.LecQuestion">
+	<!-- 전체 개수 -->
+	<select id="totalCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM lec_question
+		WHERE lecture_name=#{lectureName}
+	</select>
+	
+	<!-- 질문 목록 + 댓글 개수 -->
+	<select id="lecQuestionList" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.LecQuestion">
 		SELECT
 			 lq.lec_question_no lecQuestionNo
 			,lq.member_id memberId
@@ -80,7 +87,8 @@
 			,la.cnt answerCount
 		FROM lec_question lq 
 			INNER JOIN (SELECT lec_question_no, COUNT(*) cnt FROM lec_answer) la
-			ON lq.lec_question_no = la.lec_question_no
+		WHERE lq.lecture_name = #{lectureName}
+		ORDER BY lq.create_date DESC
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
