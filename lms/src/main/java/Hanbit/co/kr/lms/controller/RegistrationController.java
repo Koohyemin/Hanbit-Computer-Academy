@@ -57,14 +57,14 @@ public class RegistrationController {
 		return "/registration/getRegistration";
 	}
 	
-	@GetMapping("registration/registrationOne")
+	@GetMapping("/registration/registrationOne")
 	public String getRegistrationOne(Model model, Registration registration) {
 		
 		String studentId = (String) session.getAttribute("sessionMemberId");
 		
 		registration.setStudentId(studentId);
 		
-		HashMap regimap = registrationService.getRegistrationByStudent(registration); // 강의 상세보기 정보
+		HashMap<String,Object> regimap = registrationService.getRegistrationByStudent(registration); // 강의 상세보기 정보
 
 		log.debug(CF.LKL +"RegistrationController.registrationService.getRegistrationOne: " + CF.RESET + regimap); // 현재페이지 디버깅
 		
@@ -73,5 +73,18 @@ public class RegistrationController {
 		
 		return "registration/getRegistrationOne";
 	}
-
+	
+	//학생-수강 결제 액션 구현
+	@PostMapping("/registration/pamyentMoney")
+	public String pamyentMoney(Registration registration) {
+		
+		System.out.println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
+		
+		
+		log.debug(CF.LKL +"RegistrationController.registrationService.getRegistrationOne: " + CF.RESET + registration);		//페이지에서 받아온 금액 + 
+			
+		int row = registrationService.modifyPayment(registration);
+		
+		return "redirect:/registration/getRegistration";
+	}
 }

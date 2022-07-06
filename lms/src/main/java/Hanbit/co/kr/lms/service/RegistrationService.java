@@ -31,11 +31,18 @@ public class RegistrationService {
 		
 		return registrationMapper.selectRegistration(studentId);
 	}
-	public HashMap getRegistrationByStudent(Registration registration){
+	public HashMap<String,Object> getRegistrationByStudent(Registration registration){
 		
 		log.debug(CF.LKL+"RegistrationService.selectRegistrationByStudent.studentId"+CF.RESET+registration);
 		
 		return registrationMapper.selectRegistrationByStudent(registration);
 		
+	}
+	
+	public int modifyPayment(Registration registration) {
+		
+		int row =  registrationMapper.updatePayment(registration);
+		
+		return row;
 	}
 }

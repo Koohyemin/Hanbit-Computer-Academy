@@ -28,26 +28,51 @@
 			,NOW()
 			,NOW()
 		);
-		
 	</insert>
+	
+	
+	<!-- 학생-수강 상세보기 -->
 	<select id="selectRegistrationByStudent"
 			parameterType="java.lang.String"
 			resultType="java.util.HashMap">
+		
 			SELECT
 				 r.lecture_name lectureName
-				,l.lecture_room_name lectureroomName
+				,r.registration_no registrationNo
+				,l.lecture_room_name lectureRoomName
 				,l.lec_phone lecPhone
 				,l.subject_name subjectName
 				,l.lec_cost lecCost
 				,l.difficulty difficulty
-				,l.registration_pass_score regPassScore
+				,l.registration_pass_score regiPassScore
 				,l.registration_number registrationNumber
 				,r.payment payment
 				,r.create_date createDate
+				,tt.begin_class beginClass
+				,tt.end_class endClass
+				,tt.start_time startTime
+				,tt.end_time endTime
+				,tt.lunch_time lunchTime
+				,t.teacher_name teacherName
 			FROM registration r 
 			INNER JOIN lec l 
-			ON  r.lecture_name = l.lecture_name
-			WHERE r.student_id= #{studentId} AND r.lecture_name = #{lectureName}		
+				ON  r.lecture_name = l.lecture_name
+			INNER JOIN time_table tt
+				ON l.lecture_name = tt.lecture_name
+			INNER JOIN lec_plan lp
+				ON lp.lecture_Name = r.lecture_Name
+			INNER JOIN teacher t
+				ON lp.teacher_id = t.teacher_id
+			WHERE r.student_id= #{studentId} AND r.lecture_name = #{lectureName}	
+				
 	</select>
+	<update id="updatePayment"
+			parameterType="Hanbit.co.kr.lms.vo.Registration">
+		UPDATE registration SET
+			payment = #{payment}
+		WHERE registration_no = #{registrationNo}
+	</update>
+	
+
 
 </mapper>
