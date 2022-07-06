@@ -41,4 +41,23 @@
 			, NOW()
 			)
 	</insert>
+	
+	<select id="selectLecCategoryQueScore" parameterType="String" resultType="java.util.Map">
+		SELECT q.lecture_name lectureName 
+			,q.questionnaire_content questionnaireContent
+			, ROUND(AVG(qa.selected_evaluation_no),1) selectedEvaluationNo
+		FROM questionnaire_answer qa INNER JOIN questionnaire q
+		ON qa.questionnaire_no = q.questionnaire_no
+		WHERE q.lecture_name = #{lectureName}
+		GROUP BY q.category
+	</select>
+	
+	<select id="selectLecScore" resultType="java.util.Map">
+		SELECT q.lecture_name lectureName 
+		, ROUND(AVG(qa.selected_evaluation_no),1) selectedEvaluationNo
+		FROM questionnaire_answer qa INNER JOIN questionnaire q
+		ON qa.questionnaire_no = q.questionnaire_no
+		GROUP BY q.lecture_name
+	</select>
+	
 </mapper>

@@ -22,4 +22,10 @@ public interface QuestionnaireMapper {
 	
 	// 설문지 응답 입력하기
 	int selectQuestionnairecheck(Map<String,Object> map);
+	
+	// 설문지 응답 카테고리 별 반올림 평균치 내기
+	Map<String,Object> selectLecCategoryQueScore(String lectureName);
+	
+	// 강좌별 평점 
+	Map<String,Object> selectLecScore();
 }

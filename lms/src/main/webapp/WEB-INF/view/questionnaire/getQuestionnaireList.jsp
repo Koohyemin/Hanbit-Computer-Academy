@@ -116,9 +116,8 @@
 				,success : function(data) {
 					console.log("완료");
 			     }
-				,error : function() {
-					alert("error");
 				}
+	   		alert("설문이 완료되었습니다.");
 			});	
 		});
 		

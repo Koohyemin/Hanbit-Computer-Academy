@@ -25,6 +25,22 @@ import lombok.extern.slf4j.Slf4j;
 public class QuestionnaireController {
 	@Autowired QuestionnaireService questionnaireService;
 	
+	// 강의 평가 강좌 리스트 
+	@GetMapping("/questionnaire/getLecQuestionnaireList")
+	public String getLecQuestionnaireList(Model model
+			, HttpSession session) {
+		
+		//세션에 있는 아이디 값 가져옴
+		String studentId = (String) session.getAttribute("sessionMemberId");
+		log.debug( CF.KYJ +"[QuestionnaireController PostMapping studentId]: "+ studentId + CF.RESET);
+
+		// 아이디에 해당하는 강의 평가 강좌 리스트 
+		List<Registration> selectLecList = questionnaireService.lecList(studentId);
+		model.addAttribute("selectLecList",selectLecList);
+		
+		return "questionnaire/getLecQuestionnaireList";
+	}
+	
 	//설문지 목록 불러오기 get
 	@GetMapping("/questionnaire/getQuestionnaireList")
 	public String getQuestionnaireList(Questionnaire questionnaire
@@ -41,9 +57,7 @@ public class QuestionnaireController {
 		
 		if(row != 0) {
 			log.debug( CF.KYJ +"[QuestionnaireController GetMapping studentId]: "+ "설문을 이미 함" + CF.RESET);
-			int error = 1;
-			model.addAttribute("error",error);
-			return "questionnaire/getLecQuestionnaireLis";
+			return "redirect:/questionnaire/getLecQuestionnaireList";
 		}else {
 		
 			log.debug( CF.KYJ +"[QuestionnaireController GetMapping studentId]: "+ lectureName + CF.RESET);
@@ -62,26 +76,7 @@ public class QuestionnaireController {
 		}
 	}
 	
-		// 강의 평가 강좌 리스트 
-		@GetMapping("/questionnaire/getLecQuestionnaireList")
-		public String getLecQuestionnaireList(Model model, HttpSession session
-				,@RequestParam (name="error",defaultValue = "0") int error) {
-			
-			//세션에 있는 아이디 값 가져옴
-			String studentId = (String) session.getAttribute("sessionMemberId");
-			log.debug( CF.KYJ +"[QuestionnaireController PostMapping studentId]: "+ studentId + CF.RESET);
-			
-			
-			
-			// 아이디에 해당하는 강의 평가 강좌 리스트 
-			List<Registration> selectLecList = questionnaireService.lecList(studentId);
-			model.addAttribute("selectLecList",selectLecList);
-			model.addAttribute("error",error);
-			
-			return "questionnaire/getLecQuestionnaireList";
-		}
-		
-		
+	
 		// 설문 응답 완료	
 		@PostMapping("/questionnaire/getQuestionnaireList")
 		public String getQuestionnaireList(
@@ -113,4 +108,27 @@ public class QuestionnaireController {
 
 	}
 
+		// 설문 평점 확인
+		@GetMapping("/questionnaire/getStatsQuestionnaireList")
+		public String getStatsQuestionnaireList(Model model) {
+			
+			// 수강이 열리고 강좌 평가가 된 강의들의 리스트와 반올림된 평점
+			Map<String,Object> selectLecScore = questionnaireService.selectScorelectureName();
+			log.debug( CF.KYJ +"[QuestionnaireController GetMapping selectLecScore]: "+ selectLecScore + CF.RESET);
+			
+			model.addAttribute("selectLecScore", selectLecScore);
+			return "questionnaire/getStatsQuestionnaireList";
+		}
+		
+		// 강의 설문 카테고리별 평점
+		@GetMapping("/questionnaire/getStatsQuestionnaireListOne")
+		public String getStatsQuestionnaireListOne(Model model) {
+			
+			// 수강이 열리고 강좌 평가가 된 강의들의 리스트와 반올림된 평점
+			Map<String,Object> selectLecScore = questionnaireService.selectScorelectureName();
+			log.debug( CF.KYJ +"[QuestionnaireController GetMapping selectLecScore]: "+ selectLecScore + CF.RESET);
+			
+			model.addAttribute("selectLecScore", selectLecScore);
+			return "questionnaire/getStatsQuestionnaireList";
+		}
 }
