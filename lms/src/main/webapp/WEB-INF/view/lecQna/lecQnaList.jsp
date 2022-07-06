@@ -41,11 +41,12 @@
             
             <ul class="nav nav-tabs">
 	            <c:forEach var="l" items="${lectureList}">
-					<li class="nav-item">
-						<a class="nav-link text-dark" data-toggle="tab" href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${l}">${l}</a>
+					<li class="nav-item">	
+						<a class="nav-link active text-dark" data-toggle="tab" href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${l}">${l}</a>
 					</li>
 	            </c:forEach>
             </ul>
+            <br><br>
             
 			<table class="table table-hover">
 				<thead>
@@ -61,13 +62,35 @@
 					<c:forEach var="l" items="${list}" varStatus="status">
 						<tr>
 							<th class="text-center text-success">${l.lectureName}</th>
-							<!-- 비밀글 표시 -->
+							<!-- 비밀글 표시, 답변이 0개가 아니라면 개수 표시 -->
 							<c:choose>
 								<c:when test="${l.revelation eq 'F'}">
-									<td class="col-md-4"><a href="#" class="none-unline">🔒비공개 질문 입니다</a></td>								
+								
+									<!-- 학생이 본인게시글이 아니라면 게시글 상세보기로 넘어갈 수 없음 -->
+									<!-- 본인게시글이거나 학생이 아니라면 열람 가능 -->
+									<c:choose>
+										<c:when test="${sessionMemberId ne l.memberId && sessionMemberLv == 1}">
+											<td class="col-md-4">🔒 비공개 질문 입니다
+												<c:if test="${l.answerCount != 0}">
+													<span class="text-secondary">[${l.answerCount}]</span>
+												</c:if>
+											</td>
+										</c:when>
+										<c:otherwise>
+											<td class="col-md-4"><a href="${pageContext.request.contextPath}/lecQna/lecQnaOne?lecQuestionNo=${l.lecQuestionNo}" class="none-unline">🔒 비공개 질문 입니다
+												<c:if test="${l.answerCount != 0}">
+													<span class="text-secondary">[${l.answerCount}]</span>
+												</c:if>
+											</a></td>											
+										</c:otherwise>
+									</c:choose>
 								</c:when>
 								<c:otherwise>
-									<td class="col-md-4"><a href="#" class="none-unline">${l.lecQuestionTitle}</a></td>								
+									<td class="col-md-4"><a href="${pageContext.request.contextPath}/lecQna/lecQnaOne?lecQuestionNo=${l.lecQuestionNo}" class="none-unline">${l.lecQuestionTitle}
+										<c:if test="${l.answerCount != 0}">
+											<span class="text-secondary">[${l.answerCount}]</span>
+										</c:if>
+									</a></td>							
 								</c:otherwise>
 							</c:choose>
 							<td class="text-center">${l.memberId}</td>
@@ -102,6 +125,8 @@
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+    	
+    	
    	</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>

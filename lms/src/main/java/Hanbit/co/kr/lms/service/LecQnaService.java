@@ -20,6 +20,11 @@ public class LecQnaService {
 	@Autowired LecQnaMapper lecQnaMapper;
 	@Autowired HttpSession session;
 	
+	// 강의실 질문 상세보기 Get
+	public LecQuestion lecQuestionOne(int lecQuestionNo) {
+		return lecQnaMapper.lecQuestionOne(lecQuestionNo);
+	}
+	
 	// 강의실별 질문 목록 Get
 	public Map<String, Object> lecQuestionListByPage(String lectureName, int currentPage, int rowPerPage) {
 		// 현재페이지를 이욯하여 시작페이지 계산

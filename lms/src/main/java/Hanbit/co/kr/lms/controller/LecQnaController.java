@@ -27,6 +27,17 @@ public class LecQnaController {
 	@Autowired LecQnaService lecQnaService;
 	@Autowired HttpSession session;
 	
+	@GetMapping("lecQna/lecQnaOne")
+	public String lecQuestionOne(Model model
+								,@RequestParam(name="lecQuestionNo") int lecQuestionNo) {
+		
+		// 상세보기 대상 강의 조회
+		LecQuestion lecQuestion = lecQnaService.lecQuestionOne(lecQuestionNo);
+		
+		model.addAttribute("lecQuestion",lecQuestion);
+		return "lecQna/lecQnaOne";
+	}
+	
 	@GetMapping("lecQna/lecQnaList")
 	public String lecQuestionListByPage(Model model,
 			@RequestParam(name = "lectureName", defaultValue = "") String lectureName, // 한페이지당, 10개 게시글 출력
@@ -49,7 +60,7 @@ public class LecQnaController {
 			model.addAttribute("totalCount", map.size());
 			model.addAttribute("lectureList", lectureList);
 			
-			return "/lecQna/lecQnaList";
+			return "lecQna/lecQnaList";
 	}
 	
 	

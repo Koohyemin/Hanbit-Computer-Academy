@@ -32,6 +32,7 @@
 			,update_date = NOW()
 		WHERE lec_question_no=#{lecQuestionNo}
 	</update>
+	
 	<!-- 답변 등록 -->
 	<insert id="insertAnswer" parameterType="Hanbit.co.kr.lms.vo.LecAnswer">
 		INSERT INTO lec_answer (
@@ -86,7 +87,8 @@
 			,lq.udpate_date updateDate
 			,la.cnt answerCount
 		FROM lec_question lq 
-			INNER JOIN (SELECT lec_question_no, COUNT(*) cnt FROM lec_answer) la
+			LEFT JOIN (SELECT lec_question_no, COUNT(*) cnt FROM lec_answer) la
+			ON lq.lec_question_no = la.lec_question_no
 		WHERE lq.lecture_name = #{lectureName}
 		ORDER BY lq.create_date DESC
 		LIMIT #{beginRow}, #{rowPerPage}
