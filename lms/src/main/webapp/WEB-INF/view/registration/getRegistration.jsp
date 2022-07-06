@@ -30,7 +30,7 @@
         	<div class="card mb-4">
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
-	                Lecture
+	               수강신청내역
 	            </div>
             </div>
 			
@@ -60,7 +60,7 @@
 					<c:forEach var="reg" items="${list}" varStatus="status">
 						<tr>
 							<th class="text-center text-success">${reg.registrationNo}</th>
-							<td class="text-center col-md-4" >${reg.lectureName}</a></td>
+							<td class="text-center col-md-4" ><a href="${pageContext.request.contextPath}/registration/registrationOne?lectureName=${reg.lectureName}">${reg.lectureName}</a></td>
 							<td class="text-center">${reg.payment}</td>
 							<td class="text-center">${reg.createDate}</td>
 						</tr>

@@ -30,6 +30,24 @@
 		);
 		
 	</insert>
-
+	<select id="selectRegistrationByStudent"
+			parameterType="java.lang.String"
+			resultType="java.util.HashMap">
+			SELECT
+				 r.lecture_name lectureName
+				,l.lecture_room_name lectureroomName
+				,l.lec_phone lecPhone
+				,l.subject_name subjectName
+				,l.lec_cost lecCost
+				,l.difficulty difficulty
+				,l.registration_pass_score regPassScore
+				,l.registration_number registrationNumber
+				,r.payment payment
+				,r.create_date createDate
+			FROM registration r 
+			INNER JOIN lec l 
+			ON  r.lecture_name = l.lecture_name
+			WHERE r.student_id= #{studentId} AND r.lecture_name = #{lectureName}		
+	</select>
 
 </mapper>
