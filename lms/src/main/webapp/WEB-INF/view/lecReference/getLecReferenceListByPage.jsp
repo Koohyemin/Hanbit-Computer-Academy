@@ -66,9 +66,9 @@
 				                  <tbody>
 						            <c:forEach var="lecReference" items="${list}">
 						                <tr>
-						                   <td>${lecReference.lecNoticeNo}</td>
+						                   <td>${lecReference.lecReferenceNo}</td>
 						                   <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeOne?lecNoticeNo=${lectureNotice.lecNoticeNo}">${lectureNotice.title}</a></td>
-						                   <td>${lectureNotice.lectureName}</td>
+						                   <td>${lectureReference.lectureName}</td>
 						                   <td>${lectureNotice.memberId}</td>
 						                   <td>${lectureNotice.createDate}</td>
 						                </tr>

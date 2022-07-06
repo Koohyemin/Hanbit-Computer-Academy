@@ -80,8 +80,8 @@ public class LectureNoticeService {
 		}
 		
 		
-	// 공지사항 강사 수강별 강좌
-	public List<LecPlan> lectureNameList(String teacherId) {
+		// 공지사항 강사 수강별 강좌
+		public List<LecPlan> lectureNameList(String teacherId) {
 		List<LecPlan> lecPlan = lectureNoticeMapper.lectureNameList(teacherId);
 		log.debug( CF.KHV +"[lectureNoticeService lectureNameList]: "+ CF.RESET + lecPlan.size());
 		return lecPlan;

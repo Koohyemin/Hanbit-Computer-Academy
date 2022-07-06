@@ -5,17 +5,16 @@
 	<select id="getLecReferenceListByPage" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.LecReference">
 		SELECT
 			 lec_reference_no lecReferenceNo
-			,member_id memberId
 			,lecture_name lectureName
-			,title 
+			,lec_reference_title lecReferenceTitle
 		 	,create_date createDate
-		 FROM lecture_notice
+		 FROM lec_reference
 		 WHERE lecture_name = #{lectureName}
 		 ORDER BY create_date DESC
 		 LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 
-	<insert id="getInsertLectureNotice" parameterType="Hanbit.co.kr.lms.vo.LecReference">
+	<insert id="" parameterType="Hanbit.co.kr.lms.vo.LecReference">
 		INSERT INTO lecture_notice(
 			lec_notice_no 
 			,member_id
@@ -32,6 +31,20 @@
 			,#{content}
 			,NOW()
 			,NOW()
-	)		
+	)
 	</insert>
+	
+	<select id="lectureNameList"
+			parameterType="String"
+			resultType="Hanbit.co.kr.lms.vo.LecPlan">
+		SELECT lecture_name lectureName
+		FROM lec_plan
+		WHERE lec_state = 'T' AND teacher_id = #{teacherId}
+	</select>
+	
+	<select id="studentLectureNameList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.Registration">
+		SELECT lecture_name lectureName
+		FROM registration
+ 		WHERE student_id = #{studentId}
+	</select>
 </mapper>
