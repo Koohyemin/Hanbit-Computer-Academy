@@ -31,7 +31,7 @@
                     <div class="card-header">
                         <i class="fas fa-table me-1"></i>
                         납부 증명서
-                        <input type="button" id="btnPrint" value="납부증명서 출력하기" class="btn btn-dark">
+                        <input type="button" id="btnPrint" value="납부증명서 출력하기" class="btn btn-dark btn-sm float-end">
                     </div>
                     <div class="card-body">
 						<!-- 학생의 납입 리스트  -->
