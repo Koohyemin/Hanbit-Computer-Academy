@@ -32,8 +32,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Service
 @Transactional
-public class ImformationService {
-	@Autowired ImformationMapper imformationMapper;
+public class InformationService {
+	@Autowired InformationMapper informationMapper;
 	@Autowired MemberMapper memberMapper;
 	
 	// 비밀번호 연장하기
@@ -43,21 +43,21 @@ public class ImformationService {
 		if(memberLv == 1) { // 학생이라면
 			
 			// 현재 사용중인 비밀번호로 현재날짜로 insert 해주기
-			int row = imformationMapper.studentLogInsertPw(memberId);
-			log.debug(CF.SWB+"[ImformationService updatePw90 row]"+CF.RESET+ row); // row 디버깅
+			int row = informationMapper.studentLogInsertPw(memberId);
+			log.debug(CF.SWB+"[informationMapper updatePw90 row]"+CF.RESET+ row); // row 디버깅
 			
 		} else if(memberLv == 2) { // 강사라면
 			
 			// 현재 사용중인 비밀번호로 현재날짜로 insert 해주기
-			int row2 = imformationMapper.teacherLogInsertPw(memberId);
-			log.debug(CF.SWB+"[ImformationService updatePw90 row2]"+CF.RESET+ row2); // row2 디버깅
+			int row2 = informationMapper.teacherLogInsertPw(memberId);
+			log.debug(CF.SWB+"[informationMapper updatePw90 row2]"+CF.RESET+ row2); // row2 디버깅
 	
 		} else if(memberLv == 3) { // 운영진이라면
 			
 			// 현재 사용중인 비밀번호로 현재날짜로 insert 해주기
-			int row3 = imformationMapper.managerLogInsertPw(memberId);
+			int row3 = informationMapper.managerLogInsertPw(memberId);
 			
-			log.debug(CF.SWB+"[ImformationService updatePw90 row3]"+CF.RESET+ row3); // row3 디버깅
+			log.debug(CF.SWB+"[informationMapper updatePw90 row3]"+CF.RESET+ row3); // row3 디버깅
 		}
 		
 		return;
@@ -72,7 +72,7 @@ public class ImformationService {
 		map.put("memberPw",memberPw);
 		
 		// 디버깅
-		int row1 = imformationMapper.selectCurrentPw(map);
+		int row1 = informationMapper.selectCurrentPw(map);
 		log.debug(CF.SWB+"[ImformationService modifyPw row1]"+CF.RESET+ row1); // row1 디버깅
 		
 		// vo.PasswordUpdateDate 등록
@@ -84,8 +84,8 @@ public class ImformationService {
 		
 		// 만약 row가 한개이상이라면 현재 비밀번호가 맞다
 		if(row1 > 0) {
-			int row2 = imformationMapper.selectPwList(passwordUpdateDate);
-			log.debug(CF.SWB+"[ImformationService modifyPw row2]"+CF.RESET+ row2); // row2 디버깅
+			int row2 = informationMapper.selectPwList(passwordUpdateDate);
+			log.debug(CF.SWB+"[informationMapper modifyPw row2]"+CF.RESET+ row2); // row2 디버깅
 			
 			// 설정한 개수만큼 이전 개수까지 비밀번호가 없으면 비밀번호 변경해주기
 			if(row2 == 0) {
@@ -105,7 +105,7 @@ public class ImformationService {
 		} else {
 			error = "The current password is different";
 		}
-		log.debug(CF.SWB+"[ImformationService modifyPw error]"+CF.RESET+ error); // error 디버깅
+		log.debug(CF.SWB+"[informationMapper modifyPw error]"+CF.RESET+ error); // error 디버깅
 		return error;
 	}
 	// 사진 업로드
@@ -131,18 +131,18 @@ public class ImformationService {
 			log.debug(CF.SWB+"[ImformationService updatePhoto photoFile.photoFile]"+CF.RESET+ photoFile.toString()); // photoFile 디버깅
 			
 			// 원래 가지고 있는 photoName -> upload에 있는 사진 삭제할려고 찾음
-			String prePhotoName = imformationMapper.selectPhotoName(memberId);
-			log.debug(CF.SWB+"[ImformationService updatePhoto prePhotoName]"+CF.RESET+prePhotoName); // prePhotoName 디버깅
-			log.debug(CF.SWB+"[ImformationService updatePhoto path]"+CF.RESET+path);
+			String prePhotoName = informationMapper.selectPhotoName(memberId);
+			log.debug(CF.SWB+"[informationMapper updatePhoto prePhotoName]"+CF.RESET+prePhotoName); // prePhotoName 디버깅
+			log.debug(CF.SWB+"[informationMapper updatePhoto path]"+CF.RESET+path);
 			// 파일이 존재한다면 삭제
 			File f = new File(path+prePhotoName);
-			log.debug(CF.SWB+"[ImformationService updatePhoto f]"+CF.RESET+f); // f 디버깅
+			log.debug(CF.SWB+"[informationMapper updatePhoto f]"+CF.RESET+f); // f 디버깅
 			if(f.exists() && !"defaultProfile.jpg".equals(prePhotoName)) {
 				f.delete();
 			}
 			
 			// 파일 업로드
-			imformationMapper.updatePhoto(photoFile);
+			informationMapper.updatePhoto(photoFile);
 			try {
 				mf.transferTo(new File(path+filename));
 			} catch (Exception e) {

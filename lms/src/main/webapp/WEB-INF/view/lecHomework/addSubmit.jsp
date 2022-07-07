@@ -21,6 +21,39 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+<script>
+$(document).ready(function(){ // html페이지를 다 로드시키고 매개변수함수를 실행
+	let flag = true;
+	$('#addFileupload').click(function(){
+		// 추가된 noticefileList안에 파일이 첨부되지 않았다면 새로운 noticefileList 추가 X
+		/* javascript 기본api
+		let noticefileList = $('.noticefileList');
+		console.log(noticefileList.length);
+		for(let i=0; i<noticefileList.length; i++) {
+			console.log(noticefileList[i].value);
+			if(noticefileList[i].value == '') {
+				flag = false;
+				break;
+			}
+		}
+		*/
+		
+		// jquery api 사용
+		$('.homeworkfileList').each(function(){ // each함수를 이용한 반복
+			if($(this).val() == '') {
+				flag = false;
+			}
+		});
+		
+		if(flag) {
+			$('#fileSection').append("<div><input class='homeworkfileList' type='file' name='homeworkFileList'><div>");
+		} else {
+			alert('파일이 첨부되지 않은 noticefileList가 존재합니다');
+		}
+	});
+	
+});	
+</script>
 </head>
 <body class="sb-nav-fixed">
 <div id="nav"></div>
@@ -66,7 +99,10 @@
 					<tr>
 						<th class="text-center">파일업로드</th>
 						<td>
-							<input type="file" name="" multiple="multiple">
+							<button type="button" id="addFileupload">파일업로드 추가</button>
+							<div id="fileSection">
+							<!-- 파일업로드 input 태그가 추가될 영역 -->
+						</div>
 						</td>
 					</tr>
 					<tr>

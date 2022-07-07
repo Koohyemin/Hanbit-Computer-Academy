@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import Hanbit.co.kr.lms.service.ImformationService;
+import Hanbit.co.kr.lms.service.InformationService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Manager;
 import Hanbit.co.kr.lms.vo.PhotoFile;
@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class ImformationMemberController {
-	@Autowired ImformationService imformation;
+	@Autowired InformationService imformation;
 	
 	@GetMapping("/member/updatePw")
 	public String updatePw() {

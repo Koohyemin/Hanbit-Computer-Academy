@@ -7,6 +7,7 @@ import javax.servlet.Registration;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import Hanbit.co.kr.lms.vo.HomeworkFile;
 import Hanbit.co.kr.lms.vo.HomeworkMake;
 import Hanbit.co.kr.lms.vo.HomeworkSubmission;
 import Hanbit.co.kr.lms.vo.LecPlan;
@@ -26,4 +27,6 @@ public interface LecHomeworkMapper {
 	// 학생과제
 	List<HomeworkMake> studentHomeworkList(String studentId, String lectureName);
 	int insertSubmitStudent(HomeworkSubmission homeworkSubmission); // 과제제출
+	
+	int insertHomeworkFile(HomeworkFile homeworkFile);
 }

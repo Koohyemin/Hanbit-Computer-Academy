@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.Registration;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import Hanbit.co.kr.lms.service.LecHomeworkService;
 import Hanbit.co.kr.lms.service.LectureNoticeService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.HomeworkFile;
+import Hanbit.co.kr.lms.vo.HomeworkForm;
 import Hanbit.co.kr.lms.vo.HomeworkMake;
 import Hanbit.co.kr.lms.vo.HomeworkSubmission;
 import Hanbit.co.kr.lms.vo.LecPlan;
@@ -33,7 +36,8 @@ public class LecHomeworkController {
 	
 	// 학생이 과제제출 액션
 	@PostMapping("lecHomework/addSubmit")
-	public String addSubmit(HomeworkFile homeworkFile
+	public String addSubmit(HomeworkForm homeworkForm
+							,HttpServletRequest request
 							,@RequestParam(name="homeworkMakeNo")int homeworkMakeNo
 							,@RequestParam(name="homeworkSubmissionTitle")String homeworkSubmissionTitle
 							,@RequestParam(name="homeworkSubmissionContent")String homeworkSubmissionContent) {
@@ -45,13 +49,19 @@ public class LecHomeworkController {
 		log.debug(CF.SWB+"[LecHomeworkController post addSubmit homeworkSubmissionTitle]"+CF.RESET+ homeworkSubmissionTitle); // homeworkSubmissionTitile 디버깅
 		log.debug(CF.SWB+"[LecHomeworkController post addSubmit homeworkSubmissionContent]"+CF.RESET+ homeworkSubmissionContent); // homeworkSubmissionContent 디버깅
 		
-		HomeworkSubmission homeworkSubmission = new HomeworkSubmission();
-		homeworkSubmission.setHomeworkMakeNo(homeworkMakeNo);
-		homeworkSubmission.setStudentId(sutdnetId);
-		homeworkSubmission.setHomeworkSubmissionTitle(homeworkSubmissionTitle);
-		homeworkSubmission.setHomeworkSubmissionContent(homeworkSubmissionContent);
+		// 사진이 들어가 경로 설정 
+		String path = request.getServletContext().getRealPath("/upload/");
+		log.debug(CF.SWB+"[LecHomeworkController post addSubmit homeworkSubmissionContent]"+CF.RESET+ homeworkSubmissionContent); // homeworkSubmissionContent 디버깅
 		
-		lecHomeworkSerivce.insertSubmitStudent(homeworkSubmission);
+		
+		List<MultipartFile> homeworkList = homeworkForm.getHomeworkFileList();
+		if(homeworkList != null && homeworkList.get(0).getSize() > 0) { // 하나 이상의 파일이 업로드 되면
+			for(MultipartFile mf : homeworkList) {
+				log.debug(mf.getOriginalFilename());
+		    }
+		}
+		
+		lecHomeworkSerivce.insertSubmitStudent(homeworkForm, path,sutdnetId);
 		
 		return "redirect:/lecHomework/getLecHomeworkList";
 	}
