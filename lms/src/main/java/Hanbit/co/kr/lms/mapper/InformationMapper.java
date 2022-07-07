@@ -3,8 +3,6 @@ package Hanbit.co.kr.lms.mapper;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.servlet.Registration;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import Hanbit.co.kr.lms.vo.Certification;
@@ -17,7 +15,7 @@ import Hanbit.co.kr.lms.vo.Teacher;
 import Hanbit.co.kr.lms.vo.TimeTable;
 
 @Mapper
-public interface ImformationMapper {
+public interface InformationMapper {
 	
 	// 비밀번호 90일 연장하기
 	int studentLogInsertPw(String memberId); // 학생

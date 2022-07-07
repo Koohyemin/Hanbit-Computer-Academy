@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-public class ImformationMemberController {
+public class InformationMemberController {
 	@Autowired InformationService imformation;
 	
 	@GetMapping("/member/updatePw")
