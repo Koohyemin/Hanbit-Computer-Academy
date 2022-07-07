@@ -61,7 +61,7 @@
                     <a class="nav-link"href="${pageContext.request.contextPath}/people/peopleList">강사/강의/학생 조회</a>
                     <a class="nav-link">과목 조회</a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/lec/lecList">수강신청 관리</a>   
-                     <a class="nav-link">개설강좌 관리</a>
+                     <a class="nav-link" href="${pageContext.request.contextPath}/lec/openLecList">개설강좌 관리</a>
                      <a class="nav-link" href="#">납부 관리</a>
                 </nav>
             </div>

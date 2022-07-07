@@ -32,6 +32,27 @@ public class LecController {
 	@Autowired RegistrationService registrationService;
 	@Autowired HttpSession session;
 	
+	// 개설 강의 목록
+	@GetMapping("lec/openLecList")
+	public String openLecListByPage(Model model,
+								@RequestParam(name = "currentPage", defaultValue = "1") int currentPage, // 현재페이지, 1페이지부터 시작
+								@RequestParam(name = "rowPerPage", defaultValue = "10") int rowPerPage) { // 한페이지당 10개의 목록 출력
+		
+		// Service에 처리한 코드를 이용하여 매개값 대입
+		Map<String, Object> map = lecService.openLecListByPage(currentPage, rowPerPage);
+		
+		log.debug(CF.KHM +"[LecController GetMapping oepnLec.currentPage]: " + CF.RESET + currentPage); // 현재페이지 디버깅
+		
+		// model에 값 add
+		model.addAttribute("list", map.get("list"));
+		model.addAttribute("lastPage", map.get("lastPage"));
+		model.addAttribute("currentPage", map.get("currnetPage"));
+		model.addAttribute("totalCount", map.size());
+		
+			
+		return "lec/openLecList"; // lec/openLecList.jsp로 이동
+	}
+	
 	// 운영자 강의 승인
 	@PostMapping("lec/updateLecState")
 	public String getUpdateLecState(@RequestParam(name="lectureName") String lectureName, @RequestParam(name="lecState") String lecState) {

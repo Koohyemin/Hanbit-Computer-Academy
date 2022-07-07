@@ -23,4 +23,5 @@ public class Lec {						// 강좌 테이블
 	private String teacherId;			// 강사 아이디
 	private String teacherName;			// 강사 이름
 	private String lecState;			// 강의상태
+	private int registrationCount; 		// 수강인원
 }

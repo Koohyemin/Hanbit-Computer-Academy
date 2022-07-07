@@ -231,6 +231,32 @@
 		]]>
 	</select>
 	
+	<!-- 개강중인 강의 리스트 -->
+	<select id="openLecListByPage" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.Lec">
+		<![CDATA[
+			SELECT 
+				 l.lecture_name lectureName
+				,l.subject_name subjectName
+				,l.registration_number registrationNumber
+				,l.difficulty
+				,l.create_date createDate
+				,tt.begin_class beginClass
+				,tt.end_class endClass
+				,COUNT(re.student_id) registrationCount
+			FROM lec l
+				INNER JOIN time_table tt
+				ON l.lecture_name = tt.lecture_name
+				INNER JOIN lec_plan lp
+				ON l.lecture_name = lp.lecture_name
+				INNER JOIN registration re
+				ON l.lecture_name = re.lecture_name
+			WHERE NOW() >= tt.begin_class AND NOW() <= tt.end_class AND lp.lec_state='T'
+			GROUP BY l.lecture_name
+			ORDER BY tt.begin_class DESC
+			LIMIT #{beginRow}, #{rowPerPage}
+		]]>
+	</select>
+	
 	<!-- 개강일 이전 강의 리스트 -->
 	<select id="getLecListByPage" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.Lec">
 		<![CDATA[

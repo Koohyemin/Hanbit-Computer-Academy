@@ -107,6 +107,33 @@ public class LecService {
 		return lecMapper.getLecOne(lectureName);
 	}
 	
+	// 개강 중인 강의 리스트
+	public Map<String, Object> openLecListByPage(int currentPage, int rowPerPage) {
+		
+		// 현재페이지를 이욯하여 시작페이지 계산
+		int beginRow = (currentPage-1) * rowPerPage;
+		
+		// map으로 하나의 값으로 묶어주기
+		Map<String, Object> map = new HashMap<>();
+		map.put("beginRow", beginRow); // 시작 페이지
+		map.put("rowPerPage", rowPerPage); // 한 페이지당 표시할 강의 개수	
+		
+		// SQL 매개값 대입
+		List<Lec> list = lecMapper.openLecListByPage(map);
+		int totalCount = lecMapper.totalOpenLecCount();
+		
+		// 마지막 페이지
+		int lastPage = (int)(Math.ceil((double)totalCount / (double)rowPerPage));
+		
+		// return값 하나의 값으로 묶어주기
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("list", list);
+		returnMap.put("lastPage", lastPage);
+		
+		// returnMap 반환
+		return returnMap;
+	}
+	
 	// 개강전 강의 리스트
 	public Map<String, Object> getLecListByPage(int currentPage, int rowPerPage) {
 		
