@@ -62,10 +62,10 @@
 				</tr>
 			</table>
 			<div>
-			<!-- 운영자만 수정, 삭제 버튼을 볼 수 있음 -->
+			<!-- 작성자만 수정, 삭제 버튼을 볼 수 있음 -->
 				<c:if test="${sessionMemberId eq lecQuestion.memberId}">
 					<!-- 삭제버튼 -->
-					<form method="post" action="${pageContext.request.contextPath}/lecQna/delLecQna" id="del" style="float:right">
+					<form method="post" action="${pageContext.request.contextPath}/lecQna/deleteLecQna" id="del" style="float:right">
 						<input type="hidden" name="lecQuestionNo" value="${lecQuestion.lecQuestionNo}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
 						<input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
 					</form>
@@ -73,17 +73,72 @@
 					<a href="${pageContext.request.contextPath}/lecQna/updateLecQna?questionNo=${lecQuestion.lecQuestionNo}" class="btn btn-info" style="float:right">수정</a>
 				</c:if>
 			</div>
+			
+			<br><br><br>
+			<h2>🗨답변<span class="text-secondary">(${list.size()})</span></h2>
+			<br>
+			
+			<!-- 답변 등록 -->
+			<form action="${pageContext.request.contextPath}/lecQna/addAnswer">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>작성자</th>
+							<td>${sessionMemberId}</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>답변</th>
+							<td>
+								<textarea name="lecAnswerContent" rows="3" cols="160" placeholder="답변 내용을 입력해주세요" class="form-control"></textarea>
+								<span id="lecAnswerContentArror"></span>
+							</td>
+							<td>
+								<button type="button" id="btn" class="btn btn-dark">등록</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+			
+			<!-- 답변 목록 -->
+			<!-- 등록된 답변이 없을 시 -->
+			<c:if test="${list.size() == 0}">
+				<h5 class="text-danger">답변이 등록되지 않았습니다.</h5>
+				<br><br><br>
+			</c:if>
+			<c:forEach var="l" items="${list}">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>작성자</th>
+							<td>${l.memberId}</td>
+							<th>작성일자</th>
+							<td>${l.createDate}</td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>답변</th>
+							<td colspan="3">${l.lecAnswerContent}</td>
+						</tr>
+					</tbody>
+				</table>
+				<br><br>
+			</c:forEach>
 		</div>
 		<div id="footer"></div>
 	</div>
 </div>
 </body>
+
 	<script>
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
     	 $("#delBtn").click(function(){
-             if (confirm('해당 공지사항을 삭제 하시겠습니까?')) {
+             if (confirm('해당 질문을 삭제 하시겠습니까?')) {
                  $('#del').submit();
              } else {
              	return false;

@@ -22,7 +22,9 @@ public interface LecQnaMapper {
 
 	// 답변
 	List<LecAnswer> lecAnswerList(Map<String,Object> map); // 답변 상세보기 목록 (페이징) lecQuestionNo, beginPage, rowPerPage
+	LecAnswer lecAnswerOne(int lecAnswerNo); // 답변 수정시 불러올 상세보기 정보
 	int insertAnswer(LecAnswer lecAnswer); // 답변(댓글) 등록
 	int updateAnswer(LecAnswer lecAnswer); // 답변(댓글) 수정
 	int deleteOneAnswer(int lecAnswerNo); // 답변(댓글) 삭제
+	int answerCount(int lecQuestionNo); // 질문별 답변 개수
 }

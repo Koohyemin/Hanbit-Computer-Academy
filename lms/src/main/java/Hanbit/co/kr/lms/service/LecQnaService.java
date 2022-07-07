@@ -9,9 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.mapper.LecQnaMapper;
+import Hanbit.co.kr.lms.vo.LecAnswer;
 import Hanbit.co.kr.lms.vo.LecQuestion;
 
 @Service
@@ -20,6 +20,74 @@ public class LecQnaService {
 	
 	@Autowired LecQnaMapper lecQnaMapper;
 	@Autowired HttpSession session;
+	// 답변관련 서비스
+	
+	// 강의실 답변 리스트
+	public Map<String,Object> lecAnswerList(int lecQuestionNo, int currentPage, int rowPerPage) {
+		// 현재페이지를 이욯하여 시작페이지 계산
+		int beginRow = (currentPage-1) * rowPerPage;
+
+		// map으로 하나의 값으로 묶어주기
+		Map<String, Object> map = new HashMap<>();
+		map.put("lecQuestionNo", lecQuestionNo); // 해당 강의 명
+		map.put("beginRow", beginRow); // 시작 페이지
+		map.put("rowPerPage", rowPerPage); // 한 페이지당 표시할 강의 개수
+		
+		// SQL 매개값 대입
+		List<LecAnswer> list = lecQnaMapper.lecAnswerList(map);
+		int totalCount = lecQnaMapper.answerCount(lecQuestionNo);
+		
+		// 마지막 페이지
+		int lastPage = (int)(Math.ceil((double)totalCount / (double)rowPerPage));
+		
+		
+		// return값 하나의 값으로 묶어주기
+		Map<String, Object> returnMap = new HashMap<>();
+		returnMap.put("list", list);
+		returnMap.put("lastPage", lastPage);
+		
+		// returnMap 반환
+		return returnMap;
+	}
+	
+	// 강의실 답변 삭제 Post
+	public int deleteOneAnswer(int lecAnswerNo) {
+		return lecQnaMapper.deleteAnswer(lecAnswerNo);
+	}
+	
+	// 답변 상세보기(수정용)
+	public LecAnswer lecAnswerOne(int lecAnswerNo) {
+		return lecQnaMapper.lecAnswerOne(lecAnswerNo);
+	}
+	
+	// 강의실 답변수정 Post
+	public int updateAnswer(LecAnswer lecAnswer) {
+		return lecQnaMapper.updateAnswer(lecAnswer);
+	}
+	
+	// 강의실 답변등록 Post
+	public int insertAnswer(LecAnswer lecAnswer) {
+		return lecQnaMapper.insertAnswer(lecAnswer);
+	}
+	
+	
+	// 질문관련 서비스
+	
+	// 강의실 질문관련 답변 개수
+	public int answerCount(int lecQuestionNo) {
+		return lecQnaMapper.answerCount(lecQuestionNo);
+	}
+	
+	
+	// 강의실 질문관련 답변 삭제 Post
+	public int deleteAnswer(int lecQuestionNo) {
+		return lecQnaMapper.deleteAnswer(lecQuestionNo);
+	}
+	
+	// 강의실 질문 삭제 Post
+	public int deleteQuestion(int lectQuestionNo) {
+		return lecQnaMapper.deleteQuestion(lectQuestionNo);
+	}
 	
 	// 강의실 질문 수정 Post
 	public int updateQuestion(LecQuestion lecQuestion) {
