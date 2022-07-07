@@ -276,4 +276,12 @@
 		ON member_id = student_id 
 		WHERE student_id = #{studentId}
 	</select>
+	<!-- 회원 삭제   -->
+	<update id="deleteMember"
+			parameterType="java.lang.String">
+		UPDATE member SET
+			member_state = '4'
+			,update_date = NOW()
+		WHERE member_id = #{memberId}
+	</update>
 </mapper>

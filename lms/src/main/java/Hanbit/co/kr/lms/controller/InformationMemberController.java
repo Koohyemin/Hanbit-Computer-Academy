@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Controller
 public class InformationMemberController {
-	@Autowired InformationService imformation;
+	@Autowired InformationService informationService;
 	
 	@GetMapping("/member/updatePw")
 	public String updatePw() {
@@ -41,7 +41,7 @@ public class InformationMemberController {
 		log.debug(CF.SWB+"[ImformationMemberController PostMapping prolongPw memberId]"+CF.RESET+ memberId); // memberId 디버깅
 		log.debug(CF.SWB+"[ImformationMemberController PostMapping prolongPw memberLv]"+CF.RESET+ memberLv); // memberLv 디버깅
 		
-		imformation.updatePw90(memberId, memberLv);
+		informationService.updatePw90(memberId, memberLv);
 		
 		return "redirect:/home/index";
 	}
@@ -64,7 +64,7 @@ public class InformationMemberController {
 		
 		
 		/// 에러문구 받아오기
-		String error = imformation.modifyPw(memberId, memberPw, updatePw,checkPw,memberLv);
+		String error = informationService.modifyPw(memberId, memberPw, updatePw,checkPw,memberLv);
 		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePw error]"+CF.RESET+ error); // error 디버깅
 		model.addAttribute("error",error);
 		if(error == null) {
@@ -90,7 +90,7 @@ public class InformationMemberController {
 		log.debug(CF.SWB+"[ImformationMemberController PostMapping updatePhoto photoFile]"+CF.RESET+ photoFile.getPhotoFile()); // photoFile디버깅
 		
 		// 컨트롤러에서 서비스로 파일에 필요한 값 보내주기
-		imformation.updatePhoto(path, memberId,photoFile);
+		informationService.updatePhoto(path, memberId,photoFile);
 		return "redirect:/member/getMemberOne";
 	}
 	
@@ -116,19 +116,19 @@ public class InformationMemberController {
 		Map<String, Object> returnMap = new HashMap<>();
 		if(memberLv == 1) { // 학생이라면
 			String studentId = memberId;
-			returnMap = imformation.studentOne(studentId);
+			returnMap = informationService.studentOne(studentId);
 			model.addAttribute("student",returnMap.get("student"));
 			
 			log.debug(CF.SWB+"[ImformationMemberController modifyStudent student]"+CF.RESET+ returnMap.get("student").toString()); // student 디버깅
 		} else if(memberLv == 2) {
 			String teacherId = memberId;
-			returnMap = imformation.teacherOne(teacherId);
+			returnMap = informationService.teacherOne(teacherId);
 			model.addAttribute("teacher",returnMap.get("teacher"));
 			
 			log.debug(CF.SWB+"[ImformationMemberController modifyStudent teacher]"+CF.RESET+ returnMap.get("teacher").toString()); // teacher 디버깅
 		} else if(memberLv == 3) {
 			String managerId = memberId;
-			returnMap = imformation.managerOne(managerId);	
+			returnMap = informationService.managerOne(managerId);	
 			model.addAttribute("manager",returnMap.get("manager"));
 			
 			log.debug(CF.SWB+"[ImformationMemberController modifyStudent manager]"+CF.RESET+ returnMap.get("manager").toString()); // manager 디버깅
@@ -165,7 +165,7 @@ public class InformationMemberController {
 			student.setStudentPhone(phone);
 			student.setFinalEducation(finalEdu);
 			student.setStudentEmail(email);
-			imformation.updateStudent(student);
+			informationService.updateStudent(student);
 			log.debug(CF.SWB+"[ImformationMemberController modifyStudent students]"+CF.RESET + student.toString()); // student 디버깅
 			
 		// 강사라면
@@ -179,7 +179,7 @@ public class InformationMemberController {
 			teacher.setTeacherPhone(phone);
 			teacher.setFinalEducation(finalEdu);
 			teacher.setTeacherEmail(email);
-			imformation.updateTeacher(teacher);
+			informationService.updateTeacher(teacher);
 			log.debug(CF.SWB+"[ImformationMemberController modifyStudent students]"+CF.RESET + teacher.toString()); // teacher 디버깅
 			
 		// 운영진이라면
@@ -192,7 +192,7 @@ public class InformationMemberController {
 			manager.setManagerAddr2(addr2);
 			manager.setManagerPhone(phone);
 			manager.setManagerEmail(email);
-			imformation.updateManager(manager);
+			informationService.updateManager(manager);
 		}
 		return "redirect:/member/getMemberOne";
 	}
@@ -204,6 +204,7 @@ public class InformationMemberController {
 		
 		// 세션에 있는 멤버레벨값 받아오기
 		HttpSession session = request.getSession();
+		String memberId = (String) session.getAttribute("sessionMemberId");
 		int memberLv = (int)session.getAttribute("sessionMemberLv");
 		log.debug(CF.SWB+"[ImformationMemberController memberOne memberLv]"+ memberLv+CF.RESET); // memberLv
 		
@@ -215,22 +216,22 @@ public class InformationMemberController {
 		// service에서 controller로 값 가져오기
 		Map<String, Object> returnMap = new HashMap<>();
 		if(memberLv == 1) { // 학생일때
-			studentId = (String)session.getAttribute("sessionMemberId"); // 변수등록 및 세션아이디 값 넣기
-			returnMap = imformation.studentOne(studentId);
+			studentId = memberId; // 변수등록 및 세션아이디 값 넣기
+			returnMap = informationService.studentOne(studentId);
 			log.debug(CF.SWB+"[ImformationMemberController memberOne student]"+CF.RESET+ returnMap.get("student").toString()); // student 디버깅
 			model.addAttribute("student",returnMap.get("student"));
 			
 		} else if(memberLv == 2) { // 강사일때
-			teacherId = (String)session.getAttribute("sessionMemberId");  // 변수등록 및 세션아이디 값 넣기
-			returnMap = imformation.teacherOne(teacherId);
+			teacherId = memberId;  // 변수등록 및 세션아이디 값 넣기
+			returnMap = informationService.teacherOne(teacherId);
 			model.addAttribute("teacher",returnMap.get("teacher"));
 			model.addAttribute("lecTimeList",returnMap.get("lecTimeList"));
 			log.debug(CF.SWB+"[ImformationMemberController memberOne teacher]"+CF.RESET+ returnMap.get("teacher").toString()); // teacher 디버깅
 			log.debug(CF.SWB+"[ImformationMemberController memberOne lecTimeList]"+CF.RESET+ returnMap.get("lecTimeList").toString()); // lecTimeList 디버깅
 			
 		} else if(memberLv == 3) { // 운영자일때
-			managerId = (String)session.getAttribute("sessionMemberId");  // 변수등록 및 세션아이디 값 넣기
-			returnMap = imformation.managerOne(managerId);
+			managerId = memberId;  // 변수등록 및 세션아이디 값 넣기
+			returnMap = informationService.managerOne(managerId);
 			log.debug(CF.SWB+"[ImformationMemberController memberOne manager]"+CF.RESET+ returnMap.get("manager").toString()); // manager 디버깅
 			model.addAttribute("manager",returnMap.get("manager"));
 		}
@@ -242,6 +243,17 @@ public class InformationMemberController {
 		model.addAttribute("certificationList",returnMap.get("certificationList"));
 		model.addAttribute("lecList",returnMap.get("lecList"));
 		model.addAttribute("photoFile",returnMap.get("photoFile"));
+		model.addAttribute("memberId",memberId);
 		return "member/imformationMember";
 	}
+	@GetMapping("/member/removceMember")
+	public String removeMeber(@RequestParam(name="memberId") String memberId ) {
+		
+		informationService.removeMember(memberId);
+		
+		return "redirect:/logout";
+		
+	}
+	
+	
 }

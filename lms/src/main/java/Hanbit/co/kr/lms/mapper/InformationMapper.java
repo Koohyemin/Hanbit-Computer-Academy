@@ -75,4 +75,7 @@ public interface InformationMapper {
 	
 	// 운영진 사잔
 	PhotoFile selectManagerPhoto(String mangaerId);
+	
+	//멤버 삭제
+	int deleteMember(String memberId);
 }

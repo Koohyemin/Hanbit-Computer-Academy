@@ -297,4 +297,12 @@ public class InformationService {
       returnMap.put("photoFile", photoFile);
       return returnMap;
    }
+   
+   //멤버 삭제
+   public int removeMember(String memberId) {
+	   
+	   int row = informationMapper.deleteMember(memberId);
+	   
+	   return row;
+   }
 }

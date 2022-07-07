@@ -26,7 +26,7 @@ public class RegistrationController {
 	@Autowired HttpSession session;
 	
 	@GetMapping("/registration/addregistration")
-	public String addRegistration(Registration registration) {
+	public String addRegistration(Registration registration) {					//강좌 액션
 		
 		String studentId = (String) session.getAttribute("sessionMemberId");
 		
@@ -42,7 +42,7 @@ public class RegistrationController {
 	}
 	
 	@GetMapping("/registration/getRegistration")
-	public String getRegistration(Model model) {
+	public String getRegistration(Model model) {						//수강 등록 내역 리스트
 		
 		if (session.getAttribute("sessionMemberLv") == null) { // 세션에 로그인 상태가 아니면 로그인페이지로 이동
 			return "redirect:/login";
@@ -89,6 +89,6 @@ public class RegistrationController {
 			
 		int row = registrationService.modifyPayment(registration,payMoney);					
 		
-		return "redirect:/registration/registrationOne";
+		return "redirect:/registration/getRegistration";
 	}
 }

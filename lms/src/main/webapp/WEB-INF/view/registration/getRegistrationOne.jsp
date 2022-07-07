@@ -43,7 +43,7 @@
 							<input type="hidden" name="payment" value="${regimap.payment}">
 							<input type="number" name="payMoney" value="0">
 							<input type="hidden" name="registrationNo" value="${regimap.registrationNo}">
-							<button type="submit" class="btn btn-dark btn-block">제출</button>
+							<button type="submit" class="btn btn-dark btn-block">납부</button>
 						</form><br>
 			<h1>${regimap.lectureName} </h1>
 			<br><br>
