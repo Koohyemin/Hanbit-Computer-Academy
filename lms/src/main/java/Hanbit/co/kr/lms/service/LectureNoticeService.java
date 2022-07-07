@@ -63,7 +63,7 @@ public class LectureNoticeService {
 			return lectureNoticeMapper.getLecNoticeOne(lecNoticeNo);
 		}
 		
-		// 강좌공지사항 select(강사의 강좌)
+		// 강좌공지사항 입력(강사의 강좌)
 		public int addLectureNotice(LectureNotice lectureNotice) {
 			return lectureNoticeMapper.getInsertLectureNotice(lectureNotice);
 		}

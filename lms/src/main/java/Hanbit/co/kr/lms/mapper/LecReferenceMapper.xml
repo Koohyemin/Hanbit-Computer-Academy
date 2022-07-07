@@ -36,25 +36,23 @@
  		WHERE student_id = #{studentId}
 	</select>
 	
-	<!--  
-	<insert id="" parameterType="Hanbit.co.kr.lms.vo.LecReference">
-			INSERT INTO lecture_notice(
+
+	<insert id="addLecReference" parameterType="Hanbit.co.kr.lms.vo.LecReference">
+			INSERT INTO lecture_reference(
 				lec_reference_no 
-				,member_id
 				,lecture_name
-				,title
-				,content
+				,lec_reference_title
+				,lec_reference_content
 				,create_date 
 				, update_date
 				)VALUES( 
 				#{lecReferenceNo}
-				,#{memberId}
 				,#{lectureName}
-				,#{title}
-				,#{content}
+				,#{lecReferenceTitle}
+				,#{lecReferenceContent}
 				,NOW()
 				,NOW()
 		)
 	</insert>
-	-->
+
 </mapper>

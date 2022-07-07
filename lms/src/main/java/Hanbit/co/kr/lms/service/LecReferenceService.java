@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import Hanbit.co.kr.lms.mapper.LecReferenceMapper;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.LecReference;
+import Hanbit.co.kr.lms.vo.LectureNotice;
 import Hanbit.co.kr.lms.vo.Registration;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,9 +28,9 @@ public class LecReferenceService {
 		public Map<String, Object> getLecReferenceListByPage(int currentPage, int rowPerPage, String lectureName) {
 		
 		// 컨트롤러에서 가져온 값 
-		log.debug(CF.KHV +"[LectureNoticeService getLecReferenceListByPage currentPage ]: " + CF.RESET + currentPage);
-		log.debug(CF.KHV +"[LectureNoticeService getLecReferenceListByPage rowPerPage ]: " + CF.RESET + rowPerPage);
-		log.debug(CF.KHV +"[LectureNoticeService getLecReferenceListByPage lectureName ]: " + CF.RESET + lectureName);
+		log.debug(CF.KHV +"[LecReferenceService getLecReferenceListByPage currentPage ]: " + CF.RESET + currentPage);
+		log.debug(CF.KHV +"[LecReferenceService getLecReferenceListByPage rowPerPage ]: " + CF.RESET + rowPerPage);
+		log.debug(CF.KHV +"[LecReferenceService getLecReferenceListByPage lectureName ]: " + CF.RESET + lectureName);
 		
 		// 현재페이지를 이욯하여 시작페이지 계산
 		int beginRow = (currentPage-1) * rowPerPage;
@@ -55,6 +56,11 @@ public class LecReferenceService {
 		// returnMap 반환
 		return returnMap;
 	}
+		// 입력
+		public int addLecReference(LecReference lecReference) {
+			return lecReferenceMapper.addLecReference(lecReference);
+		}
+		
 		//공지사항 강사 수강별 강좌
 		public String teacherList(String teacherId) {
 			String teacherList  = lecReferenceMapper.teacherList(teacherId);

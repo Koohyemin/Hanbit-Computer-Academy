@@ -23,6 +23,10 @@ public interface LecReferenceMapper {
 	// 학생 강좌정보 블러오기
 	List<Registration> studentLectureNameList(String studuntId); 
 	
-	
 	// 강의 자료 업로드
+	int addLecReference(LecReference lecReference); 
+	
+	// 강의 자료 상세보기
+	LecReference getLecReferenceOne(int lecReferecnceNo);
+	
 }
