@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LecHomeworkMapper">
+	<select id="selectFileNameList"
+			parameterType="int"
+			resultType="Hanbit.co.kr.lms.vo.HomeworkFile">
+		SELECT 
+			homework_file_name homeworkFileName
+		FROM homework_file 
+		WHERE homework_submission_no = #{homeworkSubmissionNo}
+	</select>
+	<update id="updateSubmit"
+			parameterType="Hanbit.co.kr.lms.vo.HomeworkSubmission">
+		UPDATE homework_submission SET
+			homework_submission_title = #{homeworkSubmissionTitle}, homework_submission_content=#{homeworkSubmissionContent}
+		WHERE homework_submission_no = #{homeworkSubmissionNo}
+	</update>
+	
+	<delete id="deleteSubmitFile"
+			parameterType="int">
+		DELETE FROM homework_file
+		WHERE homework_submission_no = #{homeworkSubmissionNo}
+	</delete>
+	
+	<select id="selectStudentSubmit"
+			parameterType="int"
+			resultType="java.util.Map">
+		SELECT
+			hs.homework_submission_no homeworkSubmissionNo
+			,hs.homework_submission_title homeworkSubmissionTitle
+			,hs.homework_submission_content homeworkSubmissionContent
+			,GROUP_CONCAT(hf.homework_file_original_name) homeworkFileList
+		FROM homework_submission hs left JOIN homework_file hf
+			ON hs.homework_submission_no = hf.homework_submission_no
+		WHERE hs.homework_submission_no = #{homeworkSubmissionNo}
+	</select>
+
 	<insert id="insertHomeworkFile"
 			parameterType="Hanbit.co.kr.lms.vo.HomeworkFile">
 		INSERT INTO homework_file

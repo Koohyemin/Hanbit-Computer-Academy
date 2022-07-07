@@ -27,6 +27,9 @@ public interface LecHomeworkMapper {
 	// 학생과제
 	List<HomeworkMake> studentHomeworkList(String studentId, String lectureName);
 	int insertSubmitStudent(HomeworkSubmission homeworkSubmission); // 과제제출
-	
 	int insertHomeworkFile(HomeworkFile homeworkFile);
+	HashMap<String, Object> selectStudentSubmit(int homeworkSubmissionNo); // 학생이 낸 과제 제목,내용,파일이름 
+	int deleteSubmitFile(int homeworkSubmissionNo);
+	int updateSubmit(HomeworkSubmission homeworkSubmission);
+	List<HomeworkFile> selectFileNameList(int homeworkSubmissionNo);
 }

@@ -20,10 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 import Hanbit.co.kr.lms.service.LecHomeworkService;
 import Hanbit.co.kr.lms.service.LectureNoticeService;
 import Hanbit.co.kr.lms.util.CF;
-import Hanbit.co.kr.lms.vo.HomeworkFile;
 import Hanbit.co.kr.lms.vo.HomeworkForm;
 import Hanbit.co.kr.lms.vo.HomeworkMake;
-import Hanbit.co.kr.lms.vo.HomeworkSubmission;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +31,40 @@ public class LecHomeworkController {
 	@Autowired LecHomeworkService lecHomeworkSerivce;
 	@Autowired LectureNoticeService lectureNoticeService;
 	@Autowired HttpSession session;
+	
+	// 학생 과제 수정 액션
+	@PostMapping("lecHomework/modifySubmit")
+	public String modifySumbit(HomeworkForm homeworkForm
+							,HttpServletRequest request
+							,@RequestParam(name="homeworkSubmissionNo")int homeworkSubmissionNo
+							,@RequestParam(name="homeworkSubmissionTitle")String homeworkSubmissionTitle
+							,@RequestParam(name="homeworkSubmissionContent")String homeworkSubmissionContent) {
+		
+		log.debug(CF.SWB+"[LecHomeworkController Post modifySubmit homeworkSubmissionNo]"+CF.RESET+ homeworkSubmissionNo); // homeworkSubmissionNo 디버깅
+		
+		// 사진이 들어가 경로 설정 
+		String path = request.getServletContext().getRealPath("/upload/");
+		
+		lecHomeworkSerivce.updateSubmit(homeworkForm,path,homeworkSubmissionNo);
+		return "redirect:/lecHomework/getLecHomeworkList";
+	}
+	// 학생 과제수정 폼
+	@GetMapping("lecHomework/modifySubmit")
+	public String modifySubmit(Model model
+								,@RequestParam(name="homeworkSubmissionNo")int homeworkSubmissionNo
+								,@RequestParam(name="homeworkMakeTitle")String homeworkMakeTitle) {
+		
+		log.debug(CF.SWB+"[LecHomeworkController get modifySubmit homeworkSubmissionNo]"+CF.RESET+ homeworkSubmissionNo); // homeworkSubmissionNo 디버깅
+		log.debug(CF.SWB+"[LecHomeworkController get modifySubmit homeworkMakeTitle]"+CF.RESET+ homeworkMakeTitle); // homeworkMakeTitle 디버깅
+		
+		// 학생과제제출 파일 이름과 과제 제목과 내용 출력
+		HashMap<String, Object> map = lecHomeworkSerivce.selectSubmit(homeworkSubmissionNo);
+		log.debug(CF.SWB+"[LecHomeworkController get modifySubmit map]"+CF.RESET+ map); // map 디버깅
+		
+		model.addAttribute("homeworkMakeTitle",homeworkMakeTitle);
+		model.addAttribute("map",map);
+		return "lecHomework/modifySubmit";
+	}
 	
 	// 학생이 과제제출 액션
 	@PostMapping("lecHomework/addSubmit")
@@ -110,15 +142,16 @@ public class LecHomeworkController {
 		
 		// 뷰를 호출시 모델레이어로 부터 반환된 값(모델)을 뷰로 전송				
 		List<HashMap<String,Object>> homeworkMake = lecHomeworkSerivce.homeworkList(lecPlan);
-		List<HomeworkMake> studnetHomeworkMake = lecHomeworkSerivce.studentHomeworkList(studentId, lectureName);
+		List<HomeworkMake> studentHomeworkMake = lecHomeworkSerivce.studentHomeworkList(studentId, lectureName);
 		log.debug(CF.SWB+"[LecHomeworkController getLecHomeworkList homeworkMake]"+CF.RESET+ homeworkMake); // 과제리스트 디버깅
 		
-		model.addAttribute("studnetHomeworkMake",studnetHomeworkMake);
+		model.addAttribute("studnetHomeworkMake",studentHomeworkMake);
 		model.addAttribute("homeworkMake",homeworkMake);
+		
 		return "lecHomework/getLecHomeworkList";
 	}
 	
-	// 과제등록 폼
+	// 강사가 과제등록 폼
 	@GetMapping("/lecHomework/addHomework")
 	public String addHomework(Model model) {
 		
@@ -138,7 +171,7 @@ public class LecHomeworkController {
 		return "lecHomework/addHomework";
 	}
 	
-	// 과제등록 액션
+	// 강사가 과제등록 액션
 	@PostMapping("/lecHomework/addHomework")
 	public String addHomework(@RequestParam(name="lectureName")String lectureName
 							,@RequestParam(name="homeworkMakeTitle")String homeworkMakeTitle

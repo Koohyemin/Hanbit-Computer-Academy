@@ -102,12 +102,19 @@
 												<td>${s.homeworkScore}</td>
 												<td>${s.createDate}</td>
 												<td>
-													<c:if test="${s.homeworkSubmissionNo == 0}">
-														<a href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">과제 제출</a>
-													</c:if>
-													<c:if test="${s.homeworkSubmissionNo != 0}">
-														<a href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">수정</a>
-													</c:if>
+													<c:choose>
+														<c:when test="${s.checkDeadLine == 0}">
+															<span class="text-danger">마감</span>
+														</c:when>
+														<c:when test="${s.checkDeadLine == 1}">
+															<c:if test="${s.homeworkSubmissionNo == 0}">
+																<a href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">과제 제출</a>
+															</c:if>
+															<c:if test="${s.homeworkSubmissionNo != 0}">
+																<a href="${pageContext.request.contextPath}/lecHomework/modifySubmit?homeworkSubmissionNo=${s.homeworkSubmissionNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">수정</a>
+															</c:if>
+														</c:when>
+													</c:choose>
 												</td>
 											</tr>
 										</c:forEach>

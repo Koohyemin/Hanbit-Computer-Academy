@@ -1,6 +1,9 @@
 package Hanbit.co.kr.lms.service;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -27,6 +30,68 @@ import lombok.extern.slf4j.Slf4j;
 public class LecHomeworkService {
 	@Autowired LecHomeworkMapper lecHomeworkMapper;
 	
+	// 학생 과제업데이트
+	public void updateSubmit(HomeworkForm homeworkForm,String path,int homeworkSubmissionNo) {
+		
+		// 변경된 데이터를 가지고 옴
+		HomeworkSubmission homeworkSubmission = new HomeworkSubmission();
+		homeworkSubmission.setHomeworkSubmissionTitle(homeworkForm.getHomeworkSubmissionTitle());
+		homeworkSubmission.setHomeworkSubmissionContent(homeworkForm.getHomeworkSubmissionContent());
+		homeworkSubmission.setHomeworkSubmissionNo(homeworkSubmissionNo);
+		// 과제 게시글 업데이트
+		int row = lecHomeworkMapper.updateSubmit(homeworkSubmission);
+		log.debug(CF.SWB+"[insertSubmitStudent  insertSubmitStudent row]"+CF.RESET+ row); // map 디버깅
+		log.debug(CF.SWB+"[insertSubmitStudent  insertSubmitStudent homeworkForm]"+CF.RESET+ homeworkForm);
+		// 과제 파일 업로드 부분 
+		if(homeworkForm.getHomeworkFileList() != null  && row ==1)  {
+			for(MultipartFile mf : homeworkForm.getHomeworkFileList()) {
+				HomeworkFile homeworkFile = new HomeworkFile();
+				String originName = mf.getOriginalFilename();
+				
+				// originName에서 마지막 .문자열 위치
+				String ext = originName.substring(originName.lastIndexOf("."));
+				
+				// 파일을 저장할대 사용할 중복되지않는 새로운 이름 필요(UUID API사용)
+				// filename = filename.replace("-","");
+				String filename = UUID.randomUUID().toString();
+				
+				filename = filename + ext;
+				
+				homeworkFile.setHomeworkSubmissionNo(homeworkSubmissionNo);  
+				homeworkFile.setHomeworkFileName(filename);
+				homeworkFile.setHomerworkFileOriginalName(originName);
+				homeworkFile.setHomeworkFileOriginalType(mf.getContentType());
+				homeworkFile.setHomeworkFileSize(mf.getSize());
+				log.debug(CF.SWB+"[insertSubmitStudent  updateSubmit homeworkFile]"+CF.RESET+ homeworkFile); // homeworkFile 디버깅
+				
+				// 사진이름 출력후 upload에 등록된 같은 이름데이터를 삭제
+				List<HomeworkFile> homeworkList = lecHomeworkMapper.selectFileNameList(homeworkSubmissionNo);
+				log.debug(CF.SWB+"[insertSubmitStudent  updateSubmit homeworkList]"+CF.RESET+ homeworkList); // homeworkFile 디버깅
+				for(int i=0; i<homeworkList.size(); i++) {
+					File f = new File(path+homeworkList.get(i).getHomeworkFileName());
+					if(f.exists()) {
+							f.delete();
+						}
+				}
+				
+				lecHomeworkMapper.deleteSubmitFile(homeworkSubmissionNo);
+				
+				lecHomeworkMapper.insertHomeworkFile(homeworkFile);
+				try {
+					mf.transferTo(new File(path+filename));
+				} catch (Exception e) {
+					e.printStackTrace();
+					// 새로운 예외 발생시켜야지만 @Transactional 작동을 위해
+					throw new RuntimeException(); // RuntimeException은 예외처리를 하지 않아도 컴파일된다
+				}	
+			}
+		}
+	}
+	
+	// 학생 제출한 과제리스트
+	public HashMap<String, Object> selectSubmit(int homeworksubmissionNo){
+		return lecHomeworkMapper.selectStudentSubmit(homeworksubmissionNo);
+	}
 	// 학생 과제제출 
 	public void insertSubmitStudent(HomeworkForm homeworkForm, String path,String studentId) {
 		log.debug(CF.SWB+"[insertSubmitStudent  insertSubmitStudent homeworkSubmission]"+CF.RESET+ homeworkForm); // homeworkSubmission 디버깅
@@ -80,8 +145,42 @@ public class LecHomeworkService {
 	// 학생의 과제리스트
 	public List<HomeworkMake> studentHomeworkList(String studentId, String lectureName) {
 		List<HomeworkMake> homeworkMake = lecHomeworkMapper.studentHomeworkList(studentId, lectureName);
+		if(homeworkMake.size() >0 ) {
+			for(int i=0;i<homeworkMake.size();i++) {
+				
+				String deadLine = homeworkMake.get(i).getHomeworkDeadline();
+				
+				// 오늘날짜 yyyy-MM-dd로 생성
+	            String todayfm = new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis()));
+	            log.debug(CF.SWB+"[InformationService teacherOne todayfm]"+CF.RESET+ todayfm);
+	            
+	            // yyyy-MM-dd 포맷 설정
+	            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	            log.debug(CF.SWB+"[InformationService teacherOne dateFormat]"+CF.RESET+ dateFormat);
+	            
+	            // date 변수 선언
+	            Date date1 = null;
+	            Date today = null;
+	            
+	            // 예외처리
+	            try {
+	               date1 = dateFormat.parse(deadLine);
+	               today = dateFormat.parse(todayfm);
+	            } catch (ParseException e) {
+	               e.printStackTrace();
+	            }
+				
+	            // 오늘날짜에 따른 분기
+	            if(date1.getTime() < today.getTime()) { // 오늘날짜가 개강시작일과 종강날짜에 있다면 수업진행중
+	            	homeworkMake.get(i).setCheckDeadLine(0);
+	             } else if(date1.getTime() >= today.getTime()){ // 오늘날짜가 개강일보다 전이라면
+	            	 homeworkMake.get(i).setCheckDeadLine(1);
+	             }
+			}
+		}
 		return homeworkMake;
 	}
+	
 	// 과제리스트
 	public List<HashMap<String,Object>> homeworkList(LecPlan lecPlan) {
 		List<HashMap<String, Object>> list = lecHomeworkMapper.homeworkList(lecPlan);

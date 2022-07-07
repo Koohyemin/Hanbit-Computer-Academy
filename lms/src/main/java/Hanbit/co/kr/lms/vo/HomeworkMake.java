@@ -15,4 +15,5 @@ public class HomeworkMake {
 	// DB에 없는 데이터
 	private int homeworkScore;
 	private int homeworkSubmissionNo;
+	private int checkDeadLine;
 }
