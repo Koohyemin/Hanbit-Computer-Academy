@@ -36,7 +36,15 @@
 	            </div>
 	        </div>
 				<a href="${pageContext.request.contextPath}/registration/getRegistration" class="btn btn-dark" style="float:right">이전으로</a>
-			<br><br>
+				
+		<!-- 결제 폼 -->
+					<div class="d-grid gap-3">
+						<form method="post" action="${pageContext.request.contextPath}/registration/pamyentMoney">
+							<input type="hidden" name="payment" value="${regimap.payment}">
+							<input type="number" name="payMoney" value="0">
+							<input type="hidden" name="registrationNo" value="${regimap.registrationNo}">
+							<button type="submit" class="btn btn-dark btn-block">제출</button>
+						</form><br>
 			<h1>${regimap.lectureName} </h1>
 			<br><br>
 			<table class="table">
@@ -84,16 +92,13 @@
 					<th class="text-center">문의 연락처</th>
 					<td>${fn:substring(regimap.lecPhone,0,3)} - ${fn:substring(regimap.lecPhone,4,8)} - ${fn:substring(regimap.lecPhone,9,13)}</td>
 				</tr>
+				<tr>
+					<th class="text-center">결제 금액</th>
+					<td>${regimap.payment}</td>
+				</tr>
 			</table>
 			<div>
-			<!-- 운영자만 수정, 삭제 버튼을 볼 수 있음 -->
-		
-					<div class="d-grid gap-3">
-						<form method="post" action="${pageContext.request.contextPath}/registration/pamyentMoney">
-							<input type="number" name="payment" value="0">
-							<input type="hidden" name="registrationNo" value="${regimap.registrationNo}">
-							<button type="submit" class="btn btn-dark btn-block">제출</button>
-						</form>
+			
 						<!-- <a href="${pageContext.request.contextPath}/registration/addregistration?lectureName=${regimap.lectureName}" id="btn" class="btn btn-dark btn-block">수강신청</a>  -->	
 					</div>				
 			</div>

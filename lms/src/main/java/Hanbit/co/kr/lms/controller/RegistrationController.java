@@ -44,6 +44,10 @@ public class RegistrationController {
 	@GetMapping("/registration/getRegistration")
 	public String getRegistration(Model model) {
 		
+		if (session.getAttribute("sessionMemberLv") == null) { // 세션에 로그인 상태가 아니면 로그인페이지로 이동
+			return "redirect:/login";
+		}
+		
 		String studentId =(String) session.getAttribute("sessionMemberId");	
 		
 		log.debug(CF.LKL+"RegistrationController.getRegistration.studentId"+CF.RESET+studentId);
@@ -59,6 +63,8 @@ public class RegistrationController {
 	
 	@GetMapping("/registration/registrationOne")
 	public String getRegistrationOne(Model model, Registration registration) {
+		
+		
 		
 		String studentId = (String) session.getAttribute("sessionMemberId");
 		
@@ -76,15 +82,13 @@ public class RegistrationController {
 	
 	//학생-수강 결제 액션 구현
 	@PostMapping("/registration/pamyentMoney")
-	public String pamyentMoney(Registration registration) {
+	public String pamyentMoney(Registration registration,@RequestParam(name="payMoney") int payMoney) {
+				
 		
-		System.out.println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
-		
-		
-		log.debug(CF.LKL +"RegistrationController.registrationService.getRegistrationOne: " + CF.RESET + registration);		//페이지에서 받아온 금액 + 
+		log.debug(CF.LKL +"RegistrationController.registrationService.getRegistrationOne: " + CF.RESET + registration);		//페이지에서 받은 registration 디버깅
 			
-		int row = registrationService.modifyPayment(registration);
+		int row = registrationService.modifyPayment(registration,payMoney);					
 		
-		return "redirect:/registration/getRegistration";
+		return "redirect:/registration/registrationOne";
 	}
 }

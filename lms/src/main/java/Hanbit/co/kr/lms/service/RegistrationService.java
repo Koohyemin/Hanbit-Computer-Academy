@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.mapper.RegistrationMapper;
 import Hanbit.co.kr.lms.util.CF;
@@ -39,7 +40,9 @@ public class RegistrationService {
 		
 	}
 	
-	public int modifyPayment(Registration registration) {
+	public int modifyPayment(Registration registration, int payMoney) {
+		
+		registration.setPayment( registration.getPayment() + payMoney);			//페이지에서 받은 금액과 기존의 금액을 더한다.
 		
 		int row =  registrationMapper.updatePayment(registration);
 		
