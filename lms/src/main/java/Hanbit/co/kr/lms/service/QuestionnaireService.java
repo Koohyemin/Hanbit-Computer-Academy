@@ -73,4 +73,10 @@ public class QuestionnaireService {
 		List<Map<String, Object>> returnMap = questionnaireMapper.selectLecCategoryQueScore(map);
 		return returnMap;
 	}
+	
+	// 카테고리별 평점을 보여줌
+	public List<Map<String,Object>> CategoryScore(int registrationNo){
+		List<Map<String, Object>> map =  questionnaireMapper.selectCategoryScore(registrationNo);
+		return map;
+	}
 }

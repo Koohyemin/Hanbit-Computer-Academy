@@ -68,4 +68,17 @@
 		GROUP BY q.lecture_name
 	</select>
 	
+	<select id="selectCategoryScore" parameterType="int" resultType="java.util.Map">
+		SELECT r.registration_no registrationNo
+			, q.lecture_name lectureName 
+			,q.category category
+			, ROUND(AVG(qa.selected_evaluation_no),1) selectedEvaluationNo
+		FROM questionnaire_answer qa INNER JOIN questionnaire q
+		ON qa.questionnaire_no = q.questionnaire_no
+		INNER JOIN registration r 
+		ON q.lecture_name= r.lecture_name
+		WHERE r.registration_no = #{registrationNo}
+		GROUP BY q.category
+	
+	</select>
 </mapper>

@@ -1,11 +1,14 @@
 package Hanbit.co.kr.lms.controller;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -123,17 +126,42 @@ public class QuestionnaireController {
 		// 강의 설문 카테고리별 평점
 		@GetMapping("/questionnaire/getStatsQuestionnaireListOne")
 		public String getStatsQuestionnaireListOne(
-				Model model
-				,@RequestParam (name="questionnaireNo") int questionnaireNo) {
+				Model model		
+				,@RequestParam (name="registrationNo") int registrationNo) {
 			
-			log.debug( CF.KYJ +"[QuestionnaireController GetMapping getStatsQuestionnaireListOne questionnaireNo]: "+ questionnaireNo + CF.RESET);
+			log.debug( CF.KYJ +"[QuestionnaireController GetMapping getStatsQuestionnaireListOne registrationNo]: "+ registrationNo + CF.RESET);
 			
 			// 첫번쨰 질문 보여주기
 			int checknum = 1;
 			log.debug( CF.KYJ +"[QuestionnaireController GetMapping getStatsQuestionnaireListOne checknum]: "+ checknum + CF.RESET);
-			model.addAttribute("questionnaireNo", questionnaireNo);
-			model.addAttribute("checknum", checknum);
+
+			// 카테고리별 점수 
+			List<Map<String,Object>> returnlist = questionnaireService.CategoryScore(registrationNo);
+			log.debug( CF.KYJ +"[QuestionnaireController GetMapping getStatsQuestionnaireListOne returnlist]: "+ returnlist + CF.RESET);
 			
+			// 카테고리 리스트 
+			List<String> categoryList = new ArrayList<>();
+			// 점수 리스트 
+			List<BigDecimal> categoryScoreList = new ArrayList<>();
+			
+			// returnlist의 횟수만큼 반복하여 카테고리와 점수를 출력
+			for (Map<String, Object> map : returnlist) {
+				String category = "'"+(String)map.get("category")+"'";
+				categoryList.add(category); // 카테고리 리스트 넣기
+				BigDecimal var = (BigDecimal) map.get("selectedEvaluationNo"); // 점수 추출
+				categoryScoreList.add(var);// 카테고리 점수  넣기
+			}
+			
+			log.debug( CF.KYJ +"[QuestionnaireController GetMapping getStatsQuestionnaireListOne categoryList: "+categoryList + CF.RESET);
+			log.debug( CF.KYJ +"[QuestionnaireController GetMapping getStatsQuestionnaireListOne categoryScoreList: "+categoryScoreList + CF.RESET);
+//			
+//			log.debug( CF.KYJ +"[QuestionnaireController GetMapping getStatsQuestionnaireListOne categoryList]: "+ categoryList + CF.RESET);
+//			log.debug( CF.KYJ +"[QuestionnaireController GetMapping getStatsQuestionnaireListOne categoryScoreList]: "+ categoryScoreList + CF.RESET);
+			
+			model.addAttribute("registrationNo", registrationNo);
+			model.addAttribute("checknum", checknum);
+			model.addAttribute("categoryList", categoryList);
+			model.addAttribute("categoryScoreList", categoryScoreList);
 			return "questionnaire/getStatsQuestionnaireListOne";
 		}
 }

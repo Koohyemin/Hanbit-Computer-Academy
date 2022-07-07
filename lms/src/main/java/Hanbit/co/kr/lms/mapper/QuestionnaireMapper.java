@@ -28,4 +28,7 @@ public interface QuestionnaireMapper {
 	
 	// 강좌별 평점 
 	Map<String,Object> selectLecScore();
+	
+	// 카테고리별 평균 평점
+	List<Map<String,Object>> selectCategoryScore(int registrationNo);
 }
