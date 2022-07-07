@@ -8,10 +8,10 @@ import Hanbit.co.kr.lms.vo.LecReference;
 
 
 @Mapper
-public interface LecReferenceFile {
+public interface LecReferenceFileMapper {
 List<LecReference> selectLecReferenceList(int LecReferenceId);
 	
-	int insertLecReferenceFile(LecReferenceFile LecReferenceFile);
+	int insertLecReferenceFile(LecReferenceFileMapper LecReferenceFile);
 	
 	int deleteLecReferenceFileList(int LecReferenceNo);
 	

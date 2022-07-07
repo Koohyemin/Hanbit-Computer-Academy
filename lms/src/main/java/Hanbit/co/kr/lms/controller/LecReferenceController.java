@@ -34,12 +34,12 @@ public class LecReferenceController {
 				// 강사 아이디 값 가져오기 
 				String teacherId = (String) session.getAttribute("sessionMemberId");
 				// 뷰를 호출시 모델레이어로 부터 반환된 값(모델)을 뷰로 전송				
-				List<LecPlan> lectureNameList = lecReferenceService.lectureNameList(teacherId);		
+				String teacherList = lecReferenceService.teacherList(teacherId);
 				// 강좌 선택을 위해 가르치는 강좌 리스트를 보내줌
-				model.addAttribute("lectureNameList", lectureNameList);
+				model.addAttribute("teacherList", teacherList);
 				} else if(memberLv == 1) { // 학생이면 학생이 수강중인 수업 공지만 표시
-				String StuduntId = (String) session.getAttribute("sessionMemberId");
-				List<Registration> studentLectureNameList = lecReferenceService.studentLectureNameList(StuduntId);
+				String StudentId = (String) session.getAttribute("sessionMemberId");
+				List<Registration> studentLectureNameList = lecReferenceService.studentLectureNameList(StudentId);
 				log.debug( CF.KHV +"[lecReferenceService studentLectureNameList]: "+ CF.RESET + studentLectureNameList);
 				
 				model.addAttribute("studentLectureNameList", studentLectureNameList);	
@@ -60,32 +60,30 @@ public class LecReferenceController {
 			
 				String teacherId = (String) session.getAttribute("sessionMemberId");	
 				// 뷰를 호출시 모델레이어로 부터 반환된 값(모델)을 뷰로 전송		
-				List<LecPlan> lectureNameList = lecReferenceService.lectureNameList(teacherId);	
+				String teacherList = lecReferenceService.teacherList(teacherId);	
 							
 				Map<String, Object> map = lecReferenceService.getLecReferenceListByPage(currentPage, rowPerPage, lectureName);
 				
 				
 				
 				log.debug(CF.KHV +"[LecReferenceController.getLecReferenceListByPage.map ]: " + CF.RESET + map.get("list"));
-				log.debug(CF.KHV +"[LecReferenceController.getLecReferenceListByPage.lectureNameList ]: " + CF.RESET + lectureNameList);
+				log.debug(CF.KHV +"[LecReferenceController.getLecReferenceListByPage.teacherList ]: " + CF.RESET + teacherList);
 
 				if(lectureName.equals("")) {
 					log.debug( CF.KHV +"[asdasdasdas lectureName]: "+ CF.RESET + lectureName);
-					return "lectureNotice/getLecNoticeListByPage";
+					return "lecReference/getLecReferenceListByPage";
 					
 				}
 				
-				// 디버깅
-				log.debug( CF.KHV +"[lectureNoticeService lectureNameList]: "+ CF.RESET + lectureNameList.size());
 				
 				
 				model.addAttribute("list", map.get("list")); // request.setAttribute()기능
 				model.addAttribute("lastPage", map.get("lastPage"));
 				model.addAttribute("currentPage", currentPage);
-				log.debug( CF.KHV +"[lectureNoticeService lectureNameList]: "+ CF.RESET +lectureNameList);
-				model.addAttribute("lectureNameList", lectureNameList);
+				log.debug( CF.KHV +"[lectureNoticeService teacherList]: "+ CF.RESET +teacherList);
+				model.addAttribute("teacherList", teacherList);
 				
-				return "lectureNotice/getLecNoticeListByPage"; // getLecNoticeListByPage 보냄
+				return "lecReference/getLecReferenceListByPage"; // getLecNoticeListByPage 보냄
 			}
 	
 	

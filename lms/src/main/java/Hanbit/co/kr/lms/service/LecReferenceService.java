@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import Hanbit.co.kr.lms.mapper.LecReferenceMapper;
-import Hanbit.co.kr.lms.mapper.LectureNoticeMapper;
 import Hanbit.co.kr.lms.util.CF;
-import Hanbit.co.kr.lms.vo.LecPlan;
 import Hanbit.co.kr.lms.vo.LecReference;
 import Hanbit.co.kr.lms.vo.Registration;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class LecReferenceService {
 @Autowired LecReferenceMapper lecReferenceMapper;
-@Autowired LectureNoticeMapper lecnoticeMapper;
 @Autowired HttpSession session;
 
 		// 강좌자료실 리스트
@@ -59,16 +56,16 @@ public class LecReferenceService {
 		return returnMap;
 	}
 		//공지사항 강사 수강별 강좌
-		public List<LecPlan> lectureNameList(String teacherId) {
-		List<LecPlan> lecPlan = lectureNameList(teacherId);
-		log.debug( CF.KHV +"[lectureNoticeService lectureNameList teacherId]: "+ CF.RESET + teacherId);
-		return lecPlan;
-		}
+		public String teacherList(String teacherId) {
+			String teacherList  = lecReferenceMapper.teacherList(teacherId);
+			log.debug( CF.KHV +"[lecReferenceService teacherList teacherId]: "+ CF.RESET + teacherId);
+			return teacherList;
+			}
 		
 		// 공지사항 학생 수강별 강좌
 		public List<Registration> studentLectureNameList(String studentId) {
-			List<Registration> registrations = studentLectureNameList(studentId);
-			log.debug( CF.KHV +"[lectureNoticeService studentLectureNameList studentId]: "+ CF.RESET + studentId);
+			List<Registration> registrations = lecReferenceMapper.studentLectureNameList(studentId);
+			log.debug( CF.KHV +"[lecReferenceService studentLectureNameList studentId]: "+ CF.RESET + studentId);
 			return registrations;
 		}
 }

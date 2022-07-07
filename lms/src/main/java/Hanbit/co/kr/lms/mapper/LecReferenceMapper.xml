@@ -2,44 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LecReferenceMapper">
 <!-- LectureNoticeMapper.getLectureReferenceListByPage 운영자 공지사항 목록 (페이징) -->
+	<select id="totalCount" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM lecture_notice
+		WHERE lecture_name = #{lectureName}
+	</select>
+	
 	<select id="getLecReferenceListByPage" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.LecReference">
 		SELECT
-			 lec_reference_no lecReferenceNo
-			,lecture_name lectureName
-			,lec_reference_title lecReferenceTitle
-		 	,create_date createDate
-		 FROM lec_reference
-		 WHERE lecture_name = #{lectureName}
-		 ORDER BY create_date DESC
-		 LIMIT #{beginRow}, #{rowPerPage}
+			 teacher_id teacherId
+		 	,lr.lecture_name
+		 	,lr.lec_reference_title
+			,lr.create_date 
+			FROM lec_plan lp
+			INNER JOIN lec_reference lr
+			ON lr.lecture_name = lp.lecture_name
+			WHERE teacher_id = #{teacher_id}
 	</select>
 
-	<insert id="" parameterType="Hanbit.co.kr.lms.vo.LecReference">
-		INSERT INTO lecture_notice(
-			lec_notice_no 
-			,member_id
-			,lecture_name
-			,title
-			,content
-			,create_date 
-			, update_date
-			)VALUES( 
-			#{lecNoticeNo}
-			,#{memberId}
-			,#{lectureName}
-			,#{title}
-			,#{content}
-			,NOW()
-			,NOW()
-	)
-	</insert>
 	
-	<select id="lectureNameList"
-			parameterType="String"
-			resultType="Hanbit.co.kr.lms.vo.LecPlan">
-		SELECT lecture_name lectureName
-		FROM lec_plan
-		WHERE lec_state = 'T' AND teacher_id = #{teacherId}
+	<!-- 강사 정보불러오기 -->
+	<select id="teacherList" parameterType="String"	resultType="String">
+			SELECT teacher_id
+			from lec_plan lp
+			inner join lec_reference lr
+			ON lr.lecture_name = lp.lecture_name
+			where teacher_id = #{teacher_id}
 	</select>
 	
 	<select id="studentLectureNameList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.Registration">
@@ -47,4 +35,26 @@
 		FROM registration
  		WHERE student_id = #{studentId}
 	</select>
+	
+	<!--  
+	<insert id="" parameterType="Hanbit.co.kr.lms.vo.LecReference">
+			INSERT INTO lecture_notice(
+				lec_reference_no 
+				,member_id
+				,lecture_name
+				,title
+				,content
+				,create_date 
+				, update_date
+				)VALUES( 
+				#{lecReferenceNo}
+				,#{memberId}
+				,#{lectureName}
+				,#{title}
+				,#{content}
+				,NOW()
+				,NOW()
+		)
+	</insert>
+	-->
 </mapper>
