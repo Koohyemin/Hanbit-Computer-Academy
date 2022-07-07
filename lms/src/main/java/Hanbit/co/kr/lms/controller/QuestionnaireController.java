@@ -122,13 +122,18 @@ public class QuestionnaireController {
 		
 		// 강의 설문 카테고리별 평점
 		@GetMapping("/questionnaire/getStatsQuestionnaireListOne")
-		public String getStatsQuestionnaireListOne(Model model) {
+		public String getStatsQuestionnaireListOne(
+				Model model
+				,@RequestParam (name="questionnaireNo") int questionnaireNo) {
 			
-			// 수강이 열리고 강좌 평가가 된 강의들의 리스트와 반올림된 평점
-			Map<String,Object> selectLecScore = questionnaireService.selectScorelectureName();
-			log.debug( CF.KYJ +"[QuestionnaireController GetMapping selectLecScore]: "+ selectLecScore + CF.RESET);
+			log.debug( CF.KYJ +"[QuestionnaireController GetMapping getStatsQuestionnaireListOne questionnaireNo]: "+ questionnaireNo + CF.RESET);
 			
-			model.addAttribute("selectLecScore", selectLecScore);
-			return "questionnaire/getStatsQuestionnaireList";
+			// 첫번쨰 질문 보여주기
+			int checknum = 1;
+			log.debug( CF.KYJ +"[QuestionnaireController GetMapping getStatsQuestionnaireListOne checknum]: "+ checknum + CF.RESET);
+			model.addAttribute("questionnaireNo", questionnaireNo);
+			model.addAttribute("checknum", checknum);
+			
+			return "questionnaire/getStatsQuestionnaireListOne";
 		}
 }

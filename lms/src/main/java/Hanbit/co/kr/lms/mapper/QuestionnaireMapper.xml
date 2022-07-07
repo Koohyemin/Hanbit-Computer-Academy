@@ -42,21 +42,29 @@
 			)
 	</insert>
 	
-	<select id="selectLecCategoryQueScore" parameterType="String" resultType="java.util.Map">
-		SELECT q.lecture_name lectureName 
-			,q.questionnaire_content questionnaireContent
-			, ROUND(AVG(qa.selected_evaluation_no),1) selectedEvaluationNo
+	<select id="selectLecCategoryQueScore" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT 
+			q.questionnaire_no questionnaireNo
+			, q.lecture_name lectureName 
+			, q.questionnaire_content questionnaireContent
+			, qa.selected_evaluation_no selectedEvaluationNo
+			, count(qa.selected_evaluation_no) people
 		FROM questionnaire_answer qa INNER JOIN questionnaire q
 		ON qa.questionnaire_no = q.questionnaire_no
-		WHERE q.lecture_name = #{lectureName}
-		GROUP BY q.category
+		INNER JOIN registration r 
+		ON q.lecture_name= r.lecture_name
+		WHERE r.registration_no = #{num} AND q.questionnaire_no = #{checknum}
+		GROUP BY qa.selected_evaluation_no	
 	</select>
 	
 	<select id="selectLecScore" resultType="java.util.Map">
-		SELECT q.lecture_name lectureName 
-		, ROUND(AVG(qa.selected_evaluation_no),1) selectedEvaluationNo
+		SELECT r.registration_no registrationNo
+			, q.lecture_name lectureName 
+			, ROUND(AVG(qa.selected_evaluation_no),1) selectedEvaluationNo
 		FROM questionnaire_answer qa INNER JOIN questionnaire q
 		ON qa.questionnaire_no = q.questionnaire_no
+		INNER JOIN registration r 
+		ON q.lecture_name= r.lecture_name
 		GROUP BY q.lecture_name
 	</select>
 	

@@ -63,8 +63,14 @@ public class QuestionnaireService {
 		log.debug( CF.KYJ +"[QuestionnaireService selectQuestionnairepoint quelist]: "+ "설문완료!!" + CF.RESET);
 	}
 	
-	// 강좌 평점
+	// 강좌 평점을 보여줌
 	public Map<String, Object> selectScorelectureName() {
 		return questionnaireMapper.selectLecScore();
+	}
+	
+	// 강좌의 평가 항목에 대해 보여줌
+	public List<Map<String,Object>> selectQueScore(Map<String,Object> map){
+		List<Map<String, Object>> returnMap = questionnaireMapper.selectLecCategoryQueScore(map);
+		return returnMap;
 	}
 }
