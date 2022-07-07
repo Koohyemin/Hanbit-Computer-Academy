@@ -29,6 +29,20 @@ public class LecQnaController {
 	@Autowired LecQnaService lecQnaService;
 	@Autowired HttpSession session;
 	
+	// 강의 답변 입력
+	@PostMapping("/lecQna/addAnswer")
+	public String insertAnswer(LecAnswer lecAnswer) {
+		
+		int row = lecQnaService.insertAnswer(lecAnswer);
+		if(row == 1) {
+			log.debug(CF.KHM + "[LecQnaController PostMapping answer.insert] :" + CF.RESET + "강의실 답변 등록 성공"); // 성공
+		} else {
+			log.debug(CF.KHM + "[LecQnaController PostMapping answer.insert] :" + CF.RESET + "강의실 답변 등록 실패"); // 실패
+		}
+		
+		return "redirect:/lecQna/lecQnaOne?lecQuestionNo="+lecAnswer.getLecQuestionNo();
+	}
+	
 	// 강의 질문 삭제
 	@PostMapping("/lecQna/deleteLecQna")
 	public String deleteQuestion(int lecQuestionNo) {
@@ -104,7 +118,7 @@ public class LecQnaController {
 	public String lecQuestionOne(Model model,
 								@RequestParam(name="lecQuestionNo") int lecQuestionNo,
 								@RequestParam(name = "currentPage", defaultValue = "1") int currentPage, // 현재페이지, 1페이지부터 시작
-								@RequestParam(name = "rowPerPage", defaultValue = "5") int rowPerPage) { // 한페이지당, 5개 게시글 출력
+								@RequestParam(name = "rowPerPage", defaultValue = "5") int rowPerPage) { // 한페이지당, 5개 답변 출력
 		
 		// 상세보기 대상 강의 조회
 		LecQuestion lecQuestion = lecQnaService.lecQuestionOne(lecQuestionNo);

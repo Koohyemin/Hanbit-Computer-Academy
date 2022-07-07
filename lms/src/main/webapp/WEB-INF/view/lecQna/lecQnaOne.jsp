@@ -79,7 +79,10 @@
 			<br>
 			
 			<!-- 답변 등록 -->
-			<form action="${pageContext.request.contextPath}/lecQna/addAnswer">
+			<form method="post" action="${pageContext.request.contextPath}/lecQna/addAnswer">
+				<input type="hidden" name="lecQuestionNo" value="${lecQuestion.lecQuestionNo}" >
+				<input type="hidden" name="memberId" value="${sessionMemberId}" >
+				<input type="hidden" name="revelation" value="${lecQuestion.revelation}" >
 				<table class="table">
 					<thead>
 						<tr>
@@ -92,10 +95,10 @@
 							<th>답변</th>
 							<td>
 								<textarea name="lecAnswerContent" rows="3" cols="160" placeholder="답변 내용을 입력해주세요" class="form-control"></textarea>
-								<span id="lecAnswerContentArror"></span>
+								<span id="lecAnswerContentError"></span>
 							</td>
 							<td>
-								<button type="button" id="btn" class="btn btn-dark">등록</button>
+								<button type="submit" id="btn" class="btn btn-dark">등록</button>
 							</td>
 						</tr>
 					</tbody>
@@ -127,6 +130,15 @@
 				</table>
 				<br><br>
 			</c:forEach>
+			<div class="text-center">
+				<c:if test="${currentPage>1}">
+					<a href="${pageContext.request.contextPath}/lecQna/lecQnaOne?lecQuestionNo=${lecQuestion.lecQuestionNo}&&currentPage=${currentPage-1}" class="btn btn-dark">이전</a>
+				</c:if>
+				<c:if test="${lastPage>currentPage}">
+					<a href="${pageContext.request.contextPath}/lecQna/lecQnaOne?lecQuestionNo=${lecQuestion.lecQuestionNo}&&currentPage=${currentPage+1}" class="btn btn-dark">다음</a>
+				</c:if>
+			</div>
+			<br>
 		</div>
 		<div id="footer"></div>
 	</div>
