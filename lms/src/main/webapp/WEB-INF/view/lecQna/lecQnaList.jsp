@@ -41,8 +41,8 @@
             
             <ul class="nav nav-tabs">
 	            <c:forEach var="l" items="${lectureList}">
-					<li class="nav-item">	
-						<a class="nav-link active text-dark" data-toggle="tab" href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${l}">${l}</a>
+					<li class="nav-item">
+						<a class="nav-link <c:if test="${l eq lectureName}">active</c:if> text-dark" data-toggle="tab" href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${l}">${l}</a>
 					</li>
 	            </c:forEach>
             </ul>
@@ -113,7 +113,7 @@
 					<a href="${pageContext.request.contextPath}/lecQna/lecQnaList?currentPage=${currentPage-1}&&lectureName=${lectureName}" class="btn btn-dark">이전</a>
 				</c:if>
 				<c:if test="${lastPage>currentPage}">
-					<a href="${pageContext.request.contextPath}/lecQna/lecList?currentPage=${currentPage+1}&&lectureName=${lectureName}" class="btn btn-dark">다음</a>
+					<a href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${lectureName}&&currentPage=${currentPage+1}" class="btn btn-dark">다음</a>
 				</c:if>
 			</div>
 		</div>

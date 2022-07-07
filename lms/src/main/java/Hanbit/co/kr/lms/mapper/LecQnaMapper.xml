@@ -123,11 +123,11 @@
 	<update id="updateQuestion" parameterType="Hanbit.co.kr.lms.vo.LecQuestion">
 		UPDATE lec_question SET
 			 lecture_name = #{lectureName}
-			,lec_question_title = #{lectureTitle}
+			,lec_question_title = #{lecQuestionTitle}
 			,lec_question_content = #{lecQuestionContent}
 			,revelation = #{revelation}
 			,udpate_date = NOW()
-		WHERE lec_question_no = #{lecQuestionNo} AND member_id = #{studentId}
+		WHERE lec_question_no = #{lecQuestionNo} AND member_id = #{memberId}
 	</update>
 	
 	<!-- 강의실 질문 등록(수강 학생) -->

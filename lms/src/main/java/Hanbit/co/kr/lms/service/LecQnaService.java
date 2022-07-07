@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.mapper.LecQnaMapper;
 import Hanbit.co.kr.lms.vo.LecQuestion;
@@ -20,6 +21,17 @@ public class LecQnaService {
 	@Autowired LecQnaMapper lecQnaMapper;
 	@Autowired HttpSession session;
 	
+	// 강의실 질문 수정 Post
+	public int updateQuestion(LecQuestion lecQuestion) {
+		
+		// 비공개 여부 선택이 없다면 공백이나 null로 들어온다.
+		if(lecQuestion.getRevelation() == null || "".equals(lecQuestion.getRevelation())) {
+			lecQuestion.setRevelation("T"); // 공개여부를 표시하는 T로 값 셋팅
+		}
+		
+		return lecQnaMapper.updateQuestion(lecQuestion); // 입력 성공 행
+	}
+
 	// 강의실 질문 상세보기 Get
 	public LecQuestion lecQuestionOne(int lecQuestionNo) {
 		return lecQnaMapper.lecQuestionOne(lecQuestionNo);
@@ -49,12 +61,9 @@ public class LecQnaService {
 		List<LecQuestion> list = lecQnaMapper.lecQuestionList(map);
 		int totalCount = lecQnaMapper.totalCount(lectureName);
 		
-		
-		System.out.println("강의명 : " + lectureName);
-
-		
 		// 마지막 페이지
 		int lastPage = (int)(Math.ceil((double)totalCount / (double)rowPerPage));
+		
 		
 		// return값 하나의 값으로 묶어주기
 		Map<String, Object> returnMap = new HashMap<>();

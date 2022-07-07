@@ -33,7 +33,7 @@
 	                Lecture Question
 	            </div>
 	        </div>
-			<a href="${pageContext.request.contextPath}/lecQna/lecQnaList" class="btn btn-dark" style="float:right">이전으로</a>
+			<a href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${lecQuestion.lectureName}" class="btn btn-dark" style="float:right">이전으로</a>
 			<br><br>
 			<table class="table">
 				<tr>
@@ -70,7 +70,7 @@
 						<input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
 					</form>
 					<!-- 수정버튼 -->
-					<a href="${pageContext.request.contextPath}/lecQna/updateLecQna?lecQuestionNo=${lecQuestion.lecQuestionNo}" class="btn btn-info" style="float:right">수정</a>
+					<a href="${pageContext.request.contextPath}/lecQna/updateLecQna?questionNo=${lecQuestion.lecQuestionNo}" class="btn btn-info" style="float:right">수정</a>
 				</c:if>
 			</div>
 		</div>
