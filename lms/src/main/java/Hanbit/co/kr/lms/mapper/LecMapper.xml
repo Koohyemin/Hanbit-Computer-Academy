@@ -231,6 +231,17 @@
 		]]>
 	</select>
 	
+	<!-- 개강중인 강의 수 -->
+	<select id="totalOpenLecCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*) cnt
+			FROM lec l
+				INNER JOIN time_table tt
+				ON l.lecture_name = tt.lecture_name
+			WHERE NOW() >= tt.begin_class AND NOW() <= tt.end_class
+		]]>
+	</select>
+	
 	<!-- 개강중인 강의 리스트 -->
 	<select id="openLecListByPage" parameterType="java.util.Map" resultType="Hanbit.co.kr.lms.vo.Lec">
 		<![CDATA[
