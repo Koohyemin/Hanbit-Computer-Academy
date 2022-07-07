@@ -41,8 +41,8 @@
             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
                      <a class="nav-link" href="${pageContext.request.contextPath}/keeping/getKeeping">찜 목록</a>
-                    <a class="nav-link" href="${pageContext.request.contextPath}/people/peopleList">강의/강사 조회</a>
-                    <a class="nav-link" href="${pageContext.request.contextPath}/lec/lecList">수강신청하기</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/people/peopleList">강사 조회</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/lec/lecList">수강 조회 및 신청하기</a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/registration/getRegistration">수강신청내역</a>
                 </nav>
             </div>
@@ -58,7 +58,7 @@
             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
                     <a class="nav-link" href="${pageContext.request.contextPath}/authorizeMember">회원승인</a>
-                    <a class="nav-link"href="${pageContext.request.contextPath}/people/peopleList">학생/강사 조회</a>
+                    <a class="nav-link"href="${pageContext.request.contextPath}/people/peopleList">강사/강의/학생 조회</a>
                		<a class="nav-link" href="#">납부 관리</a>
                     <a class="nav-link">개설강좌 관리</a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/lec/lecList">수강신청 관리</a>   
@@ -100,9 +100,9 @@
                         </a>
                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getStatsQuestionnaireList">강의 평가 조회</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getStatsQuestionnaireList">강의평가 조회</a>
                              <c:if test="${sessionMemberLv == 1}">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getLecQuestionnaireList">강의 평가하기</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getLecQuestionnaireList">강의평가</a>
                             </c:if>
                             <a class="nav-link" href="#">성적조회</a>
                         </nav>
@@ -118,7 +118,7 @@
                         </a>
                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getStatsQuestionnaireList">강의 평가 조회</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getStatsQuestionnaireList">강의평가 조회</a>
                             <a class="nav-link" href="#">성적조회</a>
                         </nav>
                     </div>
