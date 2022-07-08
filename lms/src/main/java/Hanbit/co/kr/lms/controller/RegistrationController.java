@@ -2,6 +2,7 @@ package Hanbit.co.kr.lms.controller;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.imageio.spi.RegisterableService;
 import javax.servlet.http.HttpSession;
@@ -90,5 +91,43 @@ public class RegistrationController {
 		int row = registrationService.modifyPayment(registration,payMoney);					
 		
 		return "redirect:/registration/getRegistration";
+	}
+	
+	@GetMapping("/registration/getRegistrationByLec")
+	public String getRegistrationByLec(@RequestParam(name="lectureName", required=false) String lectureName,Model model) {
+				
+		
+		log.debug(CF.LKL +"RegistrationController.getRegistrationByLec.registration: " + CF.RESET + lectureName);		//페이지에서 받은 registration 디버깅
+							
+		Map<String,Object>  map = registrationService.getRegistrationByLec(lectureName);								//학생 수강 리스트 출력
+		
+		log.debug(CF.LKL +"RegistrationController.getRegistrationByLec.map: " + CF.RESET + map);
+		
+		List<HashMap<String,Object>> paymentList = (List<HashMap<String, Object>>) map.get("paymentlist");
+		
+		log.debug(CF.LKL +"RegistrationController.getRegistrationByLec.paymentlist: " + CF.RESET + paymentList);
+		
+		List<String> beforeLectureList = (List<String>) map.get("beforeLectureList");
+		
+		log.debug(CF.LKL +"RegistrationController.getRegistrationByLec.beforeLectureList: " + CF.RESET + beforeLectureList);
+		
+		model.addAttribute("paymentList",paymentList);
+		model.addAttribute("beforeLectureList",beforeLectureList);
+		return "/registration/getRegistrationByLec";
+	}
+	
+	
+	//수강 환불
+	@GetMapping("/registration/removeRegistRation")
+	public String removeRegistRation(Registration registration) {
+				
+		
+		log.debug(CF.LKL +"RegistrationController.deleteRegistRation.registration: " + CF.RESET + registration);		//페이지에서 받은 registration 디버깅
+						
+		int row = registrationService.removeRegistration(registration);
+		
+		log.debug(CF.LKL +"RegistrationController.removeRegistration.row: " + CF.RESET + row);
+		
+		return "redirect:/registration/getRegistrationByLec";
 	}
 }

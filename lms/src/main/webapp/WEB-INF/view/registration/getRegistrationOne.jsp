@@ -32,8 +32,8 @@
         	<div class="card mb-4">
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
-	               	Lecture Information
-	            </div>
+	              	  수강신청 내역 상세보기	
+	                          </div>
 	        </div>
 				<a href="${pageContext.request.contextPath}/registration/getRegistration" class="btn btn-dark" style="float:right">이전으로</a>
 				

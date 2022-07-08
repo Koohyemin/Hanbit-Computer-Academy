@@ -30,39 +30,41 @@
         	<div class="card mb-4">
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
-	               수강신청내역
+	               강의 납부 내역
 	            </div>
             </div>
 			
-			<ul class="nav nav-tabs">
-					<li class="nav-item">
-						<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/lec/lecList">수강 신청</a>
-					</li>
-		            <c:if test="${sessionMemberLv == 3}">
-						<!-- 전체 강의 관리 버튼은 운영진에게만 보임 -->
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=3">전체 강의</a>
-						</li>
-					</c:if>
-			</ul>
+			
+			 <select id="lectureName" name="lectureName" class="form-control">
+			  <option selected="selected" value="">전체</option>
+				 <c:forEach var="before" items="${beforeLectureList}"> 
+					<option value="${before}">${before}</option>
+				</c:forEach> 
+			</select>
+			<br>
 
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th class="text-center">등록번호</th>
+						<th class="text-center">학생명</th>
 						<th class="text-center">강의명</th>
 						<th class="text-center">납부금액</th>
 						<th class="text-center">신청일</th>
 						<th></th>
 					</tr>
 				</thead>
-				<tbody>
-					<c:forEach var="reg" items="${list}" varStatus="status">
+				<tbody id="tbodyid">
+					<c:forEach var="reg" items="${paymentList}" varStatus="status">
 						<tr>
-							<td class="text-center text-success">${reg.registrationNo}</td>
-							<td class="text-center col-md-4" ><a href="${pageContext.request.contextPath}/registration/registrationOne?lectureName=${reg.lectureName}">${reg.lectureName}</a></td>
-							<td class="text-center">${reg.payment}</td>
-							<td class="text-center">${reg.createDate}</td>
+							<td id="field1" class="text-center text-success">${reg.registrationNo}</td>
+							<td id="field2" class="text-center">${reg.studentName}</td>
+							<td id="field3" class="text-center col-md-4" >${reg.lectureName} </td>
+							<td id="field4" class="text-center">${reg.payment}</td>
+							<td id="field5" class="text-center">${reg.createDate}</td>
+							<td id="field6" class="text-center" hidden="hidden">${reg.studentId}</td>
+								<td><a href="${pageContext.request.contextPath}/registration/removeRegistRation?registrationNo	=${reg.registrationNo}" class="btn btn-warning btn-sm text-active">환불<i class="fa-solid fa-heart-circle-plus"></i></a></td>
+							
 						</tr>
 							<!-- 강의가 없다면 개설된 강의가 없습니다. -->
 							<c:if test="${totalCount == 0}">
@@ -71,14 +73,6 @@
 					</c:forEach>
 				</tbody>
 			</table>
-			<div class="text-center">
-				<c:if test="${currentPage>1}">
-					<a href="${pageContext.request.contextPath}/lec/lecList?currentPage=${currentPage-1}" class="btn btn-dark">이전</a>
-				</c:if>
-				<c:if test="${lastPage>currentPage}">
-					<a href="${pageContext.request.contextPath}/lec/lecList?currentPage=${currentPage+1}" class="btn btn-dark">다음</a>
-				</c:if>
-			</div>
 		</div>
 		<div id="footer"></div>
 	</div>
@@ -98,5 +92,35 @@
     <script src="js/datatables-simple-demo.js"></script>
     <script>
 
+             $('#lectureName').change(function(){
+            	 alert('이벤트발동');
+            	 $("#field1").empty();
+            	 $("#field2").empty();
+            	 $("#field3").empty();
+            	 $("#field4").empty();
+            	 $("#field5").empty();
+            	
+            	 
+            	 $.ajax({
+          			type:"get" // get방식
+          			,url:'/lms/RegipaymentList'											
+          			,data:{'lectureName':$('#lectureName option:selected').val()}							
+          			,success:function(arr){
+          				console.log(arr);
+          			  $(arr).each(function(index, item) {
+	          				
+	          				$('#field1').append('<td class="text-center text-success col-md-4	">'+item.registrationNo +'</td>');	
+	          				$('#field2').append('<td class="text-center col-md-4">'+item.studentName +'</td>');	
+	          				$('#field3').append('<td  class="text-center col-md-4">'+item.lectureName +'</td>');
+	          				$('#field4').append('<td class="text-right col-md-4">'+item.payment +'</td>');
+	          				$('#field5').append('<td class="text-center col-md-4">'+item.createDate.substring(0, 10) +'</td>');
+	          				$('#field6').append('<td class="text-center" hidden="hidden">'+item.studentId +'</td>');
+	          				
+          	            });
+          			  
+          			}
+              });
+            	
+         });
     </script>
 </html>

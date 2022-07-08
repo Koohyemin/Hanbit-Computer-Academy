@@ -22,4 +22,13 @@ public interface RegistrationMapper {
 	
 	//학생 -수강 지불
 	int updatePayment(Registration registration);
+	
+	//운영자 납부 리스트 조회
+	List<Map<String,Object>> selectRegistrationByLec(String lectureName);
+	
+	//개강전 강좌
+	List<String> beforeLecture();
+	
+	//삭제된 강좌
+	int deleteRegistration(Registration registration);
 }

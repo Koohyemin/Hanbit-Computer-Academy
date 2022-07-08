@@ -62,7 +62,7 @@
                     <a class="nav-link" href="${pageContext.request.contextPath}/subject/getSubjectList">과목 조회</a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/lec/lecList">수강신청 관리</a>   
                      <a class="nav-link" href="${pageContext.request.contextPath}/lec/openLecList">개설강좌 관리</a>
-                     <a class="nav-link" href="#">납부 관리</a>
+                     <a class="nav-link" href="${pageContext.request.contextPath}/registration/getRegistrationByLec">납부 관리</a>
                 </nav>
             </div>
             </c:if>
@@ -80,7 +80,7 @@
                         </a>
                     <div class="collapse" id="pagesCollapseAuth" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
-                            <a class="nav-link" href="#">강의실 홈</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/lectureRoom/index">강의실 홈</a>
                           <!-- 강사라면 이걸 보여주기 -->
                  <c:if test="${sessionMemberLv != 1}">
                   <a class="nav-link" href="#">수강학생조회</a>

@@ -48,4 +48,25 @@ public class RegistrationService {
 		
 		return row;
 	}
+	
+	public Map<String,Object> getRegistrationByLec(String lectureName) {
+		
+		List<Map<String,Object>> paymentlist = registrationMapper.selectRegistrationByLec(lectureName);			//페이지에서 받은 금액과 기존의 금액을 더한다.
+		List<String> beforeLectureList = registrationMapper.beforeLecture();
+		Map<String,Object> map = new HashMap<>();
+		map.put("paymentlist", paymentlist);
+		map.put("beforeLectureList", beforeLectureList);
+		
+		log.debug(CF.LKL+"RegistrationService.getRegistrationByLec.map"+CF.RESET+map);
+		
+		return map;
+	}
+	public int removeRegistration(Registration registration) {
+		
+		int row = registrationMapper.deleteRegistration(registration);
+		
+		log.debug(CF.LKL+"RegistrationService.removeRegistration.row"+CF.RESET+row);
+		
+		return row;
+	}
 }
