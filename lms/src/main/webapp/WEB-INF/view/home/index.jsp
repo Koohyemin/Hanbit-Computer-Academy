@@ -27,20 +27,14 @@
       <div class="container-fluid px-4">
         <!-- 컨텐츠 삽입 부분-->
          <br>
-           <div class="card mb-4">
-               <div class="card-header">
-                   <i class="fas fa-chart-area me-1"></i>
-                  Index
-               </div>
-               </div>
-                 <c:choose>      
-                   <c:when test="${sessionMemberLv == 3}">
+            <c:choose>      
+            <c:when test="${sessionMemberLv == 3}">
                <div class="card mb-4">
                <div class="card-header">
                   <i class="fas fa-chart-area me-1"></i>
                  	 가입요청
+                	<a class="btn btn-dark btn-sm float-end"  href="${pageContext.request.contextPath}/authorizeMember">바로가기</a>
                </div>
-                  <span><a class="float-right btn btn-dark"  href="${pageContext.request.contextPath}/authorizeMember">바로가기</a></span>
                	<div class="card-body">
                  <table class="table">
 	               <thead>
@@ -68,17 +62,17 @@
                <div class="card-header">
                    <i class="fas fa-chart-area me-1"></i>
                   강의계획서
+                  <a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/lecReference/getLecReferenceListByPage">바로가기</a> 
                </div>
-   			    <span><a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/lecReference/getLecReferenceListByPage">바로가기</a></span>	     
                	<div class="card-body">   			      
-            <table class="table">
-                 <thead>
-                     <tr>
-                        <th>이름</th>
-                        <th>글쓴이</th>
-                        <th>상태</th>
-                        <th>작성일</th>
-                     </tr>
+	            <table class="table">
+	               <thead>
+	                     <tr>
+	                        <th>이름</th>
+	                        <th>글쓴이</th>
+	                        <th>상태</th>
+	                        <th>작성일</th>
+	                     </tr>
                   </thead>
                   <tbody>
                   <c:forEach var="lecPlanList" items="${lecPlanList}">
@@ -97,8 +91,8 @@
             <div class="card-header">
                 <i class="fas fa-chart-area me-1"></i>
                  문의사항
+                 <a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage">바로가기</a>
              </div>            
-              <span><a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage">바로가기</a></span>
                	<div class="card-body">              
             <table class="table">
                <thead>
@@ -128,8 +122,8 @@
             <div class="card-header">
                 <i class="fas fa-chart-area me-1"></i>
                   공지사항
+                   <a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/notice/getNoticeListByPage">바로가기</a>
             </div>   
-              <span><a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/notice/getNoticeListByPage">바로가기</a></span> 
                	<div class="card-body">                             
             <table class="table">
                <thead>
@@ -160,7 +154,8 @@
             </c:when>
             <c:when test="${sessionMemberLv == 2}">
 			<div class="card mb-4">
-            <div class="card-header">            
+            <div class="card-header">   
+            <i class="fas fa-chart-area me-1"></i>         
                 담당강좌
             </div>    
                   <span><a class="btn btn-dark" href="${pageContext.request.contextPath}/member/getMemberOne">바로가기</a></span>   
@@ -184,10 +179,11 @@
                 </div>
                 </div>
             <div class="card mb-4">
-            <div class="card-header">            
+            <div class="card-header">      
+            <i class="fas fa-chart-area me-1"></i>      
                 강좌문의사항
-            </div>    
-              <span><a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage">바로가기</a></span>                                
+                <a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage">바로가기</a>
+            </div>                                   
             <div class="card-body">
             <table class="table">
                   <thead>
@@ -212,10 +208,11 @@
                </div>
                </div>              
             <div class="card mb-4">
-            <div class="card-header">            
+            <div class="card-header">    
+            <i class="fas fa-chart-area me-1"></i>        
                 공지사항
-            </div>  
-              <span><a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/notice/noticeList">바로가기</a></span>                                               
+            	<a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/notice/noticeList">바로가기</a>    
+            </div>          
            		<div class="card-body">
            		 <table class="table">
                      <thead>
@@ -244,10 +241,11 @@
             </c:when>
             <c:when test="${sessionMemberLv == 1}">
              <div class="card mb-4">
-            <div class="card-header">            
+            <div class="card-header">     
+            <i class="fas fa-chart-area me-1"></i>       
                 수강강좌
-            </div>  
-                 <span><a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/member/getMemberOne">바로가기</a></span>                                               
+               <a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/member/getMemberOne">바로가기</a> 
+            </div>                        
               <div class="card-body">
                <table class="table">
                   <thead>
@@ -271,10 +269,11 @@
                </div>
               </div>
              <div class="card mb-4">
-             <div class="card-header">            
+             <div class="card-header"> 
+             <i class="fas fa-chart-area me-1"></i>           
                 공지사항
-            </div>  
-              <span><a class="float-right btn btn-dark"  href="${pageContext.request.contextPath}/notice/noticeList">바로가기</a></span>                                                              
+                <a class="btn btn-dark btn-sm float-end"  href="${pageContext.request.contextPath}/notice/noticeList">바로가기</a> 
+            </div>                                                        
                  <div class="card-body"> 
                   <table class="table">
                      <thead>

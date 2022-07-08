@@ -31,42 +31,98 @@
                <div class="card-header">
                    <i class="fas fa-chart-area me-1"></i>
                    Enquiry Board
+                   <a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage" class="btn btn-dark btn-sm float-end">뒤로가기</a>  
                </div>
                <div class="card-body">
-               <form action="${pageContext.request.contextPath}/enquiryBoard/deleteEnquiryBoard" method="post">
-               <table class="table">
-                  <tr>   
-                     <th>글쓴이</th>
-                     <td>${eb.memberId}
-                     <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" readonly = "readonly">
-                     </td>          
-                  </tr>      
-                  <tr>
-                     <th>구분</th>
-                     <td>${eb.category}</td> 
-                  </tr>
-                                    <tr>   
-                     <th>작성일</th>
-                     <td>${eb.createDate}</td>                      
-                  </tr>
-                  <tr>   
-                     <th>수정일</th>
-                     <td>${eb.updateDate}</td>                         
-                  </tr>
-                  <tr>                           
-                     <th>내용</th>
-                     <td style="height:400px; ">${eb.content}</td>
-                  </tr>   
-               </table>
-               <br>
-               <a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage" class="btn btn-dark">뒤로가기</a>
-               <div class="btn-group float-end">
-               <c:if test="${sessionMemberId eq eb.memberId}">
-	              	<a href="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard?enquiryBoardNo=${enquiryBoardNo}" class="btn btn-secondary">수정</a>
-	               	<button type="submit" class="btn btn-dark">삭제</button>
-           		</c:if>
-               </div>
-            </form>         
+	               <form action="${pageContext.request.contextPath}/enquiryBoard/deleteEnquiryBoard" method="post">
+	               <table class="table">
+	                  <tr>   
+	                     <th>글쓴이</th>
+	                     <td>${eb.memberId}
+	                     <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" >
+	                     </td>          
+	                  </tr>      
+	                  <tr>
+	                     <th>구분</th>
+	                     <td>${eb.category}</td> 
+	                  </tr>
+	                                    <tr>   
+	                     <th>작성일</th>
+	                     <td>${eb.createDate}</td>                      
+	                  </tr>
+	                  <tr>   
+	                     <th>수정일</th>
+	                     <td>${eb.updateDate}</td>                         
+	                  </tr>
+	                  <tr>                           
+	                     <th>내용</th>
+	                     <td>${eb.content}</td>
+	                  </tr>   
+	               </table>
+	               <br>
+	             
+	               <div class="btn-group float-end">
+	               <c:if test="${sessionMemberId eq eb.memberId}">
+		              	<a href="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard?enquiryBoardNo=${enquiryBoardNo}" class="btn btn-secondary">수정</a>
+		               	<button type="submit" class="btn btn-dark">삭제</button>
+	           		</c:if>
+	               </div>
+	            </form>    
+	   			<!-- 구분이 전체라면 학생을 제외한 답변 -->	
+	       		<c:if test="${eb.category eq '전체' }">
+		       		 <c:if test="${sessionMemberLv != 1}">
+			       		 <form method="post" action="${pageContext.request.contextPath}/enquiryBoard/addEnquityAnswer">
+				       		 <div class="form-group btn-group" style="width:100%;" >
+				       		  <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" >
+								  <textarea rows="5" style="width:100%;" class="form-control" placeholder="-> 답변을 해주세요" name="enquiryAnswerContent"></textarea>
+								  <button type="submit" style="width:10%;max-width:200px;" class="btn btn-dark">답변</button> 
+							</div> 
+			       		 </form>
+		       		 </c:if>
+	       		</c:if>   
+	       		<!-- 구분이 강사라면 학생을 제외한 답변 -->	
+	       		<c:if test="${eb.category eq '강사' }">
+		       		 <c:if test="${sessionMemberLv == 2 }">
+			       		 <form method="post" action="${pageContext.request.contextPath}/enquiryBoard/addEnquityAnswer">
+				       		 <div class="form-group btn-group" style="width:100%;" >
+				       		  <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" >
+								  <textarea rows="5" style="width:100%;" class="form-control" placeholder="-> 답변을 해주세요" name="enquiryAnswerContent"></textarea>
+								  <button type="submit" style="width:10%;max-width:200px;" class="btn btn-dark">답변</button> 
+							</div> 
+			       		 </form>
+		       		 </c:if>
+	       		</c:if>   
+	       		<!-- 구분이 강사라면 학생을 제외한 답변 -->	
+	       		<c:if test="${eb.category eq '운영자' }">
+		       		 <c:if test="${sessionMemberLv == 3 }">
+			       		 <form method="post" action="${pageContext.request.contextPath}/enquiryBoard/addEnquityAnswer">
+				       		 <div class="form-group btn-group" style="width:100%;" >
+				       		  <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" >
+								  <textarea rows="5" style="width:100%;" class="form-control" placeholder="-> 답변을 해주세요" name="enquiryAnswerContent"></textarea>
+								  <button type="submit" style="width:10%;max-width:200px;" class="btn btn-dark">답변</button> 
+							</div> 
+			       		 </form>
+		       		 </c:if>
+	       		</c:if>   
+	       		<br>
+	       		  
+	       		 <!-- 댓글 최신순으로  -->
+	       		<c:forEach var="EnquiryAnswer" items="${answerList}">
+		       		 <div class="card mb-4">
+		               <div class="card-header">
+		                   <b>${EnquiryAnswer.memberId}님</b>
+		                   <span class="float-end">
+			       		 		${EnquiryAnswer.createDate}
+			       		 		<c:if test="${EnquiryAnswer.memberId eq sessionMemberId }">
+			       		 			&nbsp;<a href="${pageContext.request.contextPath}/enquiryBoard/enquityDeleteAnswer?enquiryBoardNo=${eb.enquiryBoardNo}" class="btn btn-secondary btn-sm">삭제하기</a>
+			       		 		</c:if>
+			       		 	</span>
+		               </div>
+		               <div class="card-body">
+		               ${EnquiryAnswer.enquiryAnswerContent}
+		               </div>
+	              	 </div>
+	       		</c:forEach>
                </div>
             </div>
    </div>

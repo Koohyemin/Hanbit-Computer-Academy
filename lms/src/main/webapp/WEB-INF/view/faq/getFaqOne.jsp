@@ -43,7 +43,6 @@
                               <td><span>${faq.content}</span></td>
                            </tr>
                       </table>
-
 	                           <c:if test="${sessionMemberLv == 3 }">
 	                           <form method="post" action="${pageContext.request.contextPath}/faq/deleteFaq"  style="float:right">
 	                           <input type="hidden" name="faqNo" value="${faq.faqNo}" >

@@ -31,6 +31,9 @@
 	                    <div class="card-header">
 	                        <i class="fas fa-chart-area me-1"></i>
 	                        FAQ
+	                         <c:if test="${sessionMemberLv == 3 }">
+       							<a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/faq/addFaq">FAQ입력</a>
+       						</c:if>
 	                    </div>
 	                    <div class="card-body">
 							<!-- FAQ 목록 리스트  -->
@@ -54,11 +57,9 @@
 						            </c:forEach>
 						        </tbody>
 		              		 </table>
-		              		 <c:if test="${sessionMemberLv == 3 }">
-       							<a class="btn btn-dark" href="${pageContext.request.contextPath}/faq/addFaq">FAQ입력</a>
-       							</c:if>
+
 	                	</div>   
-	                			</div>
+	                	</div>
 	                	</div>     
 				<div id="footer"></div>
 			</div>

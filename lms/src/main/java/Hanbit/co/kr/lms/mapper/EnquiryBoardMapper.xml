@@ -71,9 +71,36 @@
 	</update>
 
 	<delete id="deleteEnquiryBoard" parameterType="int">
-		DELETE FROM 
-			enquiry_board
+		DELETE FROM enquiry_board
 		WHERE enquiry_board_no = #{enquiryBoardNo}	
 	</delete>
 	
+	<select id="selectEnquiryAnswerList" parameterType="int" resultType="Hanbit.co.kr.lms.vo.EnquiryAnswer">
+		SELECT member_id memberId
+		 , enquiry_answer_content enquiryAnswerContent
+		 ,  create_date createDate
+		FROM enquiry_answer
+		WHERE enquiry_board_no = #{enquiryBoardNo}
+		ORDER BY create_date DESC;
+	</select>
+	
+	<delete id="deleteAnswer" parameterType="int">
+		DELETE FROM enquiry_answer 
+		WHERE enquiry_board_answer_no = #{enquiryBoardAnswerNo};
+	</delete>
+	
+	<insert id="insertAnswer" parameterType="java.util.Map">
+		INSERT INTO enquiry_answer (
+			 enquiry_board_no
+			, member_id
+			, enquiry_answer_content
+			, create_date
+			, update_date
+		) VALUES (
+			 #{enquiryBoardNo}
+			, #{memberId}
+			, #{enquiryAnswerContent}
+			, NOW()
+			, NOW());
+	</insert>
 </mapper>
