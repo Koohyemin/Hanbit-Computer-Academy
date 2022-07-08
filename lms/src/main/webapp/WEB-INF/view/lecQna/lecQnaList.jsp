@@ -40,11 +40,24 @@
             </c:if>
             
             <ul class="nav nav-tabs">
+            
+            <!-- 학생 수강 중인 목록 -->
+            <c:if test="${sessionMemberLv == 1}">
 	            <c:forEach var="l" items="${lectureList}">
 					<li class="nav-item">
 						<a class="nav-link <c:if test="${l eq lectureName}">active</c:if> text-dark" data-toggle="tab" href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${l}">${l}</a>
 					</li>
-	            </c:forEach>
+	            </c:forEach>            
+            </c:if>
+            
+            <!-- 강사 수강 중인 목록 -->
+            <c:if test="${sessionMemberLv == 2}">
+	            <c:forEach var="l" items="${teacherLectureList}">
+					<li class="nav-item">
+						<a class="nav-link <c:if test="${l eq lectureName}">active</c:if> text-dark" data-toggle="tab" href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${l}">${l}</a>
+					</li>
+	            </c:forEach>  
+            </c:if>
             </ul>
             <br><br>
             

@@ -143,11 +143,14 @@ public class LecQnaController {
 			// Service에 처리한 코드를 이용하여 매개값 대입
 			Map<String, Object> map = lecQnaService.lecQuestionListByPage(lectureName, currentPage, rowPerPage);
 			List<String> lectureList = lecQnaService.lectureList((String)session.getAttribute("sessionMemberId"));
+			List<String> teacherLectureList = lecQnaService.teacherLectureList((String)session.getAttribute("sessionMemberId"));
 			
 			log.debug(CF.KHM +"[LecQnaController GetMapping currentPage]: " + CF.RESET + currentPage); // 현재페이지 디버깅
 			log.debug(CF.KHM +"[LecQnaController GetMapping lastPage]: " + CF.RESET + map.get("lastPage")); // 마지막페이지 디버깅
 			log.debug(CF.KHM +"[LecQnaController GetMapping lectureName]: " + CF.RESET + lectureName); // 선택 강의 디버깅
 			log.debug(CF.KHM +"[LecQnaController GetMapping list.size]: " + CF.RESET + map.size()); // 글 개수 디버깅
+			
+			log.debug(CF.KHM +"[LecQnaController GetMapping list.toString]: " + CF.RESET + map.get("list").toString()); // 받아오는 목록 디버깅
 			
 			// model에 값 add
 			model.addAttribute("lectureName", lectureName); // 강의이름
@@ -156,6 +159,7 @@ public class LecQnaController {
 			model.addAttribute("currentPage", currentPage); // 현재 페이지
 			model.addAttribute("totalCount", map.size()); // 게시글 개수
 			model.addAttribute("lectureList", lectureList); // 학생별 수강 중인 강의 목록
+			model.addAttribute("teacherLectureList", teacherLectureList); // 강사가 강의 중인 강의 목록
 			
 			return "lecQna/lecQnaList";
 	}

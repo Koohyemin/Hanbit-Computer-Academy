@@ -19,6 +19,7 @@ public interface LecQnaMapper {
 	int deleteQuestion(int lecQuestionNo); // 답변과 함께 삭제
 	int deleteAnswer(int lecQuestionNo); // 질문 삭제시 관련된 모든 답변 삭제
 	List<String> lectureList(String studentId); // 해당 학생 수강강의 불러오기(개강 한 강의)
+	List<String> teacherLectureList(String teacherId); // 해당 강사 수강강의 부럴오기(개강 한 강의)
 
 	// 답변
 	List<LecAnswer> lecAnswerList(Map<String,Object> map); // 답변 상세보기 목록 (페이징) lecQuestionNo, beginPage, rowPerPage

@@ -103,6 +103,16 @@
 		LIMIT #{beginRow}, #{rowPerPage}
 	</select>
 	
+	<!-- 강사가 수강 중인 강의 목록 -->
+	<select id="teacherLectureList" parameterType="String" resultType="String">
+		SELECT lp.lecture_name lectureName
+		FROM lec_plan lp
+			INNER JOIN time_table tt
+			ON lp.lecture_name = tt.lecture_name
+		WHERE tt.begin_class <![CDATA[<=]]> NOW() AND tt.end_class <![CDATA[>=]]> NOW() AND lp.lec_state = 'T' AND lp.teacher_id=#{teacherId}
+		GROUP BY lp.lecture_name
+	</select>
+	
 	<!-- 학생이 수강 중인 강의 목록  -->
 	<select id="lectureList" parameterType="String" resultType="String">
 		SELECT r.lecture_name lectureName
@@ -111,7 +121,7 @@
 			ON r.lecture_name = tt.lecture_name
 			INNER JOIN lec_plan lp
 			ON lp.lecture_name = r.lecture_name
-		WHERE tt.begin_class <![CDATA[<=]]> NOW() AND lp.lec_state = 'T' AND student_id = #{studentId}
+		WHERE tt.begin_class <![CDATA[<=]]> NOW() AND lp.lec_state = 'T' AND r.student_id = #{studentId}
 	</select>
 	
 	<!-- 관련 답변 삭제 -->

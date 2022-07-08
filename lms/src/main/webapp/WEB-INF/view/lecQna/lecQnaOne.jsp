@@ -78,33 +78,34 @@
 			<h2>🗨답변<span class="text-secondary">(${list.size()})</span></h2>
 			<br>
 			
-			<!-- 답변 등록 -->
-			<form method="post" action="${pageContext.request.contextPath}/lecQna/addAnswer">
-				<input type="hidden" name="lecQuestionNo" value="${lecQuestion.lecQuestionNo}" >
-				<input type="hidden" name="memberId" value="${sessionMemberId}" >
-				<input type="hidden" name="revelation" value="${lecQuestion.revelation}" >
-				<table class="table">
-					<thead>
-						<tr>
-							<th>작성자</th>
-							<td>${sessionMemberId}</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<th>답변</th>
-							<td>
-								<textarea name="lecAnswerContent" rows="3" cols="160" placeholder="답변 내용을 입력해주세요" class="form-control"></textarea>
-								<span id="lecAnswerContentError"></span>
-							</td>
-							<td>
-								<button type="submit" id="btn" class="btn btn-dark">등록</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-			
+			<!-- 답변 등록, 답변 등록은 강사만 가능 -->
+			<c:if test="${sessionMemberLv == 2}">
+				<form method="post" action="${pageContext.request.contextPath}/lecQna/addAnswer">
+					<input type="hidden" name="lecQuestionNo" value="${lecQuestion.lecQuestionNo}" >
+					<input type="hidden" name="memberId" value="${sessionMemberId}" >
+					<input type="hidden" name="revelation" value="${lecQuestion.revelation}" >
+					<table class="table">
+						<thead>
+							<tr>
+								<th>작성자</th>
+								<td>${sessionMemberId}</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th>답변</th>
+									<td>
+										<textarea name="lecAnswerContent" rows="3" cols="160" placeholder="답변 내용을 입력해주세요" class="form-control"></textarea>
+										<span id="lecAnswerContentError"></span>
+									</td>
+									<td>
+										<button type="submit" id="btn" class="btn btn-dark">등록</button>
+									</td>
+							</tr>
+						</tbody>
+					</table>
+				</form>
+			</c:if>
 			<!-- 답변 목록 -->
 			<!-- 등록된 답변이 없을 시 -->
 			<c:if test="${list.size() == 0}">
@@ -119,12 +120,16 @@
 							<td>${l.memberId}</td>
 							<th>작성일자</th>
 							<td>${l.createDate}</td>
+							<td>
+								<a class="btn text-primary" href="${pageContext.request.contextPath}/lecQna/updateAnswer?lecAnswerNo=${l.lecAnswerNo}">수정</a>
+								<a class="btn text-danger" href="${pageContext.request.contextPath}/lecQna/deleteAnswer?lecAnswerNo=${l.lecAnswerNo}">삭제</a>
+							</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
 							<th>답변</th>
-							<td colspan="3">${l.lecAnswerContent}</td>
+							<td colspan="4">${l.lecAnswerContent}</td>
 						</tr>
 					</tbody>
 				</table>
