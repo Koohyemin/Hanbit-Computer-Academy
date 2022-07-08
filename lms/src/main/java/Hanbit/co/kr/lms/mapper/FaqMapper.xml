@@ -25,8 +25,7 @@
 		 ORDER BY create_date DESC
 	</select>
 	<!--  입력 -->
-	<insert id="getInsertFaq" 
-			parameterType="Hanbit.co.kr.lms.vo.Faq">
+	<insert id="getInsertFaq" parameterType="Hanbit.co.kr.lms.vo.Faq">
 		INSERT INTO faq(
 			title
 			,manager_id 
@@ -42,12 +41,19 @@
 		)
 	</insert>
 	<!--  삭제 -->
-	<delete id="getDeleteFaq"
-            parameterType="Hanbit.co.kr.lms.vo.Faq">
+	<delete id="getDeleteFaq"  parameterType="Hanbit.co.kr.lms.vo.Faq">
 	         DELETE FROM
 	            faq
 	      WHERE faq_no = #{noticeNo}
 	</delete>
-
+	
+	<!-- 수정 -->
+	<update id="getUpdateFaq" parameterType="Hanbit.co.kr.lms.vo.Faq">
+			UPDATE faq SET manager_id=#{managerId}
+			, title=#{title}
+			, content=#{content}
+			, update_date=NOW()
+		WHERE faq_no = #{faqNo}
+	</update>
 	
 </mapper>

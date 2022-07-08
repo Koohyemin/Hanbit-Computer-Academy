@@ -45,5 +45,10 @@ public class FaqService {
 	// faq 삭제
 	public int getDeleteFaq(int faqNo) {
 		return faqMapper.getDeleteFaq(faqNo);
-	}    
+	}
+	
+	// faq 수정
+	public int getUpdateFaq(Faq  faq) {
+		return faqMapper.getUpdateFaq(faq);
+	}
 }

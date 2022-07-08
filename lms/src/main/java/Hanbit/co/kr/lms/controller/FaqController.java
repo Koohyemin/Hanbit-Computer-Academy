@@ -79,13 +79,29 @@ public class FaqController {
 		public String getDeleteFaq(int faqNo, Model model) {
 			int row = faqService.getDeleteFaq(faqNo);
 			if(row == 1) {
-				log.debug(CF.KHM + "[FaqController postMapping addFaq] : 공지 삭제 성공" + CF.RESET); // 성공 디버깅
+				log.debug(CF.KHV+ "[FaqController postMapping addFaq] : 공지 삭제 성공" + CF.RESET); // 성공 디버깅
 			} else {
-				log.debug(CF.KHM + "[FaqController postMapping addFaq] : 공지 삭제 실패" + CF.RESET); // 실패 디버깅
+				log.debug(CF.KHV + "[FaqController postMapping addFaq] : 공지 삭제 실패" + CF.RESET); // 실패 디버깅
 			}
 		
 			return "redirect:/faq/getFaqListByPage"; // 공지 수정 후, 리스트로 돌아가기
 	}
-	
+	// FAQ 수정 폼
+		@GetMapping("/faq/updateFaq")
+		public String getUpdateFaq(Model model, @RequestParam(name="faqNo") int faqNo) {
+			// 수정시, 기존 입력 값 화면에 보여주기 위해 상세보기 값 불러오기	
+			Faq faq = new Faq();
+			faq = faqService.getFaqOne(faqNo);
+			
+			// model에 값 add
+			model.addAttribute("faq", faq);
+			
+			return "faq/updateFaq";
+		}
 		
+	// FAQ 수정 액션
+		@PostMapping("/faq/updateFaq")
+		public String getUpdateFaq(Faq faq, Model model) {
+			return "redirect:/faq/getFaqListByPage";
+		}
 }

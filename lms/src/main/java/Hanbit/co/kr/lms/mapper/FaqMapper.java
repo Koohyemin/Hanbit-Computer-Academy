@@ -19,10 +19,13 @@ public interface FaqMapper {
 	// Faq 상세보기
 	Faq getFaqOne(int faqNo); 
 	
-	// 삭제
+	// 삭제 (운영자)
 	int getDeleteFaq(int faqNo);
 	
 	// FAQ 작성
 	int getInsertFaq(Faq faq); 
 	
+	// FAQ 수정 (운영자)
+	
+	int getUpdateFaq(Faq  faq); 
 }
