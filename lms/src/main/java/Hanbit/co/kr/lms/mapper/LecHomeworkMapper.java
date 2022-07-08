@@ -35,5 +35,6 @@ public interface LecHomeworkMapper {
 	int deleteSubmitFile(int homeworkSubmissionNo);
 	int updateSubmit(HomeworkSubmission homeworkSubmission); // 학생 과제제출 업데이트
 	List<HomeworkFile> selectFileNameList(int homeworkSubmissionNo); // 파일 이름들 출력(삭제시 필요)
+	int deleteFileOne(int HomeworkFileNo);
 	
 }

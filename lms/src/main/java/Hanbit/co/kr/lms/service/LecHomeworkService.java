@@ -30,6 +30,21 @@ import lombok.extern.slf4j.Slf4j;
 public class LecHomeworkService {
 	@Autowired LecHomeworkMapper lecHomeworkMapper;
 	
+	// 학생이 파일하나만 삭제
+	public String deleteFileOne(int homeworkFileNo) {
+		
+		int row	= lecHomeworkMapper.deleteFileOne(homeworkFileNo);
+		log.debug(CF.SWB+"[LecHomeworkService  deleteFileOne row]"+CF.RESET+ row); // row 디버깅
+		
+		// 변수등록 -> consolㄷ.log 확인용
+		String check = null;
+		if(row == 1) {
+			check = "삭제 성공";
+		} else {
+			check = "실패";
+		}
+		return check;
+	}
 	// 학생과제제출에 대한 점수 업데이트
 	public void updateScore(HomeworkSubmission homeworkSubmission) {
 		

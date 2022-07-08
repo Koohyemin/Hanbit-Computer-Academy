@@ -68,7 +68,9 @@
 					<td>
 					<c:choose>
 						<c:when test="${fn:length(homeworkFileList) > 0}">
-							<span> 등록된 파일 : ${map.homeworkFileList}</span>	
+							<c:forEach var="f" items="${homeworkFileList}">
+								<div><a href="${pageContext.request.contextPath}/upload/${f.homeworkFileName}" download="">${f.homerworkFileOriginalName}</a></div>
+							</c:forEach>
 						</c:when>
 						<c:otherwise>
 							<span class="text-danger">등록된 파일이 없습니다.</span>
@@ -84,7 +86,7 @@
 					</td>
 				</tr>
 			</table>
-			<a href="${pageContext.request.contextPath}/lecHomework/modifySubmit?homeworkSubmissionNo=${homeworkSubmission.homeworkSubmissionNo}&&homeworkMakeTitle=${homeworkMakeTitle}">수정</a>
+			<a class="btn btn-dark" style="float:right" href="${pageContext.request.contextPath}/lecHomework/modifySubmit?homeworkSubmissionNo=${homeworkSubmission.homeworkSubmissionNo}&&homeworkMakeTitle=${homeworkMakeTitle}">수정</a>
 		</div>
 	<div id="footer"></div>
    	</div>

@@ -78,7 +78,7 @@ $(document).ready(function(){ // html페이지를 다 로드시키고 매개변�
 					<tr>
 						<th class="text-center">등록자</th>
 						<td> 
-							<input name="homeworkSubmissionNo" type="hidden" value="${homeworkSubmission.homeworkSubmissionNo}">
+							<input name="homeworkSubmissionNo" data-submitNo="{homeworkSubmission.homeworkSubmissionNo}" type="hidden" value="${homeworkSubmission.homeworkSubmissionNo}">
 							<input name="managerId" type="text" value="${sessionMemberId}" readonly="readonly" class="form-control">
 						</td>
 					</tr>
@@ -100,8 +100,14 @@ $(document).ready(function(){ // html페이지를 다 로드시키고 매개변�
 						<th class="text-center">파일업로드</th>
 						<td>
 							<button type="button" id="addFileupload">파일업로드 추가</button>
-							<c:forEach var="f" items="${homeworkFileList}">
-								<div><a href="">${f.homerworkFileOriginalName}</a></div>
+							
+							<c:forEach var="f" items="${homeworkFileList}" >
+								<div id="${f.homeworkFileNo}">
+
+								<span>${f.homerworkFileOriginalName}</span>
+									<button type="button" data-value="${f.homeworkFileNo}" class="deleteFile" >삭제</button>
+								</div>
+						
 							</c:forEach>
 							<div id="fileSection">
 							<!-- 파일업로드 input 태그가 추가될 영역 -->
@@ -124,6 +130,21 @@ $(document).ready(function(){ // html페이지를 다 로드시키고 매개변�
 </div>
 </body>
 	<script>
+	// 파일 삭제
+	$(".deleteFile").click(function () {
+		var fileNo = $(this).data('value');
+		console.log(fileNo);
+		$('#'+fileNo).css("display", "none");
+		$.ajax({
+			url: "/lms/lecHomework/removeFile?homeworkFileNo="+fileNo,
+			method: "get",
+			dataType: "text",
+            success: function (data) {
+                console.log(data);
+            }
+ 		});
+    });
+	
 	// html 태그 형성 이후 실행
 	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
@@ -179,8 +200,5 @@ $(document).ready(function(){ // html페이지를 다 로드시키고 매개변�
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="assets/demo/chart-area-demo.js"></script>
-    <script src="assets/demo/chart-bar-demo.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
 </html>s
