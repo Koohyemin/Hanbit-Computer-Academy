@@ -152,11 +152,12 @@ public class LecQnaService {
 		return lecQnaMapper.insertQuestion(lecQuestion); // 입력 성공 행
 	}
 	
+	// 강사 수강 목록
 	public List<String> teacherLectureList(String teacherId) {
 		return lecQnaMapper.teacherLectureList(teacherId);
 	}
 	
-	// 강의실 질문 등록 Get
+	// 학생 수강 목록
 	public List<String> lectureList(String studentId) {
 		return lecQnaMapper.lectureList(studentId); // 수강 중인 강의 목록
 	}
