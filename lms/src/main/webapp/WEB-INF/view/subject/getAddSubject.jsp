@@ -33,20 +33,24 @@
 	               과목 입력
 	            </div>
 	            <div class="card-body">
-	           <form action="${pageContext.request.contextPath}/subject/getAddSubject"" method="post" >
+	           <form id="addSub" action="${pageContext.request.contextPath}/subject/getAddSubject" method="post" >
 	            	<table class="table">
 		            	<tr>
 	            			<td width="200px;">과목명</td>
 	            			<td>
-								<input type="text" name="subjectName" class="form-control">
+								<input type="text" id="subName" name="subjectName" class="form-control">
+									<span id="helpName"></span>
 							</td>
 	            		</tr>
 	            		<tr>
 	            			<td width="200px;">설명</td>
-	            			<td><input type="text" name="subjectSubscription" class="form-control"></td>
+	            			<td>
+	            			<input type="text" id="subSub" name="subjectSubscription" class="form-control">
+	            				<span id="helpSub"></span>
+	            			</td>	
 	            		</tr>
 	            	</table>
-	            	<button type="submit" class="btn btn-dark">과목등록</button>
+	            	<button id="subBtn" type="button" class="btn btn-dark">과목등록</button>
 	            	</form>
 	            </div>
             </div>
@@ -59,7 +63,25 @@
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-   	</script>
+   
+       	$('#subBtn').click(function() {
+       		if($('#subName').val() == '') {
+       			$('#helpName').text('과목을 입력하세요');
+       		} else {
+       			$('#helpName').text('');
+       		}	
+       		if($('#subSub').val() == '') {
+       			$('#helpSub').text('설명을 입력하세요');
+       		} else {
+       			$('#helpSub').text('');
+       		}
+       		if($('#subName').val() != '' && $('#subSub').val() != '' ) {
+       			$('#addSub').submit();   			
+       		}
+       	});  
+         	
+    	</script>
+	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
@@ -68,6 +90,6 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
     <script>
-
     </script>
+     
 </html>

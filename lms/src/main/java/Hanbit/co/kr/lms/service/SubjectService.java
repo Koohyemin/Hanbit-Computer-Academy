@@ -28,7 +28,7 @@ public class SubjectService {
 		}
 		return row;
 	}
-	
+	//삭제
 	public int deleteSubject(String subjectName) {
 		return subjectMapper.deleteSubject(subjectName);
 	}

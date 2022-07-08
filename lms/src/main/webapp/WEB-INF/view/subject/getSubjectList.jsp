@@ -31,17 +31,18 @@
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
 	               과목 조회
-	               <a href="${pageContext.request.contextPath}/subject/getAddSubject" class="btn btn-dark btn-sm float-end">과목입력</a>
+	               <a  href="${pageContext.request.contextPath}/subject/getAddSubject" class="btn btn-dark btn-sm float-end">과목입력</a>
 	            </div>
 	            <div class="card-body">
-		            <form method="get" action="${pageContext.request.contextPath}/subject/getSubjectList">
+		            <form id="addForm" method="get" action="${pageContext.request.contextPath}/subject/getSubjectList">
 		              <div class="float-end btn-group">
-			            <input type="text" name="searchValue" class="form-control" placeholder="과목을 입력해주세요">
-			            <button type="submit" class="btn btn-dark float-end btn-group">검색 </button>
+			            <input type="text" id="searchValue" name="searchValue" class="form-control" placeholder="과목을 입력해주세요">
+			            	<span id="searchHelp"></span>
+			            <button type="button" id="addBtn" class="btn btn-dark float-end btn-group">검색 </button>
 			            </div>
 		            </form>	            
 	            <c:forEach var="subject" items="${subjectList}">
-	            <form action="${pageContext.request.contextPath}/subject/removeSubject" method="post">
+	            
 	            	<table class="table">
 		            	<tr>
 	            			<td width="150px;">과목명</td><td><b>${subject.subjectName}</b></td>
@@ -53,9 +54,14 @@
 	            			<td width="150px;">생성 날짜</td><td>${subject.createDate}</td>
 						</tr>
 	            	</table>
-	            	<button class="btn btn-secondary float-end btn-group" type="submit">삭제</button>
-	             </form>
-	            	</c:forEach>
+            	   	<!-- 삭제 -->
+						<div>	          	
+					        <form action="${pageContext.request.contextPath}/subject/removeSubject" method="post">
+					        	<input type="hidden" name="subjectName" value="${subject.subjectName}" readonly="readonly">
+					        		<button type="submit" class="btn btn-dark float-end btn-group">삭제</button>
+					        </form>
+				        </div>
+	          	</c:forEach>
 	            </div>
             </div>
 		</div>
@@ -67,7 +73,18 @@
     	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-   	</script>
+   
+   		$('#addBtn').click(function() {
+   			if($('#searchValue').val() == '') {
+   				$('#searchHelp').text('검색어를 입력하세요');
+   			} else {
+   				$('#searchHelp').text('');
+   			}
+   			if($('#searchValue').val() !='') {
+   	   			$('#addForm').submit();   				
+   			}
+   		});
+   	</script>  	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
