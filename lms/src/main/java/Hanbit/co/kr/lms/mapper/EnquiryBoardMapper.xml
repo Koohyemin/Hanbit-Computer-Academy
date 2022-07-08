@@ -77,6 +77,7 @@
 	
 	<select id="selectEnquiryAnswerList" parameterType="int" resultType="Hanbit.co.kr.lms.vo.EnquiryAnswer">
 		SELECT member_id memberId
+		, enquiry_board_answer_no enquiryBoardAnswerNo
 		 , enquiry_answer_content enquiryAnswerContent
 		 ,  create_date createDate
 		FROM enquiry_answer

@@ -183,12 +183,14 @@ public class EnquiryBoardController {
 	// 댓글삭제하기
 	@GetMapping("/enquiryBoard/enquityDeleteAnswer")
 	public String enquityDeleteAnswer(
-			@RequestParam(name="enquiryBoardNo") int enquiryBoardNo) {
+			@RequestParam(name="enquiryBoardNo") int enquiryBoardNo
+			,@RequestParam(name="enquiryBoardAnswerNo") int enquiryBoardAnswerNo ) {
 		
 		// 넘어온 문의사항 상세보기 번호 확인
-		log.debug(CF.KHN+ "EnquiryBoardController GetMapping enquityDeleteAnswer enquiryBoardNo : "+ CF.RESET + enquiryBoardNo);		
+		log.debug(CF.KHN+ "EnquiryBoardController GetMapping enquityDeleteAnswer enquiryBoardNo : "+ CF.RESET + enquiryBoardNo);	
+		log.debug(CF.KHN+ "EnquiryBoardController GetMapping enquityDeleteAnswer enquiryBoardAnswerNo : "+ CF.RESET + enquiryBoardAnswerNo);		
 		
-		int row = enquiryBoardService.deleteAnswer(enquiryBoardNo);
+		int row = enquiryBoardService.deleteAnswer(enquiryBoardAnswerNo);
 		log.debug(CF.KHN+ "EnquiryBoardController GetMapping enquityDeleteAnswer row : "+ CF.RESET + "삭제되었습니다.");		
 		
 		// 삭제하고 문의사항 상세보기 이동

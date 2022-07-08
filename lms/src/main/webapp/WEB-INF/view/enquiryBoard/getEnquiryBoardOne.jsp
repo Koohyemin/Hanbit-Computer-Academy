@@ -114,7 +114,7 @@
 		                   <span class="float-end">
 			       		 		${EnquiryAnswer.createDate}
 			       		 		<c:if test="${EnquiryAnswer.memberId eq sessionMemberId }">
-			       		 			&nbsp;<a href="${pageContext.request.contextPath}/enquiryBoard/enquityDeleteAnswer?enquiryBoardNo=${eb.enquiryBoardNo}" class="btn btn-secondary btn-sm">삭제하기</a>
+			       		 			&nbsp;<a href="${pageContext.request.contextPath}/enquiryBoard/enquityDeleteAnswer?enquiryBoardNo=${eb.enquiryBoardNo}&enquiryBoardAnswerNo=${EnquiryAnswer.enquiryBoardAnswerNo}" class="btn btn-secondary btn-sm">삭제하기</a>
 			       		 		</c:if>
 			       		 	</span>
 		               </div>
