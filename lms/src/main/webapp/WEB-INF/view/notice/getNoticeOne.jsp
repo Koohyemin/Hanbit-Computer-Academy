@@ -31,52 +31,46 @@
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
 	                Notice
+	                <a href="${pageContext.request.contextPath}/notice/noticeList" class="btn btn-dark btn-sm float-end" style="float:right">이전으로</a>
+	            </div>
+	            <div class="card-body">
+		            <table class="table table-bordered">
+						<tr>
+							<th class="text-center" width="150px;">제목</th>
+							<td colspan="3">${managerNotice.managerNoticeTitle}</td>
+						</tr>
+						<tr>
+							<th class="text-center" width="150px;">글쓴이</th>
+							<td>${managerNotice.managerId}</td>
+							<th class="text-center" width="150px;">대상</th>
+							<td>${managerNotice.category}</td>
+						</tr>
+						<tr>
+							<th class="text-center" width="150px;">생성일</th>
+							<td>${managerNotice.createDate}</td>
+							<th class="text-center" width="150px;">수정일</th>
+							<td>${managerNotice.updateDate}</td>
+						</tr>
+						<tr style="height:20%;">
+							<th class="text-center sm-mb-5" style="vertical-align: middle" width="150px;">내용</th>
+							<td colspan="3" ><div style="height: 300px;">${managerNotice.managerNoticeContent}</div></td>
+						</tr>
+					</table>
+					<!-- 운영자만 수정, 삭제 버튼을 볼 수 있음 -->
+					<c:if test="${sessionMemberLv == 3}">
+						<!-- 삭제버튼 -->
+						<div class="text-center">
+							<form method="post" action="${pageContext.request.contextPath}/notice/deleteNotice" id="del">
+								<input type="hidden" name="managerNoticeNo" value="${managerNotice.managerNoticeNo}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
+								<div class="btn-group">
+									<a href="${pageContext.request.contextPath}/notice/updateNotice?managerNoticeNo=${managerNotice.managerNoticeNo}" class="btn btn-dark">수정</a><!-- 수정버튼 -->
+									<button type="submit" class="btn btn-secondary" id="delBtn">삭제</button>		
+								</div>
+							</form>
+						</div>
+					</c:if>
 	            </div>
 	        </div>
-			<a href="${pageContext.request.contextPath}/notice/noticeList" class="btn btn-dark" style="float:right">이전으로</a>
-			<br><br>
-			<table class="table">
-				<tr>
-					<th class="text-center">번호</th>
-					<td>${managerNotice.managerNoticeNo}</td>
-				</tr>
-				<tr>
-					<th class="text-center">대상</th>
-					<td>${managerNotice.category}</td>
-				</tr>
-				<tr>
-					<th class="text-center">제목</th>
-					<td>${managerNotice.managerNoticeTitle}</td>
-				</tr>
-				<tr style="height:20%;">
-					<th class="text-center sm-mb-5" style="vertical-align: middle">내용</th>
-					<td><div style="height: 300px;">${managerNotice.managerNoticeContent}</div></td>
-				</tr>
-				<tr>
-					<th class="text-center">작성자</th>
-					<td>${managerNotice.managerId}</td>
-				</tr>
-				<tr>
-					<th class="text-center">작성일자</th>
-					<td>${managerNotice.createDate}</td>
-				</tr>
-				<tr>
-					<th class="text-center">수정일자</th>
-					<td>${managerNotice.updateDate}</td>
-				</tr>
-			</table>
-			<div>
-			<!-- 운영자만 수정, 삭제 버튼을 볼 수 있음 -->
-				<c:if test="${sessionMemberLv == 3}">
-					<!-- 삭제버튼 -->
-					<form method="post" action="${pageContext.request.contextPath}/notice/deleteNotice" id="del" style="float:right">
-						<input type="hidden" name="managerNoticeNo" value="${managerNotice.managerNoticeNo}" > <!-- 삭제 실행, hidden타입으로 보이지 않음 -->
-						<input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
-					</form>
-					<!-- 수정버튼 -->
-					<a href="${pageContext.request.contextPath}/notice/updateNotice?managerNoticeNo=${managerNotice.managerNoticeNo}" class="btn btn-info" style="float:right">수정</a>
-				</c:if>
-			</div>
 		</div>
 		<div id="footer"></div>
 	</div>

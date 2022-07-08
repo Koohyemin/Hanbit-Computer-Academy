@@ -28,27 +28,25 @@
             <div class="card-header">
                 <i class="fas fa-chart-area me-1"></i>
                 FAQ
+             <c:if test="${sessionMemberLv == 3 }">
+	             <form method="post" action="${pageContext.request.contextPath}/faq/deleteFaq"  style="float:right">
+	              <input type="hidden" name="faqNo" value="${faq.faqNo}" >
+	              <input type="submit" value="삭제" class="btn btn-dark btn-sm" id="delBtn">
+	             </form>
+            </c:if>
             </div>
-			<br><br>
-                 <!-- FAQ 상세보기  -->
-                   <table class="table">
-                           <tr>
-                              <th>번호</th>
-                              <td><span>${faq.faqNo}</span></td>
-                           </tr>
-                              <th>제목</th>
-                              <td><span>${faq.title}</span></td>
-                           <tr>
-                              <th>내용</th>
-                              <td><span>${faq.content}</span></td>
-                           </tr>
-                      </table>
-	                           <c:if test="${sessionMemberLv == 3 }">
-	                           <form method="post" action="${pageContext.request.contextPath}/faq/deleteFaq"  style="float:right">
-	                           <input type="hidden" name="faqNo" value="${faq.faqNo}" >
-	                           <input type="submit" value="삭제" class="btn btn-danger" id="delBtn">
-	                           </form>
-	                           </c:if>
+            <div class="card-body">
+	           <!-- FAQ 상세보기  -->
+	              <table class="table">
+	              <tr>
+                      <th class="text-center" style="width:150px;">제목</th>
+                       <td>${faq.title}</td>
+                    <tr>
+                        <th class="text-center" style="width:150px;height:500px;" >내용</th>
+                       <td>${faq.content}</td>
+                    </tr>
+	                 </table>
+	           </div>
 	                      	</div>
 	                      	</div>
             <div id="footer"></div>

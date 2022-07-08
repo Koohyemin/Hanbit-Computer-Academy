@@ -35,32 +35,31 @@
                </div>
                <div class="card-body">
 	               <form action="${pageContext.request.contextPath}/enquiryBoard/deleteEnquiryBoard" method="post">
-	               <table class="table">
-	                  <tr>   
-	                     <th>글쓴이</th>
-	                     <td>${eb.memberId}
-	                     <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" >
-	                     </td>          
-	                  </tr>      
-	                  <tr>
-	                     <th>구분</th>
-	                     <td>${eb.category}</td> 
-	                  </tr>
-	                                    <tr>   
-	                     <th>작성일</th>
-	                     <td>${eb.createDate}</td>                      
-	                  </tr>
-	                  <tr>   
-	                     <th>수정일</th>
-	                     <td>${eb.updateDate}</td>                         
-	                  </tr>
-	                  <tr>                           
-	                     <th>내용</th>
-	                     <td>${eb.content}</td>
-	                  </tr>   
-	               </table>
+		               <table class="table">
+		                  <tr>   
+		                     <th>글쓴이</th>
+		                     <td>${eb.memberId}
+		                     <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" >
+		                     </td>          
+		                  </tr>      
+		                  <tr>
+		                     <th>구분</th>
+		                     <td>${eb.category}</td> 
+		                  </tr>
+		                                    <tr>   
+		                     <th>작성일</th>
+		                     <td>${eb.createDate}</td>                      
+		                  </tr>
+		                  <tr>   
+		                     <th>수정일</th>
+		                     <td>${eb.updateDate}</td>                         
+		                  </tr>
+		                  <tr>                           
+		                     <th>내용</th>
+		                     <td>${eb.content}</td>
+		                  </tr>   
+		               </table>
 	               <br>
-	             
 	               <div class="btn-group float-end">
 	               <c:if test="${sessionMemberId eq eb.memberId}">
 		              	<a href="${pageContext.request.contextPath}/enquiryBoard/updateEnquiryBoard?enquiryBoardNo=${enquiryBoardNo}" class="btn btn-secondary">수정</a>
@@ -105,7 +104,7 @@
 		       		 </c:if>
 	       		</c:if>   
 	       		<br>
-	       		  
+
 	       		 <!-- 댓글 최신순으로  -->
 	       		<c:forEach var="EnquiryAnswer" items="${answerList}">
 		       		 <div class="card mb-4">
@@ -123,8 +122,8 @@
 		               </div>
 	              	 </div>
 	       		</c:forEach>
-               </div>
-            </div>
+           </div>
+        </div>
    </div>
    <div id="footer"></div>
    </div>

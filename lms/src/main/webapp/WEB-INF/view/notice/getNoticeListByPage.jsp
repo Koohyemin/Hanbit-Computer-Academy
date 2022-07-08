@@ -31,9 +31,15 @@
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
 	                Notice
+	                <c:if test="${sessionMemberLv == 3}">
+						<!-- 공지사항 작성 버튼은 운영진에게만 보임 -->
+						<span class="float-end">
+							<a class="float-right btn btn-dark btn-sm" href="${pageContext.request.contextPath}/notice/addNotice">공지사항 작성</a>
+						</span>
+					</c:if>
 	            </div>
-            </div>
-			<!-- 상단 전체, 강사, 학생별 공지사항 보기 nav바 -->
+	            <div class="card-body">
+	            	<!-- 상단 전체, 강사, 학생별 공지사항 보기 nav바 -->
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
 					<!-- 운영자, 강사, 학생 모두 확인 가능 -->
@@ -75,30 +81,22 @@
 					</li>
 				</c:if>
 			</ul>
-			<c:if test="${sessionMemberLv == 3}">
-				<!-- 공지사항 작성 버튼은 운영진에게만 보임 -->
-				<span class="float-end">
-					<a class="float-right btn btn-dark" href="${pageContext.request.contextPath}/notice/addNotice">글 작성</a>
-				</span>
-			</c:if>
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th class="text-center">번호</th>
-						<th class="text-center">대상</th>
+						<th class="text-center" style="width:100px;">글번호</th>
 						<th class="text-center">제목</th>
-						<th class="text-center">작성자</th>
-						<th class="text-center">작성일</th>
+						<th class="text-center" style="width:200px;">작성자</th>
+						<th class="text-center" style="width:200px;">작성일</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="notice" items="${list}">
 						<tr>
-							<td class="text-center">${notice.managerNoticeNo}</td>
-							<td class="text-center">${notice.category}</td>
-							<td class="col-md-4"><a href="${pageContext.request.contextPath}/notice/noticeOne?managerNoticeNo=${notice.managerNoticeNo}" class="text-dark none-unline"><b>${notice.managerNoticeTitle}</b></a></td>
-							<td class="text-center">${notice.managerId}</td>
-							<td class="text-center">${notice.createDate}</td>
+							<td class="text-center" tyle="width:100px;">${notice.managerNoticeNo}</td>
+							<td class="text-left"  style="padding-left:50px;"><a href="${pageContext.request.contextPath}/notice/noticeOne?managerNoticeNo=${notice.managerNoticeNo}" class="text-dark none-unline"><b>${notice.managerNoticeTitle}</b></a></td>
+							<td class="text-center" style="width:200px;">${notice.managerId}</td>
+							<td class="text-center" style="width:200px;">${notice.createDate}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -111,6 +109,9 @@
 					<a href="${pageContext.request.contextPath}/notice/noticeList?currentPage=${currentPage+1}" class="btn btn-dark">다음</a>
 				</c:if>
 			</div>
+	            </div>
+            </div>
+			
 		</div>
 		<div id="footer"></div>
 	</div>

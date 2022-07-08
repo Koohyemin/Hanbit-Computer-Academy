@@ -40,19 +40,23 @@
 			               <table class="table">
 			                   <thead>
 			                       <tr>
-			                           	<th>번호</th>
-						                <th>제목</th>
-						                <th>작성자</th>
-						                <th>날짜</th>
+			                           	<th class="text-center" style="width:100px;">번호</th>
+						                <th class="text-center">제목</th>
+						                <th class="text-center" style="width:200px;">작성자</th>
+						                <th class="text-center" style="width:200px;">날짜</th>
 			                       </tr>
 			                   </thead>
 				                  <tbody>
 						            <c:forEach var="Faq" items="${faqList}">
 						                <tr>
-						                   <td>${Faq.faqNo}</td>
-						                   <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/faq/getFaqOne?faqNo=${Faq.faqNo}">${Faq.title}</a></td>
-						                   <td>${Faq.managerId}</td>
-						                   <td>${Faq.createDate}</td>
+						                   <td class="text-center">${Faq.faqNo}</td>
+						                   <td class="text-left" style="padding-left:50px;">
+							                   <b>
+							                   	<a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/faq/getFaqOne?faqNo=${Faq.faqNo}">${Faq.title}</a>
+							                   </b>
+						                   </td>
+						                   <td class="text-center">${Faq.managerId}</td>
+						                   <td class="text-center">${Faq.createDate}</td>
 						                </tr>
 						            </c:forEach>
 						        </tbody>

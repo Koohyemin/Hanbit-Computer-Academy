@@ -30,42 +30,40 @@
            <div class="card mb-4">
                <div class="card-header">
                    <i class="fas fa-chart-area me-1"></i>
-               Enquiry Board
+               		Enquiry Board
+               		<!-- 운영자는 입력버튼 안보여야함 -->
+	               <c:if test="${sessionMemberLv != 3}">
+	                  <a href="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard" class="btn btn-dark">입력</a>
+	               </c:if>
                </div>
                <div class="card-body">
-                 <!-- 운영자는 입력버튼 안보여야함 -->
-               <c:if test="${sessionMemberLv != 3}">
-               <span class="float-end">
-                  <a href="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard" class="btn btn-dark">입력</a>
-                  </span>
-               </c:if>
                <table class="table">
                   <thead>
                      <tr>
-                        <th>글번호</th>
-                        <th>글쓴이</th>
-                        <th>내용</th>
-                        <th>작성일</th>
+                        <th class="text-center" style="width:100px;">번호</th>
+                        <th class="text-center">내용</th>
+                        <th class="text-center">작성자</th>
+                        <th class="text-center" style="width:200px;">작성일</th>
                      </tr>
                   </thead>
                   <tbody>
                   <c:forEach var="e" items="${list}">
                      <tr>
-                        <td>${e.enquiryBoardNo}</td>
-                        <td>${e.memberId}</td>
-                        <td><a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardOne?enquiryBoardNo=${e.enquiryBoardNo}" class="text-dark none-unline"><b>${e.content}</b></a></td>               
-                        <td>${e.createDate}</td>
+                        <td class="text-center">${e.enquiryBoardNo}</td>
+                        <td class="text-left"  style="padding-left:50px;"><a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardOne?enquiryBoardNo=${e.enquiryBoardNo}" class="text-dark none-unline"><b>${e.content}</b></a></td>               
+                        <td class="text-center">${e.memberId}</td>
+                        <td class="text-center">${e.createDate}</td>
                      </tr>
                   </c:forEach>
-                  </tbody>
+                  </tbody>               
                </table>
-                 <div class="text-center">
-                <c:if test="${currentPage > 1}">
-                   <a class="btn btn-dark" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage-1}">이전</a>            
-                </c:if>
-                <c:if test="${currentPage < lastPage}">
-                   <a class="btn btn-dark" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage+1}">다음</a>         
-                </c:if>
+               <div class="text-center">
+                 <c:if test="${currentPage > 1}">
+                     <a class ="btn btn-dark" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage-1}">이전</a>            
+                  </c:if>
+                  <c:if test="${currentPage < lastPage}">
+                     <a class ="btn btn-dark" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage+1}">다음</a>         
+                  </c:if>
                 </div>
             </div>
          </div>
