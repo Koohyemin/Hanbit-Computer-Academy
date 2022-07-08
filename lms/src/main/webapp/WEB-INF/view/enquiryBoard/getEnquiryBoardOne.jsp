@@ -70,11 +70,12 @@
 	   			<!-- 구분이 전체라면 학생을 제외한 답변 -->	
 	       		<c:if test="${eb.category eq '전체' }">
 		       		 <c:if test="${sessionMemberLv != 1}">
-			       		 <form method="post" action="${pageContext.request.contextPath}/enquiryBoard/addEnquityAnswer">
+			       		 <form class="answerForm" method="post" action="${pageContext.request.contextPath}/enquiryBoard/addEnquityAnswer">
 				       		 <div class="form-group btn-group" style="width:100%;" >
 				       		  <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" >
-								  <textarea rows="5" style="width:100%;" class="form-control" placeholder="-> 답변을 해주세요" name="enquiryAnswerContent"></textarea>
-								  <button type="submit" style="width:10%;max-width:200px;" class="btn btn-dark">답변</button> 
+								  <textarea rows="5" class="ebAnswer" style="width:100%;" class="form-control" placeholder="-> 답변을 해주세요" name="enquiryAnswerContent"></textarea>
+								 	<span class="helpAnswer"></span>
+								  <button type="button" class="answerBtn" style="width:10%;max-width:200px;" class="btn btn-dark">답변</button> 
 							</div> 
 			       		 </form>
 		       		 </c:if>
@@ -82,11 +83,12 @@
 	       		<!-- 구분이 강사라면 학생을 제외한 답변 -->	
 	       		<c:if test="${eb.category eq '강사' }">
 		       		 <c:if test="${sessionMemberLv == 2 }">
-			       		 <form method="post" action="${pageContext.request.contextPath}/enquiryBoard/addEnquityAnswer">
+			       		 <form class="answerForm" method="post" action="${pageContext.request.contextPath}/enquiryBoard/addEnquityAnswer">
 				       		 <div class="form-group btn-group" style="width:100%;" >
-				       		  <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" >
-								  <textarea rows="5" style="width:100%;" class="form-control" placeholder="-> 답변을 해주세요" name="enquiryAnswerContent"></textarea>
-								  <button type="submit" style="width:10%;max-width:200px;" class="btn btn-dark">답변</button> 
+				       		  <input type="hidden" id="ebNo" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" >
+								  <textarea rows="5" class="ebAnswer" style="width:100%;" class="form-control" placeholder="-> 답변을 해주세요" name="enquiryAnswerContent"></textarea>
+								 	<span class="helpAnswer"></span>
+								  <button type="button" id="answerBtn" style="width:10%;max-width:200px;" class="btn btn-dark">답변</button> 
 							</div> 
 			       		 </form>
 		       		 </c:if>
@@ -94,11 +96,12 @@
 	       		<!-- 구분이 강사라면 학생을 제외한 답변 -->	
 	       		<c:if test="${eb.category eq '운영자' }">
 		       		 <c:if test="${sessionMemberLv == 3 }">
-			       		 <form method="post" action="${pageContext.request.contextPath}/enquiryBoard/addEnquityAnswer">
+			       		 <form id="answerForm" method="post" action="${pageContext.request.contextPath}/enquiryBoard/addEnquityAnswer">
 				       		 <div class="form-group btn-group" style="width:100%;" >
 				       		  <input type="hidden" name="enquiryBoardNo" value="${eb.enquiryBoardNo}" >
-								  <textarea rows="5" style="width:100%;" class="form-control" placeholder="-> 답변을 해주세요" name="enquiryAnswerContent"></textarea>
-								  <button type="submit" style="width:10%;max-width:200px;" class="btn btn-dark">답변</button> 
+								  <textarea rows="5" class="ebAnswer" style="width:100%;" class="form-control" placeholder="-> 답변을 해주세요" name="enquiryAnswerContent"></textarea>
+								 	<span class="helpAnswer"></span>
+								  <button type="button" id="answerBtn" style="width:10%;max-width:200px;" class="btn btn-dark">답변</button> 
 							</div> 
 			       		 </form>
 		       		 </c:if>
@@ -130,9 +133,22 @@
 </div>
 </body>
    <script>
+   
        $('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
        $('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
        $('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+       
+       $('.answerBtn').click(function(){
+    		  if($('.ebAnswer').val() == '') {
+    			  $('.helpAnswer').text('답변을 입력하세요');
+    		  } else {
+    			  $('.helpAnswer').text('');
+    		  }
+    		  if($('.ebAnswer').val() != '') {
+    			  $('.answerForm').submit();
+    		  }
+       });
+       
       </script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>

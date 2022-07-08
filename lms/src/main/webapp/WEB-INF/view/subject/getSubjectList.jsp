@@ -74,16 +74,6 @@
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
    
-   		$('#addBtn').click(function() {
-   			if($('#searchValue').val() == '') {
-   				$('#searchHelp').text('검색어를 입력하세요');
-   			} else {
-   				$('#searchHelp').text('');
-   			}
-   			if($('#searchValue').val() !='') {
-   	   			$('#addForm').submit();   				
-   			}
-   		});
    	</script>  	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
