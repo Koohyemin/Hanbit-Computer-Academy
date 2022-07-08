@@ -26,245 +26,377 @@
    </div>
     <div id="layoutSidenav_content">
       <div class="container-fluid px-4">
+      <br>
             <!-- 컨텐츠 삽입 부분-->
-            <br>
+           <div class="row">
+           <div class="col-lg-4">
+	            <div class="card mb-4">
+	           
+	              <div class="card-header">
+	                 <i class="fas fa-chart-area me-1"></i>
+	               <span>My Photo</span>   
+	              
+	              </div>
+		              <div class="card-body">
+			              <div class="text-center">
+			              	<!-- 사진추가 -->
+		                      <img src="${pageContext.request.contextPath}/upload/${photoFile.photoName}" class="img-fluid" alt="" width="270"> 
+		                      <hr> 
+		                       <form id="photoSubmit" method="post" action="${pageContext.request.contextPath}/updatePhoto"  enctype="multipart/form-data">
+		                         	<div class="form-group btn-group">
+	                          		<input type="file" id="photo"name="photoFile" multiple="multiple" class="form-control" style="margin:0 auto;">
+	                          		<button id="photoBtn"type="button" class="btn btn-sm btn-dark float-end">변경</button>
+	                          		</div>
+	                          </form>
+	                          <span id="helpPhoto"></span>  
+                          </div>
+		              </div>
+	           </div>
+            </div>
+            <!-- 사진 끝 -->
+            <div class="col-lg-8">     
             <div class="card mb-4">
-              <div class="card-header">
-                 <i class="fas fa-chart-area me-1"></i>
-               <span style="font-size:20px;">My information</span>
-               <div class="btn btn-group float-end">
-                  <a class="btn btn-dark btn-sm" role="button" href="${pageContext.request.contextPath}/member/modifyMember">수정하기</a>
-                  <a class="btn btn-secondary btn-sm" role="button" id="removeMemberBtn" href="${pageContext.request.contextPath}/member/removceMember?memberId=${memberId}">회원 탈퇴</a>
-               </div>
-              </div>
-              <div class="card-body">
-               <div class="row"> 
-                  <div class="col-lg-1"></div>
-                  
-                  <!-- 사진 -->
-                    <div class="col-lg-3">
-                    <br>
-                          <img src="${pageContext.request.contextPath}/upload/${photoFile.photoName}" class="img-fluid" alt="" width="150" height="200">  <!-- 사진추가 -->
-                       <form id="photoSubmit" method="post" action="${pageContext.request.contextPath}/updatePhoto"  enctype="multipart/form-data">
-                          <input type="file" id="photo"name="photoFile" multiple="multiple">
-                          <span id="helpPhoto"></span>
-                          <button id="photoBtn"type="button">사진수정</button>
-                       </form>
-                    </div>
-                    <!-- 사진 끝 -->
-                       
-                    <!-- 학생이라면 개인정보 보여주기-->
-                  <c:if test="${sessionMemberLv == 1}">
-                       <div class="col-lg-3">
-                          <br>
-                          <div>▶ 이름 : ${student.studentName}</div>
-                          <br>
-                          <div>▶ 아이디 : ${student.studentId}</div>
-                          <br>
-                          <div>▶ 성별 : ${student.studentGender}</div>
-                          <br>
-                          <div>▶ 출생년도 : ${student.studentBirth}</div>
-                          <br>
-                          <div>▶ 연락처 : ${student.studentPhone}</div>
-                       </div>
-                       <div class="col-lg-4">
-                          <br>
-                          <div>▶ 주소 : ${student.studentAddr1}</div>
-                          <br>
-                          <div>▶ 상세주소 : ${student.studentAddr2}</div>
-                          <br>
-                          <div>▶ 최종학력 : ${student.finalEducation}</div>
-                          <br>
-                          <div>▶ 이메일 : ${student.studentEmail}</div>
-                       </div>
-                  </c:if>
-                    <!-- 학생 개인정보 끝 -->
-                    
-                    <!-- 강사라면 개인정보 보여주기-->
-                  <c:if test="${sessionMemberLv == 2}">
-                       <div class="col-lg-3">
-                          <br>
-                          <div>▶ 이름 : ${teacher.teacherName}</div>
-                            <br>
-                          <div>▶ 아이디 : ${teacher.teacherId}</div>
-                            <br>
-                            <div>▶ 성별 : ${teacher.teacherGender}</div>
-                          <br>
-                          <div>▶ 출생년도 : ${teacher.teacherBirth}</div>
-                            <br>
-                          <div>▶ 연락처 : ${teacher.teacherPhone}</div>
-                       </div>
-                       <div class="col-lg-4">
-                          <br>
-                          <div>▶ 주소 : ${teacher.teacherAddr1}</div>
-                            <br>
-                          <div>▶ 상세주소 : ${teacher.teacherAddr2}</div>
-                            <br>
-                            <div>▶ 최종학력 : ${teacher.finalEducation}</div>
-                          <br>
-                          <div>▶ 이메일 : ${teacher.teacherEmail}</div>
-                         </div>
-                  </c:if>   
-                    <!-- 강사 개인정보 끝 -->
-                    
-                    <!-- 운영진이라면 개인정보 보여주기-->
-                  <c:if test="${sessionMemberLv == 3}">
-                       <div class="col-lg-3">
-                          <br>
-                          <div>▶ 이름 : ${manager.managerName}</div>
-                            <br>
-                          <div>▶ 아이디 : ${manager.managerId}</div>
-                            <br>
-                            <div>▶ 성별 : ${manager.managerGender}</div>
-                          <br>
-                          <div>▶ 출생년도 : ${manager.managerBirth}</div>
-                       </div>
-                       <div class="col-lg-4">
-                          <br>
-                          <div>▶ 연락처 : ${manager.managerPhone}</div>
-                          <br>
-                          <div>▶ 주소 : ${manager.managerAddr1}</div>
-                            <br>
-                          <div>▶ 상세주소 : ${manager.managerAddr2}</div>
-                            <br>
-                          <div>▶ 이메일 : ${manager.managerEmail}</div>
-                       </div>
-                  </c:if>
-                    <!-- 운영진 개인정보 끝 -->   
-                                                        
-                   </div>
-                </div>
-         </div>
-          <br>
+              	<div class="card-header">
+              	 	<i class="fas fa-chart-area me-1"></i>
+               		<span>My information</span>
+              	</div>
+              	 <div class="card-body">
+              	   <div class="btn btn-group float-end">
+	                  <a class="btn btn-dark btn-sm" role="button" href="${pageContext.request.contextPath}/member/modifyMember">수정하기</a>
+	                  <a class="btn btn-secondary btn-sm" role="button" id="removeMemberBtn" href="${pageContext.request.contextPath}/member/removceMember?memberId=${memberId}">회원 탈퇴</a>
+	               </div>
+              	 <!-- 학생이라면 개인정보 보여주기-->
+                  	<c:if test="${sessionMemberLv == 1}"> 
+                       	<table>
+                       		<tr>
+		                       	<td width="450px;" height="80px;" style="padding-left: 25px;">
+		                       	<!-- 이름 -->
+			                       	<span class="text-muted">❣ NAME</span>
+									<br>
+									- ${student.studentName}
+									<c:if test="${student.studentGender eq '남자'}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z"/>
+										</svg>
+									</c:if>
+									<c:if test="${student.studentGender eq '여자'}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z"/>
+										</svg>
+									</c:if>
+		                       	</td>
+		                       <td width="450px;" height="80px;" style="padding-left: 25px;">
+		                       	<!-- 아이디 -->
+			                       	<span class="text-muted">⚙ ID</span>
+									<br>
+									- ${student.studentId}
+		                       	</td>
+	                       	</tr>
+	                        <tr>
+		                       	<td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 생년월일 -->
+			                       	<span class="text-muted">🍰 BRITH</span>
+									<br>
+									- ${student.studentBirth}
+		                       	</td>
+		                       <td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 연락처 -->
+			                       	<span class="text-muted">📞 PHONE</span>
+									<br>
+									- ${student.studentPhone}
+		                       	</td>
+	                       	</tr>
+	                       	<tr>
+		                      <td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 이메일 -->
+		                       	<span class="text-muted">✉ E-mail</span>
+								<br>
+								- ${student.studentEmail}
+		                       	</td>
+		                       	<td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 학력 -->
+		                       		<span class="text-muted">🏫 LEVEL</span>
+									<br>
+									- ${student.finalEducation}
+		                       	</td>
+	                       	</tr>
+	                       	<tr>
+		                       <td colspan="2"  height="80px;"style="padding-left: 25px;">
+		                       <!-- 주소 -->
+			                       	<span class="text-muted">🏡 ADDR</span>
+									<br>
+									- ${student.studentAddr1} ${student.studentAddr2}
+		                       	</td>
+	                       	</tr>
+                       	</table>
+                       	<br>
+                 		</c:if>
+                 <!-- 학생 개인정보 끝 -->
+                 <!-- 강사라면 개인정보 보여주기--> 	
+                 	<c:if test="${sessionMemberLv == 2}">
+                 	<table>
+                       		<tr>
+		                       	<td width="450px;" height="80px;" style="padding-left: 25px;">
+		                       	<!-- 이름 -->
+			                       	<span class="text-muted">❣ NAME</span>
+									<br>
+									- ${teacher.teacherName}
+									<c:if test="${teacher.teacherGender eq '남자'}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z"/>
+										</svg>
+									</c:if>
+									<c:if test="${teacher.teacherGender eq '여자'}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z"/>
+										</svg>
+									</c:if>
+		                       	</td>
+		                       <td width="450px;" height="80px;" style="padding-left: 25px;">
+		                       	<!-- 아이디 -->
+			                       	<span class="text-muted">⚙ ID</span>
+									<br>
+									- ${teacher.teacherId}
+		                       	</td>
+	                       	</tr>
+	                        <tr>
+		                       	<td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 생년월일 -->
+			                       	<span class="text-muted">🍰 BRITH</span>
+									<br>
+									- ${teacher.teacherBirth}
+		                       	</td>
+		                       <td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 연락처 -->
+			                       	<span class="text-muted">📞 PHONE</span>
+									<br>
+									- ${teacher.teacherPhone}
+		                       	</td>
+	                       	</tr>
+	                       	<tr>
+		                      <td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 이메일 -->
+		                       	<span class="text-muted">✉ E-mail</span>
+								<br>
+								- ${teacher.teacherEmail}
+		                       	</td>
+		                       	<td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 학력 -->
+		                       		<span class="text-muted">🏫 LEVEL</span>
+									<br>
+									- ${teacher.finalEducation}
+		                       	</td>
+	                       	</tr>
+	                       	<tr>
+		                       <td colspan="2"  height="80px;"style="padding-left: 25px;">
+		                       <!-- 주소 -->
+			                       	<span class="text-muted">🏡 ADDR</span>
+									<br>
+									- ${teacher.teacherAddr1} ${teacher.teacherAddr2}
+		                       	</td>
+	                       	</tr>
+                       	</table>
+                 	</c:if>
+                 <!-- 강사 개인정보 끝 -->	 
+                  <!-- 운영자라면 개인정보 보여주기--> 	
+                 	<c:if test="${sessionMemberLv == 3}">
+                 	<table>
+                       		<tr>
+		                       	<td width="450px;" height="80px;" style="padding-left: 25px;">
+		                       	<!-- 이름 -->
+			                       	<span class="text-muted">❣ NAME</span>
+									<br>
+									- ${manager.managerName}
+									<c:if test="${manager.managerGender eq '남자'}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z"/>
+										</svg>
+									</c:if>
+									<c:if test="${manager.managerGender eq '여자'}">
+										<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gender-female" viewBox="0 0 16 16">
+										  <path fill-rule="evenodd" d="M8 1a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM3 5a5 5 0 1 1 5.5 4.975V12h2a.5.5 0 0 1 0 1h-2v2.5a.5.5 0 0 1-1 0V13h-2a.5.5 0 0 1 0-1h2V9.975A5 5 0 0 1 3 5z"/>
+										</svg>
+									</c:if>
+		                       	</td>
+		                       <td width="450px;" height="80px;" style="padding-left: 25px;">
+		                       	<!-- 아이디 -->
+			                       	<span class="text-muted">⚙ ID</span>
+									<br>
+									- ${manager.managerId}
+		                       	</td>
+	                       	</tr>
+	                        <tr>
+		                       	<td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 생년월일 -->
+			                       	<span class="text-muted">🍰 BRITH</span>
+									<br>
+									- ${manager.managerBirth}
+		                       	</td>
+		                       <td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 연락처 -->
+			                       	<span class="text-muted">📞 PHONE</span>
+									<br>
+									- ${manager.managerPhone}
+		                       	</td>
+	                       	</tr>
+	                       	<tr>
+		                      <td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 이메일 -->
+		                       	<span class="text-muted">✉ E-mail</span>
+								<br>
+								- ${manager.managerEmail}
+		                       	</td>
+		                       	<td width="450px;" height="80px;"style="padding-left: 25px;">
+		                       	<!-- 학력 -->
+									<span class="text-muted">🏡 ADDR</span>
+									<br>
+									- ${manager.managerAddr1} ${manager.managerAddr2}
+		                       	</td>
+	                       	</tr>
+                       	</table>
+                 	</c:if>
+                 <!-- 운영자 개인정보 끝 -->	
+              	 </div>
+           	</div>
+         </div>     
+        </div>
             <!-- 운영진 제외 보여질 뷰 -->
             <c:if test="${sessionMemberLv != 3}">
             <div class="row">
                <!-- 수강목록 -->
-              <div class="col-lg-6">
+              <div class="col-lg-7">
                   <div class="card mb-4">
                       <div class="card-header">
                           <i class="fas fa-chart-area me-1"></i>
                           <c:choose>
                              <c:when test="${sessionMemberLv == 1}">
-                        수강 목록
+                      		  수강 목록
                              </c:when>
                              <c:when test="${sessionMemberLv == 2}">
                                 강좌 목록
                              </c:when>
                           </c:choose>
                       </div>
-                   <table class="table table-hover">
-                      <thead>
-                         <tr>
-                            <th class="text-center">강좌</th>
-                            <th class="text-center">개강 날짜</th>
-                            <th class="text-center">종강 날짜</th>
-                            <th></th>
-                            <th class="text-center">승인 상태</th>
-                         </tr>
-                      </thead>
-                      <tbody>
-                      <c:choose>
-                         <c:when test="${sessionMemberLv == 2}">
-                            <c:choose>
-                             <c:when test="${fn:length(lecTimeList) > 0}">
-                                <c:forEach var="l" items="${lecTimeList}">
-                                   <tr>
-                                      <td class="text-center"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${l.lectureName}">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->                      
-                                      <td class="text-center">${l.beginClass}</td>
-                                      <td class="text-center">${l.endClass}</td>
-                                      
-                                      <!-- 수강상태 분기 -->
-                                      <c:choose>
-                                         <c:when test="${l.checkLec == 0}">
-                                            <td class="text-center">수강 접수 중</td>
-                                         </c:when>
-                                         <c:when test="${l.checkLec == 1}">
-                                            <td class="text-center text-danger">수업 진행 중</td>
-                                         </c:when>
-                                         <c:when test="${l.checkLec == 2}">
-                                            <td class="text-center text-danger">종강</td>
-                                         </c:when>
-                                      </c:choose>
-                                      
-                                      <td class="text-center">${l.lecState}</td>
-                                   </tr>                          
-                                </c:forEach>
-                             </c:when>
-                             <c:otherwise>
-                                <td class="text-center text-danger" colspan="5">개설된 강좌가 없습니다.</td>
-                             </c:otherwise>
-                            </c:choose>
-                         </c:when>
-                         <c:when test="${sessionMemberLv == 1}">
-                          <c:choose>
-                             <c:when test="${fn:length(lecList) > 0}">
-                                <c:forEach var="l" items="${lecList}">
-                                   <tr>
-                                      <td class="text-center"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${l.lectureName}">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->                      
-                                      <td class="text-center">${l.subjectName}</td>
-                                      <td class="text-center">수강 중</td>
-                                      <td class="text-center">${l.createDate}</td>
-                                   </tr>
-                                </c:forEach>                             
-                             </c:when>
-                             <c:otherwise>
-                                <td class="text-center text-danger" colspan="4">수강중인 강의가 없습니다</td>
-                             </c:otherwise>
-                          </c:choose>
-                         </c:when>
-                      </c:choose>
-                      </tbody>
-                   </table>
+                      <div class="card-body">
+	                   <table class="table table-hover">
+	                      <thead>
+	                         <tr>
+	                            <th class="text-center">강좌</th>
+	                            <th class="text-center">개강 날짜</th>
+	                            <th class="text-center">종강 날짜</th>
+	                            <th></th>
+	                            <c:if test="${sessionMemberLv == 3}">
+	                            <th class="text-center">승인 상태</th>
+	                            </c:if>
+	                         </tr>
+	                      </thead>
+	                      <tbody>
+	                      <c:choose>
+	                         <c:when test="${sessionMemberLv == 2}">
+	                            <c:choose>
+	                             <c:when test="${fn:length(lecTimeList) > 0}">
+	                                <c:forEach var="l" items="${lecTimeList}">
+	                                   <tr>
+	                                      <td class="text-center"><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${l.lectureName}">${l.lectureName}</a></td><!-- 수강 상세보기로 이동 -->                      
+	                                      <td class="text-center">${l.beginClass}</td>
+	                                      <td class="text-center">${l.endClass}</td>
+	                                      
+	                                      <!-- 수강상태 분기 -->
+	                                      <c:choose>
+	                                         <c:when test="${l.checkLec == 0}">
+	                                            <td class="text-center">수강 접수 중</td>
+	                                         </c:when>
+	                                         <c:when test="${l.checkLec == 1}">
+	                                            <td class="text-center text-danger">수업 진행 중</td>
+	                                         </c:when>
+	                                         <c:when test="${l.checkLec == 2}">
+	                                            <td class="text-center text-danger">종강</td>
+	                                         </c:when>
+	                                      </c:choose>
+	                                      <td class="text-center">${l.lecState}</td>
+	                                   </tr>                          
+	                                </c:forEach>
+	                             </c:when>
+	                             <c:otherwise>
+	                                <td class="text-center text-danger" colspan="5">개설된 강좌가 없습니다.</td>
+	                             </c:otherwise>
+	                            </c:choose>
+	                         </c:when>
+	                         <c:when test="${sessionMemberLv == 1}">
+	                          <c:choose>
+	                             <c:when test="${fn:length(lecList) > 0}">
+	                                <c:forEach var="l" items="${lecList}">
+	                                   <tr>
+	                                      <td class="text-center">
+	                                      <a style="text-decoration:none;color:#000000;" href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${l.lectureName}">
+	                                      	<b>${l.lectureName}</b>
+	                                      </a></td><!-- 수강 상세보기로 이동 -->                      
+	                                      <td class="text-center">${l.subjectName}</td>
+	                                      <td class="text-center">수강 중</td>
+	                                      <td class="text-center">${l.createDate}</td>
+	                                   </tr>
+	                                </c:forEach>                             
+	                             </c:when>
+	                             <c:otherwise>
+	                                <td class="text-center text-danger" colspan="4">수강중인 강의가 없습니다</td>
+	                             </c:otherwise>
+	                          </c:choose>
+	                         </c:when>
+	                      </c:choose>
+	                      </tbody>
+	                   </table>
+	                   </div>
                 </div>
            </div>
            <!-- 수강목록끝 -->
                  
            <!-- 자격증 -->
-            <div class="col-lg-6">
+            <div class="col-lg-5">
                   <div class="card mb-4">
                       <div class="card-header" >
                           <i class="fas fa-chart-area me-1"></i>
-                     보유 자격증
-                     <div class="float-end">
-                     <a class="btn btn-dark btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/addCertification">등록</a>
-                     </div>
+	                     보유 자격증
+	                     <div class="float-end">
+	                     <a class="btn btn-dark btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/addCertification">등록</a>
+	                     </div>
                       </div>
-                    <table class="table table-hover">
-                      <thead>
-                         <tr>
-                            <th class="text-center">자격증명</th>
-                            <th class="text-center">주관처</th>
-                            <th class="text-center">취득일</th>
-                         </tr>
-                      </thead>
-                      <tbody>
-                      <!-- 자격증이 존재한다면 -->
-                      <c:if test="${fn:length(certificationList) > 0}">
-                       <c:forEach var="c" items="${certificationList}">
-                          <tr>
-                             <td class="text-center">${c.certificationName}</td>
-                             <td class="text-center">${c.certificationIssued}</td>
-                             <td class="text-center">${c.getDate}</td>
-                             <td>
-                             <div class="btn btn-group float-end">
-                                <a class="btn btn-outline-primary btn-sm"  role="button" href="${pageContext.request.contextPath}/certificate/modifyCertification?certificationNo=${c.certificationNo}">수정</a>
-                             <!-- 삭제버튼 -->
-                                <form method="post" action="${pageContext.request.contextPath}/certificate/deleteCertification" id="del">
-                                   <input type="hidden" value="${c.certificationNo}" name="certificationNo">
-                                   <input class="btn btn-outline-danger  btn-sm delBtn" value="삭제" type="submit"/>
-                                </form>
-                                </div>
-                             </td>
-                          </tr>
-                       </c:forEach>
-                      </c:if>
-                      <c:if test="${fn:length(certificationList) == 0}">
-                         <td class="text-center text-danger" colspan="3">습득한 자격증이 없습니다.</td>
-                      </c:if>
-                      </tbody>
-                   </table>
-            </div>
+                      <div class="card-body">
+	                    <table class="table table-hover">
+	                      <thead>
+	                         <tr>
+	                            <th class="text-center">자격증명</th>
+	                            <th class="text-center">주관처</th>
+	                            <th class="text-center">취득일</th>
+	                         </tr>
+	                      </thead>
+	                      <tbody>
+	                      <!-- 자격증이 존재한다면 -->
+	                      <c:if test="${fn:length(certificationList) > 0}">
+	                       <c:forEach var="c" items="${certificationList}">
+	                          <tr>
+	                             <td class="text-center">${c.certificationName}</td>
+	                             <td class="text-center">${c.certificationIssued}</td>
+	                             <td class="text-center">${c.getDate}</td>
+	                             <td>
+	                             <div class="btn-group float-end" style="margin: 0;">
+	                                <a class="btn btn-dark btn-sm" role="button" href="${pageContext.request.contextPath}/certificate/modifyCertification?certificationNo=${c.certificationNo}">수정</a>
+	                             <!-- 삭제버튼 -->
+	                                <form method="post" action="${pageContext.request.contextPath}/certificate/deleteCertification" id="del">
+	                                   <input type="hidden" value="${c.certificationNo}" name="certificationNo">
+	                                   <input class="btn btn-secondary btn-sm delBtn" value="삭제" type="submit"/>
+	                                </form>
+	                                </div>
+	                             </td>
+	                          </tr>
+	                       </c:forEach>
+	                      </c:if>
+	                      <c:if test="${fn:length(certificationList) == 0}">
+	                         <td class="text-center text-danger" colspan="3">습득한 자격증이 없습니다.</td>
+	                      </c:if>
+	                      </tbody>
+	                   </table>
+                   </div>
+            	</div>
              </div>
             <!-- 자격증 끝 -->
         </div>
