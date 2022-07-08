@@ -22,6 +22,7 @@ import Hanbit.co.kr.lms.service.LectureNoticeService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.HomeworkForm;
 import Hanbit.co.kr.lms.vo.HomeworkMake;
+import Hanbit.co.kr.lms.vo.HomeworkSubmission;
 import Hanbit.co.kr.lms.vo.LecPlan;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +33,38 @@ public class LecHomeworkController {
 	@Autowired LectureNoticeService lectureNoticeService;
 	@Autowired HttpSession session;
 	
+	// 강사가 한 학생의 과제를 상세보기
+	@GetMapping("lecHomework/submitOneEvaluate")
+	public String submitOneEvaluate(Model model
+									,@RequestParam(name="homeworkSubmissionNo")int homeworkSubmissionNo) {
+
+		// 파일리스트와 과제상세보기
+		HashMap<String, Object> map = lecHomeworkSerivce.studnetSubmitOne(homeworkSubmissionNo);
+		
+		model.addAttribute("homeworkSubmission",map.get("homeworkSubmission"));
+		model.addAttribute("homeworkFileNameList",map.get("homeworkFileNameList"));
+		return "lecHomework/submitOneEvaluate";
+	}
+	
+	// 강사가 학생이 낸 과제에 점수 주기
+	@PostMapping("lecHomework/submitOneEvaluate")
+	public String submitOneEvaluate(@RequestParam(name="homeworkMakeNo")int homeworkMakeNo
+									,@RequestParam(name="homeworkScore")int homeworkScore
+									,@RequestParam(name="homeworkSubmissionNo")int homeworkSubmissionNo) {
+		// vo
+		HomeworkSubmission homeworkSubmission = new HomeworkSubmission();
+		homeworkSubmission.setHomeworkScore(homeworkScore);
+		homeworkSubmission.setHomeworkSubmissionNo(homeworkSubmissionNo);
+		
+		// 디버깅
+		log.debug(CF.SWB+"[LecHomeworkController Post submitOneEvaluate homeworkMakeNo]"+CF.RESET+ homeworkMakeNo); // homeworkMakeNo 디버깅
+		log.debug(CF.SWB+"[LecHomeworkController Post submitOneEvaluate homeworkScore]"+CF.RESET+ homeworkScore); // homeworkScore 디버깅
+		log.debug(CF.SWB+"[LecHomeworkController Post submitOneEvaluate homeworkSubmissionNo]"+CF.RESET+ homeworkSubmissionNo); // homeworkSubmissionNo 디버깅
+		
+		// 컨트롤값을 service로
+		lecHomeworkSerivce.updateScore(homeworkSubmission);
+		return "redirect:/lecHomework/studentSubjectList?homeworkMakeNo="+homeworkMakeNo;
+	}
 	// 학생 과제 수정 액션
 	@PostMapping("lecHomework/modifySubmit")
 	public String modifySumbit(HomeworkForm homeworkForm
@@ -57,12 +90,12 @@ public class LecHomeworkController {
 		log.debug(CF.SWB+"[LecHomeworkController get modifySubmit homeworkSubmissionNo]"+CF.RESET+ homeworkSubmissionNo); // homeworkSubmissionNo 디버깅
 		log.debug(CF.SWB+"[LecHomeworkController get modifySubmit homeworkMakeTitle]"+CF.RESET+ homeworkMakeTitle); // homeworkMakeTitle 디버깅
 		
-		// 학생과제제출 파일 이름과 과제 제목과 내용 출력
-		HashMap<String, Object> map = lecHomeworkSerivce.selectSubmit(homeworkSubmissionNo);
-		log.debug(CF.SWB+"[LecHomeworkController get modifySubmit map]"+CF.RESET+ map); // map 디버깅
+		// 파일리스트와 과제상세보기
+		HashMap<String, Object> map = lecHomeworkSerivce.studnetSubmitOne(homeworkSubmissionNo);
 		
 		model.addAttribute("homeworkMakeTitle",homeworkMakeTitle);
-		model.addAttribute("map",map);
+		model.addAttribute("homeworkSubmission",map.get("homeworkSubmission"));
+		model.addAttribute("homeworkFileList",map.get("homeworkFileList"));
 		return "lecHomework/modifySubmit";
 	}
 	
@@ -192,7 +225,7 @@ public class LecHomeworkController {
 	}
 	
 	// 과제 상세보기
-	@GetMapping("lecHomework/lecHomeworkOne")
+	@GetMapping("lecHomework/studentSubjectList")
 	public String lecHomeworkOne(Model model
 			           			,@RequestParam(name="homeworkMakeNo")int homeworkMakeNo) {
 		
@@ -201,13 +234,23 @@ public class LecHomeworkController {
 		log.debug(CF.SWB+"[LecHomeworkController post addHomework submitList]"+CF.RESET+ map.get("submitList")); // submitList 디버깅
 		model.addAttribute("homeworkMake", map.get("homeworkMake")); 
 		
-		return "/lecHomework/lecHomeworkOne";
+		return "/lecHomework/studentSubjectList";
 	}
 	
 	// 과제제출 상세보기
 	@GetMapping("lecHomework/submitOne")
-	public String submitOne() {
+	public String submitOne(Model model
+							,@RequestParam(name="homeworkSubmissionNo")int homeworkSubmissionNo
+							,@RequestParam(name="homeworkMakeTitle")String homeworkMakeTitle) {
 		
-		return "redirect:/lecHomework/submitOne";
+		// 파일리스트와 과제상세보기
+		HashMap<String, Object> map = lecHomeworkSerivce.studnetSubmitOne(homeworkSubmissionNo);
+		
+		log.debug(CF.SWB+"[LecHomeworkController get submitOne homeworkFileList]"+CF.RESET+ map.get("homeworkFileList")); // homeworkFileList 디버깅
+		
+		model.addAttribute("homeworkMakeTitle",homeworkMakeTitle);
+		model.addAttribute("homeworkSubmission",map.get("homeworkSubmission"));
+		model.addAttribute("homeworkFileList",map.get("homeworkFileList"));
+		return "/lecHomework/submitOne";
 	}
 }

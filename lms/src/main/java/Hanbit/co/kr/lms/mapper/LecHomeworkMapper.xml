@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LecHomeworkMapper">
+	<update id="updateScore"
+			parameterType="Hanbit.co.kr.lms.vo.HomeworkSubmission">
+		UPDATE homework_submission SET
+			homework_score = #{homeworkScore}
+		WHERE homework_submission_no = #{homeworkSubmissionNo}
+	</update>
+	
+	<select id="selectSubmitFileList"
+			parameterType="int"
+			resultType="Hanbit.co.kr.lms.vo.HomeworkFile">
+		SELECT
+			homework_file_no homeworkFileNo
+			,homework_submission_no homeworkSubmissionNo
+			,homework_file_name homeworkFileName
+			,homework_file_original_name homerworkFileOriginalName
+		FROM homework_file 
+		WHERE homework_submission_no = #{homeworkSubmissionNo}
+	</select>
+	
+	<select id="selectSubmitOne"
+			parameterType="int"
+			resultType="Hanbit.co.kr.lms.vo.HomeworkSubmission">
+		SELECT
+			homework_submission_no homeworkSubmissionNo
+			,homework_make_no homeworkMakeNo
+			,student_id sutdentId
+			,homework_submission_title homeworkSubmissionTitle
+			,homework_submission_content homeworkSubmissionContent
+			,create_date createDate
+		FROM homework_submission
+		WHERE homework_submission_no = #{homeworkSubmissionNo}
+	</select>
+	
 	<select id="selectFileNameList"
 			parameterType="int"
 			resultType="Hanbit.co.kr.lms.vo.HomeworkFile">
@@ -22,19 +55,6 @@
 		WHERE homework_submission_no = #{homeworkSubmissionNo}
 	</delete>
 	
-	<select id="selectStudentSubmit"
-			parameterType="int"
-			resultType="java.util.Map">
-		SELECT
-			hs.homework_submission_no homeworkSubmissionNo
-			,hs.homework_submission_title homeworkSubmissionTitle
-			,hs.homework_submission_content homeworkSubmissionContent
-			,GROUP_CONCAT(hf.homework_file_original_name) homeworkFileList
-		FROM homework_submission hs left JOIN homework_file hf
-			ON hs.homework_submission_no = hf.homework_submission_no
-		WHERE hs.homework_submission_no = #{homeworkSubmissionNo}
-	</select>
-
 	<insert id="insertHomeworkFile"
 			parameterType="Hanbit.co.kr.lms.vo.HomeworkFile">
 		INSERT INTO homework_file
@@ -71,10 +91,10 @@
 		left JOIN homework_submission hs
 			ON hs.homework_make_no = hm.homework_make_no
 		WHERE r.student_id = #{studentId}
-		GROUP BY hm.homework_make_no
 		<if test="lectureName != null and lectureName != '-----------------------------강좌선택--------------------------'">
 			AND hm.lecture_name = #{lectureName}
 		</if>
+		GROUP BY hm.homework_make_no
 	</select>
 	<select id="lectureNameList"
 			parameterType="String"
@@ -89,7 +109,8 @@
 			parameterType="int"
 			resultType="Hanbit.co.kr.lms.vo.HomeworkMake">
 		SELECT 
-			lecture_name lectureName
+			homework_make_no homeworkMakeNo
+			,lecture_name lectureName
 			,homework_make_title homeworkMakeTitle
 			,homework_make_content homeworkMakeContent
 			,homework_deadline homeworkDeadline
@@ -104,6 +125,7 @@
 	        resultType="java.util.Map">
 	    SELECT 
 			hm.lecture_name lectureName
+			,hs.homework_submission_no homeworkSubmissionNo
 			,hs.student_id studnetId
 			,hs.homework_submission_title homeworkSubmissionTitle
 			,hs.homework_submission_content homeworkSubmissionContent

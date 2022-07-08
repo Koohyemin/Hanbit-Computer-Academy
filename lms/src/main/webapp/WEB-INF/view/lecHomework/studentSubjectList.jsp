@@ -88,7 +88,7 @@
 										</tr>
 										<tr>
 											<td>점수</td>
-											<td>${h.homeworkScore}<a class="btn btn-outline-primary btn-sm float-end" role="button" href="${pageContext.request.contextPath}/#">점수주기</a></td>
+											<td>${h.homeworkScore}<a class="btn btn-outline-primary btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/submitOneEvaluate?homeworkSubmissionNo=${h.homeworkSubmissionNo}&&homeworkMakeNo=${homeworkMake.homeworkMakeNo}">점수주기</a></td>
 										</tr>
 									</table>
 								</div>

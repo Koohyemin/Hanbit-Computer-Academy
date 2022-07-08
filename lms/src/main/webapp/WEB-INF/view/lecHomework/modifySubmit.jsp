@@ -78,7 +78,7 @@ $(document).ready(function(){ // html페이지를 다 로드시키고 매개변�
 					<tr>
 						<th class="text-center">등록자</th>
 						<td> 
-							<input name="homeworkSubmissionNo" type="hidden" value="${map.homeworkSubmissionNo}">
+							<input name="homeworkSubmissionNo" type="hidden" value="${homeworkSubmission.homeworkSubmissionNo}">
 							<input name="managerId" type="text" value="${sessionMemberId}" readonly="readonly" class="form-control">
 						</td>
 					</tr>
@@ -92,7 +92,7 @@ $(document).ready(function(){ // html페이지를 다 로드시키고 매개변�
 					<tr>
 						<th class="text-center">제목</th>
 						<td>
-							<input name="homeworkSubmissionTitle" id="title" type="text" class="form-control" value="${map.homeworkSubmissionTitle }"placeholder="제목을 입력해주세요">
+							<input name="homeworkSubmissionTitle" id="title" type="text" class="form-control" value="${homeworkSubmission.homeworkSubmissionTitle }"placeholder="제목을 입력해주세요">
 							<span class="text-danger" id="titleError"></span>
 						</td>
 					</tr>
@@ -100,10 +100,9 @@ $(document).ready(function(){ // html페이지를 다 로드시키고 매개변�
 						<th class="text-center">파일업로드</th>
 						<td>
 							<button type="button" id="addFileupload">파일업로드 추가</button>
-							<!-- 전 파일을 등록했다면 출력 -->
-							<c:if test="${map.homeworkFileList != null}">
-								<span> 등록된 파일 : ${map.homeworkFileList}</span>
-							</c:if>
+							<c:forEach var="f" items="${homeworkFileList}">
+								<div><a href="">${f.homerworkFileOriginalName}</a></div>
+							</c:forEach>
 							<div id="fileSection">
 							<!-- 파일업로드 input 태그가 추가될 영역 -->
 						</div>
@@ -112,7 +111,7 @@ $(document).ready(function(){ // html페이지를 다 로드시키고 매개변�
 					<tr>
 						<th class="text-center" style="vertical-align: middle">내용</th>
 						<td>
-							<textarea name="homeworkSubmissionContent" id="summernote">${map.homeworkSubmissionContent}</textarea>
+							<textarea name="homeworkSubmissionContent" id="summernote">${homeworkSubmission.homeworkSubmissionContent}</textarea>
 							<span class="text-danger" id="contentError"></span>
 						</td>
 					</tr>

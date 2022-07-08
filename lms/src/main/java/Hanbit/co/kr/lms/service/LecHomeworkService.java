@@ -30,6 +30,31 @@ import lombok.extern.slf4j.Slf4j;
 public class LecHomeworkService {
 	@Autowired LecHomeworkMapper lecHomeworkMapper;
 	
+	// 학생과제제출에 대한 점수 업데이트
+	public void updateScore(HomeworkSubmission homeworkSubmission) {
+		
+		lecHomeworkMapper.updateScore(homeworkSubmission);
+		return;
+	}
+	// 강사가 보는 학생 과제리스트
+	public HashMap<String, Object> studnetSubmitOne(int homeworkSubmissionNo){
+		HashMap<String, Object> returnMap = new HashMap<>();
+		
+		// 파일과 과제상세보기
+		HomeworkSubmission homeworkSubmission = lecHomeworkMapper.selectSubmitOne(homeworkSubmissionNo);
+		List<HomeworkFile> homeworkFileNameList = lecHomeworkMapper.selectFileNameList(homeworkSubmissionNo);
+		List<HomeworkFile> homeworkFileList = lecHomeworkMapper.selectSubmitFileList(homeworkSubmissionNo);
+		
+		log.debug(CF.SWB+"[LecHomeworkService  studnetSubmitOne homeworkSubmission]"+CF.RESET+ homeworkSubmission); // homeworkSubmission 디버깅
+		log.debug(CF.SWB+"[LecHomeworkService  studnetSubmitOne homeworkFileNameList]"+CF.RESET+ homeworkFileNameList); // homeworkFileNameList 디버깅
+		log.debug(CF.SWB+"[LecHomeworkService  studnetSubmitOne homeworkFileList]"+CF.RESET+ homeworkFileList); // homeworkFileList 디버깅
+		
+		returnMap.put("homeworkSubmission", homeworkSubmission);
+		returnMap.put("homeworkFileNameList", homeworkFileNameList);
+		returnMap.put("homeworkFileList", homeworkFileList);
+		return returnMap;
+	}
+	
 	// 학생 과제업데이트
 	public void updateSubmit(HomeworkForm homeworkForm,String path,int homeworkSubmissionNo) {
 		
@@ -38,10 +63,11 @@ public class LecHomeworkService {
 		homeworkSubmission.setHomeworkSubmissionTitle(homeworkForm.getHomeworkSubmissionTitle());
 		homeworkSubmission.setHomeworkSubmissionContent(homeworkForm.getHomeworkSubmissionContent());
 		homeworkSubmission.setHomeworkSubmissionNo(homeworkSubmissionNo);
+		
 		// 과제 게시글 업데이트
 		int row = lecHomeworkMapper.updateSubmit(homeworkSubmission);
-		log.debug(CF.SWB+"[insertSubmitStudent  insertSubmitStudent row]"+CF.RESET+ row); // map 디버깅
-		log.debug(CF.SWB+"[insertSubmitStudent  insertSubmitStudent homeworkForm]"+CF.RESET+ homeworkForm);
+		log.debug(CF.SWB+"[LecHomeworkService  insertSubmitStudent row]"+CF.RESET+ row); // map 디버깅
+		log.debug(CF.SWB+"[LecHomeworkService  insertSubmitStudent homeworkForm]"+CF.RESET+ homeworkForm);
 		// 과제 파일 업로드 부분 
 		if(homeworkForm.getHomeworkFileList() != null  && row ==1)  {
 			for(MultipartFile mf : homeworkForm.getHomeworkFileList()) {
@@ -89,9 +115,9 @@ public class LecHomeworkService {
 	}
 	
 	// 학생 제출한 과제리스트
-	public HashMap<String, Object> selectSubmit(int homeworksubmissionNo){
-		return lecHomeworkMapper.selectStudentSubmit(homeworksubmissionNo);
-	}
+	//public HashMap<String, Object> selectSubmit(int homeworksubmissionNo){
+	//	return lecHomeworkMapper.selectStudentSubmit(homeworksubmissionNo);
+	//}
 	// 학생 과제제출 
 	public void insertSubmitStudent(HomeworkForm homeworkForm, String path,String studentId) {
 		log.debug(CF.SWB+"[insertSubmitStudent  insertSubmitStudent homeworkSubmission]"+CF.RESET+ homeworkForm); // homeworkSubmission 디버깅

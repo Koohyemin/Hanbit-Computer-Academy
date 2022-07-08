@@ -26,7 +26,7 @@
                 <br>
 	                <div class="card mb-4">
 	                    <div class="card-header">
-	                        <span style="font-size:20px;"><i class="fas fa-chart-area me-1"></i>
+	                        <i class="fas fa-chart-area me-1"></i>
 	                        LectureHomework
 	                        <c:if test="${sessionMemberLv == 2}">
 				                <div class="btn btn-group float-end">
@@ -53,79 +53,121 @@
 							<button type="submit" class="btn btn-dark">강의조회</button>					   
 							</div>					             	
 				        </form>
-						<table class="table">
-				            <thead>
-				                <tr>
-						            <th>강의</th>
-						            <th>제목	</th>
-									<th>내용</th>
-									<th>마감일</th>
-									<th>점수</th>
-					           		<th>과제 등록일</th>
-					           		<c:if test="${sessionMemberLv==2}">
-						           		<th>과제제출인원</th>
-					           		</c:if>
-				                </tr>
-				            </thead>
-							<tbody>
-								<c:if test="${sessionMemberLv == 2}">
-									<c:if test="${fn:length(homeworkMake) == 0}">
-									 	<td class="text-center text-danger" colspan="5">등록된 과제가 없습니다.</td>
-									</c:if>
-									<c:if test="${fn:length(homeworkMake) != 0}">
-										<c:forEach var="h" items="${homeworkMake}">
-											<tr>
-											   <td>${h.lectureName}</td>
-												<td>${h.homeworkMakeTitle}</td>
-												<td>${h.homeworkMakeContent}</td>
-												<td>${h.homeworkDeadline}</td>
-												<td>${h.createDate}</td>
-												<td>${h.cnt}/${h.registrationNumber}</td>
-												<td>
-													<a  href="${pageContext.request.contextPath}/lecHomework/lecHomeworkOne?homeworkMakeNo=${h.homeworkMakeNo}">수정 및 학생과제 평가</a>
-												</td>
-											</tr>
-										</c:forEach>
-									</c:if>
-								</c:if>
-								<c:if test="${sessionMemberLv == 1}">
-									<c:if test="${fn:length(studnetHomeworkMake) == 0}">
-									 	<td class="text-center text-danger" colspan="5">등록된 과제가 없습니다.</td>
-									</c:if>
-									<c:if test="${fn:length(studnetHomeworkMake) != 0}">
-										<c:forEach var="s" items="${studnetHomeworkMake}">
-											<tr>
-											   <td>${s.lectureName}</td>
-												<td>${s.homeworkMakeTitle}</td>
-												<td>${s.homeworkMakeContent}</td>
-												<td>${s.homeworkDeadline}</td>
-												<td>${s.homeworkScore}</td>
-												<td>${s.createDate}</td>
-												<td>
-													<c:choose>
-														<c:when test="${s.checkDeadLine == 0}">
-															<span class="text-danger">마감</span>
-														</c:when>
-														<c:when test="${s.checkDeadLine == 1}">
-															<c:if test="${s.homeworkSubmissionNo == 0}">
-																<a href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">과제 제출</a>
-															</c:if>
-															<c:if test="${s.homeworkSubmissionNo != 0}">
-																<a href="${pageContext.request.contextPath}/lecHomework/modifySubmit?homeworkSubmissionNo=${s.homeworkSubmissionNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">수정</a>
-															</c:if>
-														</c:when>
-													</c:choose>
-												</td>
-											</tr>
-										</c:forEach>
-									</c:if>
-								</c:if>
-							</tbody>
-						</table>
+			        </div>
+				</div>
+			<!-- 강사용 -->
+			<c:if test="${sessionMemberLv == 2}">
+				<c:if test="${fn:length(homeworkMake) != 0}">
+					<div class="row">
+					<c:forEach var="h" items="${homeworkMake}">
+					<div class="col-lg-6">
+						<div class="card mb-4">
+							<div class="card-header">
+								과제
+								<a class="btn btn-outline-danger btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/lecHomeworkOne?homeworkMakeNo=${h.homeworkMakeNo}">삭제하기</a>
+								<a class="btn btn-outline-primary btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/lecHomeworkOne?homeworkMakeNo=${h.homeworkMakeNo}">수정하기</a>
+							</div>
+							<table class="table table-bordered">
+								<tr>
+									<th class="text-center">강의</th>
+									<td>${h.lectureName}</td>
+								</tr>
+								<tr>
+									<th class="text-center">제목	</th>
+									<td>${h.homeworkMakeTitle}</td>
+								</tr>
+								<tr>
+									<th class="text-center">내용</th>
+									<td>${h.homeworkMakeContent}</td>
+								</tr>
+								<tr>
+									<th class="text-center">마감일</th>
+									<td>${h.homeworkDeadline}</td>
+								</tr>
+								<tr>
+									<th class="text-center">과제 등록일</th>
+									<td>${h.createDate}</td>
+								</tr>
+								<tr>
+									<th class="text-center">제출 인원</th>
+									<td>${h.cnt}/${h.registrationNumber}</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="text-center"><a class="btn btn-outline-dark btn-sm" role="button" href="${pageContext.request.contextPath}/lecHomework/studentSubjectList?homeworkMakeNo=${h.homeworkMakeNo}">평가하기</a></td>
+								</tr>
+							</table>
+						</div>
 					</div>
-               	</div>
-               	</div>     
-               	</div>
+					</c:forEach>
+					</div>
+				</c:if>
+			</c:if>
+			<!-- 학생용 -->
+			<c:if test="${sessionMemberLv == 1}">
+				<c:if test="${fn:length(studnetHomeworkMake) == 0}">
+				 	<td class="text-center text-danger" colspan="5">등록된 과제가 없습니다.</td>
+				</c:if>
+				<c:if test="${fn:length(studnetHomeworkMake) != 0}">
+					<div class="row">
+					<c:forEach var="s" items="${studnetHomeworkMake}">
+					<div class="col-lg-6">
+						<div class="card mb-4">
+							<div class="card-header">
+								과제
+							</div>
+							
+							<table class="table table-bordered">
+								<tr>
+									<th class="text-center">강의</th>
+									<td>${s.lectureName}</td>
+								</tr>
+								<tr>
+									<th class="text-center">제목	</th>
+									<td>${s.homeworkMakeTitle}</td>
+								</tr>
+								<tr>
+									<th class="text-center">내용</th>
+									<td>${s.homeworkMakeContent}</td>
+								</tr>
+								<tr>
+									<th class="text-center">과제 등록일</th>
+									<td>${s.createDate}</td>
+								</tr>
+								<tr>
+									<th class="text-center">마감일</th>
+									<td>${s.homeworkDeadline}</td>
+								</tr>
+								<tr>
+									<th class="text-center">점수</th>
+									<td>${s.homeworkScore}</td>
+								</tr>
+								<tr>
+									<c:choose>
+										<c:when test="${s.checkDeadLine == 0}">
+											<td class="text-center text-danger" colspan="2">과제 제출기간이 마감되었습니다.</td>
+										</c:when>
+										<c:when test="${s.checkDeadLine == 1}">
+											<c:if test="${s.homeworkSubmissionNo == 0}">
+												<td class="text-center" colspan="2">
+													<a href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">과제 제출</a>
+												</td>
+											</c:if>
+											<c:if test="${s.homeworkSubmissionNo != 0}">
+												<td class="text-center" colspan="2">
+													<a href="${pageContext.request.contextPath}/lecHomework/submitOne?homeworkSubmissionNo=${s.homeworkSubmissionNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">상세보기</a>
+												</td>
+											</c:if>
+										</c:when>
+									</c:choose>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</c:forEach>
+				</div>
+				</c:if>
+			</c:if>
+			</div>
 			<div id="footer"></div>
 		</div>
 	</div>

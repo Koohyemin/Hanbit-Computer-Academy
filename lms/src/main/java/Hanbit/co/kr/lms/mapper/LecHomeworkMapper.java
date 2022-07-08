@@ -20,6 +20,9 @@ public interface LecHomeworkMapper {
 	int insertHomework(HomeworkMake homeworkMake); // 강사 과제등록
 	HomeworkMake selectHomeworkOne(int homeworkMakeNo); // 과제 하나 상세보기
 	List<HashMap<String, Object>> homeworkSubmitList(int homeworkMakeNo); // 한 과제의 학생들 과제제출 리스트
+	HomeworkSubmission selectSubmitOne(int homeworkSubmissionNo); // 한개의 과제제출
+	List<HomeworkFile> selectSubmitFileList(int homeworkSubmissionNo); // 한개의 과제제출에 여러개의 파일리스트
+	int updateScore(HomeworkSubmission hoemworkSubmission);
 	
 	// 학생의 수강리스트
 	List<Registration> lectureNameList(String studentId);
@@ -28,8 +31,9 @@ public interface LecHomeworkMapper {
 	List<HomeworkMake> studentHomeworkList(String studentId, String lectureName);
 	int insertSubmitStudent(HomeworkSubmission homeworkSubmission); // 과제제출
 	int insertHomeworkFile(HomeworkFile homeworkFile);
-	HashMap<String, Object> selectStudentSubmit(int homeworkSubmissionNo); // 학생이 낸 과제 제목,내용,파일이름 
+	// HashMap<String, Object> selectStudentSubmit(int homeworkSubmissionNo); // 학생이 낸 과제 제목,내용,파일이름 
 	int deleteSubmitFile(int homeworkSubmissionNo);
-	int updateSubmit(HomeworkSubmission homeworkSubmission);
-	List<HomeworkFile> selectFileNameList(int homeworkSubmissionNo);
+	int updateSubmit(HomeworkSubmission homeworkSubmission); // 학생 과제제출 업데이트
+	List<HomeworkFile> selectFileNameList(int homeworkSubmissionNo); // 파일 이름들 출력(삭제시 필요)
+	
 }
