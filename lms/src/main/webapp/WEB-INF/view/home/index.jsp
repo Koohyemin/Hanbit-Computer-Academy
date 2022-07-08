@@ -90,7 +90,7 @@
 			<div class="card mb-4">
             <div class="card-header">
                 <i class="fas fa-chart-area me-1"></i>
-                 문의사항
+                 문의 게시판
                  <a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage">바로가기</a>
              </div>            
                	<div class="card-body">              
