@@ -33,6 +33,12 @@
                Enquiry Board
                </div>
                <div class="card-body">
+                 <!-- 운영자는 입력버튼 안보여야함 -->
+               <c:if test="${sessionMemberLv != 3}">
+               <span class="float-end">
+                  <a href="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard" class="btn btn-dark">입력</a>
+                  </span>
+               </c:if>
                <table class="table">
                   <thead>
                      <tr>
@@ -52,17 +58,15 @@
                      </tr>
                   </c:forEach>
                   </tbody>
-                  <c:if test="${currentPage > 1}">
-                     <a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage-1}">이전</a>            
-                  </c:if>
-                  <c:if test="${currentPage < lastPage}">
-                     <a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage+1}">다음</a>         
-                  </c:if>
                </table>
-               <!-- 운영자는 입력버튼 안보여야함 -->
-               <c:if test="${sessionMemberLv != 3}">
-                  <a href="${pageContext.request.contextPath}/enquiryBoard/addEnquiryBoard" class="btn btn-dark">입력</a>
-               </c:if>
+                 <div class="text-center">
+                <c:if test="${currentPage > 1}">
+                   <a class="btn btn-dark" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage-1}">이전</a>            
+                </c:if>
+                <c:if test="${currentPage < lastPage}">
+                   <a class="btn btn-dark" href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardListByPage?currentPage=${currentPage+1}">다음</a>         
+                </c:if>
+                </div>
             </div>
          </div>
       </div>

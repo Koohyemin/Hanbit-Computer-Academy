@@ -41,6 +41,7 @@
 			            </div>
 		            </form>	            
 	            <c:forEach var="subject" items="${subjectList}">
+	            <form action="${pageContext.request.contextPath}/subject/removeSubject" method="post">
 	            	<table class="table">
 		            	<tr>
 	            			<td width="150px;">과목명</td><td><b>${subject.subjectName}</b></td>
@@ -52,6 +53,8 @@
 	            			<td width="150px;">생성 날짜</td><td>${subject.createDate}</td>
 						</tr>
 	            	</table>
+	            	<button class="btn btn-secondary float-end btn-group" type="submit">삭제</button>
+	             </form>
 	            	</c:forEach>
 	            </div>
             </div>

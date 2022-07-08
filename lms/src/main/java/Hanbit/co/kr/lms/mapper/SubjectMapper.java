@@ -15,4 +15,7 @@ public interface SubjectMapper {
 	
 	// 과목을 입력
 	int addSubject(String subjectName,String subjectSubscription);
+	
+	//과목삭제
+	int deleteSubject(String subjectName);
 }

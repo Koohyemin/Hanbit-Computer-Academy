@@ -21,5 +21,11 @@
 			, NOW()
 			, NOW());
 	</insert>
+	
+	<!-- 삭제 -->
+	<delete id="deleteSubject" parameterType="String">
+		DELETE FROM subject   
+		WHERE subject_name = #{subjectName}
+	</delete>
 
 </mapper>

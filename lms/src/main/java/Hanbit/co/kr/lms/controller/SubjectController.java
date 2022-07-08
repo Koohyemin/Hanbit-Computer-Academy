@@ -59,4 +59,25 @@ public class SubjectController {
 		}
 		return "redirect:/subject/getSubjectList";
 	}
+	
+	//과목삭제
+	@PostMapping("/subject/removeSubject")
+	public String deleteSubject(Model model
+			,@RequestParam(name="subjectName") String subjectName) {
+		
+		//디버깅
+		log.debug(CF.KHN+ "SubjectController PostMappting deleteSubject subjectName : "+ CF.RESET + subjectName);			
+		
+		//서비스 호출
+		int row = subjectService.deleteSubject(subjectName);
+		//삭제 성공 실패 디버깅
+		if(row ==1) {
+			log.debug(CF.KHN+ "SubjectController PostMappting 삭제성공 "+ CF.RESET );			
+		} else {
+			log.debug(CF.KHN+ "SubjectController PostMappting 삭제실패 "+ CF.RESET );			
+			
+		}
+		//삭제 완료되면 목록페이지로 이동
+		return "redirect:/subject/getSubjectList";
+	}
 }
