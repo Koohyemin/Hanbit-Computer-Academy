@@ -109,7 +109,7 @@
 		FROM lec_plan lp
 			INNER JOIN time_table tt
 			ON lp.lecture_name = tt.lecture_name
-		WHERE tt.begin_class <![CDATA[<=]]> NOW() AND tt.end_class <![CDATA[>=]]> NOW() AND lp.lec_state = 'T' AND lp.teacher_id=#{teacherId}
+		WHERE tt.begin_class <![CDATA[<=]]> NOW() AND tt.end_class <![CDATA[>=]]> NOW() AND lp.lec_state = 'T' AND lp.teacher_id = #{teacherId}
 		GROUP BY lp.lecture_name
 	</select>
 	

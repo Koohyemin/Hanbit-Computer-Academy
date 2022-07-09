@@ -29,6 +29,30 @@ public class LecQnaController {
 	@Autowired LecQnaService lecQnaService;
 	@Autowired HttpSession session;
 	
+	/*
+	// 강의 답변 삭제
+	@PostMapping("/lecQna/deleteAnswer")
+	public String deleteOneAnswer(int lecAnswerNo) {
+		
+		int deleteAnswer = lecQnaService.deleteAnswer(lecAnswerNo);
+		
+		// return "redirect:/lecQna/";
+	}
+	
+	// 강의 답변 수정 POST
+	@PostMapping("/lecQna/updateAnswer")
+	public String updateLecAnswer(LecAnswer lecAnswer) {
+		
+	}
+	
+	// 강의 답변 수정 GET
+	@GetMapping("/lecQna/updateAnswer")
+	public String updateLecAnswer(int lecAnswerNo) {
+		
+		
+	}
+	*/
+	
 	// 강의 답변 입력
 	@PostMapping("/lecQna/addAnswer")
 	public String insertAnswer(LecAnswer lecAnswer) {

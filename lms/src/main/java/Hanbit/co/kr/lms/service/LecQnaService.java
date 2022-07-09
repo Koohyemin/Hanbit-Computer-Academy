@@ -61,7 +61,7 @@ public class LecQnaService {
 	}
 	
 	// 강의실 답변수정 Post
-	public int updateAnswer(LecAnswer lecAnswer) {
+	public int updateLecAnswer(LecAnswer lecAnswer) {
 		return lecQnaMapper.updateAnswer(lecAnswer);
 	}
 	
@@ -110,7 +110,13 @@ public class LecQnaService {
 		// 현재페이지를 이욯하여 시작페이지 계산
 		int beginRow = (currentPage-1) * rowPerPage;
 		
-		List<String> lectureList = lecQnaMapper.lectureList((String)session.getAttribute("sessionMemberId")); // 수강 강의 목록
+		List<String> lectureList = null;
+		
+		if((int)session.getAttribute("sessionMemberLv") == 1) {
+			lectureList = lecQnaMapper.lectureList((String)session.getAttribute("sessionMemberId")); // 학생 수강 강의 목록			
+		} else if((int)session.getAttribute("sessionMemberLv") == 2) {
+			lectureList = lecQnaMapper.teacherLectureList((String)session.getAttribute("sessionMemberId")); // 강사 수강 강의 목록
+		}
 
 		// 수강강의가 1개이상 있고 선택한 lectureName이 없다면 수강과목 중 첫번째 값을 lectureName기본값으로 설정
 		if(lectureList.size() > 0 && (lectureName == null || "".equals(lectureName))) { 
