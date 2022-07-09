@@ -32,9 +32,9 @@ public interface LecHomeworkMapper {
 	int insertSubmitStudent(HomeworkSubmission homeworkSubmission); // 과제제출
 	int insertHomeworkFile(HomeworkFile homeworkFile);
 	// HashMap<String, Object> selectStudentSubmit(int homeworkSubmissionNo); // 학생이 낸 과제 제목,내용,파일이름 
-	int deleteSubmitFile(int homeworkSubmissionNo);
+	int deleteSubmitFile(int homeworkSubmissionNo); // 학생이 낸 과제파일 전체삭제
 	int updateSubmit(HomeworkSubmission homeworkSubmission); // 학생 과제제출 업데이트
 	List<HomeworkFile> selectFileNameList(int homeworkSubmissionNo); // 파일 이름들 출력(삭제시 필요)
-	int deleteFileOne(int HomeworkFileNo);
-	
+	int deleteFileOne(int HomeworkFileNo); // 학생이 낸 과제파일 하나만 삭제
+	int deleteSubmit(int homeworkSubmissionNo); // 학생이 낸 과제를 삭제
 }

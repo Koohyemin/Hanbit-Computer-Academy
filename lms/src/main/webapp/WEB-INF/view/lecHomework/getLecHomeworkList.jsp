@@ -89,11 +89,7 @@
 									<td>${h.createDate}</td>
 								</tr>
 								<tr>
-									<th class="text-center">제출 인원</th>
-									<td>${h.cnt}/${h.registrationNumber}</td>
-								</tr>
-								<tr>
-									<td colspan="2" class="text-center"><a class="btn btn-outline-dark btn-sm" role="button" href="${pageContext.request.contextPath}/lecHomework/studentSubjectList?homeworkMakeNo=${h.homeworkMakeNo}">평가하기</a></td>
+									<td colspan="2" class="text-center"><a class="btn btn-outline-dark btn-sm" role="button" href="${pageContext.request.contextPath}/lecHomework/studentSubmitList?homeworkMakeNo=${h.homeworkMakeNo}">평가하기</a></td>
 								</tr>
 							</table>
 						</div>
@@ -149,12 +145,12 @@
 										<c:when test="${s.checkDeadLine == 1}">
 											<c:if test="${s.homeworkSubmissionNo == 0}">
 												<td class="text-center" colspan="2">
-													<a href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">과제 제출</a>
+													<a class="text-dark" href="${pageContext.request.contextPath}/lecHomework/addSubmit?homeworkMakeNo=${s.homeworkMakeNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}"><b>과제 제출</b></a>
 												</td>
 											</c:if>
 											<c:if test="${s.homeworkSubmissionNo != 0}">
 												<td class="text-center" colspan="2">
-													<a href="${pageContext.request.contextPath}/lecHomework/submitOne?homeworkSubmissionNo=${s.homeworkSubmissionNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}">상세보기</a>
+													<a class="text-dark" href="${pageContext.request.contextPath}/lecHomework/submitOne?homeworkSubmissionNo=${s.homeworkSubmissionNo}&&homeworkMakeTitle=${s.homeworkMakeTitle}"><b>제출한 과제 상세보기</b></a>
 												</td>
 											</c:if>
 										</c:when>

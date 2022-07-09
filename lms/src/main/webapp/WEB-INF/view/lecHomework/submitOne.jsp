@@ -12,7 +12,7 @@
 <meta property="og:title" content="한빛컴퓨터아카데미LMS">
 <meta property="og:url" content="lms/login">
 <meta property="og:image" content="${pageContext.request.contextPath}/img/previewer.png">
-<title>addSubmit</title>
+<title>submitOne</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="../css/styles.css" rel="stylesheet" />
@@ -36,17 +36,22 @@
         	<div class="card mb-4">
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
-	                Homework Submission
+	                Student Homework Submission ONe
+	                <c:choose>
+	                	<c:when test="${sessionMemberLv == 1 }">
+							<a href="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList" class="btn btn-dark" style="float:right">이전으로</a>
+	                	</c:when>
+	                	<c:when test="${sessionMemberLv == 2}">
+	                		<a href="${pageContext.request.contextPath}/lecHomework/studentSubmitList?homeworkMakeNo=${homeworkSubmission.homeworkMakeNo}" class="btn btn-dark" style="float:right">이전으로</a>
+	                	</c:when>
+	                </c:choose>
 	            </div>
-            </div>
-			<a href="${pageContext.request.contextPath}/lecHomework/addSubmit" class="btn btn-dark" style="float:right">이전으로</a>
-			<br><br>
 			<table class="table">
 				<tr>
 					<th class="text-center">등록자</th>
 					<td>
 						<input name="homeworkMakeNo" type="hidden" value="${homeworkSubmission.homeworkMakeNo}">
-						<input name="managerId" type="text" value="${sessionMemberId}" readonly="readonly" class="form-control">
+						<input name="managerId" type="text" value="${homeworkSubmission.studentId}" readonly="readonly" class="form-control">
 					</td>
 				</tr>
 				<tr>
@@ -81,12 +86,28 @@
 				<tr>
 					<th class="text-center" style="vertical-align: middle">내용</th>
 					<td>
-						<textarea readonly="readonly" disabled name="homeworkSubmissionContent" cols="180" rows="10" >${homeworkSubmission.homeworkSubmissionContent}</textarea>
+						<textarea readonly="readonly" disabled name="homeworkSubmissionContent" cols="150" rows="10" >${homeworkSubmission.homeworkSubmissionContent}</textarea>
 						<span class="text-danger" id="contentError"></span>
 					</td>
 				</tr>
 			</table>
-			<a class="btn btn-dark" style="float:right" href="${pageContext.request.contextPath}/lecHomework/modifySubmit?homeworkSubmissionNo=${homeworkSubmission.homeworkSubmissionNo}&&homeworkMakeTitle=${homeworkMakeTitle}">수정</a>
+			</div>
+			
+			<!-- 학생이라면 수정버튼과 삭제버튼 보이게 -->
+			<c:if test="${sessionMemberLv == 1}">
+				<a class="btn btn-secondary" style="float:right" id="delBtn" href="${pageContext.request.contextPath}/lecHomework/removeSubmit?homeworkSubmissionNo=${homeworkSubmission.homeworkSubmissionNo}">삭제</a>
+				<a class="btn btn-dark" style="float:right"  href="${pageContext.request.contextPath}/lecHomework/modifySubmit?homeworkSubmissionNo=${homeworkSubmission.homeworkSubmissionNo}&&homeworkMakeTitle=${homeworkMakeTitle}">수정</a>
+			</c:if>
+			
+			<!-- 강사라면 점수주기 버튼이 보이게 -->
+			<c:if test="${sessionMemberLv == 2}">
+				 <form method="post" action="${pageContext.request.contextPath}/lecHomework/submitOneEvaluate">
+                	<input type="hidden" name="homeworkSubmissionNo" value="${homeworkSubmission.homeworkSubmissionNo}">
+                	<input type="hidden" name="homeworkMakeNo" value="${homeworkSubmission.homeworkMakeNo}">
+                	<button class="btn btn-secondary btn-sm" style="float:right" type="submit">점수 입력</button>
+                	<input style="float:right" type="number" name="homeworkScore" value="${homeworkSubmission.homeworkScore}" max="100" min="0">
+               	</form>
+			</c:if>
 		</div>
 	<div id="footer"></div>
    	</div>
@@ -94,6 +115,15 @@
 </body>
 	<script>
 	// html 태그 형성 이후 실행
+    // 삭제이벤트
+    $("#delBtn").click(function(){
+    	if(confirm('해당 과제를 삭제 하시겠습니까?')) {
+    		
+    	} else {
+    		return false;
+    	}
+    });
+	
 	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');

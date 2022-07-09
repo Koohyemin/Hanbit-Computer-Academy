@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LecHomeworkMapper">
+	<delete id="deleteSubmit"
+			parameterType="int">
+		DELETE FROM homework_submission
+		WHERE homework_submission_no = #{homeworkSubmissionNo}
+	</delete>
+	
 	<delete id="deleteFileOne"
 			parameterType="int">
 		DELETE FROM homework_file 
@@ -31,9 +37,10 @@
 		SELECT
 			homework_submission_no homeworkSubmissionNo
 			,homework_make_no homeworkMakeNo
-			,student_id sutdentId
+			,student_id studentId
 			,homework_submission_title homeworkSubmissionTitle
 			,homework_submission_content homeworkSubmissionContent
+			,homework_score homeworkScore
 			,create_date createDate
 		FROM homework_submission
 		WHERE homework_submission_no = #{homeworkSubmissionNo}
@@ -142,7 +149,7 @@
 			ON hs.homework_make_no = hm.homework_make_no
 		INNER JOIN student s
 			ON hs.student_id = s.student_id
-		WHERE hm.homework_make_no = #{homeworkMakeNo}   
+		WHERE hm.homework_make_no = #{homeworkMakeNo}
 	</select>
 	<select id="homeworkList"
 			parameterType="Hanbit.co.kr.lms.vo.LecPlan"

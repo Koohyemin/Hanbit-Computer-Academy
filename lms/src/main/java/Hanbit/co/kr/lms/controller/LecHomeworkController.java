@@ -33,17 +33,17 @@ public class LecHomeworkController {
 	@Autowired LectureNoticeService lectureNoticeService;
 	@Autowired HttpSession session;
 	
-	// 강사가 한 학생의 과제를 상세보기
-	@GetMapping("lecHomework/submitOneEvaluate")
-	public String submitOneEvaluate(Model model
-									,@RequestParam(name="homeworkSubmissionNo")int homeworkSubmissionNo) {
-
-		// 파일리스트와 과제상세보기
-		HashMap<String, Object> map = lecHomeworkSerivce.studnetSubmitOne(homeworkSubmissionNo);
+	// 학생이 과제를 삭제(파일삭제도 같이)
+	@GetMapping("lecHomework/removeSubmit")
+	public String removeSubmit(HttpServletRequest request
+							,@RequestParam(name="homeworkSubmissionNo")int homeworkSubmissionNo) {
+			
+		// 과제파일이 있는 경로 설정 
+		String path = request.getServletContext().getRealPath("/upload/");
 		
-		model.addAttribute("homeworkSubmission",map.get("homeworkSubmission"));
-		model.addAttribute("homeworkFileNameList",map.get("homeworkFileNameList"));
-		return "lecHomework/submitOneEvaluate";
+		lecHomeworkSerivce.deleteSubmit(homeworkSubmissionNo, path);
+		
+		return "redirect:/lecHomework/getLecHomeworkList";
 	}
 	
 	// 강사가 학생이 낸 과제에 점수 주기
@@ -63,8 +63,10 @@ public class LecHomeworkController {
 		
 		// 컨트롤값을 service로
 		lecHomeworkSerivce.updateScore(homeworkSubmission);
-		return "redirect:/lecHomework/studentSubjectList?homeworkMakeNo="+homeworkMakeNo;
+		
+		return "redirect:/lecHomework/studentSubmitList?homeworkMakeNo="+homeworkMakeNo;
 	}
+	
 	// 학생 과제 수정 액션
 	@PostMapping("lecHomework/modifySubmit")
 	public String modifySumbit(HomeworkForm homeworkForm
@@ -81,6 +83,7 @@ public class LecHomeworkController {
 		lecHomeworkSerivce.updateSubmit(homeworkForm,path,homeworkSubmissionNo);
 		return "redirect:/lecHomework/getLecHomeworkList";
 	}
+	
 	// 학생 과제수정 폼
 	@GetMapping("lecHomework/modifySubmit")
 	public String modifySubmit(Model model
@@ -225,7 +228,7 @@ public class LecHomeworkController {
 	}
 	
 	// 과제 상세보기
-	@GetMapping("lecHomework/studentSubjectList")
+	@GetMapping("lecHomework/studentSubmitList")
 	public String lecHomeworkOne(Model model
 			           			,@RequestParam(name="homeworkMakeNo")int homeworkMakeNo) {
 		
@@ -234,7 +237,7 @@ public class LecHomeworkController {
 		log.debug(CF.SWB+"[LecHomeworkController post addHomework submitList]"+CF.RESET+ map.get("submitList")); // submitList 디버깅
 		model.addAttribute("homeworkMake", map.get("homeworkMake")); 
 		
-		return "/lecHomework/studentSubjectList";
+		return "/lecHomework/studentSubmitList";
 	}
 	
 	// 과제제출 상세보기

@@ -30,6 +30,28 @@ import lombok.extern.slf4j.Slf4j;
 public class LecHomeworkService {
 	@Autowired LecHomeworkMapper lecHomeworkMapper;
 	
+	// 학생이 과제에대한 삭제
+	public void deleteSubmit(int homeworkSubmissionNo, String path) {
+		
+		// upload폴더에 있는 과제파일 삭제
+		List<HomeworkFile> homeworkList = lecHomeworkMapper.selectFileNameList(homeworkSubmissionNo);
+		log.debug(CF.SWB+"[insertSubmitStudent  updateSubmit homeworkList]"+CF.RESET+ homeworkList); // homeworkFile 디버깅
+		for(int i=0; i<homeworkList.size(); i++) {
+			File f = new File(path+homeworkList.get(i).getHomeworkFileName());
+			if(f.exists()) {
+					f.delete();
+				}
+		}
+		
+		// DB에서 과제파일에 관한 데이터 삭제
+		lecHomeworkMapper.deleteSubmitFile(homeworkSubmissionNo);
+		
+		// DB에서 과제 삭제
+		lecHomeworkMapper.deleteSubmit(homeworkSubmissionNo);
+		
+		return;
+	}
+	
 	// 학생이 파일하나만 삭제
 	public String deleteFileOne(int homeworkFileNo) {
 		
@@ -83,6 +105,7 @@ public class LecHomeworkService {
 		int row = lecHomeworkMapper.updateSubmit(homeworkSubmission);
 		log.debug(CF.SWB+"[LecHomeworkService  insertSubmitStudent row]"+CF.RESET+ row); // map 디버깅
 		log.debug(CF.SWB+"[LecHomeworkService  insertSubmitStudent homeworkForm]"+CF.RESET+ homeworkForm);
+		
 		// 과제 파일 업로드 부분 
 		if(homeworkForm.getHomeworkFileList() != null  && row ==1)  {
 			for(MultipartFile mf : homeworkForm.getHomeworkFileList()) {
@@ -105,7 +128,8 @@ public class LecHomeworkService {
 				homeworkFile.setHomeworkFileSize(mf.getSize());
 				log.debug(CF.SWB+"[insertSubmitStudent  updateSubmit homeworkFile]"+CF.RESET+ homeworkFile); // homeworkFile 디버깅
 				
-				// 사진이름 출력후 upload에 등록된 같은 이름데이터를 삭제
+				/*
+				// 과제이름 출력후 upload에 등록된 같은 이름데이터를 삭제
 				List<HomeworkFile> homeworkList = lecHomeworkMapper.selectFileNameList(homeworkSubmissionNo);
 				log.debug(CF.SWB+"[insertSubmitStudent  updateSubmit homeworkList]"+CF.RESET+ homeworkList); // homeworkFile 디버깅
 				for(int i=0; i<homeworkList.size(); i++) {
@@ -116,6 +140,7 @@ public class LecHomeworkService {
 				}
 				
 				lecHomeworkMapper.deleteSubmitFile(homeworkSubmissionNo);
+				*/
 				
 				lecHomeworkMapper.insertHomeworkFile(homeworkFile);
 				try {
@@ -133,6 +158,7 @@ public class LecHomeworkService {
 	//public HashMap<String, Object> selectSubmit(int homeworksubmissionNo){
 	//	return lecHomeworkMapper.selectStudentSubmit(homeworksubmissionNo);
 	//}
+	
 	// 학생 과제제출 
 	public void insertSubmitStudent(HomeworkForm homeworkForm, String path,String studentId) {
 		log.debug(CF.SWB+"[insertSubmitStudent  insertSubmitStudent homeworkSubmission]"+CF.RESET+ homeworkForm); // homeworkSubmission 디버깅
@@ -145,7 +171,7 @@ public class LecHomeworkService {
 		int row = lecHomeworkMapper.insertSubmitStudent(homeworkSubmission);
 		log.debug(CF.SWB+"[insertSubmitStudent  insertSubmitStudent lastSubmissionNo]"+CF.RESET+ row); // map 디버깅
 		// 파일이 들어왔다면 실행 
-		if(homeworkForm.getHomeworkFileList().get(0).getSize() > 0 && row ==1)  {
+		if(homeworkForm.getHomeworkFileList() != null && row ==1)  {
 			for(MultipartFile mf : homeworkForm.getHomeworkFileList()) {
 				HomeworkFile homeworkFile = new HomeworkFile();
 				String originName = mf.getOriginalFilename();
