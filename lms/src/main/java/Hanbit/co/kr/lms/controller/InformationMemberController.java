@@ -244,7 +244,7 @@ public class InformationMemberController {
 		model.addAttribute("lecList",returnMap.get("lecList"));
 		model.addAttribute("photoFile",returnMap.get("photoFile"));
 		model.addAttribute("memberId",memberId);
-		return "member/imformationMember";
+		return "member/informationMember";
 	}
 	@GetMapping("/member/removceMember")
 	public String removeMeber(@RequestParam(name="memberId") String memberId ) {
@@ -253,6 +253,22 @@ public class InformationMemberController {
 		
 		return "redirect:/logout";
 		
+	}
+	
+	//사진 초기화
+	@GetMapping("/changeDefaultPhoto")
+	public String changeDefaultPhoto(HttpSession session) {
+		String	memberId = (String)session.getAttribute("sessionMemberId");
+		int	memberLv = (int)session.getAttribute("sessionMemberLv");
+		
+		int row = informationService.updateDefaultPhoto(memberId);
+		
+		if(row==1) {
+			log.debug(CF.KHN+"[InformationMemberController 삭제 성공]"+CF.RESET); 	
+		}
+			log.debug(CF.KHN+"[InformationMemberController 삭제 실패]"+CF.RESET); 		
+		
+			return "redirect:/member/getMemberOne";
 	}
 	
 	

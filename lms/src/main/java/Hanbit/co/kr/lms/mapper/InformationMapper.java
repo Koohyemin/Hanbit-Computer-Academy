@@ -78,4 +78,7 @@ public interface InformationMapper {
 	
 	//멤버 삭제
 	int deleteMember(String memberId);
+	
+	//사진 초기화
+	int updateDefaultPhoto(String memberId);
 }

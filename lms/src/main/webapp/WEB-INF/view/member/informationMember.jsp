@@ -12,7 +12,7 @@
 <meta property="og:title" content="한빛컴퓨터아카데미LMS">
 <meta property="og:url" content="lms/login">
 <meta property="og:image" content="${pageContext.request.contextPath}/img/previewer.png">
-<title>imformationMember</title>
+<title>informationMember</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
 <link href="../css/styles.css" rel="stylesheet" />
@@ -45,10 +45,11 @@
 		                       <form id="photoSubmit" method="post" action="${pageContext.request.contextPath}/updatePhoto"  enctype="multipart/form-data">
 		                         	<div class="form-group btn-group">
 	                          		<input type="file" id="photo"name="photoFile" multiple="multiple" class="form-control" style="margin:0 auto;">
-	                          		<button id="photoBtn"type="button" class="btn btn-sm btn-dark float-end">변경</button>
+	                          		<button id="photoBtn" type="button" class="btn btn-sm btn-dark float-end">변경</button>
+	                          		<a href="${pageContext.request.contextPath}/changeDefaultPhoto" class="btn btn-sm btn-secondary float-end">초기화</a>
 	                          		</div>
 	                          </form>
-	                          <span id="helpPhoto"></span>  
+	                          <span id="helpPhoto"></span>
                           </div>
 		              </div>
 	           </div>

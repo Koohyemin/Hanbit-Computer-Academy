@@ -305,4 +305,9 @@ public class InformationService {
 	   
 	   return row;
    }
+   
+   //사진 초기화
+   public int updateDefaultPhoto(String memberId) {
+	   return informationMapper.updateDefaultPhoto(memberId);
+   }
 }
