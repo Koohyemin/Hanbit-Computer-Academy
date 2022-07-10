@@ -11,6 +11,9 @@ import Hanbit.co.kr.lms.vo.Registration;
 @Mapper
 public interface CertificateMapper {
 	
+	// 수료 증명서 리스트
+	List<Map <String,Object>> completionList(String studentId);
+	
 	// 자격증 상세보기
 	Certification selectCertification(int certificationNo);
 	

@@ -130,7 +130,7 @@
             <c:if test="${sessionMemberLv == 1 }">
             <div class="sb-sidenav-menu-heading">
                 certificate</div>
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="${pageContext.request.contextPath}/certificate/completion">
                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                 수료 증명서
             </a>

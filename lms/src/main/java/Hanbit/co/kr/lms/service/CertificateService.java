@@ -53,4 +53,9 @@ public class CertificateService {
 	public List <Map<String,Object>> studentPaymentList(String studentId){
 		return certificateMapper.paymentStudentList(studentId);
 	}
+	
+	// 학생의 아이디를 통해서 수료 고지서를 보여준다.
+	public List<Map<String,Object>> completionList(String studentId){
+		return certificateMapper.completionList(studentId);
+	}
 }

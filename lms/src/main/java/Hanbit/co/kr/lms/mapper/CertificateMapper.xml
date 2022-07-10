@@ -40,13 +40,28 @@
 				( #{memberId},#{certificationName},#{certificationIssued},#{getDate}, NOW(),NOW() )
 	</update>
 
-<select id="paymentStudentList" parameterType="String" resultType="java.util.Map">
-	SELECT r.lecture_name lectureName
-		, s.student_name studentName
-		, r.payment payment
-		, r. create_date createDate
-	FROM  registration r inner join student s
-	on r.student_id = s.student_id
-	WHERE s.student_id = #{studentId}
-</select>
+	<select id="paymentStudentList" parameterType="String" resultType="java.util.Map">
+		SELECT r.lecture_name lectureName
+			, s.student_name studentName
+			, r.payment payment
+			, r. create_date createDate
+		FROM  registration r inner join student s
+		on r.student_id = s.student_id
+		WHERE s.student_id = #{studentId}
+	</select>
+	
+	<select id="completionList" parameterType="String" resultType="java.util.Map">
+		SELECT r.lecture_name lectureName
+			, s.student_name studentName
+			, l.subject_name subjectName
+			, t.begin_class beginClass
+			, t.end_class endClass
+		FROM registration r INNER JOIN lec l
+		ON r.lecture_name = l.lecture_name
+		INNER JOIN time_table t
+		ON l.lecture_name = t.lecture_name
+		INNER JOIN student s
+		ON r.student_id = s.student_id
+		WHERE t.end_class &lt; NOW() AND r.student_id = #{studentId}
+	</select>
 </mapper>

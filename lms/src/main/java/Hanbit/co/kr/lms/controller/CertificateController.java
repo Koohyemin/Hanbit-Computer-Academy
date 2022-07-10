@@ -124,7 +124,10 @@ public class CertificateController {
 		log.debug( CF.KYJ +"[CertificateController GetMapping completion studentId]: "+ studentId + CF.RESET);
 		
 		// certificateService로 selectRegistrationList(납부리스트) 
+		List<Map<String,Object>> selectCompletionList = certificateService.completionList(studentId);
+		log.debug( CF.KYJ +"[CertificateController GetMapping completion selectCompletionList]: "+ selectCompletionList + CF.RESET);
 		
-		return "certificate/paymentStudent";
+		model.addAttribute("selectCompletionList",selectCompletionList);
+		return "certificate/completion";
 	}
 }
