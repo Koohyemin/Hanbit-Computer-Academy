@@ -23,6 +23,8 @@ public interface LecHomeworkMapper {
 	HomeworkSubmission selectSubmitOne(int homeworkSubmissionNo); // 한개의 과제제출
 	List<HomeworkFile> selectSubmitFileList(int homeworkSubmissionNo); // 한개의 과제제출에 여러개의 파일리스트
 	int updateScore(HomeworkSubmission hoemworkSubmission);
+	int updateHomework(HomeworkMake homeworkMake);
+	int deleteHomework(int homeworkMakeNo);
 	
 	// 학생의 수강리스트
 	List<Registration> lectureNameList(String studentId);

@@ -33,6 +33,46 @@ public class LecHomeworkController {
 	@Autowired LectureNoticeService lectureNoticeService;
 	@Autowired HttpSession session;
 	
+	// 강사 과제삭제
+	@PostMapping("lecHomework/removeHomework")
+	public String removeHomework(@RequestParam(name="homeworkMakeNo")int homeworkMakeNo) {
+		
+		
+		return "redirect:/lecHomework/getLecHomeworkList";
+	}
+	// 강사 과제수정액션
+	@PostMapping("lecHomework/modifyHomework")
+	public String modifyHomework(@RequestParam(name="homeworkMakeNo")int homeworkMakeNo
+								,@RequestParam(name="homeworkMakeTitle")String homeworkMakeTitle
+								,@RequestParam(name="homeworkMakeContent")String homeworkMakeContent
+								,@RequestParam(name="homeworkDeadline")String homeworkDeadline) {
+		
+		// vo에 값 넣어주기
+		HomeworkMake homeworkMake = new HomeworkMake();
+		homeworkMake.setHomeworkMakeNo(homeworkMakeNo);
+		homeworkMake.setHomeworkMakeTitle(homeworkMakeTitle);
+		homeworkMake.setHomeworkMakeContent(homeworkMakeContent);
+		homeworkMake.setHomeworkDeadline(homeworkDeadline);
+		log.debug(CF.SWB+"[LecHomeworkController post modifyHomework homeworkMake]"+CF.RESET+ homeworkMake); // homeworkMakeNo 디버깅s
+		
+		lecHomeworkSerivce.updateHomework(homeworkMake);
+		return "redirect:/lecHomework/getLecHomeworkList";
+	}
+	// 강사 수정폼
+	@GetMapping("lecHomework/modifyHomework")
+	public String modifyHomework(Model model
+								,@RequestParam(name="homeworkMakeNo")int homeworkMakeNo) {
+		
+		// 값 받아오기 위해서 map설정
+		HashMap<String, Object> map = new HashMap<>();
+		map = lecHomeworkSerivce.selectHomeworkOne(homeworkMakeNo);
+		log.debug(CF.SWB+"[LecHomeworkController get modifyHomework homeworkMakeNo]"+CF.RESET+ homeworkMakeNo); // homeworkMakeNo 디버깅
+		
+		// 값 jsp로 보내주기
+		model.addAttribute("homeworkMake",map.get("homeworkMake"));
+		return "lecHomework/modifyHomework";
+	}
+	
 	// 학생이 과제를 삭제(파일삭제도 같이)
 	@GetMapping("lecHomework/removeSubmit")
 	public String removeSubmit(HttpServletRequest request

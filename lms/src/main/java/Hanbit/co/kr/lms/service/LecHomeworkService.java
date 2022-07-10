@@ -30,6 +30,16 @@ import lombok.extern.slf4j.Slf4j;
 public class LecHomeworkService {
 	@Autowired LecHomeworkMapper lecHomeworkMapper;
 	
+	// 강사 과제삭제(학생의 제출낸 과제,파일 삭제)
+	public void deleteHomework(int homeworkMakeNo) {
+		
+	}
+	
+	// 강사 과제 수정
+	public void updateHomework(HomeworkMake homeworkMake) {
+		lecHomeworkMapper.updateHomework(homeworkMake);
+		return;
+	}
 	// 학생이 과제에대한 삭제
 	public void deleteSubmit(int homeworkSubmissionNo, String path) {
 		
@@ -153,11 +163,6 @@ public class LecHomeworkService {
 			}
 		}
 	}
-	
-	// 학생 제출한 과제리스트
-	//public HashMap<String, Object> selectSubmit(int homeworksubmissionNo){
-	//	return lecHomeworkMapper.selectStudentSubmit(homeworksubmissionNo);
-	//}
 	
 	// 학생 과제제출 
 	public void insertSubmitStudent(HomeworkForm homeworkForm, String path,String studentId) {

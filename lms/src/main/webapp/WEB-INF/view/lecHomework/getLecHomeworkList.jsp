@@ -64,8 +64,13 @@
 						<div class="card mb-4">
 							<div class="card-header">
 								과제
-								<a class="btn btn-outline-danger btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/lecHomeworkOne?homeworkMakeNo=${h.homeworkMakeNo}">삭제하기</a>
-								<a class="btn btn-outline-primary btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/lecHomeworkOne?homeworkMakeNo=${h.homeworkMakeNo}">수정하기</a>
+                                <form method="post" action="${pageContext.request.contextPath}/lecHomework/removeHomework" id="del">
+                                   <input type="hidden" value="${h.homeworkMakeNo}" name="homeworkMakeNo">
+                                   <input type="hidden" value="${h.homeworkSubmissionNo}" name="homeworkSubmissionNo">
+                                   <input class="btn btn-secondary btn-sm float-end delBtn" value="삭제" type="submit"/>
+                                </form>
+								<a class="btn btn-secondary btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/deleteHomework?homeworkMakeNo=${h.homeworkMakeNo}">삭제하기</a>
+								<a class="btn btn-dark btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/modifyHomework?homeworkMakeNo=${h.homeworkMakeNo}">수정하기</a>
 							</div>
 							<table class="table table-bordered">
 								<tr>
@@ -168,13 +173,20 @@
 		</div>
 	</div>
 </body>
-	<script>
-	</script>
-	<script>
-    	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
-    	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
-    	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
-   	</script>
+<script>
+	// 과제 삭제
+	$(".delBtn").click(function(){
+		if (confirm('해당 자격증을 삭제 하시겠습니까?')) {
+			$('#del').submit();
+		} else {
+			return false;
+		}
+	});
+
+	$('#nav').load('${pageContext.request.contextPath}/include/nav.jsp');
+	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
+	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
+</script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

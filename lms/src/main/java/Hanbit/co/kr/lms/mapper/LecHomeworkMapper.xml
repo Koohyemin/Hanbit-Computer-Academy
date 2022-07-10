@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LecHomeworkMapper">
+	<delete id="deleteHomework"
+			parameterType="int">
+		DELETE FROM homework_make
+		WHERE homework_make_no = #{homeworkMakeNo}
+	</delete>
+	
+	<update id="updateHomework"
+			parameterType="Hanbit.co.kr.lms.vo.HomeworkMake">
+		UPDATE homework_make SET
+			homework_make_title = #{homeworkMakeTitle},homework_make_content = #{homeworkMakeContent},homework_deadline = #{homeworkDeadline}, update_date= now()
+		WHERE homework_make_no = #{homeworkMakeNo}
+	</update>
+	
 	<delete id="deleteSubmit"
 			parameterType="int">
 		DELETE FROM homework_submission
@@ -101,12 +114,13 @@
 		FROM registration r INNER JOIN homework_make hm 
 			ON r.lecture_name = hm.lecture_name 
 		left JOIN homework_submission hs
-			ON hs.homework_make_no = hm.homework_make_no
+			ON hs.student_id = r.student_id
 		WHERE r.student_id = #{studentId}
 		<if test="lectureName != null and lectureName != '-----------------------------강좌선택--------------------------'">
 			AND hm.lecture_name = #{lectureName}
 		</if>
 		GROUP BY hm.homework_make_no
+		ORDER BY hm.create_date desc
 	</select>
 	<select id="lectureNameList"
 			parameterType="String"
@@ -169,6 +183,7 @@
 		<if test="lectureName != null and lectureName != '-----------------------------강좌선택--------------------------'">
 			AND l.lecture_name = #{lectureName}
 		</if>
+		ORDER BY h.create_date desc
 	</select>
 	
 	<insert id="insertHomework"
