@@ -50,4 +50,7 @@ public interface LecMapper {
 
 	// 강의 계획서 상세보기
 	LecPlan lecPlan();
+	
+	// 강의듣는 학생 리스트
+	List<Map<String,Object>> selectLecStudentList(String lecture);
 }

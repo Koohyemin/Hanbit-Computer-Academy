@@ -288,4 +288,16 @@
 			LIMIT #{beginRow}, #{rowPerPage}
 		]]>
 	</select>
+	
+	<select id="selectLecStudentList" parameterType="String" resultType="java.util.Map">
+		SELECT s.student_id studentId
+			, s.student_phone studentPhone
+			, s.student_email studentEmail
+			, s.student_birth studentBirth
+			, s.student_name studentName
+		FROM registration r INNER JOIN student s
+		ON r.student_id = s.student_id
+		WHERE r.lecture_name = #{lectureName}
+		ORDER BY s.student_name ASC;
+	</select>
 </mapper>

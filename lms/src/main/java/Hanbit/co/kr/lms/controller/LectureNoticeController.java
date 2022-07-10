@@ -169,7 +169,7 @@ public class LectureNoticeController {
 			
 			log.debug( CF.KHV +"[LectureNoticeController GetMapping getInsertLectureNotice teacherId]: "+ teacherId + CF.RESET);
 			
-			// 학생 아이디 값에 따른 수강이름 목록 리스트 출력
+			// 강사 아이디 값에 따른 수강이름 목록 리스트 출력
 			List<LecPlan> lectureNameList = lectureNoticeService.lectureNameList(teacherId);
 			log.debug( CF.KHV +"[LectureNoticeController GetMapping getInsertLectureNotice lectureNameList]: "  + CF.RESET + lectureNameList);
 			log.debug( CF.KHV +"[lectureNoticeService lectureNameList]: "+ CF.RESET + lectureNameList.size());

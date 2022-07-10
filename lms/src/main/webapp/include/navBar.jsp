@@ -83,7 +83,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/lectureRoom/index">강의실 홈</a>
                           <!-- 강사라면 이걸 보여주기 -->
                  <c:if test="${sessionMemberLv != 1}">
-                  <a class="nav-link" href="#">수강학생조회</a>
+                  <a class="nav-link" href="${pageContext.request.contextPath}/lec/lectureStudentList">수강학생조회</a>
                  </c:if>
                  <!--  강사index -->
                             <a class="nav-link" href="${pageContext.request.contextPath}/lecReference/getLecReferenceListByPage">강의자료실</a>

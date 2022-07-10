@@ -160,4 +160,8 @@ public class LecService {
 		// returnMap 반환
 		return returnMap;
 	}
+	
+	public List<Map<String,Object>> selectstudentList(String lectureName){
+		return lecMapper.selectLecStudentList(lectureName);
+	}
 }

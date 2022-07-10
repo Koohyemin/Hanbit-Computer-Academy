@@ -1,5 +1,6 @@
 package Hanbit.co.kr.lms.controller;
 
+import java.lang.ProcessBuilder.Redirect;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import Hanbit.co.kr.lms.service.LecService;
+import Hanbit.co.kr.lms.service.LectureNoticeService;
 import Hanbit.co.kr.lms.service.RegistrationService;
 import Hanbit.co.kr.lms.util.CF;
 import Hanbit.co.kr.lms.vo.Lec;
@@ -30,6 +32,7 @@ public class LecController {
 	@Autowired LecService lecService;
 	@Autowired RegistrationService registrationService;
 	@Autowired HttpSession session;
+	@Autowired LectureNoticeService lectureNoticeService;
 	
 	// 개설 강의 목록
 	@GetMapping("lec/openLecList")
@@ -226,7 +229,32 @@ public class LecController {
 		model.addAttribute("currentPage", map.get("currnetPage"));
 		model.addAttribute("totalCount", map.size());
 		
-			
 		return "lec/lecList"; // lec/lecList.jsp로 이동
+	}
+	
+	
+	@GetMapping("/lec/lectureStudentList")
+	public String lectureStudentList(Model model
+			,HttpSession session
+			,@RequestParam (name="lectureName" ,defaultValue ="") String lectureName) {
+		
+		//세션에 있는 아이디 값 가져옴
+		String teacherId = (String) session.getAttribute("sessionMemberId");
+		
+		log.debug( CF.KHV +"[LectureNoticeController GetMapping getInsertLectureNotice teacherId]: "+ teacherId + CF.RESET);
+		
+		// 강사 아이디 값에 따른 수강이름 목록 리스트 출력
+		List<LecPlan> lectureNameList = lectureNoticeService.lectureNameList(teacherId);
+		log.debug( CF.KHV +"[LecController GetMapping lectureStudentList lectureNameList]: "  + CF.RESET + lectureNameList);
+		log.debug( CF.KHV +"[LecController lectureNameList]: "+ CF.RESET + lectureNameList.size());
+		
+		// 강좌를 듣는 학생 리스트 출
+		List<Map<String,Object>> selectLecStudentList = lecService.selectstudentList(lectureName);
+		log.debug( CF.KYJ +"[LecController postMapping lectureStudentList selectLecStudentList]: "+ selectLecStudentList + CF.RESET);
+		
+		model.addAttribute("selectLecStudentList",selectLecStudentList);
+		model.addAttribute("lectureName",lectureName);
+		model.addAttribute("lectureNameList",lectureNameList);
+		return "lec/lectureStudentList";
 	}
 }
