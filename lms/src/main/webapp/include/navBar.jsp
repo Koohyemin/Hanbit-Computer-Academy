@@ -74,6 +74,7 @@
             </a>
             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                <c:if test="${sessionMemberLv != 3}">
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
                             강의실
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -82,30 +83,27 @@
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="${pageContext.request.contextPath}/lectureRoom/index">강의실 홈</a>
                           <!-- 강사라면 이걸 보여주기 -->
-                 <c:if test="${sessionMemberLv != 1}">
-                  <a class="nav-link" href="${pageContext.request.contextPath}/lec/lectureStudentList">수강학생조회</a>
+                 <c:if test="${sessionMemberLv == 2}">
+                  	<a class="nav-link" href="${pageContext.request.contextPath}/lec/lectureStudentList">수강학생조회</a>
                  </c:if>
-                 <!--  강사index -->
-                            <a class="nav-link" href="${pageContext.request.contextPath}/lecReference/getLecReferenceListByPage">강의자료실</a>
-                            <a class="nav-link" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage">공지사항</a>
-                            <a class="nav-link" href="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList">과제게시판</a>
-                            <a class="nav-link" href="${pageContext.request.contextPath}/lecQna/lecQnaList">Q&A</a>
-                        </nav>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/lecReference/getLecReferenceListByPage">강의자료실</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage">공지사항</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList">과제게시판</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/lecQna/lecQnaList">Q&A</a>
+                 </nav>
                     </div>
-                    
-                    <!-- 학생이거나 강사라면 이걸 보여주기 -->
+                      </c:if>
                     <c:if test="${sessionMemberLv != 2}">
                     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
-                            성적조회
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            조회<div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getStatsQuestionnaireList">강의평가 조회</a>
                              <c:if test="${sessionMemberLv == 1}">
                             <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getLecQuestionnaireList">강의평가</a>
-                            </c:if>
                             <a class="nav-link" href="#">성적조회</a>
+                            </c:if>
                         </nav>
                     </div>
                     </c:if>
