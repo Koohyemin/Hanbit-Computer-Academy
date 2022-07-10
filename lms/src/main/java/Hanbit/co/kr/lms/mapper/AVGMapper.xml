@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Hanbit.co.kr.lms.mapper.AVGMapper">
+	
+
+	<!-- 강사 학생 점수 순위 조회 -->
+	<select	id="selectAVGRank"
+			resultType="HashMap"
+			parameterType="java.lang.String">
+		SELECT
+			hs.student_id studentId
+			,ROUND(avg(homework_score),0) AS 'avg'
+			, RANK() OVER (ORDER BY avg desc) AS 'rank'
+	 	 FROM homework_submission hs
+		INNER JOIN homework_make hm
+			ON hs.homework_make_no = hm.homework_make_no
+		INNER JOIN time_table tt
+			ON tt.lecture_name =  hm.lecture_name
+		WHERE hm.lecture_name = #{lectureName}
+		GROUP BY student_id
+		ORDER BY AVG desc
+	</select>
+	
+	<!-- 강사 담당 과목 리스트 -->
+	
+	<select id="selectLectureListByTeacher"
+			parameterType="java.lang.String"
+			resultType="Hanbit.co.kr.lms.vo.Lec">
+		SELECT
+		 l.lecture_name lectureName
+			FROM lec l 
+				INNER JOIN lec_plan lp
+					ON l.lecture_name = lp.lecture_name
+				WHERE lp.teacher_id = #{teacherId}
+		
+	</select>
+
+</mapper>

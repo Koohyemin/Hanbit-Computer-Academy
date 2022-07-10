@@ -107,13 +107,14 @@
 		</where>
 		
 	</select>
-	
+	<!-- 운영자 수강 현재날짜 기준으로 안끝난 강의 조회 -->
 	<select id="beforeLecture"
 			resultType="String">
 		SELECT lecture_name
 			 FROM time_table
 				WHERE begin_class > NOW();
 	</select>
+	<!-- 수강 환불  -->
 	<delete id="deleteRegistration"
 			parameterType="Hanbit.co.kr.lms.vo.Registration">
 		DELETE FROM registration

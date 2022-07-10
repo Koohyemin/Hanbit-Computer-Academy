@@ -30,54 +30,36 @@
         	<div class="card mb-4">
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
-	               수강신청내역
+	               강의 납부 내역
 	            </div>
             </div>
 			
-			<ul class="nav nav-tabs">
-					<li class="nav-item">
-						<a class="nav-link active" data-toggle="tab" href="${pageContext.request.contextPath}/lec/lecList">수강 신청</a>
-					</li>
-		            <c:if test="${sessionMemberLv == 3}">
-						<!-- 전체 강의 관리 버튼은 운영진에게만 보임 -->
-						<li class="nav-item">
-							<a class="nav-link" data-toggle="tab" href="${pageContext.request.contextPath}/people/peopleList?level=3">전체 강의</a>
-						</li>
-					</c:if>
-			</ul>
+			 <select id="lectureName" name="lectureList" class="form-control">
+			 	 <option selected="selected" value="${defaultValue}">${defaultValue}</option>
+				 <c:forEach var="li" items="${lectureList}" > 
+					<option value="${li.lectureName}">${li.lectureName}</option>
+				</c:forEach> 
+			</select>
+			<br>
+
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th class="text-center">등록번호</th>
-						<th class="text-center">강의명</th>
-						<th class="text-center">납부금액</th>
-						<th class="text-center">신청일</th>
+						<th class="text-center">순위</th>
+						<th class="text-center">학생명</th>
+						<th class="text-center">점수</th>
 						<th></th>
 					</tr>
 				</thead>
-				<tbody>
-					<c:forEach var="reg" items="${list}" varStatus="status">
+				<tbody id="tbodyid">
+					<c:forEach var="reg" items="${scorelist}" varStatus="status">
 						<tr>
-							<td class="text-center text-success">${reg.registrationNo}</td>
-							<td class="text-center col-md-4" ><a href="${pageContext.request.contextPath}/registration/registrationOne?lectureName=${reg.lectureName}">${reg.lectureName}</a></td>
-							<td class="text-center">${reg.payment}</td>
-							<td class="text-center">${reg.createDate}</td>
-						</tr>
-							<!-- 강의가 없다면 개설된 강의가 없습니다. -->
-							<c:if test="${totalCount == 0}">
-								<div class="text-primary">개설된 강의가 없습니다.</div>
-							</c:if>
+							<td  class="text-center text-success">${reg.rank}</td>
+							<td  class="text-center">${reg.studentId}</td>
+							<td  class="text-center col-md-4" >${reg.avg} </td>
 					</c:forEach>
 				</tbody>
 			</table>
-			<div class="text-center">
-				<c:if test="${currentPage>1}">
-					<a href="${pageContext.request.contextPath}/lec/lecList?currentPage=${currentPage-1}" class="btn btn-dark">이전</a>
-				</c:if>
-				<c:if test="${lastPage>currentPage}">
-					<a href="${pageContext.request.contextPath}/lec/lecList?currentPage=${currentPage+1}" class="btn btn-dark">다음</a>
-				</c:if>
-			</div>
 		</div>
 		<div id="footer"></div>
 	</div>
@@ -96,6 +78,7 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
     <script>
+
 
     </script>
 </html>
