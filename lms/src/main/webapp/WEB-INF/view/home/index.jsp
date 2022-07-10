@@ -77,7 +77,7 @@
                   <tbody>
                   <c:forEach var="lecPlanList" items="${lecPlanList}">
                      <tr>
-                        <td>${lecPlanList.lectureName}</td>
+                        <td><a href="${pageContext.request.contextPath}/people/peopleList?level=3" class="text-dark none-unline"><b>${lecPlanList.lectureName}</b></a></td>
                         <td>${lecPlanList.teacherId}</td>
                         <td>${lecPlanList.lecState}</td>               
                         <td>${lecPlanList.createDate}</td>
@@ -109,7 +109,7 @@
                      <tr>
                         <td class="text-center">${enquiryBoardList.enquiryBoardNo}</td>
                         <td class="text-center">${enquiryBoardList.memberId}</td>
-                        <td class="text-center">${enquiryBoardList.content}</td>
+                      	<td class="text-center"><a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardOne?enquiryBoardNo=${enquiryBoardList.enquiryBoardNo}" class="text-dark none-unline"> <b>${enquiryBoardList.content} </b></a></td>
                          <td class="text-center">${enquiryBoardList.category}</td>
                          <td class="text-center">${enquiryBoardList.createDate}</td>
                      </tr>
@@ -142,7 +142,7 @@
                         <td>${noticeList.managerNoticeNo}</td>
                         <td>${noticeList.managerId}</td>
                         <td>${noticeList.managerNoticeTitle}</td>
-                        <td>${noticeList.managerNoticeContent}</td>
+                        <td><a href="${pageContext.request.contextPath}/notice/noticeOne?managerNoticeNo=${noticeList.managerNoticeNo}" class="text-dark none-unline"><b>${noticeList.managerNoticeContent}</b></a></td>
                         <td>${noticeList.category}</td>
                         <td>${noticeList.createDate}</td>
                      </tr>
@@ -157,8 +157,10 @@
             <div class="card-header">   
             <i class="fas fa-chart-area me-1"></i>         
                 담당강좌
+           <a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/member/getMemberOne">바로가기</a> 
             </div>    
-                  <span><a class="btn btn-dark" href="${pageContext.request.contextPath}/member/getMemberOne">바로가기</a></span>   
+                  <span>
+                  </span>   
 				<div class="card-body">                                               
                      <table class="table">
                    <thead>
@@ -170,7 +172,7 @@
                    <tbody>
                       <c:forEach var="teacherLecList" items="${teacherLecList}">
                          <tr>
-                            <td>${teacherLecList.lectureName}</td>
+                           <td><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${teacherLecList.lectureName}" class="text-dark none-unline"> <b>${teacherLecList.lectureName}</b></a></td>                         
                             <td>${teacherLecList.teacherId}</td>
                          </tr>
                       </c:forEach>
@@ -198,7 +200,7 @@
                      <c:forEach var="teacherEqList" items="${teacherEqList}">
                         <tr>
                            <td>${teacherEqList.enquiryBoardNo}</td>
-                           <td>${teacherEqList.content}</td>
+                          <td><a href="${pageContext.request.contextPath}/enquiryBoard/getEnquiryBoardOne?enquiryBoardNo=${teacherEqList.enquiryBoardNo}" class="text-dark none-unline"><b>${teacherEqList.content}</b></a></td>
                            <td>${teacherEqList.category}</td>
                            <td>${teacherEqList.createDate}</td>
                         </tr>
@@ -229,7 +231,7 @@
                            <tr>
                               <td>${teacherList.managerNoticeNo}</td>
                               <td>${teacherList.managerId}</td>
-                              <td>${teacherList.managerNoticeTitle}</td>
+                              <td><a href="${pageContext.request.contextPath}/notice/noticeOne?managerNoticeNo=${teacherList.managerNoticeNo}"class="text-dark none-unline"><b>${teacherList.managerNoticeTitle}</b></a></td>
                               <td>${teacherList.category}</td>
                               <td>${teacherList.createDate}</td>
                            </tr>
@@ -259,9 +261,8 @@
                      <c:forEach var="studentLecList" items="${studentLecList}">
                         <tr>
                            <td>${studentLecList.registrationNo}</td>
-                           <td>${studentLecList.lectureName}</td>
+                           <td><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${studentLecList.lectureName}" class="text-dark none-unline"> <b>${studentLecList.lectureName}</b></a></td>
                            <td>${studentLecList.studentId}</td>
-
                         </tr>
                      </c:forEach>
                   </tbody>
@@ -290,7 +291,7 @@
                            <tr>
                               <td>${studentList.managerNoticeNo}</td>
                               <td>${studentList.managerId}</td>
-                              <td>${studentList.managerNoticeTitle}</td>
+                              <td><a href="${pageContext.request.contextPath}/notice/noticeOne?managerNoticeNo=${studentList.managerNoticeNo}" class="text-dark none-unline"><b>${studentList.managerNoticeTitle}</b></a></td>
                               <td>${studentList.category}</td>
                               <td>${studentList.createDate}</td>
                            </tr>
