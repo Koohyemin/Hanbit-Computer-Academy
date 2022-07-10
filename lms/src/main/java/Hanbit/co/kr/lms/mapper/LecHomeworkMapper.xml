@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LecHomeworkMapper">
+	<select id="fileNameOne"
+			parameterType="int"
+			resultType="Hanbit.co.kr.lms.vo.HomeworkFile">
+		SELECT
+			homework_file_name homeworkFileName
+		FROM homework_file 
+		WHERE homework_file_no = #{homeworkFileNo}
+	</select>
+	
+	<select id="selectSubmitNumber"
+			parameterType="int"
+			resultType="Hanbit.co.kr.lms.vo.HomeworkSubmission">
+		SELECT
+			homework_submission_no homeworkSubmissionNo
+		FROM homework_submission 
+		WHERE homework_make_no = #{homeworkMakeNo}
+	</select>
+	
 	<delete id="deleteHomework"
 			parameterType="int">
 		DELETE FROM homework_make
@@ -101,27 +119,24 @@
 	<select id="studentHomeworkList"
 			parameterType="String"
 			resultType="Hanbit.co.kr.lms.vo.HomeworkMake">
-		SELECT 
+  		SELECT 
 			hm.homework_make_no homeworkMakeNo
 			,hm.lecture_name lectureName
 			,hm.homework_make_title homeworkMakeTitle
 			,hm.homework_make_content homeworkMakeContent
 			,hm.homework_deadline homeworkDeadline
 			,hm.create_date createDate
-			,r.student_id
 			,hs.homework_score homeworkScore
 			,hs.homework_submission_no homeworkSubmissionNo
-		FROM registration r INNER JOIN homework_make hm 
-			ON r.lecture_name = hm.lecture_name 
-		left JOIN homework_submission hs
-			ON hs.student_id = r.student_id
-		WHERE r.student_id = #{studentId}
+		FROM homework_make hm LEFT JOIN homework_submission hs
+			ON hs.homework_make_no = hm.homework_make_no
+		WHERE (hs.student_id = #{studentId} OR hs.student_id IS NULL)
 		<if test="lectureName != null and lectureName != '-----------------------------강좌선택--------------------------'">
 			AND hm.lecture_name = #{lectureName}
 		</if>
-		GROUP BY hm.homework_make_no
 		ORDER BY hm.create_date desc
 	</select>
+	
 	<select id="lectureNameList"
 			parameterType="String"
 			resultType="Hanbit.co.kr.lms.vo.Registration">

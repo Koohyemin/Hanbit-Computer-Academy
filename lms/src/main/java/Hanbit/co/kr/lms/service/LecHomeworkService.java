@@ -31,8 +31,35 @@ public class LecHomeworkService {
 	@Autowired LecHomeworkMapper lecHomeworkMapper;
 	
 	// 강사 과제삭제(학생의 제출낸 과제,파일 삭제)
-	public void deleteHomework(int homeworkMakeNo) {
+	public void deleteHomework(int homeworkMakeNo, String path) {
 		
+		// homeworkMakeNo에 과제를 낸 homeworkSubmissionNo를 추출
+		List<HomeworkSubmission> homeworkSubmission = lecHomeworkMapper.selectSubmitNumber(homeworkMakeNo);
+		log.debug(CF.SWB+"[insertSubmitStudent  deleteHomework homeworkSubmission]"+CF.RESET+ homeworkSubmission); // homeworkSubmissionNo 디버깅
+		
+		// 번호개수만큼 homeworkSubmissionNo에 각각 값넣어주기
+		for(int i=0; i<homeworkSubmission.size(); i++) {
+			int homeworkSubmissionNo = homeworkSubmission.get(i).getHomeworkSubmissionNo();
+			log.debug(CF.SWB+"[insertSubmitStudent  deleteHomework homeworkSubmissionNo]"+CF.RESET+ homeworkSubmissionNo); // homeworkSubmissionNo 디버깅
+			
+			// upload폴더에 있는 과제파일 삭제
+			List<HomeworkFile> homeworkList = lecHomeworkMapper.selectFileNameList(homeworkSubmissionNo);
+			log.debug(CF.SWB+"[insertSubmitStudent  updateSubmit homeworkList]"+CF.RESET+ homeworkList); // homeworkFile 디버깅
+			for(int j=0; j<homeworkList.size(); j++) {
+				File f = new File(path+homeworkList.get(j).getHomeworkFileName());
+				if(f.exists()) {
+						f.delete();
+					}
+			}
+			
+			// DB에서 과제파일에 관한 데이터 삭제
+			lecHomeworkMapper.deleteSubmitFile(homeworkSubmissionNo);
+			
+			// DB에서 과제제출 삭제
+			lecHomeworkMapper.deleteSubmit(homeworkSubmissionNo);
+		}
+		// 과제 삭제
+		lecHomeworkMapper.deleteHomework(homeworkMakeNo); 
 	}
 	
 	// 강사 과제 수정
@@ -40,6 +67,7 @@ public class LecHomeworkService {
 		lecHomeworkMapper.updateHomework(homeworkMake);
 		return;
 	}
+	
 	// 학생이 과제에대한 삭제
 	public void deleteSubmit(int homeworkSubmissionNo, String path) {
 		
@@ -63,7 +91,15 @@ public class LecHomeworkService {
 	}
 	
 	// 학생이 파일하나만 삭제
-	public String deleteFileOne(int homeworkFileNo) {
+	public String deleteFileOne(int homeworkFileNo, String path) {
+		
+		// 파일 이름
+		HomeworkFile homeworkFile = lecHomeworkMapper.fileNameOne(homeworkFileNo);
+		String fileName = homeworkFile.getHomeworkFileName();
+		File f = new File(path+fileName);
+		if(f.exists()) {
+			f.delete();
+		}
 		
 		int row	= lecHomeworkMapper.deleteFileOne(homeworkFileNo);
 		log.debug(CF.SWB+"[LecHomeworkService  deleteFileOne row]"+CF.RESET+ row); // row 디버깅
@@ -77,6 +113,7 @@ public class LecHomeworkService {
 		}
 		return check;
 	}
+	
 	// 학생과제제출에 대한 점수 업데이트
 	public void updateScore(HomeworkSubmission homeworkSubmission) {
 		

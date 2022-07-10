@@ -35,8 +35,12 @@ public class LecHomeworkController {
 	
 	// 강사 과제삭제
 	@PostMapping("lecHomework/removeHomework")
-	public String removeHomework(@RequestParam(name="homeworkMakeNo")int homeworkMakeNo) {
+	public String removeHomework(HttpServletRequest request
+								,@RequestParam(name="homeworkMakeNo")int homeworkMakeNo) {
 		
+		// 과제파일이 있는 경로 설정 
+		String path = request.getServletContext().getRealPath("/upload/");
+		lecHomeworkSerivce.deleteHomework(homeworkMakeNo, path);
 		
 		return "redirect:/lecHomework/getLecHomeworkList";
 	}

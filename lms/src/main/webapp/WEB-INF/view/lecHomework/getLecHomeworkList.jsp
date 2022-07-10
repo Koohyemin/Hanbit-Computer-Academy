@@ -69,7 +69,6 @@
                                    <input type="hidden" value="${h.homeworkSubmissionNo}" name="homeworkSubmissionNo">
                                    <input class="btn btn-secondary btn-sm float-end delBtn" value="삭제" type="submit"/>
                                 </form>
-								<a class="btn btn-secondary btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/deleteHomework?homeworkMakeNo=${h.homeworkMakeNo}">삭제하기</a>
 								<a class="btn btn-dark btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/modifyHomework?homeworkMakeNo=${h.homeworkMakeNo}">수정하기</a>
 							</div>
 							<table class="table table-bordered">

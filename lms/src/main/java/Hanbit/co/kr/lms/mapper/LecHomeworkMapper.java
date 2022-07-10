@@ -25,6 +25,8 @@ public interface LecHomeworkMapper {
 	int updateScore(HomeworkSubmission hoemworkSubmission);
 	int updateHomework(HomeworkMake homeworkMake);
 	int deleteHomework(int homeworkMakeNo);
+	List<HomeworkSubmission> selectSubmitNumber(int homeworkMakeNo);
+
 	
 	// 학생의 수강리스트
 	List<Registration> lectureNameList(String studentId);
@@ -39,4 +41,5 @@ public interface LecHomeworkMapper {
 	List<HomeworkFile> selectFileNameList(int homeworkSubmissionNo); // 파일 이름들 출력(삭제시 필요)
 	int deleteFileOne(int HomeworkFileNo); // 학생이 낸 과제파일 하나만 삭제
 	int deleteSubmit(int homeworkSubmissionNo); // 학생이 낸 과제를 삭제
+	HomeworkFile fileNameOne(int homeworkFilmNo);
 }
