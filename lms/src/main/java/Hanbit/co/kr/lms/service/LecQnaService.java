@@ -119,7 +119,7 @@ public class LecQnaService {
 		}
 
 		// 수강강의가 1개이상 있고 선택한 lectureName이 없다면 수강과목 중 첫번째 값을 lectureName기본값으로 설정
-		if(lectureList.size() > 0 && (lectureName == null || "".equals(lectureName))) { 
+		if(lectureList.size() > 0 && (lectureName == null || "".equals(lectureName))) {
 			lectureName = lectureList.get(0);
 		} else if(lectureList.size() == 0) {
 			lectureName = ""; // 수강중인 강의가 없다면 공백으로 기본값 설정

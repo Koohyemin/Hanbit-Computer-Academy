@@ -120,10 +120,18 @@
 							<td>${l.memberId}</td>
 							<th>작성일자</th>
 							<td>${l.createDate}</td>
-							<td>
-								<a class="btn text-primary" href="${pageContext.request.contextPath}/lecQna/updateAnswer?lecAnswerNo=${l.lecAnswerNo}">수정</a>
-								<a class="btn text-danger" href="${pageContext.request.contextPath}/lecQna/deleteAnswer?lecAnswerNo=${l.lecAnswerNo}">삭제</a>
-							</td>
+							
+							<!-- 강사만 답변 수정, 삭제 가능 -->
+							<c:if test="${sessionMemberLv == 2}">
+								<td class="btn-group">
+									<!-- <a class="btn text-primary" href="${pageContext.request.contextPath}/lecQna/updateAnswer?lecAnswerNo=${l.lecAnswerNo}">수정</a> -->
+									<form method="post" action="${pageContext.request.contextPath}/lecQna/deleteAnswer" id="del">
+										<input hidden="hidden" name="lecAnswerNo" value="${l.lecAnswerNo}">
+										<input hidden="hidden" name="lecQuestionNo" value="${lecQuestion.lecQuestionNo}">
+										<button type="button" class="btn text-danger" id="delBtn">삭제</button>
+									</form>
+								</td>
+							</c:if>
 						</tr>
 					</thead>
 					<tbody>
@@ -155,7 +163,7 @@
     	$('#navbar').load('${pageContext.request.contextPath}/include/navBar.jsp');
     	$('#footer').load('${pageContext.request.contextPath}/include/footer.jsp');
     	 $("#delBtn").click(function(){
-             if (confirm('해당 질문을 삭제 하시겠습니까?')) {
+             if (confirm('해당 답변을 삭제 하시겠습니까?')) {
                  $('#del').submit();
              } else {
              	return false;

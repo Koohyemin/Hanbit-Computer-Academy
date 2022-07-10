@@ -39,7 +39,7 @@
 			 lec_answer_content = #{lecAnswerContent}
 			,revelation = #{revelation}
 			,update_date = NOW()
-		WHERE lec_question_no=#{lecQuestionNo}
+		WHERE lec_answer_no=#{lecAnswerNo}
 	</update>
 	
 	<!-- 답변 등록 -->
@@ -96,7 +96,7 @@
 			,lq.udpate_date updateDate
 			,la.cnt answerCount
 		FROM lec_question lq 
-			LEFT JOIN (SELECT lec_question_no, COUNT(*) cnt FROM lec_answer) la
+			LEFT JOIN (SELECT lec_question_no, COUNT(*) cnt FROM lec_answer GROUP BY lec_question_no) la
 			ON lq.lec_question_no = la.lec_question_no
 		WHERE lq.lecture_name = #{lectureName}
 		ORDER BY lq.create_date DESC
@@ -128,7 +128,7 @@
 	<delete id="deleteAnswer" parameterType="int">
 		DELETE
 		FROM lec_answer
-		WHERE lec_question_no=#{lecQuestionNo}
+		WHERE lec_answer_no=#{lecAnswerNo}
 	</delete>
 	
 	<!-- 강의실 질문 삭제(수강 학생) -->

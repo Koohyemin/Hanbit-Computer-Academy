@@ -38,27 +38,32 @@
             <c:if test="${sessionMemberLv == 1}">
 	            <a class="float-right btn btn-dark float-end" href="${pageContext.request.contextPath}/lecQna/addLecQna">질문 작성</a> <br><br>            
             </c:if>
-            
-            <ul class="nav nav-tabs">
-            
-            <!-- 학생 수강 중인 목록 -->
-            <c:if test="${sessionMemberLv == 1}">
-	            <c:forEach var="l" items="${lectureList}">
-					<li class="nav-item">
-						<a class="nav-link <c:if test="${l eq lectureName}">active</c:if> text-dark" data-toggle="tab" href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${l}">${l}</a>
-					</li>
-	            </c:forEach>            
-            </c:if>
-            
-            <!-- 강사 수강 중인 목록 -->
-            <c:if test="${sessionMemberLv == 2}">
-	            <c:forEach var="l" items="${teacherLectureList}">
-					<li class="nav-item">
-						<a class="nav-link <c:if test="${l eq lectureName}">active</c:if> text-dark" data-toggle="tab" href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${l}">${l}</a>
-					</li>
-	            </c:forEach>  
-            </c:if>
-            </ul>
+           	
+	          <div class="btn-group" >
+				<select class="form-control" name="lectureName">
+					<option>-----------------------------강좌선택--------------------------</option>
+					<!-- 학생 수강 중인 목록 -->
+		            <c:if test="${sessionMemberLv == 1}">
+			            <c:forEach var="l" items="${lectureList}">
+			            	<c:forEach var="ll" items="${list}" varStatus="status">
+								<option <c:if test="${l eq ll.lectureName}">selected="selected"</c:if>>${l}</option>
+							</c:forEach>
+			            </c:forEach>            
+		            </c:if>
+		            
+		            <!-- 강사 수강 중인 목록 -->
+					<c:if test="${sessionMemberLv == 2}">
+			            <c:forEach var="l" items="${teacherLectureList}">
+			            	<c:forEach var="ll" items="${list}" varStatus="status">
+								<option <c:if test="${l eq ll.lectureName}">selected="selected"</c:if>>${l}</option>
+							</c:forEach>
+			            </c:forEach>  
+		            </c:if>
+				</select>
+				
+				<a class="btn btn-dark" href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${l}">질문 조회</a>
+			</div>
+           
             <br><br>
             
 			<table class="table table-hover">

@@ -29,29 +29,51 @@ public class LecQnaController {
 	@Autowired LecQnaService lecQnaService;
 	@Autowired HttpSession session;
 	
-	/*
 	// 강의 답변 삭제
 	@PostMapping("/lecQna/deleteAnswer")
-	public String deleteOneAnswer(int lecAnswerNo) {
+	public String deleteOneAnswer(int lecAnswerNo, int lecQuestionNo) {
 		
-		int deleteAnswer = lecQnaService.deleteAnswer(lecAnswerNo);
+		// 삭제
+		int row = lecQnaService.deleteAnswer(lecAnswerNo);
 		
-		// return "redirect:/lecQna/";
+		if(row == 1) {
+			log.debug(CF.KHM + "[LecQnaController PostMapping answer.insert] :" + CF.RESET + "강의실 답변 삭제 성공"); // 성공
+		} else {
+			log.debug(CF.KHM + "[LecQnaController PostMapping answer.insert] :" + CF.RESET + "강의실 답변 삭제 실패"); // 실패
+		}
+		
+		return "redirect:/lecQna/lecQnaOne?lecQuestionNo=" + lecQuestionNo;
 	}
 	
 	// 강의 답변 수정 POST
 	@PostMapping("/lecQna/updateAnswer")
 	public String updateLecAnswer(LecAnswer lecAnswer) {
 		
+		// 수정
+		int row = lecQnaService.updateLecAnswer(lecAnswer);
+		
+		if(row == 1) {
+			log.debug(CF.KHM + "[LecQnaController PostMapping answer.insert] :" + CF.RESET + "강의실 답변 수정 성공"); // 성공
+		} else {
+			log.debug(CF.KHM + "[LecQnaController PostMapping answer.insert] :" + CF.RESET + "강의실 답변 수 실패"); // 실패
+		}
+		
+		return "redirect:/lecQna/lecQnaOne?lecAnswerNo="+lecAnswer.getLecAnswerNo();
+		
 	}
+	
 	
 	// 강의 답변 수정 GET
 	@GetMapping("/lecQna/updateAnswer")
-	public String updateLecAnswer(int lecAnswerNo) {
+	public String updateLecAnswer(Model model, 
+									@RequestParam(name="lecAnswerNo") int lecAnswerNo) {
 		
+		LecAnswer lecAnswer = lecQnaService.lecAnswerOne(lecAnswerNo);
 		
+		model.addAttribute("lecAnswer", lecAnswer);
+		
+		return "redirect:/lecQna/lecQnaOne?lecAnswerNo="+lecAnswerNo;
 	}
-	*/
 	
 	// 강의 답변 입력
 	@PostMapping("/lecQna/addAnswer")
@@ -115,7 +137,8 @@ public class LecQnaController {
 			log.debug(CF.KHM + "[LecQnaController PostMapping update] :" + CF.RESET + "강의실 질문 수정 실패"); // 실패
 		}
 		
-		return "redirect:/lecQna/lecQnaList";
+		// 수정 후 수정된 글 상세보기로 이동
+		return "redirect:/lecQna/lecQnaOne?lecQuestionNo="+lecQuestion.getLecQuestionNo();
 	}
 	
 	// 강의 질문 수정
