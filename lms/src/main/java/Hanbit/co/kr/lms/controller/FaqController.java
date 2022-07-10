@@ -102,6 +102,14 @@ public class FaqController {
 	// FAQ 수정 액션
 		@PostMapping("/faq/updateFaq")
 		public String getUpdateFaq(Faq faq, Model model) {
-			return "redirect:/faq/getFaqListByPage";
+			
+			int row = faqService.getUpdateFaq(faq);
+			if(row == 1) {
+				
+				log.debug(CF.KHV + "[FaqController postMapping updateFaq] : 입력 성공" + CF.RESET); // 입력 성공 
+			} else {
+				log.debug(CF.KHV + "[FaqController postMapping updateFaq] : 입력 실패" + CF.RESET); // 입력 실패 
+			}
+			return "redirect:/faq/getFaqOne?faqNo="+faq.getFaqNo();
 		}
 }
