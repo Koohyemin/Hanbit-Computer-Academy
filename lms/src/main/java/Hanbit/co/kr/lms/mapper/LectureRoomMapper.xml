@@ -1,7 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.LectureRoomMapper">
-
+	
+	<!-- 자료실 최근 5개 게시글 -->
+	<select id="lecReferenceList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.LecReference">
+		SELECT 
+			 lec_reference_no lecReferenceNo
+			,lecture_name lectureName
+			,lec_reference_title lecReferenceTitle
+			,create_date createDate
+		FROM lec_reference
+		WHERE lecture_name = #{lectureName}
+		ORDER BY create_date DESC
+		LIMIT 0,5
+	</select>
+	
+	<!-- 공지사항 최근 5개 게시글 -->
+	<select id="lectureNoticeList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.LectureNotice">
+		SELECT
+			 lec_notice_no lecNoticeNo
+			,member_id memberId
+			,lecture_name lectureName
+			,title
+			,create_date createDate
+		FROM lecture_notice
+		WHERE lecture_name = #{lectureName}
+		ORDER BY create_date DESC
+		LIMIT 0,5
+	</select>
+	
+	<!-- Q&A 최근 5개 게시글 -->
+	<select id="lecQuestionList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.LecQuestion">
+		SELECT
+			 lq.lec_question_no lecQuestionNo
+			,lq.member_id memberId
+			,lq.lecture_name lectureName
+			,lq.lec_question_title lecQuestionTitle
+			,lq.lec_question_content lecQuestionContent
+			,lq.revelation
+			,lq.create_date createDate
+			,lq.udpate_date updateDate
+			,la.cnt answerCount
+		FROM lec_question lq 
+			LEFT JOIN (SELECT lec_question_no, COUNT(*) cnt FROM lec_answer GROUP BY lec_question_no) la
+			ON lq.lec_question_no = la.lec_question_no
+		WHERE lq.lecture_name = #{lectureName}
+		ORDER BY lq.create_date DESC
+		LIMIT 0,5
+	</select>
+	
+	<!-- 과제 최근 5개 게시글 -->
+	<select id="homeworkList" parameterType="String" resultType="Hanbit.co.kr.lms.vo.HomeworkMake">
+		SELECT
+			 homework_make_no homeworkMakeNo
+			,lecture_name lectureName
+			,homework_make_title homeworkMakeTitle
+			,homework_deadline homeworkDeadline
+			,create_date createDate
+		FROM homework_make
+		WHERE lecture_name = #{lectureName}
+		ORDER BY create_date DESC
+		LIMIT 0,5
+	</select>
+	
 	<!-- 강사가 수강 중인 강의 목록 -->
 	<select id="teacherLectureList" parameterType="String" resultType="String">
 		SELECT lp.lecture_name lectureName

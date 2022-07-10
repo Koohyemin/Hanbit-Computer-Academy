@@ -27,73 +27,187 @@
       <div class="container-fluid px-4">
         <!-- 컨텐츠 삽입 부분-->
 		<br>
-		<div class="btn-group" >
-			<select class="form-control">
-				<option>-----------------------------강좌선택--------------------------</option>
-				<!-- 학생 수강 중인 목록 -->
-	            <c:if test="${sessionMemberLv == 1}">
-		            <c:forEach var="l" items="${lectureList}">
-						<option>${l}</option>>
-		            </c:forEach>            
-	            </c:if>
-	            
-	            <!-- 강사 수강 중인 목록 -->
-				<c:if test="${sessionMemberLv == 2}">
-		            <c:forEach var="l" items="${teacherLectureList}">
-						<option>${l}</option>>
-		            </c:forEach>  
-	            </c:if>
-			</select>
-			<a class="btn btn-dark" href="#">홈화면 조회</a>
-		</div>
+		<form method="get" action="${pageContext.request.contextPath}/lectureRoom/index">
+			<div class="btn-group" >
+				<select class="form-control" name="lectureName">
+					<option>-----------------------------강좌선택--------------------------</option>
+					<!-- 학생 수강 중인 목록 -->
+		            <c:if test="${sessionMemberLv == 1}">
+			            <c:forEach var="l" items="${lectureList}">
+							<option <c:if test="${l eq lectureName}">selected="selected"</c:if>>${l}</option>>
+			            </c:forEach>      
+		            </c:if>
+		            
+		            <!-- 강사 수강 중인 목록 -->
+					<c:if test="${sessionMemberLv == 2}">
+			            <c:forEach var="l" items="${teacherLectureList}">
+							<option>${l}</option>>
+			            </c:forEach>  
+		            </c:if>
+				</select>
+				<button type="submit" class="btn btn-dark">홈화면 조회</button>
+			</div>
+		</form>
 		<br><br><br>
-		<div class="row">
-			<div class="col-sm-6">
-			<table class="table">
-				<tr>
-					<th>자료실 간략하게 보여주기</th>
-				</tr>
-				<tr>
-					<th><a class="btn btn-dark" href="${pageContext.request.contextPath}/lecReference/getLecReferenceListByPage">바로가기</a></th>
-				</tr>
-			</table>
-			</div>
-			<div class="col-sm-6">
-				<table class="table">
-					<tr>
-						<th>공지사항 간략하게 보여주기</th>
-					</tr>
-					<tr>
-						<th><a class="btn btn-dark" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage">바로가기</a></th>
-					</tr>
-				</table>
-			</div>
-		</div>
-
-		<br><br>
-
-		<div class="row">
-			<div class="col-sm-6">
-			<table class="table">
-				<tr>
-					<th>과제 간략하게 보여주기</th>
-				</tr>
-				<tr>
-					<th><a class="btn btn-dark" href="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList">바로가기</a></th>
-				</tr>
-			</table>
-			</div>
-			<div class="col-sm-6">
-				<table class="table">
-					<tr>
-						<th>Q&A 간략하게 보여주기</th>
-					</tr>
-					<tr>
-						<th><a class="btn btn-dark" href="${pageContext.request.contextPath}/lecQna/lecQnaList">바로가기</a></th>
-					</tr>
-				</table>
-			</div>
-		</div>
+		<c:choose>
+			<c:when test="${lectureName eq ''}">
+				강의를 선택해주세요.
+			</c:when>
+			<c:otherwise>
+				<div class="row">
+					<div class="col-sm-6">
+					<!-- 자료실 -->
+					<h4 class="text-center">자료실 <span> <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/lecReference/getLecReferenceListByPage">바로가기</a></span></h4>
+					<br>
+					<table class="table">
+						<thead>
+							<tr class="text-center">
+								<th>강의명</th>
+								<th>제목</th>
+								<th>작성일</th>
+							</tr>
+						</thead>
+						<tbody>
+						<c:if test="${lecReferenceSize eq 0}">
+							<tr>
+								<td class="text-center text-primary" colspan="3">강의의 자료가 존재하지않습니다.</td>
+							</tr>
+						</c:if>
+						<c:forEach var="r" items="${lecReferenceList}">
+							<tr>
+								<td>${r.lectureName}</td>
+								<td>${r.lecReferenceTitle}</td>
+								<td>${r.createDate}</td>
+							</tr>				
+						</c:forEach>
+						</tbody>
+					</table>
+					</div>
+					<div class="col-sm-6">
+					<!-- 공지사항 -->
+					<h4 class="text-center">공지사항 <span> <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage">바로가기</a></span></h4>
+					<br>
+						<table class="table">
+							<thead>
+								<tr class="text-center">
+									<th>강의명</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody>
+							<c:if test="${lectureNoticeSize eq 0}">
+								<tr>
+									<td class="text-center text-primary" colspan="3">강의의 공지사항이 존재하지않습니다.</td>
+								</tr>
+							</c:if>
+							<c:forEach var="n" items="${lectureNoticeList}">
+								<tr class="text-center">
+									<td>${n.lectureName}</td>
+									<td>${n.title}</td>
+									<td>${n.memberId}</td>
+									<td>${n.createDate}</td>
+								</tr>					
+							</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+		
+				<br><br>
+				
+				<div class="row">
+					<div class="col-sm-6">
+					<h4 class="text-center">과제<span> <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList">바로가기</a></span></h4> <br>
+					<table class="table">
+							<thead>
+								<tr class="text-center">
+									<th>강의명</th>
+									<th>제목</th>
+									<th>마감일</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${homeworkSize eq 0}">
+									<tr>
+										<td class="text-center text-primary" colspan="3">강의의 과제가 존재하지않습니다.</td>
+									</tr>
+								</c:if>
+								<c:forEach var="h" items="${homeworkList}">
+									<tr class="text-center">
+										<td>${h.lectureName}</td>
+										<td>${h.homeworkMakeTitle}</td>
+										<td>${h.homeworkDeadline}</td>
+										<td>${h.createDate}</td>
+									</tr>					
+								</c:forEach>
+							</tbody>
+					</table>
+					</div>
+					<div class="col-sm-6">
+					<h4 class="text-center">Q&A<span> <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/lecQna/lecQnaList">바로가기</a></span></h4> <br>
+						<table class="table">
+							<thead>
+								<tr class="text-center">
+									<th>강의명</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:if test="${lecQuestionSize eq 0}">
+									<tr>
+										<td class="text-center text-primary" colspan="3">강의의 Q&A가 존재하지않습니다.</td>
+									</tr>
+								</c:if>
+								<c:forEach var="q" items="${lecQuestionList}">
+									<tr class="text-center">
+										<td>${q.lectureName}</td>
+									<c:choose>
+										<c:when test="${q.revelation eq 'F'}">
+										
+											<!-- 학생이 본인게시글이 아니라면 게시글 상세보기로 넘어갈 수 없음 -->
+											<!-- 본인게시글이거나 학생이 아니라면 열람 가능 -->
+											<c:choose>
+												<c:when test="${sessionMemberId ne q.memberId && sessionMemberLv == 1}">
+													<td class="col-md-4">🔒 비공개 질문 입니다
+														<c:if test="${q.answerCount != 0}">
+															<span class="text-secondary">[${q.answerCount}]</span>
+														</c:if>
+													</td>
+												</c:when>
+												<c:otherwise>
+													<td class="col-md-4"><a href="${pageContext.request.contextPath}/lecQna/lecQnaOne?lecQuestionNo=${q.lecQuestionNo}" class="none-unline">🔒 비공개 질문 입니다
+														<c:if test="${q.answerCount != 0}">
+															<span class="text-secondary">[${q.answerCount}]</span>
+														</c:if>
+													</a></td>											
+												</c:otherwise>
+											</c:choose>
+										</c:when>
+										<c:otherwise>
+											<td class="col-md-4"><a href="${pageContext.request.contextPath}/lecQna/lecQnaOne?lecQuestionNo=${q.lecQuestionNo}" class="none-unline">${q.lecQuestionTitle}
+												<c:if test="${q.answerCount != 0}">
+													<span class="text-secondary">[${q.answerCount}]</span>
+												</c:if>
+											</a></td>							
+										</c:otherwise>
+									</c:choose>
+									
+										<td>${q.memberId}</td>
+										<td>${q.createDate}</td>
+									</tr>					
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+			</c:otherwise>
+		</c:choose>
        
        
        </div>

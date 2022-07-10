@@ -38,7 +38,7 @@
             <c:if test="${sessionMemberLv == 1}">
 	            <a class="float-right btn btn-dark float-end" href="${pageContext.request.contextPath}/lecQna/addLecQna">질문 작성</a> <br><br>            
             </c:if>
-           	
+           	<form method="get" action="${pageContext.request.contextPath}/lecQna/lecQnaList">
 	          <div class="btn-group" >
 				<select class="form-control" name="lectureName">
 					<option>-----------------------------강좌선택--------------------------</option>
@@ -60,9 +60,9 @@
 			            </c:forEach>  
 		            </c:if>
 				</select>
-				
-				<a class="btn btn-dark" href="${pageContext.request.contextPath}/lecQna/lecQnaList?lectureName=${l}">질문 조회</a>
-			</div>
+					<button type="submit" class="btn btn-dark">질문 조회</button>
+				</div>
+			</form>
            
             <br><br>
             
