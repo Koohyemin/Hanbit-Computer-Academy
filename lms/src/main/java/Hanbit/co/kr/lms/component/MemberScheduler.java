@@ -21,7 +21,7 @@ public class MemberScheduler {
 	
 		 int row = memberService.sleepMember();
 		 if( row > 1) {
-		 log.debug(CF.LKL + "MemberScheduler" + CF.RESET + row); 
+			 log.debug(CF.LKL + "MemberScheduler" + CF.RESET + row); 
 		 }
 	}
 	

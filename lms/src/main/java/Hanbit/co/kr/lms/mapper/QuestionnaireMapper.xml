@@ -1,7 +1,297 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.QuestionnaireMapper">
+	<!-- 승인된 강의의 종강일 -->
+	<select id="endClassDate" resultType="String">
+		SELECT 
+			tt.end_class endClass
+		FROM time_table tt
+			INNER JOIN lec_plan lp
+			ON tt.lecture_name = lp.lecture_name 
+		WHERE lp.lec_state = 'T' AND tt.lecture_name = #{lectureName}
+	</select>
 
+	<!-- 설문조사 등록 -->	
+	<insert id="insertQuestionnarie1" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,1
+			,'강사'
+			,'강사의수업준비는체계적이었다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie2" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,2
+			,'강사'
+			,'강사는열정을갖고수업을진행하였다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie3" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,3
+			,'강사'
+			,'강사는학생들을이해시키려고노력하였다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie4" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,4
+			,'강사'
+			,'강사는새로운지식을전하려노력하였다.'
+		)
+	</insert>
+		
+	<insert id="insertQuestionnarie5" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,5
+			,'강사'
+			,'강사의수업내용주별진도는적절하였다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie6" parameterType="String">	
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,6
+			,'강좌'
+			,'강좌의수업내용이체계적으로구성되었다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie7" parameterType="String">	
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,7
+			,'강좌'
+			,'강좌의수업자료가학생들의수준에맞는난이도로제시되었다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie8" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,8
+			,'강좌'
+			,'강좌의수강에따른평가기준및방식은명확하게제시되었다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie9" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,9
+			,'강좌'
+			,'강좌의교육인원이교육효과를달성하는데적합한규모였다.'
+		)
+	</insert>	
+	
+	<insert id="insertQuestionnarie10" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,10
+			,'강좌'
+			,'강좌의수업방식이학습목표에맞게진행되었다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie11" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,11
+			,'만족도'
+			,'학원시설은전반적으로만족한다.'
+		)
+	</insert>
+		
+	<insert id="insertQuestionnarie12" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,12
+			,'만족도'
+			,'이수강과목에전반적으로만족한다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie13" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,13
+			,'만족도'
+			,'이수강과목이지속적으로운영되었으면좋겠다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie14" parameterType="String">	
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,14
+			,'만족도'
+			,'이수강과목이나의취업및진로에도움이될것으로생각한다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie15" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,15
+			,'만족도'
+			,'이수강과목을주변에권하고싶다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie16" parameterType="String">	
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,16
+			,'참여도'
+			,'수업시간에집중하여열심히들었다.'
+		)
+	</insert>
+	
+	<insert id="insertQuestionnarie17" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,17
+			,'참여도'
+			,'수업활동에적극참여하였다.'
+		)
+	</insert>
+		
+	<insert id="insertQuestionnarie18" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,18
+			,'참여도'
+			,'수업과제를적극적으로제출하였다.'
+		)
+	</insert>
+		
+	<insert id="insertQuestionnarie19" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,19
+			,'참여도'
+			,'수업외시간에도공부를진행하였다.'
+		)
+	</insert>
+		
+	<insert id="insertQuestionnarie20" parameterType="String">
+		INSERT INTO questionnaire (
+			 lecture_name
+			,evaluation_no
+			,category
+			,questionnaire_content
+		) VALUE (
+			 #{lectureName}
+			,20
+			,'참여도'
+			,'강사와의소통에적극적으로참여하였다.'
+		)
+	</insert>
+	
 	<select id="selectQuestioncheck" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		FROM questionnaire_answer

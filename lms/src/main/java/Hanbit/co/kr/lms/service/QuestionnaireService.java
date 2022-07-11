@@ -1,5 +1,6 @@
 package Hanbit.co.kr.lms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,36 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 public class QuestionnaireService {
 	@Autowired QuestionnaireMapper questionnaireMapper;
+	
+	// 종강일 설문 등록
+	public List<Integer> insertQuestionnaire(String lectureName) {
+		
+		List<Integer> list = new ArrayList<>();
+		
+		list.add(questionnaireMapper.insertQuestionnarie1(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie2(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie3(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie4(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie5(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie6(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie7(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie8(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie9(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie10(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie11(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie12(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie13(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie14(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie15(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie16(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie17(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie18(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie19(lectureName));
+		list.add(questionnaireMapper.insertQuestionnarie20(lectureName));
+
+		
+		return list;
+	}
 	
 	// 설문 여부 체크
 	public int selectcheck(String studentId) {

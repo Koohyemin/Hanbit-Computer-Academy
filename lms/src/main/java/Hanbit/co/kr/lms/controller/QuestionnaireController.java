@@ -28,6 +28,8 @@ import lombok.extern.slf4j.Slf4j;
 public class QuestionnaireController {
 	@Autowired QuestionnaireService questionnaireService;
 	
+	// 설문 등록
+	
 	// 강의 평가 강좌 리스트 
 	@GetMapping("/questionnaire/getLecQuestionnaireList")
 	public String getLecQuestionnaireList(Model model

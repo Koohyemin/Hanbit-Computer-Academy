@@ -105,7 +105,7 @@
 							<c:forEach var="n" items="${lectureNoticeList}">
 								<tr class="text-center">
 									<td>${n.lectureName}</td>
-									<td>${n.title}</td>
+									<td><a href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeOne?lecNoticeNo=${n.lecNoticeNo}" class="none-unline">${n.title}</a></td>
 									<td>${n.memberId}</td>
 									<td>${n.createDate}</td>
 								</tr>					
