@@ -30,8 +30,9 @@
                 FAQ
              <c:if test="${sessionMemberLv == 3 }">
 	             <form method="post" action="${pageContext.request.contextPath}/faq/deleteFaq"  style="float:right">
-	              <a class="btn btn-dark btn-sm" id="delBtn" href="${pageContext.request.contextPath}/faq/updateFaq?faqNo=${faq.faqNo}">수정</a>
-	              <input type="submit" value="삭제" class="btn btn-dark btn-sm" id="delBtn">
+	              		<a class="btn btn-dark btn-sm" id="delBtn" href="${pageContext.request.contextPath}/faq/updateFaq?faqNo=${faq.faqNo}">수정</a>
+	              <input type="hidden" name="faqNo" value="${faq.faqNo}" readonly="readonly">
+	              <button type="submit" class="btn btn-dark btn-sm">삭제</button>
 	             </form>
             </c:if>
             </div>

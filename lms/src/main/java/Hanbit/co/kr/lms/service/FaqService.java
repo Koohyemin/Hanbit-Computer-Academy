@@ -40,9 +40,8 @@ public class FaqService {
 	public int getInsertFaq(Faq faq) {
 		return faqMapper.getInsertFaq(faq); 
 	}
-
 	
-	// faq 삭제
+	//삭제
 	public int getDeleteFaq(int faqNo) {
 		return faqMapper.getDeleteFaq(faqNo);
 	}

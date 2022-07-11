@@ -76,12 +76,18 @@ public class FaqController {
 		
 	// FAQ 삭제 
 		@PostMapping("/faq/deleteFaq")
-		public String getDeleteFaq(int faqNo, Model model) {
+		public String getDeleteFaq(Model model
+				,@RequestParam(name="faqNo") int faqNo) {
 			int row = faqService.getDeleteFaq(faqNo);
+			
+			log.debug(CF.KHV+ "[FaqController postMapping faqNo] : ****************************" + CF.RESET); 
+			
+			model.addAttribute("faqNo", faqNo);
+			
 			if(row == 1) {
-				log.debug(CF.KHV+ "[FaqController postMapping addFaq] : 공지 삭제 성공" + CF.RESET); // 성공 디버깅
+				log.debug(CF.KHV+ "[FaqController postMapping getDeleteFaq] : 공지 삭제 성공" + CF.RESET); // 성공 디버깅
 			} else {
-				log.debug(CF.KHV + "[FaqController postMapping addFaq] : 공지 삭제 실패" + CF.RESET); // 실패 디버깅
+				log.debug(CF.KHV + "[FaqController postMapping getDeleteFaq] : 공지 삭제 실패" + CF.RESET); // 실패 디버깅
 			}
 		
 			return "redirect:/faq/getFaqListByPage"; // 공지 수정 후, 리스트로 돌아가기

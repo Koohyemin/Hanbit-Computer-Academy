@@ -40,11 +40,11 @@
 			,NOW()
 		)
 	</insert>
+	
 	<!--  삭제 -->
-	<delete id="getDeleteFaq"  parameterType="Hanbit.co.kr.lms.vo.Faq">
-	         DELETE FROM
-	            faq
-	      WHERE faq_no = #{noticeNo}
+	<delete id="getDeleteFaq"  parameterType="int">
+		DELETE FROM faq
+		WHERE faq_no = #{faqNo}
 	</delete>
 	
 	<!-- 수정 -->
