@@ -27,7 +27,7 @@
 	                    <div class="card-header">
 	                   		<i class="fas fa-chart-area me-1"></i>
 	                        AddHomework
-	                        <a href="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList" class="btn btn-dark" style="float:right">이전으로</a>
+	                        <a href="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList" class="btn btn-dark btn-sm" style="float:right">이전으로</a>
 	                    </div>
 						<table class="table">
 							<tr>
@@ -57,7 +57,7 @@
 							<tr>
 								<th>마감일</th>
 								<td>
-									<input type="date" name="homeworkDeadline" value="${homeworkMake.homeworkDeadline}">
+									${homeworkMake.homeworkDeadline}
 								</td>
 							</tr>
 						</table>

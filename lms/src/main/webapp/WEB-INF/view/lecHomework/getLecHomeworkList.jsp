@@ -63,13 +63,13 @@
 					<div class="col-lg-6">
 						<div class="card mb-4">
 							<div class="card-header">
-								과제
-                                <form method="post" action="${pageContext.request.contextPath}/lecHomework/removeHomework" id="del">
-                                   <input type="hidden" value="${h.homeworkMakeNo}" name="homeworkMakeNo">
-                                   <input type="hidden" value="${h.homeworkSubmissionNo}" name="homeworkSubmissionNo">
-                                   <input class="btn btn-secondary btn-sm float-end delBtn" value="삭제" type="submit"/>
+								<form method="post" action="${pageContext.request.contextPath}/lecHomework/removeHomework" id="del">
+									과제
+		                            <input type="hidden" value="${h.homeworkMakeNo}" name="homeworkMakeNo">
+		                            <input type="hidden" value="${h.homeworkSubmissionNo}" name="homeworkSubmissionNo">
+									<input class="btn btn-secondary btn-sm float-end delBtn" value="삭제" type="submit"/>
+									<a class="btn btn-dark btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/modifyHomework?homeworkMakeNo=${h.homeworkMakeNo}">수정하기</a>
                                 </form>
-								<a class="btn btn-dark btn-sm float-end" role="button" href="${pageContext.request.contextPath}/lecHomework/modifyHomework?homeworkMakeNo=${h.homeworkMakeNo}">수정하기</a>
 							</div>
 							<table class="table table-bordered">
 								<tr>

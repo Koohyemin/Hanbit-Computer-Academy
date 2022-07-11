@@ -69,10 +69,9 @@ $(document).ready(function(){ // html페이지를 다 로드시키고 매개변�
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
 	                Homework Submission
+					<a href="${pageContext.request.contextPath}/lecHomework/submitOne?homeworkSubmissionNo=${homeworkSubmission.homeworkSubmissionNo}&&homeworkMakeTitle=${homeworkMakeTitle}" class="btn btn-dark btn-sm" style="float:right">이전으로</a>
 	            </div>
             </div>
-			<a href="${pageContext.request.contextPath}/#" class="btn btn-dark" style="float:right">이전으로</a>
-			<br><br>
 			<form method="post" id="homeworkForm" action="${pageContext.request.contextPath}/lecHomework/modifySubmit" enctype="multipart/form-data">
 				<table class="table">
 					<tr>
@@ -105,7 +104,7 @@ $(document).ready(function(){ // html페이지를 다 로드시키고 매개변�
 								<div id="${f.homeworkFileNo}">
 
 								<span>${f.homerworkFileOriginalName}</span>
-									<button type="button" data-value="${f.homeworkFileNo}" class="deleteFile" >삭제</button>
+									<button type="button" data-value="${f.homeworkFileNo}" class="deleteFile btn btn-light">삭제</button>
 								</div>
 						
 							</c:forEach>

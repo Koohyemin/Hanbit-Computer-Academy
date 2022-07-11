@@ -39,10 +39,10 @@
 	                Student Homework Submission ONe
 	                <c:choose>
 	                	<c:when test="${sessionMemberLv == 1 }">
-							<a href="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList" class="btn btn-dark" style="float:right">이전으로</a>
+							<a href="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList" class="btn btn-dark btn-sm" style="float:right">이전으로</a>
 	                	</c:when>
 	                	<c:when test="${sessionMemberLv == 2}">
-	                		<a href="${pageContext.request.contextPath}/lecHomework/studentSubmitList?homeworkMakeNo=${homeworkSubmission.homeworkMakeNo}" class="btn btn-dark" style="float:right">이전으로</a>
+	                		<a href="${pageContext.request.contextPath}/lwecHomework/studentSubmitList?homeworkMakeNo=${homeworkSubmission.homeworkMakeNo}" class="btn btn-dark btn-sm" style="float:right">이전으로</a>
 	                	</c:when>
 	                </c:choose>
 	            </div>
