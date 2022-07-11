@@ -62,9 +62,7 @@ public class LectureNoticeController {
 			log.debug( CF.KHV +"[lectureNoticeService studentLectureNameList]: "+ CF.RESET + studentLectureNameList);
 			
 			model.addAttribute("studentLectureNameList", studentLectureNameList);	
-			} else if(memberLv == 3) {	
-			
-         	}return "lectureNotice/getLecNoticeListByPage";
+			} return "lectureNotice/getLecNoticeListByPage";
 		}
 		
 		

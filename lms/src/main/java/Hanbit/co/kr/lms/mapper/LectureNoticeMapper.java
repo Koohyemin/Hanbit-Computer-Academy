@@ -35,6 +35,4 @@ public interface LectureNoticeMapper {
 		// 학생 강좌장버 블러오기
 		List<Registration> studentLectureNameList(String studuntId); 
 		
-		// 운영자 강좌장버 블러오기
-		List<Registration> managerLectureNameList();
-	}
+		}

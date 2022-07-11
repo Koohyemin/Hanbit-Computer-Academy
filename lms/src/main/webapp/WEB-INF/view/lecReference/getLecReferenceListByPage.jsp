@@ -59,7 +59,6 @@
 			                           	<th>번호</th>
 						                <th>제목	</th>
 						                <th>강의</th>
-										<th>작성자</th>
 						                <th>작성일</th>
 			                       </tr>
 			                   </thead>
@@ -69,7 +68,6 @@
 						                   <td>${lecReference.lecReferenceNo}</td>
 						                   <td><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/lecReference/getLecReferenceOne?lecReferenceNo=${lecReference.lecReferenceNo}">${lecReference.lecReferenceTitle}</a></td>
 						                   <td>${lecReference.lectureName}</td>
-						                   <td>${lecReference.teacherId}</td>
 						                   <td>${lecReference.createDate}</td>
 						                </tr>
 						            </c:forEach>
@@ -99,7 +97,7 @@
 		                <div class="card mb-4">
 		                    <div class="card-header">
 	                        <i class="fas fa-chart-area me-1"></i>
-	                        LectureNotice
+	                        LecReference
 	                    </div>
 	                    <div class="card-body">
 							<!-- LecQuestion 목록 리스트  -->
