@@ -118,7 +118,7 @@
                     <div class="collapse" id="pagesCollapseError" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordionPages">
                         <nav class="sb-sidenav-menu-nested nav">
                             <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getStatsQuestionnaireList">강의평가 조회</a>
-                            <a class="nav-link" href="#">성적조회</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/lec/scoreRankigByLec">성적조회</a>
                         </nav>
                     </div>
                </c:if>

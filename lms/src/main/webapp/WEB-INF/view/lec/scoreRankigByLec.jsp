@@ -30,7 +30,7 @@
         	<div class="card mb-4">
 	            <div class="card-header">
 	                <i class="fas fa-chart-area me-1"></i>
-	               강의 납부 내역
+	               학생 성적 순위
 	            </div>
             </div>
 			
