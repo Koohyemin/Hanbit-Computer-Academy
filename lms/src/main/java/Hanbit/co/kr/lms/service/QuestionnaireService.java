@@ -21,39 +21,50 @@ import lombok.extern.slf4j.Slf4j;
 public class QuestionnaireService {
 	@Autowired QuestionnaireMapper questionnaireMapper;
 	
-	// 강의 종강일
-	public String endClassDate(String lectureName) {
-		return questionnaireMapper.endClassDate(lectureName);
-	}
-	
 	// 종강일 설문 등록
-	public List<Integer> insertQuestionnaire(String lectureName) {
+	public int insertQuestionnaire() {
 		
-		List<Integer> list = new ArrayList<>();
+		// 강의명 + 종강일 -> 해당하는 일만 뜬다
+		List<Questionnaire> questionnaireList = questionnaireMapper.endClassDate();		
 		
-		list.add(questionnaireMapper.insertQuestionnarie1(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie2(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie3(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie4(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie5(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie6(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie7(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie8(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie9(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie10(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie11(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie12(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie13(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie14(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie15(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie16(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie17(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie18(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie19(lectureName));
-		list.add(questionnaireMapper.insertQuestionnarie20(lectureName));
-
+		String lectureName = ""; // 강의 명
+		int totalRow = 0; // 등록 성공 전체 행 수
 		
-		return list;
+		// 종강일이 오늘날짜와 같다면 insert 실행
+		if(questionnaireList.size() > 0) {
+			for(int i=0; i<questionnaireList.size(); i++) {
+				
+				// 해당 강의명 받아오기(여러개일 수 있으므로 사이즈만큼 반복)
+				lectureName = questionnaireList.get(i).getLectureName();
+				
+				// 설문 1~20번 실행
+				int row1 = questionnaireMapper.insertQuestionnarie1(lectureName);
+				int row2 = questionnaireMapper.insertQuestionnarie2(lectureName);
+				int row3 = questionnaireMapper.insertQuestionnarie3(lectureName);
+				int row4 = questionnaireMapper.insertQuestionnarie4(lectureName);
+				int row5 = questionnaireMapper.insertQuestionnarie5(lectureName);
+				int row6 = questionnaireMapper.insertQuestionnarie6(lectureName);
+				int row7 = questionnaireMapper.insertQuestionnarie7(lectureName);
+				int row8 = questionnaireMapper.insertQuestionnarie8(lectureName);
+				int row9 = questionnaireMapper.insertQuestionnarie9(lectureName);
+				int row10 = questionnaireMapper.insertQuestionnarie10(lectureName);
+				int row11 = questionnaireMapper.insertQuestionnarie11(lectureName);
+				int row12 = questionnaireMapper.insertQuestionnarie12(lectureName);
+				int row13 = questionnaireMapper.insertQuestionnarie13(lectureName);
+				int row14 = questionnaireMapper.insertQuestionnarie14(lectureName);
+				int row15 = questionnaireMapper.insertQuestionnarie15(lectureName);
+				int row16 = questionnaireMapper.insertQuestionnarie16(lectureName);
+				int row17 = questionnaireMapper.insertQuestionnarie17(lectureName);
+				int row18 = questionnaireMapper.insertQuestionnarie18(lectureName);
+				int row19 = questionnaireMapper.insertQuestionnarie19(lectureName);
+				int row20 = questionnaireMapper.insertQuestionnarie20(lectureName);
+				
+				// 성공 행 수
+				totalRow = row1 + row2 + row3 + row4 + row5 + row6 + row7 + row8 + row9 + row10 + row11 + row12 + row13 + row14 + row15 + row16 + row17 + row18 + row19 + row20;
+			}
+		}
+		
+		return totalRow;
 	}
 	
 	// 설문 여부 체크
@@ -82,7 +93,7 @@ public class QuestionnaireService {
 		List<Integer> checklist = (List<Integer>)(map.get("checklistmap"));
 		log.debug( CF.KYJ +"[QuestionnaireService selectQuestionnairepoint check]: "+ checklist + CF.RESET);
 		
-		// 학새아이디 가져오기
+		// 학생아이디 가져오기
 		String studentId = (String)(map.get("studentId"));
 		
 		// 문제 갯수만큼 반복

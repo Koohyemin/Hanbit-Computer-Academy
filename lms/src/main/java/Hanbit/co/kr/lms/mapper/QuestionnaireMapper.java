@@ -33,7 +33,7 @@ public interface QuestionnaireMapper {
 	List<Map<String,Object>> selectCategoryScore(int registrationNo);
 	
 	// 허용된 강좌별 종강일
-	String endClassDate(String lectureName);
+	List<Questionnaire> endClassDate();
 	
 	// 설문조사 등록
 	int insertQuestionnarie1(String lectureName); // 1번 설문
