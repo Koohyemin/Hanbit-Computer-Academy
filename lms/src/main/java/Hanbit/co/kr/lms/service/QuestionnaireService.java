@@ -21,6 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 public class QuestionnaireService {
 	@Autowired QuestionnaireMapper questionnaireMapper;
 	
+	// 강의 종강일
+	public String endClassDate(String lectureName) {
+		return questionnaireMapper.endClassDate(lectureName);
+	}
+	
 	// 종강일 설문 등록
 	public List<Integer> insertQuestionnaire(String lectureName) {
 		
