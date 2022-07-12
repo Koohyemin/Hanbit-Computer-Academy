@@ -45,6 +45,11 @@
 				<button type="submit" class="btn btn-dark">강의평가 조회</button>					   
 				</div>					             	
 	        </form>
+	        
+	        <br>
+	        <c:if test="${param.submit eq 'T'}">	        
+	        	<div class="text-danger">이미 완료된 강의평가 입니다.</div>
+	        </c:if>
 		</div>
 	</div>
 	</div>

@@ -60,7 +60,8 @@ public class QuestionnaireController {
 		
 		if(row != 0) {
 			log.debug( CF.KYJ +"[QuestionnaireController GetMapping studentId]: "+ "설문을 이미 함" + CF.RESET);
-			return "redirect:/questionnaire/getLecQuestionnaireList";
+		
+			return "redirect:/questionnaire/getLecQuestionnaireList?submit=T"; // 강의평가가 진행되었다면 submit에 ture값을 보냄 
 		}else {
 		
 			log.debug( CF.KYJ +"[QuestionnaireController GetMapping studentId]: "+ lectureName + CF.RESET);
