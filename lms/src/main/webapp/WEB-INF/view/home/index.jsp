@@ -62,7 +62,7 @@
                <div class="card-header">
                    <i class="fas fa-chart-area me-1"></i>
                   강의계획서
-                  <a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/lecReference/getLecReferenceListByPage">바로가기</a> 
+                  <a class="btn btn-dark btn-sm float-end" href="${pageContext.request.contextPath}/people/peopleList?level=3">바로가기</a> 
                </div>
                	<div class="card-body">   			      
 	            <table class="table">
@@ -77,7 +77,7 @@
                   <tbody>
                   <c:forEach var="lecPlanList" items="${lecPlanList}">
                      <tr>
-                        <td><a href="${pageContext.request.contextPath}/people/peopleList?level=3" class="text-dark none-unline"><b>${lecPlanList.lectureName}</b></a></td>
+                        <td><a href="${pageContext.request.contextPath}/lec/lecOne?lectureName=${lecPlanList.lectureName}" class="text-dark none-unline"><b>${lecPlanList.lectureName}</b></a></td>
                         <td>${lecPlanList.teacherId}</td>
                         <td>${lecPlanList.lecState}</td>               
                         <td>${lecPlanList.createDate}</td>
