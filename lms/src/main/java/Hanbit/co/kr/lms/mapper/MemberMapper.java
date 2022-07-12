@@ -42,4 +42,5 @@ public interface MemberMapper {
 	//휴면계정 활성화 비밀번호(직전비밀번호 비교)
 	int changePwbyactivity(PasswordUpdateDate passwordUpdateDate);
 	
+	int deleteMemberCk(String pw);
 }

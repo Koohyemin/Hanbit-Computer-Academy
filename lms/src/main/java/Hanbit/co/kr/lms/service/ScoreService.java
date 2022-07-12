@@ -30,27 +30,33 @@ public class ScoreService {
 		List<Lec> lectureList = avgmapper.selectLectureListByTeacher(teacherId);
 		
 		log.debug(CF.LKL+"ScoreService.getScoreRank.lectureList"+CF.RESET + lectureList);
+		log.debug(CF.LKL+"ScoreService.getScoreRank.lectureList"+CF.RESET + lectureList.size());
 		
 		String defaultValue = lectureList.get(0).getLectureName();
 		
 		log.debug(CF.LKL+"ScoreService.getScoreRank.defaultValue"+CF.RESET + defaultValue);
-		
-		if(lectureName == null || lectureList.size() !=0) {				
+		List<Map<String,Object>> scorelist;
+		if(lectureName == null || lectureList.size() != 0) {				
 			
 			lectureName=  defaultValue;
 			
 			lectureList.remove(0);
-		}
+			
+			 scorelist = avgmapper.selectAVGRank(defaultValue);
+		}else {
 		
 		//다시 확인
 		
 		log.debug(CF.LKL+"ScoreService.getScoreRank.lectureName"+CF.RESET + lectureName);
+		log.debug(CF.LKL+"ScoreService.getScoreRank.lectureList"+CF.RESET + lectureList);
 		
-		Map<String,Object> map = new HashMap<>();
+		
 		//학생 점수 리스트 
-		List<Map<String,Object>> scorelist = avgmapper.selectAVGRank(lectureName);
+		 scorelist = avgmapper.selectAVGRank(lectureName);
+		}
+		Map<String,Object> map = new HashMap<>();
+		log.debug(CF.LKL+"ScoreService.getScoreRank.scorelist"+CF.RESET + scorelist);
 		
-		log.debug(CF.LKL+"ScoreService.getScoreRank.list"+CF.RESET + scorelist);
 		map.put("scorelist", scorelist);
 		map.put("lectureList", lectureList);
 		map.put("defaultValue", defaultValue);
@@ -67,4 +73,10 @@ public class ScoreService {
 		return list;
 	}
 	
+	public List<Map<String,Object>> getAVGRank(String LectureName){
+	
+		List<Map<String,Object>> scorelist = avgmapper.selectAVGRank(LectureName);
+		
+		return scorelist;
+	};
 }

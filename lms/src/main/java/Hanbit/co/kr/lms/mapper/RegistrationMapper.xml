@@ -72,6 +72,8 @@
 			payment = #{payment}
 		WHERE registration_no = #{registrationNo}
 	</update>
+	
+		<!-- 운영자 납부 리스트 조회 -->
 	<select id="selectRegistrationByLec"
 			parameterType="java.lang.String"
 			resultType="Map">
@@ -93,19 +95,10 @@
 		<where>
 			t.begin_class > NOW()
 				 AND lp.lec_state='T'
-				
-			<choose>
-				<when test="lectureName = ''">
-				
-				</when>
-				<otherwise>
+				<if test="lectureName != null">
 					AND r.lecture_name= #{lectureName};
-					
-				</otherwise>
-			</choose>
-			
+				</if>
 		</where>
-		
 	</select>
 	<!-- 운영자 수강 현재날짜 기준으로 안끝난 강의 조회 -->
 	<select id="beforeLecture"

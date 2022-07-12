@@ -30,6 +30,8 @@ public class PaymentRESTController {
 		
 		List<Map<String,Object>> list =  (List<Map<String, Object>>) map.get("paymentlist");
 		
+		log.debug(CF.LKL+"PaymentRESTController.RegipaymentList.list "+CF.RESET+list);
+		
 		return list;
 		
 	}

@@ -110,7 +110,29 @@ public class MemberRESTController {
 		return pwCheck;
 		
 	}
-
+	@GetMapping("/removeMemberCk")
+	public boolean removeMemberCk(@RequestParam(name="") String x){
+		
+		log.debug(CF.LKL+"MemberRESTController.prePw.passwordUpdateDate : "+ CF.RESET + x);
+		
+		int row= memberService.removeMemberCk(x);
+		
+		boolean pwCheck=false;
+		if(row==0) {
+			
+			pwCheck= false;
+			
+		} else {
+			
+			pwCheck= true;
+			
+		}
+		
+		log.debug(CF.LKL+"MemberRESTController.prePw.pwCheck : "+ CF.RESET + pwCheck);
+		
+		return pwCheck;
+		
+	}
 	
 	
 }

@@ -63,7 +63,7 @@
 							<td id="field4" class="text-center">${reg.payment}</td>
 							<td id="field5" class="text-center">${reg.createDate}</td>
 							<td id="field6" class="text-center" hidden="hidden">${reg.studentId}</td>
-								<td><a href="${pageContext.request.contextPath}/registration/removeRegistRation?registrationNo	=${reg.registrationNo}" class="btn btn-warning btn-sm text-active">환불<i class="fa-solid fa-heart-circle-plus"></i></a></td>
+							<td id="field7"><a href="${pageContext.request.contextPath}/registration/removeRegistRation?registrationNo	=${reg.registrationNo}" class="btn btn-warning btn-sm text-active">환불<i class="fa-solid fa-heart-circle-plus"></i></a></td>
 							
 						</tr>
 							<!-- 강의가 없다면 개설된 강의가 없습니다. -->
@@ -94,33 +94,44 @@
 
              $('#lectureName').change(function(){
             	 alert('이벤트발동');
-            	 $("#field1").empty();
-            	 $("#field2").empty();
-            	 $("#field3").empty();
-            	 $("#field4").empty();
-            	 $("#field5").empty();
-            	 $("#field6").empty();
-            	 
+  					$('#field1').empty();
+  					$('#field2').empty();
+  					$('#field3').empty();
+  					$('#field4').empty();
+  					$('#field5').empty();
+  					$('#field6').empty();
+            		$('#tbodyid').empty();
+            		console.log($('#lectureName option:selected').val());
             	 $.ajax({
           			type:"get" // get방식
           			,url:'/lms/RegipaymentList'											
           			,data:{'lectureName':$('#lectureName option:selected').val()}							
           			,success:function(arr){
           				console.log(arr);
+          				var tmp = arr;
+          				
           			  $(arr).each(function(index, item) {
-	          				
-	          				$('#field1').append('<td class="text-center text-success col-md-4	">'+item.registrationNo +'</td>');	
-	          				$('#field2').append('<td class="text-center col-md-4">'+item.studentName +'</td>');	
-	          				$('#field3').append('<td  class="text-center col-md-4">'+item.lectureName +'</td>');
-	          				$('#field4').append('<td class="text-right col-md-4">'+item.payment +'</td>');
-	          				$('#field5').append('<td class="text-center col-md-4">'+item.createDate.substring(0, 10) +'</td>');
-	          				$('#field6').append('<td class="text-center" hidden="hidden">'+item.studentId +'</td>');
+          					$('#tbodyid').append('<tr>');
+	          				$('#tbodyid').append('<td class="text-center text-success col-md-4	">'+item.registrationNo +'</td>');	
+	          				$('#tbodyid').append('<td class="text-center  text-success ">'+item.studentName +'</td>');	
+	          				$('#tbodyid').append('<td class="text-center  text-success ">'+item.lectureName +'</td>');
+	          				$('#tbodyid').append('<td class="text-right  col-md-2">'+item.payment +'</td>');
+	          				$('#tbodyid').append('<td class="text-center col-md-2">'+item.createDate.substring(0, 10) +'</td>');
+	          				$('#tbodyid').append('<td class="text-center" hidden="hidden">'+item.studentId +'</td>');          			
+	          				$('#tbodyid').append('<td><a href="${pageContext.request.contextPath}/registration/removeRegistRation?registrationNo='+item.registrationNo+'"class="btn btn-warning btn-sm text-active" id="test">환불<i class="fa-solid fa-heart-circle-plus"></i></a></td>');
+	          				$('#tbodyid').append('</tr>');
+	          				arr=[];
 	          				
           	            });
-          			  
+          			
           			}
               });
-            	
+            
          });
+             
+           $('#test').click(function(){
+        		console.log(item.registrationNo);
+        		return fasle;
+           });
     </script>
 </html>

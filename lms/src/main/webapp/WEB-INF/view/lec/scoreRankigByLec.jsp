@@ -52,12 +52,12 @@
 					</tr>
 				</thead>
 				<tbody id="tbodyid">
-					<c:forEach var="reg" items="${scorelist}" varStatus="status">
+				
 						<tr>
-							<td  class="text-center text-success">${reg.rank}</td>
-							<td  class="text-center">${reg.studentName}</td>
-							<td  class="text-center col-md-4" >${reg.avg} </td>
-					</c:forEach>
+							<td  class="text-center text-success"><p id="field1"></p></td>
+							<td  class="text-center"><p id="field2"></p></td>
+							<td  class="text-center col-md-4" ><p id="field3"></p> </td>
+			
 				</tbody>
 			</table>
 		</div>
@@ -78,7 +78,48 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
     <script>
+    
+    
+	 $.ajax({
+			type:"get" // get방식
+			,url:'/lms/getScoreRank'											
+			,data:{'lectureName':$('#lectureName option:selected').val()}							
+			,success:function(arr){
+				console.log(arr);
+				$(arr).each(function(index, item) {
+					
+					$('#field1').append(item.rank+'<br>');	
+					$('#field2').append(item.studentName+'<br>');	
+					$('#field3').append(item.avg +'<br>');	
 
+				 });
+			}
+});
+    
+    
+    
+    $('#lectureName').change(function(){
+    	$('#field1').empty();
+    	$('#field2').empty();
+    	$('#field3').empty();
+	
+   	 $.ajax({
+			type:"get" // get방식
+			,url:'/lms/getScoreRank'											
+			,data:{'lectureName':$('#lectureName option:selected').val()}							
+			,success:function(arr){
+				console.log(arr);
+				$(arr).each(function(index, item) {
+					
+					$('#field1').append(item.rank+'<br>');	
+					$('#field2').append(item.studentName+'<br>');	
+					$('#field3').append(item.avg +'<br>');	
+
+				 });
+			}
+   });
+    	
+    });
 
     </script>
 </html>

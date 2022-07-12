@@ -2,248 +2,257 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Hanbit.co.kr.lms.mapper.MemberMapper">
 	<!-- 회원가입 ID유효성-Member 테이블 ID -->
-	<select id="selectMember" 
-			resultType="Hanbit.co.kr.lms.vo.Member">
+	<select id="selectMember"
+		resultType="Hanbit.co.kr.lms.vo.Member">
 		SELECT member_id memberId
 		FROM member;
 	</select>
 	<!-- 회원가입-Member 테이블 삽입 -->
 	<insert id="insertMember"
-			parameterType="Hanbit.co.kr.lms.vo.Member">
+		parameterType="Hanbit.co.kr.lms.vo.Member">
 		INSERT INTO member(
-			member_id
-			,member_level
-			,member_state
-			,log_date
-			,create_date
-			,update_date
+		member_id
+		,member_level
+		,member_state
+		,log_date
+		,create_date
+		,update_date
 		) VALUES (
-			#{memberId}
-			,#{memberLevel}
-			,1
-			,NOW()
-			,NOW()
-			,NOW()		
+		#{memberId}
+		,#{memberLevel}
+		,1
+		,NOW()
+		,NOW()
+		,NOW()
 		);
 	</insert>
 	<!-- 회원가입- 패스워드업데이트 날짜 테이블 삽입 -->
 	<insert id="insertPUD"
-			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
 		INSERT INTO password_update_date(
-			member_id
-			,member_pw
-			,create_date
+		member_id
+		,member_pw
+		,create_date
 		)
 		VALUES(
-			#{memberId}
-			,PASSWORD(#{memberPw})
-			,NOW()		
+		#{memberId}
+		,PASSWORD(#{memberPw})
+		,NOW()
 		);
 	</insert>
 	<!-- 회원가입-학생 테이블 삽입 -->
 	<insert id="insertStudent"
-			parameterType="Hanbit.co.kr.lms.vo.Student">
+		parameterType="Hanbit.co.kr.lms.vo.Student">
 		INSERT INTO student(
-			student_id
-			,student_pw
-			,student_name
-			,student_addr1
-			,student_addr2
-			,student_phone
-			,student_birth
-			,student_gender
-			,final_education
-			,student_email
-			,update_date
+		student_id
+		,student_pw
+		,student_name
+		,student_addr1
+		,student_addr2
+		,student_phone
+		,student_birth
+		,student_gender
+		,final_education
+		,student_email
+		,update_date
 		) VALUES(
-			#{studentId}
-			,PASSWORD(#{studentPw})
-			,#{studentName}
-			,#{studentAddr1}
-			,#{studentAddr2}
-			,#{studentPhone}
-			,#{studentBirth}
-			,#{studentGender}
-			,#{finalEducation}
-			,#{studentEmail}
-			,NOW()
+		#{studentId}
+		,PASSWORD(#{studentPw})
+		,#{studentName}
+		,#{studentAddr1}
+		,#{studentAddr2}
+		,#{studentPhone}
+		,#{studentBirth}
+		,#{studentGender}
+		,#{finalEducation}
+		,#{studentEmail}
+		,NOW()
 		);
 	</insert>
 	<!-- 회원가입-강사 테이블 삽입 -->
 	<insert id="insertTeacher"
-			parameterType="Hanbit.co.kr.lms.vo.Student">
+		parameterType="Hanbit.co.kr.lms.vo.Student">
 		INSERT INTO teacher(
-			teacher_id
-			,teacher_pw
-			,teacher_name
-			,teacher_addr1
-			,teacher_addr2
-			,teacher_phone
-			,teacher_birth
-			,teacher_gender
-			,final_education
-			,teacher_email
-			,update_date
+		teacher_id
+		,teacher_pw
+		,teacher_name
+		,teacher_addr1
+		,teacher_addr2
+		,teacher_phone
+		,teacher_birth
+		,teacher_gender
+		,final_education
+		,teacher_email
+		,update_date
 		) VALUES(
-			#{teacherId}
-			,PASSWORD(#{teacherPw})
-			,#{teacherName}
-			,#{teacherAddr1}
-			,#{teacherAddr2}
-			,#{teacherPhone}
-			,#{teacherBirth}
-			,#{teacherGender}
-			,#{finalEducation}
-			,#{teacherEmail}
-			,NOW()
+		#{teacherId}
+		,PASSWORD(#{teacherPw})
+		,#{teacherName}
+		,#{teacherAddr1}
+		,#{teacherAddr2}
+		,#{teacherPhone}
+		,#{teacherBirth}
+		,#{teacherGender}
+		,#{finalEducation}
+		,#{teacherEmail}
+		,NOW()
 		);
 	</insert>
 	<!-- 회원가입-운영자 테이블 삽입 -->
 	<insert id="insertManager"
-			parameterType="Hanbit.co.kr.lms.vo.Student">
+		parameterType="Hanbit.co.kr.lms.vo.Student">
 		INSERT INTO manager(
-			manager_id
-			,manager_pw
-			,manager_name
-			,manager_addr1
-			,manager_addr2
-			,manager_phone
-			,manager_email
-			,manager_birth
-			,manager_gender
-			,update_date
+		manager_id
+		,manager_pw
+		,manager_name
+		,manager_addr1
+		,manager_addr2
+		,manager_phone
+		,manager_email
+		,manager_birth
+		,manager_gender
+		,update_date
 		)
 		VALUES(
-			#{managerId}
-			,PASSWORD(#{managerPw})
-			,#{managerName}
-			,#{managerAddr1}
-			,#{managerAddr2}
-			,#{managerPhone}
-			,#{managerEmail}
-			,#{managerBirth}
-			,#{managerGender}
-			,NOW()		
+		#{managerId}
+		,PASSWORD(#{managerPw})
+		,#{managerName}
+		,#{managerAddr1}
+		,#{managerAddr2}
+		,#{managerPhone}
+		,#{managerEmail}
+		,#{managerBirth}
+		,#{managerGender}
+		,NOW()
 		);
 	</insert>
 	<!-- 회원가입-초기 사진 삽입 -->
 	<insert id="insertDefaultPhoto"
-			parameterType="Hanbit.co.kr.lms.vo.Member">
+		parameterType="Hanbit.co.kr.lms.vo.Member">
 		INSERT INTO photo_file(
-			member_id
-			,photo_name
-			,photo_original_name
-			,photo_type
-			,photo_size
-			,create_date
-			,update_date
+		member_id
+		,photo_name
+		,photo_original_name
+		,photo_type
+		,photo_size
+		,create_date
+		,update_date
 		) VALUES (
-			#{memberId}
-			,'defaultProfile'
-			,'defaultPhoto'
-			,'jpg'
-			,'230*230'
-			,NOW()
-			,NOW()
+		#{memberId}
+		,'defaultProfile'
+		,'defaultPhoto'
+		,'jpg'
+		,'230*230'
+		,NOW()
+		,NOW()
 		);
 	</insert>
-		<!--회원 승인- 리스트 출력  -->
+	<!--회원 승인- 리스트 출력 -->
 	<resultMap type="java.util.HashMap" id="waitingList">
-		 <id column="memberId" property="memberId"/>
-		 <id column="createDate" property="createDate"/>
-		 <id column="meberState" property="meberState"/>
-		 <id column="memberLevel" property="memberLevel"/>
+		<id column="memberId" property="memberId" />
+		<id column="createDate" property="createDate" />
+		<id column="meberState" property="meberState" />
+		<id column="memberLevel" property="memberLevel" />
 	</resultMap>
-	<select id="selectMemberListByState"
-			resultMap="waitingList">
-		SELECT 
-			member_id memberId
-			,create_date createDate
-			,member_state meberState
-			,CASE member_level WHEN '1' THEN '학생'
-							   WHEN '2' THEN '강사'
-							   WHEN '3' THEN '운영자'
-							   ELSE 'error' END AS 'memberLevel'
+	<select id="selectMemberListByState" resultMap="waitingList">
+		SELECT
+		member_id memberId
+		,create_date createDate
+		,member_state meberState
+		,CASE member_level WHEN '1' THEN '학생'
+		WHEN '2' THEN '강사'
+		WHEN '3' THEN '운영자'
+		ELSE 'error' END AS 'memberLevel'
 		FROM member
 		WHERE member_state = '1'
 	</select>
 
 
 	<!-- 회원 승인 -업데이트 -->
-	<update id="approveMember"
-			parameterType="String">
+	<update id="approveMember" parameterType="String">
 		UPDATE member SET
-			member_state = '2'
-			,update_date = NOW()
+		member_state = '2'
+		,update_date = NOW()
 		WHERE member_id= #{memberId}
 	</update>
-		
+
 	<!-- 회원 스케줄러(휴면처리) -->
 	<update id="inactivityMember">
 		UPDATE member SET
-			member_state='3'
-			,update_date = NOW()
-		WHERE  DATEDIFF(NOW(),log_date) > 365 AND member_state  = '2'
+		member_state='3'
+		,update_date = NOW()
+		WHERE DATEDIFF(NOW(),log_date) > 365 AND member_state = '2'
 	</update>
-	
-	<!-- 회원 활성화  -->
+
+	<!-- 회원 활성화 -->
 	<update id="updageActiveMember"
-			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
 		UPDATE member SET
-			member_state='2'
-			,update_date = NOW()
+		member_state='2'
+		,update_date = NOW()
 		WHERE member_id = #{memberId} AND member_state = '3'
 	</update>
-	<!-- 회원 활성화-PUD에 비밀번호 변경 추가  -->
+	<!-- 회원 활성화-PUD에 비밀번호 변경 추가 -->
 	<insert id="updateActivePasswordUpdateDate"
-			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
 		INSERT INTO password_update_date(
-			member_id
-			,member_pw
-			,create_date
+		member_id
+		,member_pw
+		,create_date
 		)VALUES(
-			#{memberId}
-			,password(#{memberPw})
-			,NOW()
-			)
+		#{memberId}
+		,password(#{memberPw})
+		,NOW()
+		)
 	</insert>
 	<update id="updateActiveStudent"
-			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
 		UPDATE student SET
-			student_pw = password(#{memberPw})
-			,update_date = NOW()
-		WHERE 
-			student_id = #{memberId}
+		student_pw = password(#{memberPw})
+		,update_date = NOW()
+		WHERE
+		student_id = #{memberId}
 	</update>
 	<update id="updateActiveTeacher"
-			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
 		UPDATE teacher SET
-			teacher_pw = password(#{memberPw})
-			,update_date = NOW()
-		WHERE 
-			teacher_id = #{memberId}
+		teacher_pw = password(#{memberPw})
+		,update_date = NOW()
+		WHERE
+		teacher_id = #{memberId}
 	</update>
 	<update id="updateActiveManager"
-			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
+		parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate">
 		UPDATE manager SET
-			manager_pw = password(#{memberPw})
-			,update_date = NOW()
-		WHERE 
-			manager_id = #{memberId}
+		manager_pw = password(#{memberPw})
+		,update_date = NOW()
+		WHERE
+		manager_id = #{memberId}
 	</update>
 	<!-- 직전 password 체크 (직전 비밀번호는 사용못한다.) -->
 	<select id="changePwbyactivity"
-			parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate"
-			resultType="int">
-		 SELECT 
-		 	COUNT(*)
-         FROM 
-         (SELECT member_pw pw
-         FROM password_update_date
-         WHERE member_id =#{memberId}
-         ORDER BY create_date DESC
-         LIMIT 1) t
-         WHERE t.pw = PASSWORD(#{memberPw}) 
-	
+		parameterType="Hanbit.co.kr.lms.vo.PasswordUpdateDate"
+		resultType="int">
+		SELECT
+		COUNT(*)
+		FROM
+		(SELECT member_pw pw
+		FROM password_update_date
+		WHERE member_id =#{memberId}
+		ORDER BY create_date DESC
+		LIMIT 1) t
+		WHERE t.pw = PASSWORD(#{memberPw})
+
+	</select>
+	<select id="deleteMemberCk" resultType="int"
+		parameterType="String">
+		SELECT COUNT(*) cnt
+		FROM
+		(SELECT member_pw, create_date
+		FROM password_update_date
+		WHERE member_id = 'student1'
+		ORDER BY create_date desc
+		LIMIT 1)t
+		WHERE t.member_pw= PASSWORD(#{pw});
 	</select>
 </mapper>

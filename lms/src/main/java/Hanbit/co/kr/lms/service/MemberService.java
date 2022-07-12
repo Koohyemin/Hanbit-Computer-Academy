@@ -229,4 +229,10 @@ public class MemberService {
 		
 		return row;
 	}
+	public int removeMemberCk(String pw) {
+			
+		int row= memberMapper.deleteMemberCk(pw);
+		
+		return row;
+	}
 }
