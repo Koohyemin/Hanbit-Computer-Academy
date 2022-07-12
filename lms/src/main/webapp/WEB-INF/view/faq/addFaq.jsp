@@ -37,7 +37,6 @@
 	                <i class="fas fa-chart-area me-1"></i>
 	                FAQ
 	            </div>
-				<br><br>
 				<form method="post" action="${pageContext.request.contextPath}/faq/addFaq">
 					<table class="table">
 						<tr>
