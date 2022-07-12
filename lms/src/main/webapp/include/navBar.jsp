@@ -86,7 +86,6 @@
                  <c:if test="${sessionMemberLv == 2}">
                   	<a class="nav-link" href="${pageContext.request.contextPath}/lec/lectureStudentList">수강학생조회</a>
                  </c:if>
-                    <a class="nav-link" href="${pageContext.request.contextPath}/lecReference/getLecReferenceListByPage">강의자료실</a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/lectureNotice/getLecNoticeListByPage">공지사항</a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/lecHomework/getLecHomeworkList">과제게시판</a>
                     <a class="nav-link" href="${pageContext.request.contextPath}/lecQna/lecQnaList">Q&A</a>
