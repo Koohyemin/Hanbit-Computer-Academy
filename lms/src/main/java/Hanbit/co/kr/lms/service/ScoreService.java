@@ -35,7 +35,7 @@ public class ScoreService {
 		
 		log.debug(CF.LKL+"ScoreService.getScoreRank.defaultValue"+CF.RESET + defaultValue);
 		
-		if(lectureName == null) {				
+		if(lectureName == null || lectureList.size() !=0) {				
 			
 			lectureName=  defaultValue;
 			
@@ -56,6 +56,15 @@ public class ScoreService {
 		map.put("defaultValue", defaultValue);
 		return map;
 		
+	}
+	
+	public List<Map<String,Object>> getScoreByStudent(String StudentId){
+		
+		List<Map<String,Object>> list = avgmapper.selectScoreByStudent(StudentId);
+		
+		log.debug(CF.LKL+"ScoreService.getScoreByStudent.list"+CF.RESET+list);
+		
+		return list;
 	}
 	
 }

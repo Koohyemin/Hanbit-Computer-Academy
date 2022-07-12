@@ -99,7 +99,7 @@
             	 $("#field3").empty();
             	 $("#field4").empty();
             	 $("#field5").empty();
-            	
+            	 $("#field6").empty();
             	 
             	 $.ajax({
           			type:"get" // get방식

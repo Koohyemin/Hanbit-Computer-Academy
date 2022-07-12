@@ -8,7 +8,7 @@
 			resultType="HashMap"
 			parameterType="java.lang.String">
 		SELECT
-			hs.student_id studentId
+			 s.student_name studentName
 			,ROUND(avg(homework_score),0) AS 'avg'
 			, RANK() OVER (ORDER BY avg desc) AS 'rank'
 	 	 FROM homework_submission hs
@@ -16,8 +16,10 @@
 			ON hs.homework_make_no = hm.homework_make_no
 		INNER JOIN time_table tt
 			ON tt.lecture_name =  hm.lecture_name
+		INNER JOIN student s
+			ON  hs.student_id = s.student_id
 		WHERE hm.lecture_name = #{lectureName}
-		GROUP BY student_id
+		GROUP BY student_name
 		ORDER BY AVG desc
 	</select>
 	
@@ -34,5 +36,30 @@
 				WHERE lp.teacher_id = #{teacherId}
 		
 	</select>
+	
+		<!-- 학생 수강 성적리스트 -->
+		<select id="selectScoreByStudent"
+				parameterType="java.lang.String"
+				resultType="Map">
+			<![CDATA[
+				SELECT
+					s.student_name studentName
+					,hs.student_id studentId
+					 ,hm.lecture_name lectureName
+					,ROUND(avg(hs.homework_score),0) AS 'avg'
+			 	 FROM homework_submission hs
+				INNER JOIN homework_make hm
+					ON hs.homework_make_no = hm.homework_make_no
+				INNER JOIN time_table tt
+					ON tt.lecture_name =  hm.lecture_name
+				INNER JOIN student s
+					ON  hs.student_id = s.student_id
+				WHERE s.student_id= #{studentId}
+					AND hm.homework_deadline <= NOW()
+				GROUP BY lectureName
+				ORDER BY AVG desc
+				
+			]]>
+				</select>
 
 </mapper>

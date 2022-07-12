@@ -11,4 +11,5 @@ import Hanbit.co.kr.lms.vo.Lec;
 public interface AVGMapper {
 	List<Map<String, Object>> selectAVGRank(String lectureName);
 	List<Lec> selectLectureListByTeacher(String teacherId);
+	List<Map<String,Object>> selectScoreByStudent(String studentId);
 }
