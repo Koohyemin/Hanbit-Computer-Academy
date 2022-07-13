@@ -101,7 +101,7 @@
                             <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getStatsQuestionnaireList">강의평가 조회</a>
                              <c:if test="${sessionMemberLv == 1}">
                             <a class="nav-link" href="${pageContext.request.contextPath}/questionnaire/getLecQuestionnaireList">강의평가</a>
-                            <a class="nav-link" href="#">성적조회</a>
+                            <a class="nav-link" href="${pageContext.request.contextPath}/lec/scoreRankigByStudent">성적조회</a>
                             </c:if>
                         </nav>
                     </div>
