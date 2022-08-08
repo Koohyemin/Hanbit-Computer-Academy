@@ -1,4 +1,4 @@
-# Hanbit-Computer-Academy LMS (진행중)
+# Hanbit-Computer-Academy LMS
 
 [LMS 바로가기](http://3.39.153.13/lms/login) (+ 팀 프로젝트)<br>
 Spring (MVC)방식을 이용해 IT 취업 전문 학원 LMS를 구현한 CRUD기반 웹 페이지
